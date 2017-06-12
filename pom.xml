@@ -64,18 +64,18 @@
 <!-- 				</executions> -->
 <!-- 			</plugin> -->
 		</plugins>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
-		<testResources>
-			<testResource>
-				<directory>src/test/resources</directory>
-				<filtering>true</filtering>
-			</testResource>
-		</testResources>
+<!-- 		<resources> -->
+<!-- 			<resource> -->
+<!-- 				<directory>src/main/resources</directory> -->
+<!-- 				<filtering>true</filtering> -->
+<!-- 			</resource> -->
+<!-- 		</resources> -->
+<!-- 		<testResources> -->
+<!-- 			<testResource> -->
+<!-- 				<directory>src/test/resources</directory> -->
+<!-- 				<filtering>true</filtering> -->
+<!-- 			</testResource> -->
+<!-- 		</testResources> -->
 	</build>
 
 	<profiles>
@@ -112,6 +112,12 @@
 			<artifactId>spring-security-config</artifactId>
 			<version>${version.spring.security}</version>
 		</dependency>
+		<!-- mapping json rest -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.8.9</version>
+		</dependency>
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -133,24 +139,24 @@
 		</dependency>
 
 		<!-- Crawling -->
-		<dependency>
-			<groupId>org.jsoup</groupId>
-			<artifactId>jsoup</artifactId>
-			<version>1.10.2</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.jsoup</groupId> -->
+<!-- 			<artifactId>jsoup</artifactId> -->
+<!-- 			<version>1.10.2</version> -->
+<!-- 		</dependency> -->
 
 		<!-- logging -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.21</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.slf4j</groupId> -->
+<!-- 			<artifactId>slf4j-simple</artifactId> -->
+<!-- 			<version>1.7.21</version> -->
+<!-- 		</dependency> -->
 
-		<dependency>
-			<groupId>net.coobird</groupId>
-			<artifactId>thumbnailator</artifactId>
-			<version>0.4.8</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>net.coobird</groupId> -->
+<!-- 			<artifactId>thumbnailator</artifactId> -->
+<!-- 			<version>0.4.8</version> -->
+<!-- 		</dependency> -->
 
 		<!-- Spec -->
 		<dependency>
