@@ -9,19 +9,19 @@ import java.util.stream.Collectors;
 import org.junit.Test;
 import org.springframework.web.client.RestTemplate;
 
-import tcg.mtgjson.api.Set.Type;
-
 public class AllSetsArrayTest {
+
+	private static final String SOURCE = "http://mtgjson.com/json/AllSetsArray-x.json";
 
 	@Test
 	public void testRead() {
-		Set[] sets = new RestTemplate().getForEntity("http://mtgjson.com/json/AllSetsArray-x.json", Set[].class)
-				.getBody();
+		Set[] sets = new RestTemplate().getForEntity(SOURCE, Set[].class).getBody();
 		List<String> codes = Arrays.stream(sets).map(s -> s.getCode()).collect(Collectors.toList());
 		assertThat(codes).contains("LEA").contains("KLD").contains("ISD");
-		List<Type> types = Arrays.stream(sets).map(s -> s.getType()).distinct().collect(Collectors.toList());
-		assertThat(types).contains(Set.Type.values());
+		List<String> types = Arrays.stream(sets).map(s -> s.getType()).distinct().collect(Collectors.toList());
+		assertThat(types).contains("core", "expansion", "reprint", "box", "un", "from the vault", "premium deck",
+				"duel deck", "starter", "commander", "planechase", "archenemy", "promo", "vanguard", "masters",
+				"conspiracy", "masterpiece");
 	}
-
 
 }
