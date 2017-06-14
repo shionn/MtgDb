@@ -1,6 +1,7 @@
 package tcg;
 
 
+
 import java.util.TimeZone;
 
 import javax.servlet.ServletContext;
@@ -10,6 +11,7 @@ import javax.servlet.ServletRegistration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
@@ -53,6 +55,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	}
 
 	@EnableWebMvc
+	@EnableScheduling
 	@Configuration
 	@ComponentScan({ "tcg" })
 	public class WebMvcConfig extends WebMvcConfigurerAdapter {
