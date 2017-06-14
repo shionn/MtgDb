@@ -60,8 +60,13 @@ public class Card {
 	private Date releaseDate;
 	private boolean starter;
 	private String mciNumber;
-
 	private List<Ruling> rulings;
+	private List<ForeignName> foreignNames;
+	private List<String> printings;
+	private String originalText;
+	private String originalType;
+	private List<Legality> legalities;
+	private String source;
 
 	public String getId() {
 		return id;
@@ -325,6 +330,54 @@ public class Card {
 
 	public void setRulings(List<Ruling> rulings) {
 		this.rulings = rulings;
+	}
+
+	public List<ForeignName> getForeignNames() {
+		return foreignNames;
+	}
+
+	public void setForeignNames(List<ForeignName> foreignNames) {
+		this.foreignNames = foreignNames;
+	}
+
+	public List<String> getPrintings() {
+		return printings;
+	}
+
+	public void setPrintings(List<String> printings) {
+		this.printings = printings;
+	}
+
+	public String getOriginalText() {
+		return originalText;
+	}
+
+	public void setOriginalText(String originalText) {
+		this.originalText = originalText;
+	}
+
+	public String getOriginalType() {
+		return originalType;
+	}
+
+	public void setOriginalType(String originalType) {
+		this.originalType = originalType;
+	}
+
+	public List<Legality> getLegalities() {
+		return legalities;
+	}
+
+	public void setLegalities(List<Legality> legalities) {
+		this.legalities = legalities;
+	}
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
 	}
 
 }
