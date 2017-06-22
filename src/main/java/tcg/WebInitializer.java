@@ -58,7 +58,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	@EnableScheduling
 	@Configuration
 	@ComponentScan({ "tcg" })
-	public class WebMvcConfig extends WebMvcConfigurerAdapter {
+	public static class WebMvcConfig extends WebMvcConfigurerAdapter {
 		@Bean
 		public InternalResourceViewResolver viewResolver() {
 			InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();

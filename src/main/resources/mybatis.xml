@@ -25,6 +25,6 @@
 		</environment>
 	</environments>
 	<mappers>
-		<mapper class="tcg.db.dao.EditionImporterDao"/>
+		<mapper class="tcg.db.dao.ImporterDao"/>
 	</mappers>
 </configuration>
