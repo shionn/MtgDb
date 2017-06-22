@@ -9,15 +9,15 @@ import tcg.mtgjson.api.Set;
 public interface ImporterDao {
 
 	@Insert("INSERT INTO edition (code, release_date, name) "
-			+ "VALUES (#{code}, #{releaseDate}, #{imageName}) "
+			+ "VALUES (#{code}, #{releaseDate}, #{name}) "
 			+ "ON DUPLICATE KEY UPDATE "
-			+ "release_date = #{releaseDate}, name = #{imageName}")
+			+ "release_date = #{releaseDate}, name = #{name}")
 	int edition(Set set);
 
 	@Insert("INSERT INTO card (ref) "
-			+ "VALUES (#{name}) "
+			+ "VALUES (#{imageName}) "
 			+ "ON DUPLICATE KEY UPDATE "
-			+ "ref = #{name}")
+			+ "ref = #{imageName}")
 	int card(Card card);
 
 	@Insert("INSERT INTO declinaison (card, edition, rarity) "

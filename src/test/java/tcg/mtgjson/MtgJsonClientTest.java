@@ -26,8 +26,9 @@ public class MtgJsonClientTest {
 
 		List<Card> cards = Arrays.stream(sets).map(s -> s.getCards()).flatMap(Collection::stream)
 				.collect(Collectors.toList());
-		System.out.println(cards);
-		assertThat(cards.stream().map(c -> c.getRarity()).distinct().collect(Collectors.toList()))
+		List<String> rarities = cards.stream().map(c -> c.getRarity()).distinct().collect(Collectors.toList());
+		System.out.println(rarities);
+		assertThat(rarities)
 				.containsOnly("Common", "Uncommon", "Rare", "Mythic Rare", "Special", "Basic Land");
 
 	}
