@@ -7,9 +7,15 @@ import tcg.mtgjson.api.Set;
 
 @Component
 public class MtgJsonClient {
-	private static final String SOURCE = "http://mtgjson.com/json/AllSetsArray-x.json";
+	private static final String ONE_SET = "https://mtgjson.com/json/{code}-x.json";
+	private static final String SET_LIST = "https://mtgjson.com/json/SetList.json";
 
-	Set[] allSet() {
-		return new RestTemplate().getForEntity(SOURCE, Set[].class).getBody();
+	Set[] setList() {
+		return new RestTemplate().getForEntity(SET_LIST, Set[].class).getBody();
 	}
+
+	Set set(String code) {
+		return new RestTemplate().getForEntity(ONE_SET, Set.class, code).getBody();
+	}
+
 }

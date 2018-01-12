@@ -44,25 +44,6 @@
 					<skipTests>${skiptest}</skipTests>
 				</configuration>
 			</plugin>
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.lesscss</groupId> -->
-<!-- 				<artifactId>lesscss-maven-plugin</artifactId> -->
-<!-- 				<version>1.7.0.1.1</version> -->
-<!-- 				<configuration> -->
-<!-- 					<outputDirectory>${project.basedir}/src/main/webapp/css/generated</outputDirectory> -->
-<!-- 					<includes> -->
-<!-- 						<include>styles.less</include> -->
-<!-- 					</includes> -->
-<!-- 				</configuration> -->
-<!-- 				<executions> -->
-<!-- 					<execution> -->
-<!-- 						<goals> -->
-<!-- 							<goal>compile</goal> -->
-<!-- 						</goals> -->
-<!-- 						<phase>generate-resources</phase> -->
-<!-- 					</execution> -->
-<!-- 				</executions> -->
-<!-- 			</plugin> -->
 		</plugins>
 		<resources>
 			<resource>
@@ -70,12 +51,6 @@
 				<filtering>true</filtering>
 			</resource>
 		</resources>
-<!-- 		<testResources> -->
-<!-- 			<testResource> -->
-<!-- 				<directory>src/test/resources</directory> -->
-<!-- 				<filtering>true</filtering> -->
-<!-- 			</testResource> -->
-<!-- 		</testResources> -->
 	</build>
 
 	<profiles>
@@ -112,6 +87,7 @@
 			<artifactId>spring-security-config</artifactId>
 			<version>${version.spring.security}</version>
 		</dependency>
+
 		<!-- mapping json rest -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -137,13 +113,6 @@
 			<version>6.0.3</version>
 			<scope>runtime</scope>
 		</dependency>
-
-		<!-- Crawling -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.jsoup</groupId> -->
-<!-- 			<artifactId>jsoup</artifactId> -->
-<!-- 			<version>1.10.2</version> -->
-<!-- 		</dependency> -->
 
 		<!-- logging -->
 		<dependency>

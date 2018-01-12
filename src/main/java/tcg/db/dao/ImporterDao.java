@@ -8,8 +8,8 @@ import tcg.mtgjson.api.Set;
 
 public interface ImporterDao {
 
-	@Insert("INSERT INTO edition (code, release_date, name) "
-			+ "VALUES (#{code}, #{releaseDate}, #{name}) "
+	@Insert("INSERT INTO edition (code, magic_cards_info_code, name, release_date) "
+			+ "VALUES (#{code}, #{magicCardsInfoCode}, #{name}, #{releaseDate}) "
 			+ "ON DUPLICATE KEY UPDATE "
 			+ "release_date = #{releaseDate}, name = #{name}")
 	int edition(Set set);
