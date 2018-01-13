@@ -6,6 +6,8 @@ import java.util.LinkedList;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -17,7 +19,9 @@ import tcg.mtgjson.api.Set;
 @Component
 public class EditionImporter {
 
-	private static final int INTERVAL = 10 * 60 * 1000;
+	private static final int INTERVAL = 1 * 60 * 1000;
+	private Logger logger = LoggerFactory.getLogger(EditionImporter.class);
+
 	@Autowired
 	private SqlSessionFactory factory;
 	@Autowired
@@ -31,12 +35,13 @@ public class EditionImporter {
 			Arrays.stream(client.setList()).map(Set::getCode).forEach(code -> codes.add(code));
 		} else {
 			Set set = client.set(codes.pop());
+			logger.info("Start import set <" + set.getCode() + ">");
 			try (SqlSession session = factory.openSession()) {
 				ImporterDao dao = session.getMapper(ImporterDao.class);
 				dao.edition(set);
 				for (Card card : set.getCards()) {
-					dao.card(card);
-					dao.declinaison(card, set);
+					dao.card(card, set);
+					// dao.declinaison(card, set);
 				}
 				session.commit();
 			}

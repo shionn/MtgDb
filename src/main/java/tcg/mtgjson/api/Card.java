@@ -47,7 +47,7 @@ public class Card {
 	private String power;
 	private String toughness;
 	private String loyalty;
-	private int multiverseid;
+	private Integer multiverseid;
 	private List<Integer> variations;
 	private String imageName;
 	private String watermark;
@@ -228,11 +228,11 @@ public class Card {
 		this.loyalty = loyalty;
 	}
 
-	public int getMultiverseid() {
+	public Integer getMultiverseid() {
 		return multiverseid;
 	}
 
-	public void setMultiverseid(int multiverseid) {
+	public void setMultiverseid(Integer multiverseid) {
 		this.multiverseid = multiverseid;
 	}
 
