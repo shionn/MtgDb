@@ -15,8 +15,15 @@
 </head>
 <body>
 	<header>
-		<nav>
-			<a href="#">root<span class="fa fa-2 fa-bars"></span></a>
+		<nav class="container">
+			<ul >
+				<li>
+					<form action='<spring:url value="/s"/>'>
+						<input type="text" name="name"/>
+						<button type="submit">S</button>
+					</form>
+				</li>
+			</ul>
 		</nav>
 	</header>
 	<div class="main container">

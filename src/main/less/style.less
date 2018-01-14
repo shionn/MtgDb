@@ -1,16 +1,25 @@
 @import "variables.less";
 @import "normalize-3.0.2.less";
 @import "structure.less";
-
 body {
 	background-color: @color5;
 }
 
 header {
 	background-color: @color1;
+	nav {
+		ul {
+			display: flex;
+			padding: 0;
+			margin: 0;
+			li {
+				padding: 5px;
+			}
+		}
+	}
 }
-
 
 div.main {
-	background-color : @color4;
+	background-color: @color4;
 }
+
