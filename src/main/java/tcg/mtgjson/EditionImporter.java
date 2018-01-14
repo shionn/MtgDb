@@ -42,6 +42,7 @@ public class EditionImporter {
 				dao.edition(set);
 				for (Card card : set.getCards()) {
 					dao.card(card, set);
+					card.getForeignNames().stream().forEach(dao::cardName);
 					// dao.declinaison(card, set);
 				}
 				session.commit();

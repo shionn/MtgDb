@@ -1,16 +1,19 @@
 package tcg.mtgjson.api;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 public class ForeignName {
 
-	private String language;
+	@JsonDeserialize(converter = LanguageConverter.class)
+	private Language language;
 	private String name;
 	private int multiverseid;
 
-	public String getLanguage() {
+	public Language getLanguage() {
 		return language;
 	}
 
-	public void setLanguage(String language) {
+	public void setLanguage(Language language) {
 		this.language = language;
 	}
 

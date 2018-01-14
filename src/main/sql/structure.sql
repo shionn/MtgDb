@@ -1,4 +1,5 @@
 
+drop table card_lang;
 drop table card;
 drop table edition;
 create table edition (
@@ -11,6 +12,7 @@ create table edition (
   INDEX        name(name)
 ) DEFAULT CHARSET=utf8;
 
+drop table card_lang;
 drop table card;
 create table card (
   id            varchar(64)   NOT NULL,
@@ -34,17 +36,16 @@ create table card (
   CONSTRAINT card_edition FOREIGN KEY (edition) REFERENCES edition(code)
 ) DEFAULT  CHARSET=utf8;
 
+drop table card_lang;
 create table card_lang (
-  id            varchar(32)   NOT NULL,
+  id            varchar(64)   NOT NULL,
   lang          varchar(2)    NOT NULL,
   multiverse_id int(11),
   name          varchar(128)  NOT NULL,
 
-  PRIMARY  KEY (id),
-  UNIQUE   KEY multiverse_id(multiverse_id),
-  CONSTRAINT card_edition FOREIGN KEY (edition) REFERENCES edition(code)
+  PRIMARY  KEY (id, lang),
+  CONSTRAINT card FOREIGN KEY (id) REFERENCES card(id)
 ) DEFAULT  CHARSET=utf8 AUTO_INCREMENT=1;
-
 
 CREATE TABLE rule (
   id        INT(11) NOT NULL AUTO_INCREMENT ,

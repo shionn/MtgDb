@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 
 import tcg.mtgjson.api.Card;
+import tcg.mtgjson.api.ForeignName;
 import tcg.mtgjson.api.Set;
 
 public interface ImporterDao {
@@ -19,8 +20,15 @@ public interface ImporterDao {
 			+ "VALUES (#{c.id}, #{s.code}, #{c.number}, #{c.name}, #{c.text}, #{c.flavor}, #{c.type}, #{c.manaCost}, "
 			+ "#{c.cmc}, #{c.multiverseid}) "
 			+ "ON DUPLICATE KEY UPDATE "
-			+ "edition = #{s.code}")
+			+ "edition = #{s.code}, number = #{c.number}, name = #{c.name}, text = #{c.text}, flavor = #{c.flavor}, "
+			+ "type = #{c.type}, mana_cost = #{c.manaCost}, cmc = #{c.cmc}, multiverse_id = #{c.multiverseid}")
 	int card(@Param("c") Card card, @Param("s") Set set);
+
+	@Insert("INSERT INTO card_lang (id, lang, multiverse_id, name) " //
+			+ "VALUES (#{n.id}, #{n.lang}, #{n.multiverseid}, #{n.name}) " //
+			+ "ON DUPLICATE KEY UPDATE " //
+			+ "lang = #{n.lang}, multiverse_id = #{n.multiverseid}, name = #{n.name}")
+	int cardName(@Param("n") ForeignName name);
 
 	@Insert("INSERT INTO declinaison (card, edition, rarity) "
 			+ "VALUES ( "
