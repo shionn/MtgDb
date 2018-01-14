@@ -25,10 +25,10 @@ public interface ImporterDao {
 	int card(@Param("c") Card card, @Param("s") Set set);
 
 	@Insert("INSERT INTO card_lang (id, lang, multiverse_id, name) " //
-			+ "VALUES (#{n.id}, #{n.lang}, #{n.multiverseid}, #{n.name}) " //
+			+ "VALUES (#{c.id}, #{n.lang}, #{n.multiverseid}, #{n.name}) " //
 			+ "ON DUPLICATE KEY UPDATE " //
 			+ "lang = #{n.lang}, multiverse_id = #{n.multiverseid}, name = #{n.name}")
-	int cardName(@Param("n") ForeignName name);
+	int cardName(@Param("n") ForeignName name, @Param("c") Card card);
 
 	@Insert("INSERT INTO declinaison (card, edition, rarity) "
 			+ "VALUES ( "
