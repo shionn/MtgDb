@@ -1,4 +1,8 @@
+# eclipse
 .classpath
 .project
 .settings
+# projet
+src/main/webapp/css
+# maven
 target

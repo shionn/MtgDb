@@ -44,6 +44,25 @@
 					<skipTests>${skiptest}</skipTests>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.lesscss</groupId>
+				<artifactId>lesscss-maven-plugin</artifactId>
+				<version>1.7.0.1.1</version>
+				<configuration>
+					<outputDirectory>${project.basedir}/src/main/webapp/css</outputDirectory>
+					<includes>
+						<include>style.less</include>
+					</includes>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+						<phase>generate-resources</phase>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 		<resources>
 			<resource>
