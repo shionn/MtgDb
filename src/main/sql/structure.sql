@@ -1,7 +1,9 @@
 
+drop table card;
+drop table edition;
 create table edition (
   code                  varchar(4)  NOT NULL,
-  magic_cards_info_code varchar(4)  NULL,
+  magic_cards_info_code varchar(6)  NULL,
   name                  varchar(64) NOT NULL,
   release_date          date        NOT NULL,
   PRIMARY  KEY (code),

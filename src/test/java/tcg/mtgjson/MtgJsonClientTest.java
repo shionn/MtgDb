@@ -19,8 +19,9 @@ public class MtgJsonClientTest {
 
 		List<String> rarities = set.getCards().stream().map(c -> c.getRarity()).distinct()
 				.collect(Collectors.toList());
-		System.out.println(rarities);
 		assertThat(rarities).containsOnly("Common", "Uncommon", "Rare", "Basic Land");
+
+		assertThat(new MtgJsonClient().set("MPS").getMagicCardsInfoCode().length()).isEqualByComparingTo(6);
 	}
 
 	@Test
