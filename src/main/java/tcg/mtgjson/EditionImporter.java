@@ -32,7 +32,8 @@ public class EditionImporter {
 	@Scheduled(fixedRate = INTERVAL)
 	void doImport() {
 		if (codes.isEmpty()) {
-			Arrays.stream(client.setList()).map(Set::getCode).forEach(code -> codes.add(code));
+			Arrays.stream(client.setList()).map(Set::getCode).filter(code -> Math.random() < .2)
+					.forEach(code -> codes.add(code));
 		} else {
 			Set set = client.set(codes.pop());
 			logger.info("Start import set <" + set.getCode() + ">");
