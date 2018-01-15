@@ -10,6 +10,6 @@ public class MkmCrawlerTest {
 
 	@Test
 	public void testPrice() throws IOException {
-		assertThat(new MkmCrawler().price()).isPositive();
+		assertThat(new MkmCrawler().price().getPrice()).isPositive();
 	}
 }
