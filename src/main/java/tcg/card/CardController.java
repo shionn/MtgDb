@@ -18,7 +18,7 @@ public class CardController {
 
 	@RequestMapping(value = "/c/{id}", method = RequestMethod.GET)
 	public ModelAndView open(@PathVariable("id") String id) {
-		return new ModelAndView("test").addObject("card", session.getMapper(CardDao.class).read(id));
+		return new ModelAndView("card").addObject("card", session.getMapper(CardDao.class).read(id));
 	}
 
 }

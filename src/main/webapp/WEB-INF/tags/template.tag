@@ -26,9 +26,7 @@
 			</ul>
 		</nav>
 	</header>
-	<div class="main container">
-		<jsp:invoke fragment="content" />
-	</div>
+	<jsp:invoke fragment="content" />
 	<footer>
 	</footer>
 	<jsp:invoke fragment="scripts" />

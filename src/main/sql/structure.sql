@@ -4,7 +4,7 @@ drop table card_price;
 drop table card;
 drop table edition;
 create table edition (
-  code                  varchar(4)  NOT NULL,
+  code                  varchar(7)  NOT NULL,
   magic_cards_info_code varchar(7)  NULL,
   name                  varchar(64) NOT NULL,
   release_date          date        NOT NULL,
@@ -24,7 +24,7 @@ create table card (
   name          varchar(256)  NOT NULL,
   text          varchar(1024) NULL,
   type          varchar(64)   NOT NULL,
-  mana_cost     varchar(32)   NULL,
+  mana_cost     varchar(64)   NULL, -- BFM c'est long !
   cmc           int(11),
 
   flavor        varchar(1024) NULL,

@@ -11,7 +11,12 @@ body {
 	background-color: @color5;
 }
 
-header {
+a {
+	color : @color1;
+	text-decoration: none;
+}
+
+body > header {
 	background-color: @color1;
 	nav {
 		ul {
@@ -25,8 +30,27 @@ header {
 	}
 }
 
-div.main {
+body > section.main {
 	background-color: @color4;
 	min-height: 250px;
+	header {
+		padding : 8px;
+		text-align : center;
+	}
+	&.card {
+		section.editions ul {
+			display : flex;
+			justify-content : center;
+			padding: 0;
+			margin: 0;
+			li {
+				list-style: none;
+				padding: 3px;
+				&:not(.active) a {
+					color: lighten(@color1, 50%);
+				}
+			}
+		}
+	}
 }
 
