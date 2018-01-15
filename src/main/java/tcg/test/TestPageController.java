@@ -11,4 +11,5 @@ public class TestPageController {
 	public String testPage() {
 		return "test";
 	}
+
 }

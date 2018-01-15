@@ -20,7 +20,7 @@
 				<li>
 					<form action='<spring:url value="/s"/>'>
 						<input type="text" name="name"/>
-						<button type="submit">S</button>
+						<button type="submit"><span class="fa fa-search"/></button>
 					</form>
 				</li>
 			</ul>

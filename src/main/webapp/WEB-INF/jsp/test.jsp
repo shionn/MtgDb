@@ -4,6 +4,6 @@
 <t:template>
 	<jsp:attribute name="title">MtgDb by Shionn</jsp:attribute>
 	<jsp:attribute name="content">
-		test
+		${card.name}
 	</jsp:attribute>
 </t:template>
