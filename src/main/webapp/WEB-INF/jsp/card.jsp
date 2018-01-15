@@ -5,7 +5,7 @@
 <t:template>
 	<jsp:attribute name="title">MtgDb by Shionn - ${card.name}</jsp:attribute>
 	<jsp:attribute name="content">
-		<section class="main container card">
+		<article class="main container card">
 			<header>${card.name}</header>
 			<section class="editions">
 				<ul>
@@ -14,16 +14,28 @@
 					</c:forEach>
 				</ul>
 			</section>
-			<section>
-				<section class="image"><img src='<spring:url value="/c/img/${card.id}.jpg"/>'></section>
-				<section class="text">text</section>
-				<section class="prices">prix</section>
+			<section class="main">
+				<article class="image portlet">
+					<header>${card.name}</header>
+					<section>
+						<img src='<spring:url value="/c/img/${card.id}.jpg"/>'/>
+					</section>
+					<footer></footer>
+				</article>
+				<article class="text">text</article>
+				<article class="prices portlet">
+					<header>prix</header>
+					<section>
+						todo
+					</section>
+					<footer></footer>
+				</article>
 			</section>
 			<footer>
 				<ul>
 					<li>rules</li>
 				</ul>
 			</footer>
-		</section>
+		</article>
 	</jsp:attribute>
 </t:template>

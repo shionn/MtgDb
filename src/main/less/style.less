@@ -2,21 +2,22 @@
 @import "normalize-3.0.2.less";
 @import "fontawesome/font-awesome.less";
 @import "structure.less";
-
 * {
 	box-sizing: border-box;
 }
 
 body {
+	color: @color1;
 	background-color: @color5;
 }
 
 a {
-	color : @color1;
+	color: @color1;
 	text-decoration: none;
 }
 
 body > header {
+	color: @color5;
 	background-color: @color1;
 	nav {
 		ul {
@@ -30,17 +31,20 @@ body > header {
 	}
 }
 
-body > section.main {
+body > article.main {
 	background-color: @color4;
 	min-height: 250px;
+	padding: 0 5px;
 	header {
-		padding : 8px;
-		text-align : center;
+		padding: 8px;
+		text-align: center;
+		font : italic bold larger Serif;
 	}
+
 	&.card {
 		section.editions ul {
-			display : flex;
-			justify-content : center;
+			display: flex;
+			justify-content: center;
 			padding: 0;
 			margin: 0;
 			li {
@@ -50,6 +54,28 @@ body > section.main {
 					color: lighten(@color1, 50%);
 				}
 			}
+		}
+
+		section.main {
+			@media (min-width: @min-sm) {
+				display: flex;
+				justify-content: space-between;
+			}
+		}
+	}
+
+	article.portlet {
+		display: flex;
+		flex-direction: column;
+		& > header {
+			color: lighten(@color3, 25%);
+			font : italic bold larger Serif;
+			background-color: @color3;
+			border-bottom: 5px solid lighten(@color3, 25%);
+		}
+
+		& > section {
+			margin: 2px 5px;
 		}
 	}
 }
