@@ -15,7 +15,7 @@
 				</ul>
 			</section>
 			<section>
-				<section class="image">img</section>
+				<section class="image"><img src='<spring:url value="/c/img/${card.id}.jpg"/>'></section>
 				<section class="text">text</section>
 				<section class="prices">prix</section>
 			</section>

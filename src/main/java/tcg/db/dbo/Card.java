@@ -6,6 +6,7 @@ public class Card {
 
 	private String id;
 	private String name;
+	private Edition edition;
 	private List<CardPrinting> printings;
 
 	public String getId() {
@@ -30,5 +31,13 @@ public class Card {
 
 	public void setPrintings(List<CardPrinting> printings) {
 		this.printings = printings;
+	}
+
+	public Edition getEdition() {
+		return edition;
+	}
+
+	public void setEdition(Edition edition) {
+		this.edition = edition;
 	}
 }
