@@ -14,12 +14,13 @@ import org.springframework.stereotype.Component;
 
 import tcg.db.dao.ImporterDao;
 import tcg.mtgjson.api.Card;
+import tcg.mtgjson.api.Language;
 import tcg.mtgjson.api.Set;
 
 @Component
 public class EditionImporter {
 
-	private static final int INTERVAL = 10 * 60 * 1000;
+	private static final int INTERVAL = 30 * 1000;
 	private Logger logger = LoggerFactory.getLogger(EditionImporter.class);
 
 	@Autowired
@@ -34,6 +35,7 @@ public class EditionImporter {
 		if (codes.isEmpty()) {
 			Arrays.stream(client.setList()).map(Set::getCode).filter(code -> Math.random() < .2)
 					.forEach(code -> codes.add(code));
+			logger.info("Found <" + codes.size() + "> to scan");
 		} else {
 			Set set = client.set(codes.pop());
 			logger.info("Start import set <" + set.getCode() + ">");
@@ -42,8 +44,9 @@ public class EditionImporter {
 				dao.edition(set);
 				for (Card card : set.getCards()) {
 					dao.card(card, set);
-					card.getForeignNames().stream().forEach(name -> dao.cardName(name, card));
-					// dao.declinaison(card, set);
+					card.getForeignNames().stream()
+							.filter(name -> name.getLanguage() == Language.fr)
+							.forEach(name -> dao.cardName(name, card));
 				}
 				session.commit();
 			}

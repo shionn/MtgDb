@@ -2,8 +2,11 @@ package tcg.mtgjson.api;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import org.apache.commons.codec.digest.DigestUtils;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.util.StdConverter;
@@ -61,7 +64,7 @@ public class Card {
 	private boolean starter;
 	private String mciNumber;
 	private List<Ruling> rulings;
-	private List<ForeignName> foreignNames;
+	private List<ForeignName> foreignNames = new ArrayList<>();
 	private List<String> printings;
 	private String originalText;
 	private String originalType;
@@ -380,4 +383,7 @@ public class Card {
 		this.source = source;
 	}
 
+	public String getNameId() {
+		return DigestUtils.sha1Hex(name);
+	}
 }

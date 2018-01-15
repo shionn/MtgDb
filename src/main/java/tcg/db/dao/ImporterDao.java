@@ -15,12 +15,12 @@ public interface ImporterDao {
 			+ "magic_cards_info_code = #{magicCardsInfoCode}, release_date = #{releaseDate}, name = #{name}")
 	int edition(Set set);
 
-	@Insert("INSERT INTO card (id, edition, number, name, text, flavor, type, mana_cost, " //
+	@Insert("INSERT INTO card (id, card, edition, number, name, text, flavor, type, mana_cost, " //
 			+ "cmc, multiverse_id) "
-			+ "VALUES (#{c.id}, #{s.code}, #{c.number}, #{c.name}, #{c.text}, #{c.flavor}, #{c.type}, #{c.manaCost}, "
+			+ "VALUES (#{c.id}, #{c.nameId}, #{s.code}, #{c.number}, #{c.name}, #{c.text}, #{c.flavor}, #{c.type}, #{c.manaCost}, "
 			+ "#{c.cmc}, #{c.multiverseid}) "
-			+ "ON DUPLICATE KEY UPDATE "
-			+ "edition = #{s.code}, number = #{c.number}, name = #{c.name}, text = #{c.text}, flavor = #{c.flavor}, "
+			+ "ON DUPLICATE KEY UPDATE " //
+			+ "card = #{c.nameId}, edition = #{s.code}, number = #{c.number}, name = #{c.name}, text = #{c.text}, flavor = #{c.flavor}, "
 			+ "type = #{c.type}, mana_cost = #{c.manaCost}, cmc = #{c.cmc}, multiverse_id = #{c.multiverseid}")
 	int card(@Param("c") Card card, @Param("s") Set set);
 

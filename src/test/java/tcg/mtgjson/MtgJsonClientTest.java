@@ -4,10 +4,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
 
+import tcg.mtgjson.api.Card;
 import tcg.mtgjson.api.Set;
 
 public class MtgJsonClientTest {
@@ -22,6 +24,11 @@ public class MtgJsonClientTest {
 		assertThat(rarities).containsOnly("Common", "Uncommon", "Rare", "Basic Land");
 
 		assertThat(new MtgJsonClient().set("MPS").getMagicCardsInfoCode().length()).isEqualByComparingTo(6);
+		assertThat(new MtgJsonClient().set("UGL").getCards().stream()
+				.map(Card::getManaCost).filter(Objects::nonNull).map(String::length)
+				.collect(Collectors.maxBy(Integer::max)).get())
+						.isEqualTo(32);
+
 	}
 
 	@Test
