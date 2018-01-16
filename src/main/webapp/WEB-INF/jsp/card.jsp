@@ -23,7 +23,14 @@
 					<footer></footer>
 				</article>
 				<article class="text portlet">
-					<header><span>${card.name}</span><span class="manacost">${card.manaCost}</span></header>
+					<header>
+						<span class="mtgsymbol type">
+							<c:if test="${card.creature}"><i class="mi mi-creature" title="creature"></i></c:if>
+							<c:if test="${card.enchantment}"><i class="mi mi-enchantment" title="enchantment"></i></c:if>
+						</span>
+						<span>${card.name}</span>
+						<span class="mtgsymbol cost">${card.manaCost}</span>
+					</header>
 					<section>${card.text}</section>
 				</article>
 				<article class="prices portlet">

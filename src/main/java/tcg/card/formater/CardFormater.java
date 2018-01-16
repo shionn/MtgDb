@@ -25,6 +25,11 @@ public class CardFormater {
 			patterns.put(Pattern.compile("\\{" + i + "\\}"),
 					"<i class=\"mi mi-" + i + " mi-mana\"></i>");
 		}
+		patterns.put(Pattern.compile("\\{W\\}"), "<i class=\"mi mi-w mi-mana\"></i>");
+		patterns.put(Pattern.compile("\\{U\\}"), "<i class=\"mi mi-u mi-mana\"></i>");
+		patterns.put(Pattern.compile("\\{B\\}"), "<i class=\"mi mi-b mi-mana\"></i>");
+		patterns.put(Pattern.compile("\\{R\\}"), "<i class=\"mi mi-r mi-mana\"></i>");
+		patterns.put(Pattern.compile("\\{G\\}"), "<i class=\"mi mi-g mi-mana\"></i>");
 		return patterns;
 	}
 

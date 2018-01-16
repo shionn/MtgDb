@@ -8,6 +8,7 @@ public class Card {
 	private String name;
 	private String text;
 	private String manaCost;
+	private String type;
 	private Edition edition;
 	private List<CardPrinting> printings;
 
@@ -57,5 +58,21 @@ public class Card {
 
 	public void setManaCost(String manaCost) {
 		this.manaCost = manaCost;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public boolean isCreature() {
+		return type != null && type.toLowerCase().indexOf("creature") != -1;
+	}
+
+	public boolean isEnchantment() {
+		return type != null && type.toLowerCase().indexOf("enchantment") != -1;
 	}
 }
