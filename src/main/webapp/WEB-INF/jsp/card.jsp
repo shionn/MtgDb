@@ -23,7 +23,7 @@
 					<footer></footer>
 				</article>
 				<article class="text portlet">
-					<header><span>Text</span><span>${card.manaCost}</span></header>
+					<header><span>${card.name}</span><span class="manacost">${card.manaCost}</span></header>
 					<section>${card.text}</section>
 				</article>
 				<article class="prices portlet">

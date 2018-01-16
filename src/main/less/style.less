@@ -10,6 +10,7 @@
 body {
 	color: @color1;
 	background-color: @color5;
+	font: 0.875em / 1.4em "Source Sans Pro", Helvetica, sans-serif;
 }
 
 a {
@@ -36,12 +37,6 @@ body > header {
 body > article.main {
 	background-color: @color4;
 	min-height: 250px;
-	header {
-		padding: 8px;
-		text-align: center;
-		font : italic bold larger Serif;
-	}
-
 	&.card {
 		section.editions ul {
 			display: flex;
@@ -62,7 +57,7 @@ body > article.main {
 				display: flex;
 				justify-content: space-between;
 				article.text {
-					flex-grow:1;
+					flex-grow: 1;
 				}
 			}
 		}
@@ -71,12 +66,20 @@ body > article.main {
 	article.portlet {
 		display: flex;
 		flex-direction: column;
-		margin : 0 5px;
+		margin: 0 5px;
 		& > header {
 			color: lighten(@color3, 25%);
-			font : italic bold larger Serif;
+			padding: 8px 0;
+			text-align: center;
+			font: italic bold 1.5em Serif;
 			background-color: @color3;
 			border-bottom: 5px solid lighten(@color3, 25%);
+			span.manacost {
+				float: right;
+				right: 5px;
+				line-height: 0.6em;
+				position: relative;
+			}
 		}
 
 		& > section {
