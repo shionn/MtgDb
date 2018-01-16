@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import tcg.card.formater.CardFormater;
 import tcg.db.dao.CardDao;
 import tcg.db.dbo.Card;
 
@@ -31,22 +32,15 @@ public class CardController {
 	@Autowired
 	private SqlSession session;
 
+	@Autowired
+	private CardFormater formater;
+
 	@RequestMapping(value = "/c/{id}", method = RequestMethod.GET)
 	public ModelAndView open(@PathVariable("id") String id) {
 		Card card = session.getMapper(CardDao.class).read(id);
-		card.setText(format(card));
+		card.setText(formater.text(card));
+		card.setManaCost(formater.manaCost(card));
 		return new ModelAndView("card").addObject("card", card);
-	}
-
-	private String format(Card card) {
-		String text = card.getText();
-		if (text != null) {
-			text = text.replaceAll("\n", "<br/>");
-			text = text.replaceAll("\\(", "<em>(");
-			text = text.replaceAll("\\)", ")</em>");
-			text = text.replaceAll("\\{1\\}", "<i class=\"mi mi-1 mi-mana\"></i>");
-		}
-		return text;
 	}
 
 	@ResponseBody

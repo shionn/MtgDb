@@ -7,6 +7,7 @@ public class Card {
 	private String id;
 	private String name;
 	private String text;
+	private String manaCost;
 	private Edition edition;
 	private List<CardPrinting> printings;
 
@@ -48,5 +49,13 @@ public class Card {
 
 	public void setText(String text) {
 		this.text = text;
+	}
+
+	public String getManaCost() {
+		return manaCost;
+	}
+
+	public void setManaCost(String manaCost) {
+		this.manaCost = manaCost;
 	}
 }

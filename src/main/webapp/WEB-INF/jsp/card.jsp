@@ -6,7 +6,7 @@
 	<jsp:attribute name="title">MtgDb by Shionn - ${card.name}</jsp:attribute>
 	<jsp:attribute name="content">
 		<article class="main container card">
-			<header>${card.name}</header>
+<%-- 			<header>${card.name}</header> --%>
 			<section class="editions">
 				<ul>
 					<c:forEach items="${card.printings}" var="p">
@@ -23,7 +23,7 @@
 					<footer></footer>
 				</article>
 				<article class="text portlet">
-					<header>Text</header>
+					<header><span>Text</span><span>${card.manaCost}</span></header>
 					<section>${card.text}</section>
 				</article>
 				<article class="prices portlet">
