@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import tcg.db.dao.CardDao;
+import tcg.db.dbo.Card;
 
 @Controller
 public class CardController {
@@ -32,17 +33,31 @@ public class CardController {
 
 	@RequestMapping(value = "/c/{id}", method = RequestMethod.GET)
 	public ModelAndView open(@PathVariable("id") String id) {
-		return new ModelAndView("card").addObject("card", session.getMapper(CardDao.class).read(id));
+		Card card = session.getMapper(CardDao.class).read(id);
+		card.setText(format(card));
+		return new ModelAndView("card").addObject("card", card);
+	}
+
+	private String format(Card card) {
+		String text = card.getText();
+		if (text != null) {
+			text = text.replaceAll("\n", "<br/>");
+			text = text.replaceAll("\\(", "<em>(");
+			text = text.replaceAll("\\)", ")</em>");
+			text = text.replaceAll("\\{1\\}", "<i class=\"mi mi-1 mi-mana\"></i>");
+		}
+		return text;
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "/c/img/{id}.jpg", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
 	public byte[] image(@PathVariable("id") String id) throws IOException {
 		String filename = session.getMapper(CardDao.class).readImg(id);
-		File file = new File("/tmp/" + filename + ".jpg");
+		File file = new File(fullFileName(filename));
 		if (!file.exists()) {
 			download(filename);
 		}
+		// TODO une image par defaut
 		try (FileInputStream is = new FileInputStream(file)) {
 			return IOUtils.toByteArray(is);
 		}
@@ -53,19 +68,22 @@ public class CardController {
 			String url = "http://magiccards.info/scans/en/" + filename + ".jpg";
 			HttpResponse response = client.execute(new HttpGet(url));
 			if (response.getStatusLine().getStatusCode() == 200) {
-				new File("/tmp/" + filename.replaceAll("/[^/]+$", "")).mkdir();
-				InputStream is = response.getEntity().getContent();
-				FileOutputStream os = new FileOutputStream("/tmp/" + filename + ".jpg");
-				int data = -1;
-				while ((data = is.read()) != -1) {
-					os.write(data);
+				new File(fullFileName(filename).replaceAll("/[^/]+$", "")).mkdir();
+				try (InputStream is = response.getEntity().getContent();
+						FileOutputStream os = new FileOutputStream(fullFileName(filename))) {
+					int data = -1;
+					while ((data = is.read()) != -1) {
+						os.write(data);
+					}
 				}
-				is.close();
-				os.close();
 			}
 			EntityUtils.consume(response.getEntity());
 		}
 
+	}
+
+	private String fullFileName(String filename) {
+		return "/tmp/" + filename + ".jpg";
 	}
 
 }

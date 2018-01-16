@@ -1,6 +1,7 @@
 @import "variables.less";
 @import "normalize-3.0.2.less";
 @import "fontawesome/font-awesome.less";
+@import "magic-font.less";
 @import "structure.less";
 * {
 	box-sizing: border-box;
@@ -25,6 +26,7 @@ body > header {
 			padding: 0;
 			margin: 0;
 			li {
+				list-style: none;
 				padding: 5px;
 			}
 		}
@@ -34,7 +36,6 @@ body > header {
 body > article.main {
 	background-color: @color4;
 	min-height: 250px;
-	padding: 0 5px;
 	header {
 		padding: 8px;
 		text-align: center;
@@ -67,6 +68,7 @@ body > article.main {
 	article.portlet {
 		display: flex;
 		flex-direction: column;
+		padding : 0 5px;
 		& > header {
 			color: lighten(@color3, 25%);
 			font : italic bold larger Serif;
@@ -75,7 +77,7 @@ body > article.main {
 		}
 
 		& > section {
-			margin: 2px 5px;
+			padding: 2px 5px;
 		}
 	}
 }

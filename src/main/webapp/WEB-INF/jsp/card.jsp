@@ -22,7 +22,10 @@
 					</section>
 					<footer></footer>
 				</article>
-				<article class="text">text</article>
+				<article class="text portlet">
+					<header>Text</header>
+					<section>${card.text}</section>
+				</article>
 				<article class="prices portlet">
 					<header>prix</header>
 					<section>
