@@ -18,7 +18,7 @@
 		<nav class="container">
 			<ul >
 				<li>
-					<form action='<spring:url value="/s"/>'>
+					<form action='<spring:url value="/c"/>'>
 						<span class="autocomplete">
 							<input type="text" name="name" data-source="<spring:url value="/s"/>"
 								data-href='<spring:url value="/c/"/>'

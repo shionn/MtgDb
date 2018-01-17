@@ -28,55 +28,8 @@ p > .mi {
 body > article.main {
 	background-color: @color4;
 	min-height: 250px;
-	&.card {
-		section.editions ul {
-			display: flex;
-			justify-content: center;
-			padding: 0;
-			margin: 0;
-			li {
-				list-style: none;
-				padding: 3px;
-				&:not(.active) a {
-					color: lighten(@color1, 50%);
-				}
-			}
-		}
-
-		section.main {
-			@media (min-width: @min-sm) {
-				display: flex;
-				justify-content: space-between;
-				article.text {
-					flex-grow: 1;
-				}
-			}
-
-		article.image {
-			img {
-				width : 100%;
-			}
-		}
-
-			article.prices ul {
-				padding: 0;
-				margin: 0;
-				li {
-					display: flex;
-					list-style: none;
-					flex-wrap: nowrap;
-					align-items: center;
-					justify-content: space-between;
-					white-space: nowrap;
-					list-style: none;
-					img {
-						margin-right: 5px;
-					}
-				}
-			}
-		}
-	}
 }
+@import "card.less";
 
 span.autocomplete {
 	ul {
@@ -88,7 +41,7 @@ span.autocomplete {
 		margin: 1px 0 0;
 		z-index: 2;
 		padding: 2px;
-		border : solid 1px @color3;
+		border: solid 1px @color3;
 		li {
 			padding: 0;
 			margin: 0;
@@ -98,7 +51,7 @@ span.autocomplete {
 				flex-grow: 1;
 			}
 
-			&:hover {
+			&:hover, &.select {
 				background: @color3;
 				a {
 					color: lighten(@color3, 25%);
