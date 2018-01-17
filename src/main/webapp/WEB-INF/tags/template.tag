@@ -19,7 +19,11 @@
 			<ul >
 				<li>
 					<form action='<spring:url value="/s"/>'>
-						<input type="text" name="name"/>
+						<span class="autocomplete">
+							<input type="text" name="name" data-source="<spring:url value="/s"/>"
+								data-href='<spring:url value="/c/"/>'
+								autocomplete="off"/>
+						</span>
 						<button type="submit"><span class="fa fa-search"/></button>
 					</form>
 				</li>
@@ -29,6 +33,8 @@
 	<jsp:invoke fragment="content" />
 	<footer>
 	</footer>
+	<script type="text/javascript" src='<spring:url value="/js/jquery-3.1.0.min.js"/>'></script>
+	<script type="text/javascript" src='<spring:url value="/js/scripts.js"/>'></script>
 	<jsp:invoke fragment="scripts" />
 </body>
 </html>

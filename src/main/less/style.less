@@ -52,16 +52,22 @@ body > article.main {
 				}
 			}
 
+		article.image {
+			img {
+				width : 100%;
+			}
+		}
+
 			article.prices ul {
 				padding: 0;
-				margin : 0;
+				margin: 0;
 				li {
 					display: flex;
 					list-style: none;
 					flex-wrap: nowrap;
 					align-items: center;
 					justify-content: space-between;
-					white-space : nowrap;
+					white-space: nowrap;
 					list-style: none;
 					img {
 						margin-right: 5px;
@@ -69,6 +75,40 @@ body > article.main {
 				}
 			}
 		}
+	}
+}
+
+span.autocomplete {
+	ul {
+		display: none;
+		flex-direction: column;
+		position: absolute;
+		background: @color4;
+		list-style: none;
+		margin: 1px 0 0;
+		z-index: 2;
+		padding: 2px;
+		border : solid 1px @color3;
+		li {
+			padding: 0;
+			margin: 0;
+			display: flex;
+			a {
+				padding: 4px;
+				flex-grow: 1;
+			}
+
+			&:hover {
+				background: @color3;
+				a {
+					color: lighten(@color3, 25%);
+				}
+			}
+		}
+	}
+
+	&.open ul {
+		display: flex;
 	}
 }
 
