@@ -16,7 +16,9 @@ public class MkmCrawler {
 	public CardPrice price(Card card) throws IOException {
 		Document document = Jsoup
 				.connect(
-						"https://www.cardmarket.com/en/Magic/Products/Singles/Battle+for+Zendikar/Ob+Nixilis+Reignited")
+						"https://www.cardmarket.com/en/Magic/Products/Singles/"
+								+ card.getEdition() + "Battle+for+Zendikar"
+								+ "/Ob+Nixilis+Reignited")
 				.get();
 
 		CardPrice result = new CardPrice();

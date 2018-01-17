@@ -2,6 +2,7 @@ package tcg.card;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,10 +28,15 @@ public class CardController {
 		card.setText(formater.text(card));
 		card.setManaCost(formater.manaCost(card));
 		if (isOldPrice(card)) {
-
+			updatePrices(card);
 		}
 
 		return new ModelAndView("card").addObject("card", card);
+	}
+
+	@Async
+	private void updatePrices(Card card) {
+
 	}
 
 	private boolean isOldPrice(Card card) {
