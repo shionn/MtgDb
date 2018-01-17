@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class CardPrice {
+	private String id;
 	private BigDecimal price;
 	private CardPriceSource source;
 	private Date date;
@@ -30,5 +31,13 @@ public class CardPrice {
 
 	public void setSource(CardPriceSource source) {
 		this.source = source;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 }

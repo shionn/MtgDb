@@ -11,6 +11,7 @@ public class Card {
 	private String type;
 	private Edition edition;
 	private List<CardPrinting> printings;
+	private List<CardPrice> prices;
 
 	public String getId() {
 		return id;
@@ -74,5 +75,37 @@ public class Card {
 
 	public boolean isEnchantment() {
 		return type != null && type.toLowerCase().indexOf("enchantment") != -1;
+	}
+
+	public boolean isPlaneswalker() {
+		return type != null && type.toLowerCase().indexOf("planeswalker") != -1;
+	}
+
+	public boolean isInstant() {
+		return type != null && type.toLowerCase().indexOf("instant") != -1;
+	}
+
+	public boolean isSorcery() {
+		return type != null && type.toLowerCase().indexOf("sorcery") != -1;
+	}
+
+	public boolean isLand() {
+		return type != null && type.toLowerCase().indexOf("land") != -1;
+	}
+
+	public boolean isArtifact() {
+		return type != null && type.toLowerCase().indexOf("artifact") != -1;
+	}
+
+	public boolean isSnow() {
+		return type != null && type.toLowerCase().indexOf("snow") != -1;
+	}
+
+	public List<CardPrice> getPrices() {
+		return prices;
+	}
+
+	public void setPrices(List<CardPrice> prices) {
+		this.prices = prices;
 	}
 }

@@ -27,6 +27,11 @@
 						<span class="mtgsymbol type">
 							<c:if test="${card.creature}"><i class="mi mi-creature" title="creature"></i></c:if>
 							<c:if test="${card.enchantment}"><i class="mi mi-enchantment" title="enchantment"></i></c:if>
+							<c:if test="${card.planeswalker}"><i class="mi mi-planeswalker" title="planeswalker"></i></c:if>
+							<c:if test="${card.instant}"><i class="mi mi-instant" title="instant"></i></c:if>
+							<c:if test="${card.sorcery}"><i class="mi mi-sorcery" title="sorcery"></i></c:if>
+							<c:if test="${card.land}"><i class="mi mi-land" title="land"></i></c:if>
+							<c:if test="${card.artifact}"><i class="mi mi-artifact" title="artifact"></i></c:if>
 						</span>
 						<span>${card.name}</span>
 						<span class="mtgsymbol cost">${card.manaCost}</span>
@@ -36,7 +41,11 @@
 				<article class="prices portlet">
 					<header>prix</header>
 					<section>
-						todo
+						<ul>
+							<c:forEach items="${card.prices}" var="p"">
+								<li><img src='<spring:url value="/img/${p.source.icon}"/>'>${p.price} ${p.source.currency}</li>
+							</c:forEach>
+						</ul>
 					</section>
 					<footer></footer>
 				</article>
