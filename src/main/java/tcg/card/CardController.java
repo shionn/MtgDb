@@ -1,5 +1,9 @@
 package tcg.card;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -12,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import tcg.card.formater.CardFormater;
 import tcg.db.dao.CardDao;
 import tcg.db.dbo.Card;
+import tcg.db.dbo.CardPrice;
+import tcg.price.goldfish.MtgGoldFishCrawler;
 
 @Controller
 public class CardController {
@@ -34,13 +40,23 @@ public class CardController {
 		return new ModelAndView("card").addObject("card", card);
 	}
 
+	@Autowired
+	private MtgGoldFishCrawler crawler;
+
 	@Async
 	private void updatePrices(Card card) {
-
+		List<CardPrice> prices = crawler.price(card);
+		prices.stream().forEach(session.getMapper(CardDao.class)::price);
+		card.getPrices().addAll(prices);
+		session.commit();
 	}
 
 	private boolean isOldPrice(Card card) {
-		return card.getPrices().isEmpty();
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.DAY_OF_YEAR, -1);
+		Date toOld = calendar.getTime();
+		return card.getPrices().stream().map(CardPrice::getDate).filter(toOld::after).map(d -> true).findFirst()
+				.orElse(card.getPrices().isEmpty());
 	}
 
 }

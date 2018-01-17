@@ -1,5 +1,6 @@
 package tcg.db.dbo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Card {
@@ -11,7 +12,7 @@ public class Card {
 	private String type;
 	private Edition edition;
 	private List<CardPrinting> printings;
-	private List<CardPrice> prices;
+	private List<CardPrice> prices = new ArrayList<>();
 
 	public String getId() {
 		return id;
@@ -107,5 +108,9 @@ public class Card {
 
 	public void setPrices(List<CardPrice> prices) {
 		this.prices = prices;
+	}
+
+	public CardPrice getPrice(CardPriceSource source) {
+		return prices.stream().filter(card -> card.getSource() == source).findFirst().orElse(null);
 	}
 }

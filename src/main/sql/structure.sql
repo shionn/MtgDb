@@ -8,8 +8,8 @@ create table edition (
   magic_cards_info_code varchar(7)  NULL,
   name                  varchar(64) NOT NULL,
   release_date          date        NOT NULL,
-  mkm_name              varchar(64) NOT NULL,
-  mkm_id                int         NOT NULL,
+  mkm_name              varchar(64) NULL,
+  mkm_id                int         NULL,
   PRIMARY  KEY (code),
   INDEX        name(name)
 ) DEFAULT CHARSET=utf8;
@@ -54,11 +54,11 @@ create table card_lang (
 drop table card_price;
 create table card_price (
   id            varchar(64)   NOT NULL,
-  source        varchar(2)    NOT NULL,
+  source        varchar(32)    NOT NULL,
   price         decimal(5,2),
   date          datetime,
 
-  PRIMARY  KEY (id),
+  PRIMARY  KEY (id, source),
   CONSTRAINT card_price FOREIGN KEY (id) REFERENCES card(id)
 ) DEFAULT  CHARSET=utf8 AUTO_INCREMENT=1;
 

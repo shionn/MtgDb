@@ -14,20 +14,19 @@ import tcg.db.dbo.CardPriceSource;
 public class MkmCrawler {
 
 	public CardPrice price(Card card) throws IOException {
-		Document document = Jsoup
-				.connect(
-						"https://www.cardmarket.com/en/Magic/Products/Singles/"
-								+ card.getEdition() + "Battle+for+Zendikar"
-								+ "/Ob+Nixilis+Reignited")
-				.get();
-
+		Document document = Jsoup.connect(buildUrl(card)).get();
 		CardPrice result = new CardPrice();
-		result.setPrice(new BigDecimal(
-				document.select("table.availTable tr.row_Even.row_2 td.outerRight").first().text()
-						.replaceAll("[^,0-9]", "").replace(',', '.')));
+		result.setPrice(new BigDecimal(document.select("table.availTable tr.row_Even.row_2 td.outerRight").first()
+				.text().replaceAll("[^,0-9]", "").replace(',', '.')));
 		result.setSource(CardPriceSource.mkm);
 		result.setDate(new Date());
 		return result;
+	}
+
+	private String buildUrl(Card card) {
+		String url = "https://www.cardmarket.com/en/Magic/Products/Singles/" + card.getEdition().getMkmName() + "/"
+				+ card.getName();
+		return url.replace(' ', '+');
 	}
 
 }

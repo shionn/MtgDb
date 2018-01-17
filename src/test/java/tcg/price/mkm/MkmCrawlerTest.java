@@ -6,12 +6,18 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import tcg.price.mkm.MkmCrawler;
+import tcg.db.dbo.Card;
+import tcg.db.dbo.Edition;
 
 public class MkmCrawlerTest {
 
 	@Test
 	public void testPrice() throws IOException {
-		assertThat(new MkmCrawler().price().getPrice()).isPositive();
+		Edition edition = new Edition();
+		edition.setMkmName("Battle for Zendikar");
+		Card card = new Card();
+		card.setEdition(edition);
+		card.setName("Ob Nixilis Reignited");
+		assertThat(new MkmCrawler().price(card).getPrice()).isPositive();
 	}
 }

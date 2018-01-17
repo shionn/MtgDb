@@ -7,6 +7,8 @@ public class Edition {
 	private String magicCardInfoCode;
 	private String name;
 	private Date realeaseDate;
+	private String mkmName;
+	private int mkmId;
 
 	public String getCode() {
 		return code;
@@ -38,5 +40,21 @@ public class Edition {
 
 	public void setRealeaseDate(Date realeaseDate) {
 		this.realeaseDate = realeaseDate;
+	}
+
+	public String getMkmName() {
+		return mkmName;
+	}
+
+	public void setMkmName(String mkmName) {
+		this.mkmName = mkmName;
+	}
+
+	public int getMkmId() {
+		return mkmId;
+	}
+
+	public void setMkmId(int mkmId) {
+		this.mkmId = mkmId;
 	}
 }

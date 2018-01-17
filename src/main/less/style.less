@@ -20,10 +20,9 @@ a {
 
 @import "portlet.less";
 @import "header.less";
-
 p > .mi {
-	position : relative;
-	top : 0.125em;
+	position: relative;
+	top: 0.125em;
 }
 
 body > article.main {
@@ -52,8 +51,24 @@ body > article.main {
 					flex-grow: 1;
 				}
 			}
+
+			article.prices ul {
+				padding: 0;
+				margin : 0;
+				li {
+					display: flex;
+					list-style: none;
+					flex-wrap: nowrap;
+					align-items: center;
+					justify-content: space-between;
+					white-space : nowrap;
+					list-style: none;
+					img {
+						margin-right: 5px;
+					}
+				}
+			}
 		}
 	}
-
 }
 

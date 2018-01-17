@@ -43,7 +43,12 @@
 					<section>
 						<ul>
 							<c:forEach items="${card.prices}" var="p">
-								<li><img src='<spring:url value="/img/${p.source.icon}"/>'>${p.price} ${p.source.currency}</li>
+								<li>
+									<img src='<spring:url value="/img/${p.source.icon}"/>'>
+									<c:if test="${p.price != null}">${p.price}</c:if>
+									<c:if test="${p.price == null}">-</c:if>
+									${p.source.currency}
+								</li>
 							</c:forEach>
 						</ul>
 					</section>

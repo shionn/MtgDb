@@ -2,6 +2,7 @@ package tcg.db.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.annotations.One;
 import org.apache.ibatis.annotations.Result;
@@ -43,5 +44,9 @@ public interface CardDao {
 			+ "LEFT JOIN edition AS e ON c.edition = e.code " //
 			+ "WHERE c.id = #{id} ")
 	String readImg(String id);
+
+	@Insert("INSERT INTO card_price (id, source, price, date ) values (#{id}, #{source}, #{price}, #{date} ) "
+			+ "ON DUPLICATE KEY UPDATE source = #{source}, date = #{date}")
+	int price(CardPrice price);
 
 }

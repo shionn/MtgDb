@@ -15,6 +15,8 @@ public class Set {
 	private String block;
 	private boolean onlineOnly;
 	private List<Card> cards;
+	private String mkm_name;
+	private String mkm_id;
 
 	public String getName() {
 		return name;
@@ -102,5 +104,21 @@ public class Set {
 
 	public void setCards(List<Card> cards) {
 		this.cards = cards;
+	}
+
+	public String getMkm_id() {
+		return mkm_id;
+	}
+
+	public void setMkm_id(String mkm_id) {
+		this.mkm_id = mkm_id;
+	}
+
+	public String getMkm_name() {
+		return mkm_name;
+	}
+
+	public void setMkm_name(String mkm_name) {
+		this.mkm_name = mkm_name;
 	}
 }
