@@ -8,6 +8,8 @@ create table edition (
   magic_cards_info_code varchar(7)  NULL,
   name                  varchar(64) NOT NULL,
   release_date          date        NOT NULL,
+  mkm_name              varchar(64) NOT NULL,
+  mkm_id                int         NOT NULL,
   PRIMARY  KEY (code),
   INDEX        name(name)
 ) DEFAULT CHARSET=utf8;

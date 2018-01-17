@@ -36,13 +36,13 @@
 						<span>${card.name}</span>
 						<span class="mtgsymbol cost">${card.manaCost}</span>
 					</header>
-					<section>${card.text}</section>
+					<section><p>${card.text}</p></section>
 				</article>
 				<article class="prices portlet">
 					<header>prix</header>
 					<section>
 						<ul>
-							<c:forEach items="${card.prices}" var="p"">
+							<c:forEach items="${card.prices}" var="p">
 								<li><img src='<spring:url value="/img/${p.source.icon}"/>'>${p.price} ${p.source.currency}</li>
 							</c:forEach>
 						</ul>

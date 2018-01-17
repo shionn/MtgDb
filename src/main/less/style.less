@@ -18,23 +18,10 @@ a {
 	text-decoration: none;
 }
 
-body > header {
-	color: @color5;
-	background-color: @color1;
-	nav {
-		ul {
-			display: flex;
-			padding: 0;
-			margin: 0;
-			li {
-				list-style: none;
-				padding: 5px;
-			}
-		}
-	}
-}
+@import "portlet.less";
+@import "header.less";
 
-section > .mi {
+p > .mi {
 	position : relative;
 	top : 0.125em;
 }
@@ -68,35 +55,5 @@ body > article.main {
 		}
 	}
 
-	article.portlet {
-		display: flex;
-		flex-direction: column;
-		margin: 0 5px;
-		& > header {
-			color: lighten(@color3, 25%);
-			padding: 8px 0;
-			text-align: center;
-			font: italic bold 1.5em Serif;
-			background-color: @color3;
-			border-bottom: 5px solid lighten(@color3, 25%);
-			.mtgsymbol {
-				line-height: 0.6em;
-				&.cost {
-					float: right;
-					right: 5px;
-					position: relative;
-				}
-				&.type {
-					float: left;
-					left: 5px;
-					position: relative;
-				}
-			}
-		}
-
-		& > section {
-			padding: 2px 5px;
-		}
-	}
 }
 

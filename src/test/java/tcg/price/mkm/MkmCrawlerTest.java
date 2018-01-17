@@ -1,10 +1,12 @@
-package tcg.mkm;
+package tcg.price.mkm;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
 
 import org.junit.Test;
+
+import tcg.price.mkm.MkmCrawler;
 
 public class MkmCrawlerTest {
 

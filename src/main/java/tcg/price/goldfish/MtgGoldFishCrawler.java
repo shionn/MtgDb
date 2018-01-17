@@ -1,4 +1,4 @@
-package tcg.goldfish;
+package tcg.price.goldfish;
 
 import java.io.IOException;
 import java.math.BigDecimal;

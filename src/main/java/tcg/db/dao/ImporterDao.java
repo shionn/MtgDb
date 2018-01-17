@@ -9,10 +9,11 @@ import tcg.mtgjson.api.Set;
 
 public interface ImporterDao {
 
-	@Insert("INSERT INTO edition (code, magic_cards_info_code, name, release_date) "
-			+ "VALUES (#{code}, #{magicCardsInfoCode}, #{name}, #{releaseDate}) "
+	@Insert("INSERT INTO edition (code, magic_cards_info_code, name, release_date, mkm_name, mkm_id) "
+			+ "VALUES (#{code}, #{magicCardsInfoCode}, #{name}, #{releaseDate}, #{mkm_,ame}, #{mkm_id}) "
 			+ "ON DUPLICATE KEY UPDATE "
-			+ "magic_cards_info_code = #{magicCardsInfoCode}, release_date = #{releaseDate}, name = #{name}")
+			+ "magic_cards_info_code = #{magicCardsInfoCode}, release_date = #{releaseDate}, "
+			+ "name = #{name}, mkm_name = #{mkm_name}, mkm_id = #{mkm_id}")
 	int edition(Set set);
 
 	@Insert("INSERT INTO card (id, card, edition, number, name, text, flavor, type, mana_cost, " //

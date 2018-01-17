@@ -1,8 +1,10 @@
-package tcg.goldfish;
+package tcg.price.goldfish;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
+
+import tcg.price.goldfish.MtgGoldFishCrawler;
 
 public class MtgGoldFishCrawlerTest {
 
