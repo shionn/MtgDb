@@ -19,12 +19,17 @@ import tcg.db.dbo.CardPriceSource;
 @Component
 public class MtgGoldFishCrawler {
 
+	private static final List<String> IGNORED_EDITION = Arrays.asList("CEI");
+
 	public List<CardPrice> price(Card card) {
 		CardPrice paper = retrieve(card, CardPriceSource.MtgGoldFishPaper);
 		CardPrice online = retrieve(card, CardPriceSource.MtgGoldFishTx);
 		try {
 			String link = buildUrl(card);
+			paper.setLink(link);
+			online.setLink(link);
 
+			if (!isIgnored(card)) {
 			Document document = Jsoup.connect(link).get();
 			Element e = document.select("div.price-box.paper .price-box-price").first();
 			if (e != null) {
@@ -34,21 +39,26 @@ public class MtgGoldFishCrawler {
 			if (e != null) {
 				online.setPrice(new BigDecimal(e.text()));
 			}
+			}
 		} catch (IOException e) {
 			LoggerFactory.getLogger(MtgGoldFishCrawler.class).error("Can't crawl price : ", e);
 		}
 		return Arrays.asList(paper, online);
 	}
 
+	private boolean isIgnored(Card card) {
+		return IGNORED_EDITION.contains(card.getEdition().getCode());
+	}
+
 	private CardPrice retrieve(Card card, CardPriceSource source) {
-		CardPrice paper = card.getPrice(source);
-		if (paper == null) {
-			paper = new CardPrice();
-			paper.setSource(source);
-			paper.setDate(new Date());
-			paper.setId(card.getId());
+		CardPrice price = card.getPrice(source);
+		if (price == null) {
+			price = new CardPrice();
+			price.setSource(source);
+			price.setId(card.getId());
 		}
-		return paper;
+		price.setDate(new Date());
+		return price;
 	}
 
 	private String buildUrl(Card card) {

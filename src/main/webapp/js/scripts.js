@@ -54,3 +54,7 @@ $(function() {
 	});
 
 });
+
+$(function() {
+	$("header nav input").first().focus();
+});

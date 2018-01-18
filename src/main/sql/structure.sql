@@ -55,6 +55,7 @@ drop table card_price;
 create table card_price (
   id            varchar(64)   NOT NULL,
   source        varchar(32)    NOT NULL,
+  link          varchar(128),
   price         decimal(5,2),
   date          datetime,
 

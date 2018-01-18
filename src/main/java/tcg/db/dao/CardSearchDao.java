@@ -7,10 +7,10 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 
+import tcg.db.dao.frag.CardFragDao;
 import tcg.db.dbo.Card;
-import tcg.db.dbo.CardLang;
 
-public interface CardSearchDao {
+public interface CardSearchDao extends CardFragDao {
 
 	@Select("SELECT id FROM card WHERE name LIKE #{name} ORDER BY name, edition, card LIMIT 1")
 	String findFirstId(String name);
@@ -25,11 +25,5 @@ public interface CardSearchDao {
 	@Results({ @Result(column = "id", property = "id"),
 			@Result(column = "id", property = "langs", many = @Many(select = "readLangs")) })
 	List<Card> quick(String name);
-
-	@Select("SELECT lang, name " //
-			+ "FROM card_lang " //
-			+ "WHERE id = #{id} " //
-			+ "ORDER BY lang ASC")
-	List<CardLang> readLangs(String id);
 
 }

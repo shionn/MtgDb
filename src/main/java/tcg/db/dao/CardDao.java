@@ -9,13 +9,13 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 
+import tcg.db.dao.frag.CardFragDao;
 import tcg.db.dbo.Card;
-import tcg.db.dbo.CardLang;
 import tcg.db.dbo.CardPrice;
 import tcg.db.dbo.CardPrinting;
 import tcg.db.dbo.Edition;
 
-public interface CardDao {
+public interface CardDao extends CardFragDao {
 
 	@Select("SELECT * FROM card WHERE id = #{id}")
 	@Results({ @Result(column = "id", property = "id"),
@@ -32,17 +32,11 @@ public interface CardDao {
 			+ "ORDER BY e.release_date ASC")
 	List<CardPrinting> readPrintings(String card);
 
-	@Select("SELECT id, source, price, date " //
+	@Select("SELECT * " //
 			+ "FROM card_price " //
 			+ "WHERE id = #{id} " //
 			+ "ORDER BY source ASC")
 	List<CardPrice> readPrices(String id);
-
-	@Select("SELECT lang, name " //
-			+ "FROM card_lang " //
-			+ "WHERE id = #{id} " //
-			+ "ORDER BY lang ASC")
-	List<CardLang> readLangs(String id);
 
 	@Select("SELECT * FROM edition WHERE code = #{code}")
 	Edition readEdition(String code);
@@ -53,8 +47,8 @@ public interface CardDao {
 			+ "WHERE c.id = #{id} ")
 	String readImg(String id);
 
-	@Insert("INSERT INTO card_price (id, source, price, date ) values (#{id}, #{source}, #{price}, #{date} ) "
-			+ "ON DUPLICATE KEY UPDATE source = #{source}, date = #{date}")
+	@Insert("INSERT INTO card_price (id, source, price, date, link ) values (#{id}, #{source}, #{price}, #{date}, #{link} ) "
+			+ "ON DUPLICATE KEY UPDATE source = #{source}, date = #{date}, link = #{link} ")
 	int price(CardPrice price);
 
 }

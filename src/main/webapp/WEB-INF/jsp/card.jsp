@@ -43,7 +43,7 @@
 						<ul>
 							<c:forEach items="${card.prices}" var="p">
 								<li>
-									<img src='<spring:url value="/img/${p.source.icon}"/>'>
+									<a href="${p.link}" target="_blank"><img src='<spring:url value="/img/${p.source.icon}"/>'></a>
 									<c:if test="${p.price != null}">${p.price}</c:if>
 									<c:if test="${p.price == null}">-</c:if>
 									${p.source.currency}

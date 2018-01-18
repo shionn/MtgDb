@@ -1,5 +1,6 @@
 package tcg.card;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +19,7 @@ import tcg.db.dao.CardDao;
 import tcg.db.dbo.Card;
 import tcg.db.dbo.CardPrice;
 import tcg.price.goldfish.MtgGoldFishCrawler;
+import tcg.price.mkm.MkmCrawler;
 
 @Controller
 public class CardController {
@@ -36,18 +38,21 @@ public class CardController {
 		if (isOldPrice(card)) {
 			updatePrices(card);
 		}
-
 		return new ModelAndView("card").addObject("card", card);
 	}
 
 	@Autowired
-	private MtgGoldFishCrawler crawler;
+	private MtgGoldFishCrawler fishCrawler;
+	@Autowired
+	private MkmCrawler mkmCrawler;
 
 	@Async
 	private void updatePrices(Card card) {
-		List<CardPrice> prices = crawler.price(card);
+		List<CardPrice> prices = new ArrayList<>();
+		prices.add(mkmCrawler.price(card));
+		prices.addAll(fishCrawler.price(card));
 		prices.stream().forEach(session.getMapper(CardDao.class)::price);
-		card.getPrices().addAll(prices);
+		card.setPrices(prices);
 		session.commit();
 	}
 
