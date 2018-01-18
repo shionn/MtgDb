@@ -30,16 +30,16 @@
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<configuration>
-					<url>${tomcat.url}/manager/text</url>
+					<url>${tomcat.url}</url>
 					<server>${tomcat.server}</server>
-					<path>${tomcat.path}</path>
+					<path>/dev</path>
 					<skipTests>true</skipTests>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.10</version>
+				<version>2.19.1</version>
 				<configuration>
 					<skipTests>${skiptest}</skipTests>
 				</configuration>
@@ -82,6 +82,7 @@
 				<skip.test>false</skip.test>
 			</properties>
 		</profile>
+
 	</profiles>
 
 	<dependencies>

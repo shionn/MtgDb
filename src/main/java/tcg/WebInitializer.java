@@ -11,6 +11,7 @@ import javax.servlet.ServletRegistration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -59,6 +60,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	@EnableScheduling
 	@Configuration
 	@ComponentScan({ "tcg" })
+	@PropertySource("classpath:configuration.properties")
 	public static class WebMvcConfig extends WebMvcConfigurerAdapter {
 		@Bean
 		public InternalResourceViewResolver viewResolver() {

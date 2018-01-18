@@ -14,6 +14,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -61,8 +62,12 @@ public class ImageController {
 
 	}
 
+	@Autowired
+	@Value("${card.img.path}")
+	private String path;
+
 	private String fullFileName(String filename) {
-		return "/tmp/" + filename + ".jpg";
+		return path + "/" + filename + ".jpg";
 	}
 
 }
