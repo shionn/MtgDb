@@ -22,15 +22,22 @@ public class MkmCrawler {
 		try {
 			String url = buildUrl(card);
 			result.setLink(url);
-			Document document = Jsoup.connect(url).get();
-			Element e = document.select("table.availTable tr.row_Even.row_2 td.outerRight").first();
-			if (e != null) {
-				result.setPrice(new BigDecimal(e.text().replaceAll("[^,0-9]", "").replace(',', '.')));
+			if (!isIgnored(card)) {
+				Document document = Jsoup.connect(url).get();
+				Element e = document.select("table.availTable tr.row_Even.row_2 td.outerRight").first();
+				if (e != null) {
+					result.setPrice(new BigDecimal(e.text().replaceAll("[^,0-9]", "").replace(',', '.')));
+					result.setPriceDate(new Date());
+				}
 			}
 		} catch (IOException e) {
 			LoggerFactory.getLogger(MkmCrawler.class).error("Can't crawl price : ", e);
 		}
 		return result;
+	}
+
+	private boolean isIgnored(Card card) {
+		return card.getEdition().isOnlineOnly();
 	}
 
 	private CardPrice retrieve(Card card, CardPriceSource source) {
@@ -40,7 +47,7 @@ public class MkmCrawler {
 			price.setSource(source);
 			price.setId(card.getId());
 		}
-		price.setDate(new Date());
+		price.setUpdateDate(new Date());
 		return price;
 	}
 

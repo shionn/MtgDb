@@ -60,7 +60,7 @@ public class CardController {
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.DAY_OF_YEAR, -1);
 		Date toOld = calendar.getTime();
-		return card.getPrices().stream().map(CardPrice::getDate).filter(toOld::after).map(d -> true).findFirst()
+		return card.getPrices().stream().map(CardPrice::getUpdateDate).filter(toOld::after).map(d -> true).findFirst()
 				.orElse(card.getPrices().isEmpty());
 	}
 

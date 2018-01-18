@@ -47,8 +47,10 @@ public interface CardDao extends CardFragDao {
 			+ "WHERE c.id = #{id} ")
 	String readImg(String id);
 
-	@Insert("INSERT INTO card_price (id, source, price, date, link ) values (#{id}, #{source}, #{price}, #{date}, #{link} ) "
-			+ "ON DUPLICATE KEY UPDATE source = #{source}, date = #{date}, link = #{link} ")
+	@Insert("INSERT INTO card_price (id, source, price, update_date, price_date, link ) "
+			+ "VALUES (#{id}, #{source}, #{price}, #{updateDate}, #{priceDate}, #{link} ) "
+			+ "ON DUPLICATE KEY UPDATE source = #{source}, update_date = #{updateDate}, price_date = #{priceDate}, "
+			+ "link = #{link} ")
 	int price(CardPrice price);
 
 }

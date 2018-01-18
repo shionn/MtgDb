@@ -19,6 +19,7 @@ import tcg.db.dbo.CardPriceSource;
 @Component
 public class MtgGoldFishCrawler {
 
+	private static final List<String> USE_MKM_NAME = Arrays.asList("CMD");
 	private static final List<String> IGNORED_EDITION = Arrays.asList("CEI");
 
 	public List<CardPrice> price(Card card) {
@@ -30,20 +31,45 @@ public class MtgGoldFishCrawler {
 			online.setLink(link);
 
 			if (!isIgnored(card)) {
-			Document document = Jsoup.connect(link).get();
-			Element e = document.select("div.price-box.paper .price-box-price").first();
-			if (e != null) {
-				paper.setPrice(new BigDecimal(e.text()));
-			}
-			e = document.select("div.price-box.online .price-box-price").first();
-			if (e != null) {
-				online.setPrice(new BigDecimal(e.text()));
-			}
+				Document document = Jsoup.connect(link).get();
+				Element e = document.select("div.price-box.paper .price-box-price").first();
+				if (e != null) {
+					paper.setPrice(new BigDecimal(e.text()));
+					paper.setPriceDate(new Date());
+				}
+				e = document.select("div.price-box.online .price-box-price").first();
+				if (e != null) {
+					online.setPrice(new BigDecimal(e.text()));
+					online.setPriceDate(new Date());
+				}
 			}
 		} catch (IOException e) {
 			LoggerFactory.getLogger(MtgGoldFishCrawler.class).error("Can't crawl price : ", e);
 		}
-		return Arrays.asList(paper, online);
+		CardPrice paperFoil = retrieve(card, CardPriceSource.MtgGoldFishFoilPaper);
+		CardPrice onlineFoil = retrieve(card, CardPriceSource.MtgGoldFishFoilTx);
+		try {
+			String link = buildFoilUrl(card);
+			paperFoil.setLink(link);
+			onlineFoil.setLink(link);
+
+			if (!isIgnored(card)) {
+				Document document = Jsoup.connect(link).get();
+				Element e = document.select("div.price-box.paper .price-box-price").first();
+				if (e != null) {
+					paperFoil.setPrice(new BigDecimal(e.text()));
+					paperFoil.setPriceDate(new Date());
+				}
+				e = document.select("div.price-box.online .price-box-price").first();
+				if (e != null) {
+					onlineFoil.setPrice(new BigDecimal(e.text()));
+					paperFoil.setPriceDate(new Date());
+				}
+			}
+		} catch (IOException e) {
+			LoggerFactory.getLogger(MtgGoldFishCrawler.class).error("Can't crawl price : ", e);
+		}
+		return Arrays.asList(paper, online, paperFoil, onlineFoil);
 	}
 
 	private boolean isIgnored(Card card) {
@@ -57,15 +83,27 @@ public class MtgGoldFishCrawler {
 			price.setSource(source);
 			price.setId(card.getId());
 		}
-		price.setDate(new Date());
+		price.setUpdateDate(new Date());
 		return price;
 	}
 
 	private String buildUrl(Card card) {
-		String url = "https://www.mtggoldfish.com/price/"
-				+ (card.getEdition().getName().replaceAll("[:.]", "")) + "/"
-				+ formatName(card) + "#paper";
+		String url = "https://www.mtggoldfish.com/price/" + formatEdition(card) + "/" + formatName(card) + "#paper";
 		return url.replace(' ', '+');
+	}
+
+	private String buildFoilUrl(Card card) {
+		String url = "https://www.mtggoldfish.com/price/" + formatEdition(card) + ":Foil/" + formatName(card)
+				+ "#paper";
+		return url.replace(' ', '+');
+	}
+
+	private String formatEdition(Card card) {
+		String editionName = card.getEdition().getName();
+		if (USE_MKM_NAME.contains(card.getEdition().getCode())) {
+			editionName = card.getEdition().getMkmName();
+		}
+		return editionName.replaceAll("[:.']", "");
 	}
 
 	private String formatName(Card card) {

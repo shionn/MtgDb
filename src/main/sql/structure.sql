@@ -10,6 +10,7 @@ create table edition (
   release_date          date        NOT NULL,
   mkm_name              varchar(64) NULL,
   mkm_id                int         NULL,
+  online_only           boolean     NOT NULL,
   PRIMARY  KEY (code),
   INDEX        name(name)
 ) DEFAULT CHARSET=utf8;
@@ -56,8 +57,9 @@ create table card_price (
   id            varchar(64)   NOT NULL,
   source        varchar(32)    NOT NULL,
   link          varchar(128),
-  price         decimal(5,2),
-  date          datetime,
+  price         decimal(10,2),
+  price_date    datetime,
+  update_date   datetime,
 
   PRIMARY  KEY (id, source),
   CONSTRAINT card_price FOREIGN KEY (id) REFERENCES card(id)

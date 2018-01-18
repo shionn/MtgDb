@@ -7,7 +7,8 @@ public class CardPrice {
 	private String id;
 	private BigDecimal price;
 	private CardPriceSource source;
-	private Date date;
+	private Date priceDate;
+	private Date updateDate;
 	private String link;
 
 	public BigDecimal getPrice() {
@@ -16,14 +17,6 @@ public class CardPrice {
 
 	public void setPrice(BigDecimal price) {
 		this.price = price;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
 	}
 
 	public CardPriceSource getSource() {
@@ -48,5 +41,21 @@ public class CardPrice {
 
 	public String getLink() {
 		return link;
+	}
+
+	public Date getPriceDate() {
+		return priceDate;
+	}
+
+	public void setPriceDate(Date priceDate) {
+		this.priceDate = priceDate;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
 }

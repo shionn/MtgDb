@@ -9,6 +9,7 @@ public class Edition {
 	private Date realeaseDate;
 	private String mkmName;
 	private int mkmId;
+	private boolean onlineOnly;
 
 	public String getCode() {
 		return code;
@@ -56,5 +57,13 @@ public class Edition {
 
 	public void setMkmId(int mkmId) {
 		this.mkmId = mkmId;
+	}
+
+	public boolean isOnlineOnly() {
+		return onlineOnly;
+	}
+
+	public void setOnlineOnly(boolean onlineOnly) {
+		this.onlineOnly = onlineOnly;
 	}
 }
