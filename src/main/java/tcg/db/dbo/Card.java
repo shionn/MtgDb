@@ -8,6 +8,7 @@ public class Card {
 	private String id;
 	private String name;
 	private String text;
+	private String flavor;
 	private String manaCost;
 	private String type;
 	private Edition edition;
@@ -93,6 +94,14 @@ public class Card {
 
 	public void setText(String text) {
 		this.text = text;
+	}
+
+	public String getFlavor() {
+		return flavor;
+	}
+
+	public void setFlavor(String flavor) {
+		this.flavor = flavor;
 	}
 
 	public String getManaCost() {

@@ -5,10 +5,11 @@ drop table card;
 drop table edition;
 create table edition (
   code                  varchar(7)  NOT NULL,
-  magic_cards_info_code varchar(7)  NULL,
+  mci_code              varchar(7)  NULL,
   name                  varchar(64) NOT NULL,
   release_date          date        NOT NULL,
-  mkm_name              varchar(64) NULL,
+  goldfish_name         varchar(64) NULL, -- rempli manuellement
+  mkm_name              varchar(64) NULL, -- non mis à jour automatiquement pour permettre l'édition à postiory
   mkm_id                int         NULL,
   online_only           boolean     NOT NULL,
   PRIMARY  KEY (code),
@@ -23,6 +24,7 @@ create table card (
   card          varchar(64)   NOT NULL, -- sha1 du nom
   edition       varchar(7)    NOT NULL,
   number        varchar(4)    NULL,
+  mci_number    varchar(4)    NULL,
 
   name          varchar(256)  NOT NULL,
   text          varchar(1024) NULL,

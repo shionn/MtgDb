@@ -4,10 +4,11 @@ import java.util.Date;
 
 public class Edition {
 	private String code;
-	private String magicCardInfoCode;
+	private String mciCode;
 	private String name;
 	private Date realeaseDate;
 	private String mkmName;
+	private String goldfishName;
 	private int mkmId;
 	private boolean onlineOnly;
 
@@ -19,12 +20,12 @@ public class Edition {
 		this.code = code;
 	}
 
-	public String getMagicCardInfoCode() {
-		return magicCardInfoCode;
+	public String getMciCode() {
+		return mciCode;
 	}
 
-	public void setMagicCardInfoCode(String magicCardInfoCode) {
-		this.magicCardInfoCode = magicCardInfoCode;
+	public void setMciCode(String mciCode) {
+		this.mciCode = mciCode;
 	}
 
 	public String getName() {
@@ -41,6 +42,14 @@ public class Edition {
 
 	public void setRealeaseDate(Date realeaseDate) {
 		this.realeaseDate = realeaseDate;
+	}
+
+	public String getGoldfishName() {
+		return goldfishName;
+	}
+
+	public void setGoldfishName(String goldfishName) {
+		this.goldfishName = goldfishName;
 	}
 
 	public String getMkmName() {

@@ -69,4 +69,12 @@ public class CardFormater {
 		return manaCost;
 	}
 
+	public String flavor(Card card) {
+		String flavor = card.getFlavor();
+		if (flavor != null) {
+			flavor = Pattern.compile("\n").matcher(flavor).replaceAll("<br/>");
+		}
+		return flavor;
+	}
+
 }

@@ -3,8 +3,6 @@ package tcg.price.mkm;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -18,7 +16,6 @@ import tcg.db.dbo.CardPriceSource;
 
 @Component
 public class MkmCrawler {
-	private static Map<String, String> EDITION_OVERWRITE_NAME = build();
 
 	public CardPrice price(Card card) {
 		CardPrice result = retrieve(card, CardPriceSource.mkm);
@@ -56,22 +53,12 @@ public class MkmCrawler {
 
 	private String buildUrl(Card card) {
 
-		String edition = EDITION_OVERWRITE_NAME.get(card.getEdition().getCode());
-		if (edition == null) {
-			edition = card.getEdition().getMkmName();
-		}
+		String edition = card.getEdition().getMkmName();
 		if (edition == null) {
 			edition = card.getEdition().getName();
 		}
 		String url = "https://www.cardmarket.com/en/Magic/Products/Singles/" + edition + "/" + card.getName();
 		return url.replace(' ', '+');
-	}
-
-	private static Map<String, String> build() {
-		Map<String, String> editions = new HashMap<>();
-		editions.put("pMPR", "Player+Rewards+Promos");
-		editions.put("pARL", "Arena+League+Promos");
-		return editions;
 	}
 
 }

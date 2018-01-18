@@ -25,11 +25,13 @@ public interface CardDao extends CardFragDao {
 			@Result(column = "edition", property = "edition", one = @One(select = "readEdition")) })
 	Card read(String id);
 
-	@Select("SELECT c.id, e.code AS edition " //
+	@Select("SELECT c.id, e.code, e.name " //
 			+ "FROM card AS c " //
 			+ "LEFT JOIN edition AS e ON c.edition = e.code " //
 			+ "WHERE c.card = #{card} " //
 			+ "ORDER BY e.release_date ASC")
+	@Results({ @Result(column = "code", property = "edition.code"),
+			@Result(column = "name", property = "edition.name") })
 	List<CardPrinting> readPrintings(String card);
 
 	@Select("SELECT * " //
@@ -41,7 +43,7 @@ public interface CardDao extends CardFragDao {
 	@Select("SELECT * FROM edition WHERE code = #{code}")
 	Edition readEdition(String code);
 
-	@Select("SELECT CONCAT(e.magic_cards_info_code, '/', c.number) "//
+	@Select("SELECT CONCAT(e.mci_code, '/', IFNULL(c.mci_number,c.number) ) "//
 			+ "FROM card AS c " //
 			+ "LEFT JOIN edition AS e ON c.edition = e.code " //
 			+ "WHERE c.id = #{id} ")

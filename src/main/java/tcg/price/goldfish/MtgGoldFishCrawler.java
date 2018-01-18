@@ -5,9 +5,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -22,9 +20,6 @@ import tcg.db.dbo.CardPriceSource;
 @Component
 public class MtgGoldFishCrawler {
 
-	private static Map<String, String> EDITION_OVERWRITE_NAME = build();
-
-	private static final List<String> USE_MKM_NAME = Arrays.asList("CMD");
 	private static final List<String> IGNORED_EDITION = Arrays.asList("CEI");
 
 	public List<CardPrice> price(Card card) {
@@ -88,26 +83,15 @@ public class MtgGoldFishCrawler {
 	}
 
 	private String formatEdition(Card card) {
-		String editionName = EDITION_OVERWRITE_NAME.get(card.getEdition().getCode());
+		String editionName = card.getEdition().getGoldfishName();
 		if (editionName == null) {
 			editionName = card.getEdition().getName();
 		}
-		if (USE_MKM_NAME.contains(card.getEdition().getCode())) {
-			editionName = card.getEdition().getMkmName();
-		}
-
 		return editionName.replaceAll("[:.',]", "");
 	}
 
 	private String formatName(Card card) {
 		return card.getName().replaceAll("[\".]", " ");
-	}
-
-	private static Map<String, String> build() {
-		Map<String, String> editions = new HashMap<>();
-		editions.put("CST", "Coldsnap Theme Deck Reprints");
-		editions.put("pARL", "Arena+Promos");
-		return editions;
 	}
 
 }

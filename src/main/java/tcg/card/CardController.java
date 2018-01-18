@@ -35,6 +35,7 @@ public class CardController {
 		Card card = session.getMapper(CardDao.class).read(id);
 		card.setText(formater.text(card));
 		card.setManaCost(formater.manaCost(card));
+		card.setFlavor(formater.flavor(card));
 		if (isOldPrice(card)) {
 			updatePrices(card);
 		}

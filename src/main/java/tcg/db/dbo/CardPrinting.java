@@ -3,7 +3,7 @@ package tcg.db.dbo;
 public class CardPrinting {
 
 	private String id;
-	private String edition;
+	private Edition edition;
 
 	public String getId() {
 		return id;
@@ -13,11 +13,11 @@ public class CardPrinting {
 		this.id = id;
 	}
 
-	public String getEdition() {
+	public Edition getEdition() {
 		return edition;
 	}
 
-	public void setEdition(String edition) {
+	public void setEdition(Edition edition) {
 		this.edition = edition;
 	}
 }
