@@ -2,9 +2,12 @@ package tcg.price.goldfish;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -19,14 +22,23 @@ import tcg.db.dbo.CardPriceSource;
 @Component
 public class MtgGoldFishCrawler {
 
+	private static Map<String, String> EDITION_OVERWRITE_NAME = build();
+
 	private static final List<String> USE_MKM_NAME = Arrays.asList("CMD");
 	private static final List<String> IGNORED_EDITION = Arrays.asList("CEI");
 
 	public List<CardPrice> price(Card card) {
-		CardPrice paper = retrieve(card, CardPriceSource.MtgGoldFishPaper);
-		CardPrice online = retrieve(card, CardPriceSource.MtgGoldFishTx);
+		List<CardPrice> prices = new ArrayList<CardPrice>();
+		prices.addAll(crawl(card, CardPriceSource.MtgGoldFishPaper, CardPriceSource.MtgGoldFishTx, buildUrl(card)));
+		prices.addAll(crawl(card, CardPriceSource.MtgGoldFishFoilPaper, CardPriceSource.MtgGoldFishFoilTx,
+				buildFoilUrl(card)));
+		return prices;
+	}
+
+	private List<CardPrice> crawl(Card card, CardPriceSource paperType, CardPriceSource onlineType, String link) {
+		CardPrice paper = retrieve(card, paperType);
+		CardPrice online = retrieve(card, onlineType);
 		try {
-			String link = buildUrl(card);
 			paper.setLink(link);
 			online.setLink(link);
 
@@ -46,30 +58,7 @@ public class MtgGoldFishCrawler {
 		} catch (IOException e) {
 			LoggerFactory.getLogger(MtgGoldFishCrawler.class).error("Can't crawl price : ", e);
 		}
-		CardPrice paperFoil = retrieve(card, CardPriceSource.MtgGoldFishFoilPaper);
-		CardPrice onlineFoil = retrieve(card, CardPriceSource.MtgGoldFishFoilTx);
-		try {
-			String link = buildFoilUrl(card);
-			paperFoil.setLink(link);
-			onlineFoil.setLink(link);
-
-			if (!isIgnored(card)) {
-				Document document = Jsoup.connect(link).get();
-				Element e = document.select("div.price-box.paper .price-box-price").first();
-				if (e != null) {
-					paperFoil.setPrice(new BigDecimal(e.text()));
-					paperFoil.setPriceDate(new Date());
-				}
-				e = document.select("div.price-box.online .price-box-price").first();
-				if (e != null) {
-					onlineFoil.setPrice(new BigDecimal(e.text()));
-					paperFoil.setPriceDate(new Date());
-				}
-			}
-		} catch (IOException e) {
-			LoggerFactory.getLogger(MtgGoldFishCrawler.class).error("Can't crawl price : ", e);
-		}
-		return Arrays.asList(paper, online, paperFoil, onlineFoil);
+		return Arrays.asList(paper, online);
 	}
 
 	private boolean isIgnored(Card card) {
@@ -99,15 +88,26 @@ public class MtgGoldFishCrawler {
 	}
 
 	private String formatEdition(Card card) {
-		String editionName = card.getEdition().getName();
+		String editionName = EDITION_OVERWRITE_NAME.get(card.getEdition().getCode());
+		if (editionName == null) {
+			editionName = card.getEdition().getName();
+		}
 		if (USE_MKM_NAME.contains(card.getEdition().getCode())) {
 			editionName = card.getEdition().getMkmName();
 		}
-		return editionName.replaceAll("[:.']", "");
+
+		return editionName.replaceAll("[:.',]", "");
 	}
 
 	private String formatName(Card card) {
 		return card.getName().replaceAll("[\".]", " ");
+	}
+
+	private static Map<String, String> build() {
+		Map<String, String> editions = new HashMap<>();
+		editions.put("CST", "Coldsnap Theme Deck Reprints");
+		editions.put("pARL", "Arena+Promos");
+		return editions;
 	}
 
 }
