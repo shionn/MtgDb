@@ -14,7 +14,6 @@ import com.fasterxml.jackson.databind.util.StdConverter;
 public class Card {
 
 	public static class DateConverter extends StdConverter<String, Date> {
-
 		@Override
 		public Date convert(String value) {
 			if (value.length() == "yyyy".length()) {

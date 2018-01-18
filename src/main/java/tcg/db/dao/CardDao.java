@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 
 import tcg.db.dbo.Card;
+import tcg.db.dbo.CardLang;
 import tcg.db.dbo.CardPrice;
 import tcg.db.dbo.CardPrinting;
 import tcg.db.dbo.Edition;
@@ -19,6 +20,7 @@ public interface CardDao {
 	@Select("SELECT * FROM card WHERE id = #{id}")
 	@Results({ @Result(column = "id", property = "id"),
 			@Result(column = "id", property = "prices", many = @Many(select = "readPrices")),
+			@Result(column = "id", property = "langs", many = @Many(select = "readLangs")),
 			@Result(column = "card", property = "printings", many = @Many(select = "readPrintings")),
 			@Result(column = "edition", property = "edition", one = @One(select = "readEdition")) })
 	Card read(String id);
@@ -35,6 +37,12 @@ public interface CardDao {
 			+ "WHERE id = #{id} " //
 			+ "ORDER BY source ASC")
 	List<CardPrice> readPrices(String id);
+
+	@Select("SELECT lang, name " //
+			+ "FROM card_lang " //
+			+ "WHERE id = #{id} " //
+			+ "ORDER BY lang ASC")
+	List<CardLang> readLangs(String id);
 
 	@Select("SELECT * FROM edition WHERE code = #{code}")
 	Edition readEdition(String code);

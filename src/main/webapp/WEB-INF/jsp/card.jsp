@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t"%>
 <t:template>
-	<jsp:attribute name="title">MtgDb by Shionn - ${card.name}</jsp:attribute>
+	<jsp:attribute name="title">MtgDb - ${card.name} - by Shionn</jsp:attribute>
 	<jsp:attribute name="content">
 		<article class="main container card">
 			<section class="editions">
@@ -32,7 +32,7 @@
 							<c:if test="${card.land}"><i class="mi mi-land" title="land"></i></c:if>
 							<c:if test="${card.artifact}"><i class="mi mi-artifact" title="artifact"></i></c:if>
 						</span>
-						<span>${card.name}</span>
+						<span>${card.name} - ${card.lang('fr').name}</span>
 						<span class="mtgsymbol cost">${card.manaCost}</span>
 					</header>
 					<section><p>${card.text}</p></section>

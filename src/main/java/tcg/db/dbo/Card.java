@@ -13,6 +13,47 @@ public class Card {
 	private Edition edition;
 	private List<CardPrinting> printings;
 	private List<CardPrice> prices = new ArrayList<>();
+	private List<CardLang> langs = new ArrayList<>();
+
+	public boolean isCreature() {
+		return type != null && type.toLowerCase().indexOf("creature") != -1;
+	}
+
+	public boolean isEnchantment() {
+		return type != null && type.toLowerCase().indexOf("enchantment") != -1;
+	}
+
+	public boolean isPlaneswalker() {
+		return type != null && type.toLowerCase().indexOf("planeswalker") != -1;
+	}
+
+	public boolean isInstant() {
+		return type != null && type.toLowerCase().indexOf("instant") != -1;
+	}
+
+	public boolean isSorcery() {
+		return type != null && type.toLowerCase().indexOf("sorcery") != -1;
+	}
+
+	public boolean isLand() {
+		return type != null && type.toLowerCase().indexOf("land") != -1;
+	}
+
+	public boolean isArtifact() {
+		return type != null && type.toLowerCase().indexOf("artifact") != -1;
+	}
+
+	public boolean isSnow() {
+		return type != null && type.toLowerCase().indexOf("snow") != -1;
+	}
+
+	public CardPrice getPrice(CardPriceSource source) {
+		return prices.stream().filter(card -> card.getSource() == source).findFirst().orElse(null);
+	}
+
+	public CardLang lang(Lang lang) {
+		return langs.stream().filter(l -> l.getLang() == lang).findFirst().orElse(null);
+	}
 
 	public String getId() {
 		return id;
@@ -70,38 +111,6 @@ public class Card {
 		this.type = type;
 	}
 
-	public boolean isCreature() {
-		return type != null && type.toLowerCase().indexOf("creature") != -1;
-	}
-
-	public boolean isEnchantment() {
-		return type != null && type.toLowerCase().indexOf("enchantment") != -1;
-	}
-
-	public boolean isPlaneswalker() {
-		return type != null && type.toLowerCase().indexOf("planeswalker") != -1;
-	}
-
-	public boolean isInstant() {
-		return type != null && type.toLowerCase().indexOf("instant") != -1;
-	}
-
-	public boolean isSorcery() {
-		return type != null && type.toLowerCase().indexOf("sorcery") != -1;
-	}
-
-	public boolean isLand() {
-		return type != null && type.toLowerCase().indexOf("land") != -1;
-	}
-
-	public boolean isArtifact() {
-		return type != null && type.toLowerCase().indexOf("artifact") != -1;
-	}
-
-	public boolean isSnow() {
-		return type != null && type.toLowerCase().indexOf("snow") != -1;
-	}
-
 	public List<CardPrice> getPrices() {
 		return prices;
 	}
@@ -110,7 +119,12 @@ public class Card {
 		this.prices = prices;
 	}
 
-	public CardPrice getPrice(CardPriceSource source) {
-		return prices.stream().filter(card -> card.getSource() == source).findFirst().orElse(null);
+	public List<CardLang> getLangs() {
+		return langs;
 	}
+
+	public void setLangs(List<CardLang> langs) {
+		this.langs = langs;
+	}
+
 }

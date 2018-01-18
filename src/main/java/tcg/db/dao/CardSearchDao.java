@@ -11,7 +11,13 @@ public interface CardSearchDao {
 	@Select("SELECT id FROM card WHERE name LIKE #{name} ORDER BY name, edition, card LIMIT 1")
 	String findFirstId(String name);
 
-	@Select("SELECT id, name, card FROM card WHERE name LIKE #{name} GROUP BY card ORDER BY name")
+	@Select("SELECT c.id, c.name, c.card " //
+			+ "FROM card AS c " //
+			+ "LEFT JOIN card_lang AS l ON c.id = l.id AND l.lang = 'fr' " //
+			+ "WHERE c.name LIKE #{name} "//
+			+ "OR l.name LIKE #{name} " //
+			+ "GROUP BY c.card " //
+			+ "ORDER BY c.name")
 	List<Card> quick(String name);
 
 }

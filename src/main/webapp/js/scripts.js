@@ -18,7 +18,6 @@ $(function() {
 
 $(function() {
 
-
 	$("form").on("keypress", function(e) {
 		if (e.keyCode == 13) {
 			return false;
@@ -48,16 +47,9 @@ $(function() {
 					} else {
 						parent.addClass("close");
 					}
-//					if (data.length == 1) {
-//						$(parent.find("input[type=text]").attr("data-target")).val(data[0].id);
-//						if (e.keyCode == 13) {
-//							parent.parents("form").trigger('submit');
-//						}
-//					}
-
 					var ul = $("<ul>");
 					$.each(data, function(i,e) {
-						ul.append($("<li>").addClass(i===0?"select":"").append($("<a>").attr("href", url+this.id).text(this.name)));
+						ul.append($("<li>").addClass(i===0?"select":"").append($("<a>").attr("href", url+this.id).text(this.name+(this.langs.length>0?'-'+this.langs[0].name:''))));
 					});
 					parent.find("ul").replaceWith(ul);
 				}
