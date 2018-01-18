@@ -2,9 +2,6 @@
 
 $(function() {
 	$.fn.extend({
-		/**
-		 * test si l'element existe
-		 */
 		exists : function() {
 			return this.length > 0;
 		},

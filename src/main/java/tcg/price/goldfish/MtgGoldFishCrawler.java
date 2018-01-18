@@ -52,7 +52,8 @@ public class MtgGoldFishCrawler {
 	}
 
 	private String buildUrl(Card card) {
-		String url = "https://www.mtggoldfish.com/price/" + (card.getEdition().getName().replaceAll(":", "")) + "/"
+		String url = "https://www.mtggoldfish.com/price/"
+				+ (card.getEdition().getName().replaceAll("[:.]", "")) + "/"
 				+ formatName(card) + "#paper";
 		return url.replace(' ', '+');
 	}
