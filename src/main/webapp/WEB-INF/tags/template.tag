@@ -24,7 +24,6 @@
 								data-href='<spring:url value="/c/"/>'
 								autocomplete="off"/>
 						</span>
-						<button type="submit"><span class="fa fa-search"/></button>
 					</form>
 				</li>
 			</ul>

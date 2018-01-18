@@ -2,9 +2,13 @@ package tcg.db.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Many;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 
 import tcg.db.dbo.Card;
+import tcg.db.dbo.CardLang;
 
 public interface CardSearchDao {
 
@@ -18,6 +22,14 @@ public interface CardSearchDao {
 			+ "OR l.name LIKE #{name} " //
 			+ "GROUP BY c.card " //
 			+ "ORDER BY c.name")
+	@Results({ @Result(column = "id", property = "id"),
+			@Result(column = "id", property = "langs", many = @Many(select = "readLangs")) })
 	List<Card> quick(String name);
+
+	@Select("SELECT lang, name " //
+			+ "FROM card_lang " //
+			+ "WHERE id = #{id} " //
+			+ "ORDER BY lang ASC")
+	List<CardLang> readLangs(String id);
 
 }
