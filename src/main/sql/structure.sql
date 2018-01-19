@@ -72,7 +72,7 @@ create table card_lang (
 
   PRIMARY  KEY (id, lang),
   CONSTRAINT card_lang FOREIGN KEY (id) REFERENCES card(id)
-) DEFAULT  CHARSET=utf8 AUTO_INCREMENT=1;
+) DEFAULT  CHARSET=utf8;
 
 drop table card_price;
 create table card_price (
@@ -85,7 +85,7 @@ create table card_price (
 
   PRIMARY  KEY (id, source),
   CONSTRAINT card_price FOREIGN KEY (id) REFERENCES card(id)
-) DEFAULT  CHARSET=utf8 AUTO_INCREMENT=1;
+) DEFAULT  CHARSET=utf8;
 
 -- CREATE TABLE rule (
 --   id        INT(11) NOT NULL AUTO_INCREMENT ,

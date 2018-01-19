@@ -1,10 +1,11 @@
 package tcg.price.mkm;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.net.URLEncoder;
 import java.util.Date;
 
-import org.apache.catalina.util.URLEncoder;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -52,15 +53,15 @@ public class MkmCrawler {
 		return price;
 	}
 
-	private String buildUrl(Card card) {
+	private String buildUrl(Card card) throws UnsupportedEncodingException {
 
 		String edition = card.getEdition().getMkmName();
 		if (edition == null) {
 			edition = card.getEdition().getName();
 		}
 		return "https://www.cardmarket.com/en/Magic/Products/Singles/"
-				+ new URLEncoder().encode(edition) + "/"
-				+ new URLEncoder().encode(card.getName());
+				+ URLEncoder.encode(edition,"UTF-8") + "/"
+				+ URLEncoder.encode(card.getName(), "UTF-8");
 	}
 
 }
