@@ -39,17 +39,26 @@ body > article.main.card {
 		}
 
 		article.text {
-			section:after {
-				content: '';
-				width: 90%;
-				position: relative;
-				left: 5%;
-				border-bottom : solid 1px lighten(@color3, 25%);
-				display : block;
-			}
 			p.flavor {
-				font-family : Serif;
-				font-style : italic;
+				font-family: Serif;
+				font-style: italic;
+			}
+
+			section.original {
+				p {
+					padding-left: 20px;
+					margin: 0;
+				}
+
+				&:before {
+					content: 'Original';
+					transform: rotate(-90deg);
+					display: inline-block;
+					position: relative;
+					transform-origin: bottom right;
+					left: -30px;
+					border-bottom: solid 1px lighten(@color3, 25%);
+				}
 			}
 		}
 

@@ -41,13 +41,12 @@
 					</section>
 					<c:if test="${card.displayOriginal}">
 						<section class="original">
-							<header>Original : ${card.originalType}</header>
 							<p>${card.originalText}</p>
 						</section>
 					</c:if>
 				</article>
 				<article class="prices portlet">
-					<header>prix</header>
+					<header>Prix</header>
 					<section>
 						<ul>
 							<c:forEach items="${card.prices}" var="p">

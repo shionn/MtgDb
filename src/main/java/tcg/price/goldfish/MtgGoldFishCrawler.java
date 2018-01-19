@@ -73,13 +73,13 @@ public class MtgGoldFishCrawler {
 
 	private String buildUrl(Card card) {
 		String url = "https://www.mtggoldfish.com/price/" + formatEdition(card) + "/" + formatName(card) + "#paper";
-		return url.replace(' ', '+');
+		return url.replace(' ', '+').replaceAll("\\+\\+", "+");
 	}
 
 	private String buildFoilUrl(Card card) {
 		String url = "https://www.mtggoldfish.com/price/" + formatEdition(card) + ":Foil/" + formatName(card)
 				+ "#paper";
-		return url.replace(' ', '+');
+		return url.replace(' ', '+').replaceAll("\\+\\+", "+");
 	}
 
 	private String formatEdition(Card card) {
@@ -91,7 +91,7 @@ public class MtgGoldFishCrawler {
 	}
 
 	private String formatName(Card card) {
-		return card.getName().replaceAll("[\".]", " ");
+		return card.getName().replaceAll("[\".',]", " ");
 	}
 
 }
