@@ -11,6 +11,11 @@ import org.apache.commons.codec.digest.DigestUtils;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.util.StdConverter;
 
+import tcg.db.dbo.CardLayout;
+import tcg.db.dbo.CardRarity;
+import tcg.mtgjson.api.converter.CardLayoutConverter;
+import tcg.mtgjson.api.converter.CardRarityConverter;
+
 public class Card {
 
 	public static class DateConverter extends StdConverter<String, Date> {
@@ -30,7 +35,8 @@ public class Card {
 	}
 
 	private String id;
-	private String layout;
+	@JsonDeserialize(converter = CardLayoutConverter.class)
+	private CardLayout layout;
 	private String name;
 	private List<String> names;
 	private String manaCost;
@@ -41,7 +47,8 @@ public class Card {
 	private List<String> supertypes;
 	private List<String> types;
 	private List<String> subtypes;
-	private String rarity;
+	@JsonDeserialize(converter = CardRarityConverter.class)
+	private CardRarity rarity;
 	private String text;
 	private String flavor;
 	private String artist;
@@ -78,11 +85,11 @@ public class Card {
 		this.id = id;
 	}
 
-	public String getLayout() {
+	public CardLayout getLayout() {
 		return layout;
 	}
 
-	public void setLayout(String layout) {
+	public void setLayout(CardLayout layout) {
 		this.layout = layout;
 	}
 
@@ -166,11 +173,11 @@ public class Card {
 		this.subtypes = subtypes;
 	}
 
-	public String getRarity() {
+	public CardRarity getRarity() {
 		return rarity;
 	}
 
-	public void setRarity(String rarity) {
+	public void setRarity(CardRarity rarity) {
 		this.rarity = rarity;
 	}
 
@@ -384,5 +391,49 @@ public class Card {
 
 	public String getNameId() {
 		return DigestUtils.sha1Hex(name);
+	}
+
+	public String getColorsId() {
+		String colorId = "";
+		if (colors != null) {
+			if (colors.contains("White")) {
+				colorId += "W";
+			}
+			if (colors.contains("Blue")) {
+				colorId += "U";
+			}
+			if (colors.contains("Black")) {
+				colorId += "B";
+			}
+			if (colors.contains("Red")) {
+				colorId += "R";
+			}
+			if (colors.contains("Grren")) {
+				colorId += "G";
+			}
+		}
+		return colorId;
+	}
+
+	public String getColorIdentityId() {
+		String colorId = "";
+		if (colorIdentity != null) {
+			if (colorIdentity.contains("W")) {
+				colorId += "W";
+			}
+			if (colorIdentity.contains("U")) {
+				colorId += "U";
+			}
+			if (colorIdentity.contains("B")) {
+				colorId += "B";
+			}
+			if (colorIdentity.contains("R")) {
+				colorId += "R";
+			}
+			if (colorIdentity.contains("G")) {
+				colorId += "G";
+			}
+		}
+		return colorId;
 	}
 }

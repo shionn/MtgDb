@@ -3,6 +3,7 @@ package tcg.mtgjson;
 import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.Random;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -20,7 +21,9 @@ import tcg.mtgjson.api.Set;
 @Component
 public class EditionImporter {
 
-	private static final int INTERVAL = 10 * 60 * 1000;
+	private static final int INTERVAL = 10
+			// * 60
+			* 1000;
 	private Logger logger = LoggerFactory.getLogger(EditionImporter.class);
 
 	@Autowired
@@ -33,7 +36,7 @@ public class EditionImporter {
 	@Scheduled(fixedRate = INTERVAL)
 	void doImport() {
 		if (codes.isEmpty()) {
-			Arrays.stream(client.setList()).map(Set::getCode).filter(code -> Math.random() < .2)
+			Arrays.stream(client.setList()).map(Set::getCode).filter(c -> new Random().nextFloat() < .2)
 					.forEach(code -> codes.add(code));
 			logger.info("Found <" + codes.size() + "> to scan");
 		} else {

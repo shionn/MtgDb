@@ -38,9 +38,19 @@ body > article.main.card {
 			text-align: center;
 		}
 
-		article.text p.flavor {
-			font-family : Serif;
-			font-style : italic;
+		article.text {
+			section:after {
+				content: '';
+				width: 90%;
+				position: relative;
+				left: 5%;
+				border-bottom : solid 1px lighten(@color3, 25%);
+				display : block;
+			}
+			p.flavor {
+				font-family : Serif;
+				font-style : italic;
+			}
 		}
 
 		article.prices ul {

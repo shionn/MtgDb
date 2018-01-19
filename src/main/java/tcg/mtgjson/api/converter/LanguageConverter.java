@@ -1,6 +1,8 @@
-package tcg.mtgjson.api;
+package tcg.mtgjson.api.converter;
 
 import com.fasterxml.jackson.databind.util.StdConverter;
+
+import tcg.mtgjson.api.Language;
 
 public class LanguageConverter extends StdConverter<String, Language> {
 

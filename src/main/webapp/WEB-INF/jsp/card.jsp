@@ -15,7 +15,7 @@
 			</section>
 			<section class="main">
 				<article class="image portlet">
-					<header>${card.name}</header>
+					<header>${card.artist}</header>
 					<section>
 						<img src='<spring:url value="/c/img/${card.id}.jpg"/>'/>
 					</section>
@@ -39,6 +39,12 @@
 						<p>${card.text}</p>
 						<p class="flavor">${card.flavor}</p>
 					</section>
+					<c:if test="${card.displayOriginal}">
+						<section class="original">
+							<header>Original : ${card.originalType}</header>
+							<p>${card.originalText}</p>
+						</section>
+					</c:if>
 				</article>
 				<article class="prices portlet">
 					<header>prix</header>

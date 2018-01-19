@@ -49,8 +49,7 @@ public class CardFormater {
 		return patterns;
 	}
 
-	public String text(Card card) {
-		String text = card.getText();
+	public String text(String text) {
 		if (text != null) {
 			for (Entry<Pattern, String> e : patterns.entrySet()) {
 				text = e.getKey().matcher(text).replaceAll(e.getValue());

@@ -33,7 +33,8 @@ public class CardController {
 	@RequestMapping(value = "/c/{id}", method = RequestMethod.GET)
 	public ModelAndView open(@PathVariable("id") String id) {
 		Card card = session.getMapper(CardDao.class).read(id);
-		card.setText(formater.text(card));
+		card.setText(formater.text(card.getText()));
+		card.setOriginalText(formater.text(card.getOriginalText()));
 		card.setManaCost(formater.manaCost(card));
 		card.setFlavor(formater.flavor(card));
 		if (isOldPrice(card)) {

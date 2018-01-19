@@ -2,15 +2,19 @@ package tcg.db.dbo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Card {
 
 	private String id;
 	private String name;
 	private String text;
+	private String originalText;
+	private String artist;
 	private String flavor;
 	private String manaCost;
 	private String type;
+	private String originalType;
 	private Edition edition;
 	private List<CardPrinting> printings;
 	private List<CardPrice> prices = new ArrayList<>();
@@ -46,6 +50,10 @@ public class Card {
 
 	public boolean isSnow() {
 		return type != null && type.toLowerCase().indexOf("snow") != -1;
+	}
+
+	public boolean isDisplayOriginal() {
+		return !Objects.equals(text, originalText) || !Objects.equals(type, originalType);
 	}
 
 	public CardPrice getPrice(CardPriceSource source) {
@@ -136,4 +144,27 @@ public class Card {
 		this.langs = langs;
 	}
 
+	public void setArtist(String artist) {
+		this.artist = artist;
+	}
+
+	public String getArtist() {
+		return artist;
+	}
+
+	public void setOriginalText(String originalText) {
+		this.originalText = originalText;
+	}
+
+	public String getOriginalText() {
+		return originalText;
+	}
+
+	public void setOriginalType(String originalType) {
+		this.originalType = originalType;
+	}
+
+	public String getOriginalType() {
+		return originalType;
+	}
 }

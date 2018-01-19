@@ -20,14 +20,22 @@ public interface ImporterDao {
 			+ "name = #{name}, mkm_id = #{mkm_id}, online_only = #{onlineOnly} ")
 	int edition(Set set);
 
-	@Insert("INSERT INTO card (id, card, edition, number, mci_number, name, text, flavor, type, mana_cost, " //
-			+ "cmc, multiverse_id) "
-			+ "VALUES (#{c.id}, #{c.nameId}, #{s.code}, #{c.number}, #{c.mciNumber}, #{c.name}, #{c.text}, "
-			+ "#{c.flavor}, #{c.type}, #{c.manaCost}, #{c.cmc}, #{c.multiverseid}) "
+	@Insert("INSERT INTO card (id, card, edition, number, mci_number, multiverse_id, "
+			+ "name, text, flavor, original_text, artist, type, original_type, " //
+			+ "mana_cost, cmc, colors, color_identity, " //
+			+ "layout, rarity, source, reserved, " //
+			+ "power, toughness, loyalty) " //
+			+ "VALUES (#{c.id}, #{c.nameId}, #{s.code}, #{c.number}, #{c.mciNumber}, #{c.multiverseid}, "
+			+ "#{c.name}, #{c.text}, #{c.flavor}, #{c.originalText}, #{c.artist}, #{c.type}, #{c.originalType}, "
+			+ "#{c.manaCost}, #{c.cmc}, #{c.colorsId}, #{c.colorIdentityId}, "
+			+ "#{c.layout}, #{c.rarity}, #{c.source}, #{c.reserved}, " //
+			+ "#{c.power}, #{c.toughness}, #{c.loyalty}) " //
 			+ "ON DUPLICATE KEY UPDATE " //
-			+ "card = #{c.nameId}, edition = #{s.code}, number = #{c.number}, mci_number = #{c.mciNumber}, "
-			+ "name = #{c.name}, text = #{c.text}, flavor = #{c.flavor}, type = #{c.type}, mana_cost = #{c.manaCost}, "
-			+ "cmc = #{c.cmc}, multiverse_id = #{c.multiverseid}")
+			+ "card = #{c.nameId}, edition = #{s.code}, number = #{c.number}, mci_number = #{c.mciNumber}, multiverse_id = #{c.multiverseid}, "
+			+ "name = #{c.name}, text = #{c.text}, flavor = #{c.flavor}, original_text = #{c.originalText}, artist = #{c.artist}, type = #{c.type}, original_type = #{c.originalType}, "
+			+ "mana_cost = #{c.manaCost}, cmc = #{c.cmc}, colors = #{c.colorsId}, color_identity = #{c.colorIdentityId}, "
+			+ "layout = #{c.layout}, rarity = #{c.rarity}, source = #{c.source}, reserved = #{c.reserved}, "
+			+ "power = #{c.power}, toughness = #{c.toughness}, loyalty = #{c.loyalty}")
 	int card(@Param("c") Card card, @Param("s") Set set);
 
 	@Insert("INSERT INTO card_lang (id, lang, multiverse_id, name) " //

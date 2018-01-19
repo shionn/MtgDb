@@ -20,23 +20,43 @@ drop table card_lang;
 drop table card_price;
 drop table card;
 create table card (
-  id            varchar(64)   NOT NULL, -- sha1 setCode + cardName + cardImageName
-  card          varchar(64)   NOT NULL, -- sha1 du nom
-  edition       varchar(7)    NOT NULL,
-  number        varchar(4)    NULL,
-  mci_number    varchar(4)    NULL,
+  id             varchar(64)   NOT NULL, -- sha1 setCode + cardName + cardImageName
+  card           varchar(64)   NOT NULL, -- sha1 du nom
+  edition        varchar(7)    NOT NULL,
+  number         varchar(4)    NULL,
+  mci_number     varchar(4)    NULL,
+  multiverse_id  int(11),
 
-  name          varchar(256)  NOT NULL,
-  text          varchar(1024) NULL,
-  type          varchar(64)   NOT NULL,
-  mana_cost     varchar(64)   NULL, -- BFM c'est long !
-  cmc           int(11),
+  name           varchar(256)  NOT NULL,
+  text           varchar(1024) NULL,
+  flavor         varchar(1024) NULL,
+  original_text  varchar(1024) NULL,
+  artist         varchar(256)  NULL,
+  type           varchar(64)   NOT NULL,
+  original_type  varchar(64)   NULL,
+  mana_cost      varchar(64)   NULL, -- BFM c'est long !
+  cmc            int(11),
+  colors         varchar(5)    NULL,
+  color_identity varchar(5)    NULL,
+  layout         varchar(11)   NOT NULL,
+  rarity         varchar(10)   NOT NULL,
+  power          varchar(8)    NULL,
+  toughness      varchar(8)    NULL,
+  loyalty        int(2)        NULL,
+  reserved       boolean,
 
-  flavor        varchar(1024) NULL,
 
-  multiverse_id int(11),
+  source         varchar(256)  NULL,
+
   PRIMARY  KEY   (id),
   INDEX          card(card),
+  INDEX          layout(layout),
+  INDEX          rarity(rarity),
+  INDEX          artist(artist),
+  INDEX          colors(colors),
+  INDEX          power(power),
+  INDEX          toughness(toughness),
+  INDEX          loyalty(loyalty),
   FULLTEXT INDEX name(name),
   FULLTEXT INDEX text(text),
   FULLTEXT INDEX flavor(flavor),
