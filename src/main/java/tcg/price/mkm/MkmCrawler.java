@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.apache.catalina.util.URLEncoder;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -57,8 +58,9 @@ public class MkmCrawler {
 		if (edition == null) {
 			edition = card.getEdition().getName();
 		}
-		String url = "https://www.cardmarket.com/en/Magic/Products/Singles/" + edition + "/" + card.getName();
-		return url.replace(' ', '+');
+		return "https://www.cardmarket.com/en/Magic/Products/Singles/"
+				+ new URLEncoder().encode(edition) + "/"
+				+ new URLEncoder().encode(card.getName());
 	}
 
 }
