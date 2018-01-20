@@ -2,6 +2,7 @@ package tcg.db.dbo;
 
 public enum CardPriceSource {
 	mkm("mkm.gif", "€"),//
+	mkmFoil("mkm.gif", "€"), //
 	MtgGoldFishPaper("MtgGoldFish.gif", "$"),
 	MtgGoldFishFoilPaper("MtgGoldFish.gif", "$"),
 	MtgGoldFishTx("MtgGoldFish.gif", "tx"),

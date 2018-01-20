@@ -1,10 +1,12 @@
 package tcg.db.dao;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 
 import tcg.mtgjson.api.Card;
 import tcg.mtgjson.api.ForeignName;
+import tcg.mtgjson.api.Ruling;
 import tcg.mtgjson.api.Set;
 
 public interface ImporterDao {
@@ -44,13 +46,11 @@ public interface ImporterDao {
 			+ "lang = #{n.language}, multiverse_id = #{n.multiverseid}, name = #{n.name}")
 	int cardName(@Param("n") ForeignName name, @Param("c") Card card);
 
-	@Insert("INSERT INTO declinaison (card, edition, rarity) "
-			+ "VALUES ( "
-			+ "(SELECT id FROM card WHERE ref = #{card.imageName}), "
-			+ "(SELECT id FROM edition WHERE code = #{set.code}), "
-			+ "rarity = #{card.rarity} ) "
-			+ "ON DUPLICATE KEY UPDATE "
-			+ "rarity = #{card.rarity} ")
-	void declinaison(@Param("card")Card card, @Param("set") Set set);
+	@Delete("DELETE FROM card_rule WHERE card = #{id}")
+	int deleteRules(String id);
+
+	@Insert("INSERT INTO card_rule (card, created, rule) "//
+			+ "VALUES (#{c.id}, #{r.date}, #{r.text}) ")
+	int rule(@Param("c") Card card, @Param("r") Ruling rule);
 
 }

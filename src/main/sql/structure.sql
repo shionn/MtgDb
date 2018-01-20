@@ -87,11 +87,10 @@ create table card_price (
   CONSTRAINT card_price FOREIGN KEY (id) REFERENCES card(id)
 ) DEFAULT  CHARSET=utf8;
 
--- CREATE TABLE rule (
---   id        INT(11) NOT NULL AUTO_INCREMENT ,
---   card      INT(11) NOT NULL ,
---   created   DATE    NOT NULL ,
---   rule      TEXT    NOT NULL ,
---   PRIMARY KEY (id),
---   CONSTRAINT  ruling_card    FOREIGN KEY (card)    REFERENCES card(id)
--- ) DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+drop table card_rule;
+CREATE TABLE card_rule (
+  card      varchar(64) NOT NULL ,
+  created   DATE        NOT NULL ,
+  rule      TEXT        NOT NULL ,
+  CONSTRAINT  ruling_card    FOREIGN KEY (card)    REFERENCES card(id)
+) DEFAULT CHARSET=utf8;

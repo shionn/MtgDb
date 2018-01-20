@@ -25,6 +25,7 @@ public class Card {
 	private List<CardPrinting> printings;
 	private List<CardPrice> prices = new ArrayList<>();
 	private List<CardLang> langs = new ArrayList<>();
+	private List<CardRule> rules = new ArrayList<>();
 
 	public boolean isCreature() {
 		return type != null && type.toLowerCase().indexOf("creature") != -1;
@@ -197,5 +198,13 @@ public class Card {
 
 	public void setLoyalty(int loyalty) {
 		this.loyalty = loyalty;
+	}
+
+	public List<CardRule> getRules() {
+		return rules;
+	}
+
+	public void setRules(List<CardRule> rules) {
+		this.rules = rules;
 	}
 }

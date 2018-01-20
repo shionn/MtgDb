@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import tcg.db.dao.ImporterDao;
 import tcg.mtgjson.api.Card;
 import tcg.mtgjson.api.Language;
+import tcg.mtgjson.api.Ruling;
 import tcg.mtgjson.api.Set;
 
 @Component
@@ -50,6 +51,12 @@ public class EditionImporter {
 					card.getForeignNames().stream()
 							.filter(name -> name.getLanguage() == Language.fr)
 							.forEach(name -> dao.cardName(name, card));
+					dao.deleteRules(card.getId());
+					if (card.getRulings() != null) {
+						for (Ruling rule : card.getRulings()) {
+							dao.rule(card, rule);
+						}
+					}
 				}
 				session.commit();
 			}

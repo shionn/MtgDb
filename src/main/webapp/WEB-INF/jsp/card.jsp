@@ -56,8 +56,8 @@
 						</article>
 					</c:if>
 				</article>
-				<article class="prices portlet">
-					<header>Prix</header>
+				<article class="portlet prices">
+					<header>Prices</header>
 					<section>
 						<ul>
 							<c:forEach items="${card.prices}" var="p">
@@ -75,14 +75,20 @@
 							</c:forEach>
 						</ul>
 					</section>
-					<footer></footer>
 				</article>
 			</section>
-			<footer>
-				<ul>
-					<li>rules</li>
-				</ul>
-			</footer>
+			<section>
+				<article class="portlet rules">
+					<header>Rules</header>
+					<section>
+						<ul>
+							<c:forEach items="${card.rules}" var="r">
+								<li>${r.rule}</li>
+							</c:forEach>
+						</ul>
+					</section>
+				</article>
+			</section>
 		</article>
 	</jsp:attribute>
 </t:template>

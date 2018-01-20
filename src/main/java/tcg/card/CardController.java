@@ -51,7 +51,7 @@ public class CardController {
 	@Async
 	private void updatePrices(Card card) {
 		List<CardPrice> prices = new ArrayList<>();
-		prices.add(mkmCrawler.price(card));
+		prices.addAll(mkmCrawler.price(card));
 		prices.addAll(fishCrawler.price(card));
 		prices.stream().forEach(session.getMapper(CardDao.class)::price);
 		card.setPrices(prices);

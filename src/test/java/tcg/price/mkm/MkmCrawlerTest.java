@@ -18,6 +18,6 @@ public class MkmCrawlerTest {
 		Card card = new Card();
 		card.setEdition(edition);
 		card.setName("Ob Nixilis Reignited");
-		assertThat(new MkmCrawler().price(card).getPrice()).isPositive();
+		assertThat(new MkmCrawler().price(card).get(0).getPrice()).isPositive();
 	}
 }
