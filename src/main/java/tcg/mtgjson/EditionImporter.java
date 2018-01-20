@@ -3,6 +3,7 @@ package tcg.mtgjson;
 import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.Random;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -37,7 +38,7 @@ public class EditionImporter {
 	void doImport() {
 		if (codes.isEmpty()) {
 			Arrays.stream(client.setList()).map(Set::getCode)
-					// .filter(c -> new Random().nextFloat() < .2)
+					.filter(c -> new Random().nextFloat() < .2)
 					.forEach(code -> codes.add(code));
 			logger.info("Found <" + codes.size() + "> to scan");
 		} else {
