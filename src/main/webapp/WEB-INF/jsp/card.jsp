@@ -36,14 +36,16 @@
 						<span class="mtgsymbol cost">${card.manaCost}</span>
 					</header>
 					<section>
-						<span>${card.type}</span>
+						<p>${card.type}</p>
 						<p>${card.text}</p>
-						<p class="flavor">${card.flavor}</p>
+						<c:if test="${card.flavor !=null}">
+							<p class="flavor">${card.flavor}</p>
+						</c:if>
 						<c:if test="${card.creature}">
-							<span>${card.power}/${card.toughness}</span>
+							<p>${card.power}/${card.toughness}</p>
 						</c:if>
 						<c:if test="${card.planeswalker}">
-							<span>${card.loyalty}</span>
+							<p>${card.loyalty}</p>
 						</c:if>
 					</section>
 					<c:if test="${card.displayOriginal}">

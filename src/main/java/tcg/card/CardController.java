@@ -18,6 +18,7 @@ import tcg.card.formater.CardFormater;
 import tcg.db.dao.CardDao;
 import tcg.db.dbo.Card;
 import tcg.db.dbo.CardPrice;
+import tcg.db.dbo.CardRule;
 import tcg.price.goldfish.MtgGoldFishCrawler;
 import tcg.price.mkm.MkmCrawler;
 
@@ -35,6 +36,9 @@ public class CardController {
 		Card card = session.getMapper(CardDao.class).read(id);
 		card.setText(formater.text(card.getText()));
 		card.setOriginalText(formater.text(card.getOriginalText()));
+		for (CardRule rule : card.getRules()) {
+			rule.setRule(formater.text(rule.getRule()));
+		}
 		card.setManaCost(formater.manaCost(card));
 		card.setFlavor(formater.flavor(card));
 		if (isOldPrice(card)) {
