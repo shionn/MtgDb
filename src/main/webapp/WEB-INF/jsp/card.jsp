@@ -21,7 +21,7 @@
 					</section>
 					<c:if test="${card.flip}">
 						<section>
-							<a href='<spring:url value="/c/${card.linkCardId}"/>'>Other Face</a>
+							<a href='<spring:url value="/c/${card.linkCard.id}"/>'>Other Face</a>
 						</section>
 					</c:if>
 				</article>
@@ -52,6 +52,21 @@
 							<p>${card.loyalty}</p>
 						</c:if>
 					</section>
+					<c:if test="${card.flip}">
+						<article class="portlet left">
+							<header>Other Face</header>
+							<section>
+								<p>${card.linkCard.type}</p>
+								<p>${card.linkCard.text}</p>
+								<c:if test="${card.linkCard.creature}">
+									<p>${card.linkCard.power}/${card.linkCard.toughness}</p>
+								</c:if>
+								<c:if test="${card.linkCard.planeswalker}">
+									<p>${card.linkCard.loyalty}</p>
+								</c:if>
+							</section>
+						</article>
+					</c:if>
 					<c:if test="${card.displayOriginal}">
 						<article class="portlet left">
 							<header>Original</header>

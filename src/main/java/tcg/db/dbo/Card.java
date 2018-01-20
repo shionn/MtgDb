@@ -10,6 +10,7 @@ public class Card {
 
 	private String id;
 	private String linkCardId;
+	private Card linkCard;
 	private String name;
 	private String text;
 	private String originalText;
@@ -220,5 +221,21 @@ public class Card {
 
 	public void setLinkCardId(String linkCardId) {
 		this.linkCardId = linkCardId;
+	}
+
+	public Card getLinkCard() {
+		return linkCard;
+	}
+
+	public void setLinkCard(Card linkCard) {
+		this.linkCard = linkCard;
+	}
+
+	public CardLayout getLayout() {
+		return layout;
+	}
+
+	public void setLayout(CardLayout layout) {
+		this.layout = layout;
 	}
 }
