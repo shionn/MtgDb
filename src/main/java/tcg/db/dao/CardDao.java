@@ -23,6 +23,7 @@ public interface CardDao extends CardFragDao {
 			@Result(column = "id", property = "prices", many = @Many(select = "readPrices")),
 			@Result(column = "id", property = "langs", many = @Many(select = "readLangs")),
 			@Result(column = "id", property = "rules", many = @Many(select = "readRules")),
+			@Result(column = "link_card", property = "linkCardId"),
 			@Result(column = "card", property = "printings", many = @Many(select = "readPrintings")),
 			@Result(column = "edition", property = "edition", one = @One(select = "readEdition")) })
 	Card read(String id);

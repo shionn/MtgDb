@@ -3,6 +3,7 @@ package tcg.db.dao;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
 import tcg.mtgjson.api.Card;
 import tcg.mtgjson.api.ForeignName;
@@ -52,5 +53,8 @@ public interface ImporterDao {
 	@Insert("INSERT INTO card_rule (card, created, rule) "//
 			+ "VALUES (#{c.id}, #{r.date}, #{r.text}) ")
 	int rule(@Param("c") Card card, @Param("r") Ruling rule);
+
+	@Update("UPDATE card SET link_card = #{l.id} WHERE id = #{c.id}")
+	int updateLinkCard(@Param("c") Card card, @Param("l") Card linkCard);
 
 }

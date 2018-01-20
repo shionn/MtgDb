@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 public class Card {
 
 	private String id;
+	private String linkCardId;
 	private String name;
 	private String text;
 	private String originalText;
@@ -21,6 +22,7 @@ public class Card {
 	private String toughness;
 	private int loyalty;
 
+	private CardLayout layout;
 	private Edition edition;
 	private List<CardPrinting> printings;
 	private List<CardPrice> prices = new ArrayList<>();
@@ -70,6 +72,10 @@ public class Card {
 
 	public CardLang lang(Lang lang) {
 		return langs.stream().filter(l -> l.getLang() == lang).findFirst().orElse(null);
+	}
+
+	public boolean isFlip() {
+		return layout == CardLayout.doublefaced || layout == CardLayout.meld;
 	}
 
 	public String getId() {
@@ -206,5 +212,13 @@ public class Card {
 
 	public void setRules(List<CardRule> rules) {
 		this.rules = rules;
+	}
+
+	public String getLinkCardId() {
+		return linkCardId;
+	}
+
+	public void setLinkCardId(String linkCardId) {
+		this.linkCardId = linkCardId;
 	}
 }

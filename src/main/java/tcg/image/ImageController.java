@@ -37,7 +37,12 @@ public class ImageController {
 		if (!file.exists()) {
 			download(filename);
 		}
-		// TODO une image par defaut
+		if (!file.exists()) {
+			try (InputStream is = Thread.currentThread().getContextClassLoader()
+					.getResourceAsStream("img-404.gif")) {
+				return IOUtils.toByteArray(is);
+			}
+		}
 		try (FileInputStream is = new FileInputStream(file)) {
 			return IOUtils.toByteArray(is);
 		}

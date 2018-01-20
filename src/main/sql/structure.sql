@@ -22,6 +22,7 @@ drop table card;
 create table card (
   id             varchar(64)   NOT NULL, -- sha1 setCode + cardName + cardImageName
   card           varchar(64)   NOT NULL, -- sha1 du nom
+  link_card      varchar(64)   NULL,
   edition        varchar(8)    NOT NULL,
   number         varchar(4)    NULL,
   mci_number     varchar(4)    NULL,
@@ -60,7 +61,8 @@ create table card (
   FULLTEXT INDEX name(name),
   FULLTEXT INDEX text(text),
   FULLTEXT INDEX flavor(flavor),
-  CONSTRAINT card_edition FOREIGN KEY (edition) REFERENCES edition(code)
+  CONSTRAINT card_edition FOREIGN KEY (edition)   REFERENCES edition(code)
+  CONSTRAINT link_card    FOREIGN KEY (link_card) REFERENCES card(id)
 ) DEFAULT  CHARSET=utf8;
 
 drop table card_lang;

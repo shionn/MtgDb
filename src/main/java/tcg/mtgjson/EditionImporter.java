@@ -3,7 +3,9 @@ package tcg.mtgjson;
 import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -14,6 +16,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import tcg.db.dao.ImporterDao;
+import tcg.db.dbo.CardLayout;
 import tcg.mtgjson.api.Card;
 import tcg.mtgjson.api.Language;
 import tcg.mtgjson.api.Ruling;
@@ -58,6 +61,16 @@ public class EditionImporter {
 							dao.rule(card, rule);
 						}
 					}
+				}
+				List<Card> doubleFaceds = set.getCards().stream()
+						.filter(c -> c.getLayout() == CardLayout.doublefaced)
+						.collect(Collectors.toList());
+				for (Card card : doubleFaceds) {
+					String backName = card.getNames().stream()
+							.filter(n -> !n.equals(card.getName())).findFirst().get();
+					Card linkCard = doubleFaceds.stream().filter(c -> c.getName().equals(backName))
+							.findFirst().get();
+					dao.updateLinkCard(card, linkCard);
 				}
 				session.commit();
 			}

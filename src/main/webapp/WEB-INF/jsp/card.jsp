@@ -19,7 +19,11 @@
 					<section>
 						<img src='<spring:url value="/c/img/${card.id}.jpg"/>'/>
 					</section>
-					<footer></footer>
+					<c:if test="${card.flip}">
+						<section>
+							<a href='<spring:url value="/c/${card.linkCardId}"/>'>Other Face</a>
+						</section>
+					</c:if>
 				</article>
 				<article class="text portlet">
 					<header>
@@ -52,7 +56,7 @@
 						<article class="portlet left">
 							<header>Original</header>
 							<section>
-								<span>${card.originalType}</span>
+								<p>${card.originalType}</p>
 								<p>${card.originalText}</p>
 							</section>
 						</article>
