@@ -20,6 +20,7 @@ public class MtgJsonClientTest {
 		assertThat(set.getCode()).isEqualTo("UNH");
 
 		assertThat(new MtgJsonClient().set("MPS").getMagicCardsInfoCode().length()).isEqualByComparingTo(6);
+		assertThat(new MtgJsonClient().set("FRF_UGIN").getCode().length()).isEqualByComparingTo(8);
 		assertThat(new MtgJsonClient().set("pFNM").getCards().stream().map(Card::getSource)
 				.filter(Objects::nonNull).distinct().map(s -> s.length()).collect(Collectors.toList()))
 						.containsOnly(24, 129);

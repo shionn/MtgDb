@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class Card {
 
 	private String id;
@@ -15,6 +17,10 @@ public class Card {
 	private String manaCost;
 	private String type;
 	private String originalType;
+	private String power;
+	private String toughness;
+	private int loyalty;
+
 	private Edition edition;
 	private List<CardPrinting> printings;
 	private List<CardPrice> prices = new ArrayList<>();
@@ -53,7 +59,8 @@ public class Card {
 	}
 
 	public boolean isDisplayOriginal() {
-		return !Objects.equals(text, originalText) || !Objects.equals(type, originalType);
+		return !(Objects.equals(text, originalText) && Objects.equals(type, originalType))
+				&& StringUtils.isNotBlank(originalText) && StringUtils.isNotBlank(originalType);
 	}
 
 	public CardPrice getPrice(CardPriceSource source) {
@@ -166,5 +173,29 @@ public class Card {
 
 	public String getOriginalType() {
 		return originalType;
+	}
+
+	public String getPower() {
+		return power;
+	}
+
+	public void setPower(String power) {
+		this.power = power;
+	}
+
+	public String getToughness() {
+		return toughness;
+	}
+
+	public void setToughness(String toughness) {
+		this.toughness = toughness;
+	}
+
+	public int getLoyalty() {
+		return loyalty;
+	}
+
+	public void setLoyalty(int loyalty) {
+		this.loyalty = loyalty;
 	}
 }

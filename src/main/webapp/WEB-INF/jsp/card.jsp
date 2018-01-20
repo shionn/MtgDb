@@ -36,13 +36,24 @@
 						<span class="mtgsymbol cost">${card.manaCost}</span>
 					</header>
 					<section>
+						<span>${card.type}</span>
 						<p>${card.text}</p>
 						<p class="flavor">${card.flavor}</p>
+						<c:if test="${card.creature}">
+							<span>${card.power}/${card.toughness}</span>
+						</c:if>
+						<c:if test="${card.planeswalker}">
+							<span>${card.loyalty}</span>
+						</c:if>
 					</section>
 					<c:if test="${card.displayOriginal}">
-						<section class="original">
-							<p>${card.originalText}</p>
-						</section>
+						<article class="portlet left">
+							<header>Original</header>
+							<section>
+								<span>${card.originalType}</span>
+								<p>${card.originalText}</p>
+							</section>
+						</article>
 					</c:if>
 				</article>
 				<article class="prices portlet">

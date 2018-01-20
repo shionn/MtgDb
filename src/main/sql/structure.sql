@@ -4,7 +4,7 @@ drop table card_price;
 drop table card;
 drop table edition;
 create table edition (
-  code                  varchar(7)  NOT NULL,
+  code                  varchar(8)  NOT NULL,
   mci_code              varchar(7)  NULL,
   name                  varchar(64) NOT NULL,
   release_date          date        NOT NULL,
@@ -22,7 +22,7 @@ drop table card;
 create table card (
   id             varchar(64)   NOT NULL, -- sha1 setCode + cardName + cardImageName
   card           varchar(64)   NOT NULL, -- sha1 du nom
-  edition        varchar(7)    NOT NULL,
+  edition        varchar(8)    NOT NULL,
   number         varchar(4)    NULL,
   mci_number     varchar(4)    NULL,
   multiverse_id  int(11),
