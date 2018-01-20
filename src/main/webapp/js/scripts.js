@@ -30,7 +30,6 @@ $(function() {
 			$(this).parent().find("li.select a").doClick();
 		} else if ($(this).val().length >= 3) {
 			var parent = $(this).parent(".autocomplete");
-			var url = $(this).attr("data-href")
 			if (_previous) _previous.abort();
 			_previous = $.ajax({
 				url : $(this).attr("data-source") + "?" + $(this).attr("name") + "=" + $(this).val(),
@@ -57,4 +56,5 @@ $(function() {
 
 $(function() {
 	$("header nav input").first().focus();
+	$("body .advanced-search input").first().focus();
 });

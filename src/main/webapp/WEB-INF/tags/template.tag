@@ -11,20 +11,21 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <link rel="stylesheet" href="<spring:url value="/css/style.css"/>" />
-<title>${title}</title>
+<title>MtgDb - ${title} - by Shionn</title>
 </head>
 <body>
 	<header>
 		<nav class="container">
 			<ul >
 				<li>
-					<form action='<spring:url value="/c"/>'>
+					<form action='<spring:url value="/s"/>'>
 						<span class="autocomplete">
-							<input type="text" name="name" data-source="<spring:url value="/s"/>"
-								data-href='<spring:url value="/c/"/>'
-								autocomplete="off"/>
+							<input type="text" name="name" placeholder="Quick Search" data-source="<spring:url value="/s"/>" autocomplete="off"/>
 						</span>
 					</form>
+				</li>
+				<li>
+					<a href='<spring:url value="/as"/>'>Advanced Search</a>
 				</li>
 			</ul>
 		</nav>

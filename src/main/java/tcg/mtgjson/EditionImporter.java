@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component;
 
 import tcg.db.dao.ImporterDao;
 import tcg.db.dbo.CardLayout;
+import tcg.db.dbo.CardTypeClass;
 import tcg.mtgjson.api.Card;
 import tcg.mtgjson.api.Language;
 import tcg.mtgjson.api.Ruling;
@@ -41,8 +43,7 @@ public class EditionImporter {
 	void doImport() {
 		if (codes.isEmpty()) {
 			Arrays.stream(client.setList()).map(Set::getCode)
-					.filter(c -> new Random().nextFloat() < .2)
-					.forEach(code -> codes.add(code));
+					.filter(c -> new Random().nextFloat() < .2).forEach(code -> codes.add(code));
 			logger.info("Found <" + codes.size() + "> to scan");
 		} else {
 			Set set = client.set(codes.pop());
@@ -55,6 +56,22 @@ public class EditionImporter {
 					card.getForeignNames().stream()
 							.filter(name -> name.getLanguage() == Language.fr)
 							.forEach(name -> dao.cardName(name, card));
+					dao.deleteTypes(card.getId());
+					if (card.getSupertypes() != null) {
+						for (String value : card.getSupertypes()) {
+							dao.type(card, CardTypeClass.SuperType, value);
+						}
+					}
+					if (card.getSubtypes() != null) {
+						for (String value : card.getTypes()) {
+							dao.type(card, CardTypeClass.Type, value);
+						}
+					}
+					if (card.getSubtypes() != null) {
+						for (String value : card.getSubtypes()) {
+							dao.type(card, CardTypeClass.SubType, value);
+						}
+					}
 					dao.deleteRules(card.getId());
 					if (card.getRulings() != null) {
 						for (Ruling rule : card.getRulings()) {
@@ -66,11 +83,15 @@ public class EditionImporter {
 						.filter(c -> c.getLayout() == CardLayout.doublefaced)
 						.collect(Collectors.toList());
 				for (Card card : doubleFaceds) {
-					String backName = card.getNames().stream()
-							.filter(n -> !n.equals(card.getName())).findFirst().get();
-					Card linkCard = doubleFaceds.stream().filter(c -> c.getName().equals(backName))
-							.findFirst().get();
-					dao.updateLinkCard(card, linkCard);
+					try {
+						String backName = card.getNames().stream()
+								.filter(n -> !n.equals(card.getName())).findFirst().get();
+						Card linkCard = doubleFaceds.stream()
+								.filter(c -> c.getName().equals(backName)).findFirst().get();
+						dao.updateLinkCard(card, linkCard);
+					} catch (NoSuchElementException e) {
+						logger.error("No Link card for : " + card.getName());
+					}
 				}
 				session.commit();
 			}

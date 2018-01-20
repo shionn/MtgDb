@@ -7,6 +7,8 @@ update edition set goldfish_name = 'Arena Promos'                 where code='pA
 update edition set goldfish_name = 'JSS MSS Promos'               where code='pSUS';
 update edition set goldfish_name = 'Conspiracy'                   where code='CNS';
 update edition set goldfish_name = 'Prerelease Cards'             where code='pPRE';
+update edition set goldfish_name = 'Amonkhet Invocations'         where code='MPS_AKH';
+
 
 update edition set mkm_name = 'Junior Super Series Promos' where code = 'pSUS';
 update edition set mkm_name = 'Player Rewards Promos'      where code = 'pMPR';

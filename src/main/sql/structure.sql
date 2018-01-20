@@ -76,11 +76,20 @@ create table card_lang (
   CONSTRAINT card_lang FOREIGN KEY (id) REFERENCES card(id)
 ) DEFAULT  CHARSET=utf8;
 
+drop table card_type;
+CREATE TABLE card_type (
+  card      varchar(64) NOT NULL,
+  type      varchar(32) NOT NULL,
+  value     varchar(32) NOT NULL,
+  PRIMARY  KEY (card, type, value),
+  CONSTRAINT  type_card    FOREIGN KEY (card)    REFERENCES card(id)
+) DEFAULT CHARSET=utf8;
+
 drop table card_price;
 create table card_price (
   id            varchar(64)   NOT NULL,
   source        varchar(32)    NOT NULL,
-  link          varchar(128),
+  link          varchar(256),
   price         decimal(10,2),
   price_date    datetime,
   update_date   datetime,

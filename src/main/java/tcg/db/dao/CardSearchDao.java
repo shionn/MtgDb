@@ -26,4 +26,12 @@ public interface CardSearchDao extends CardFragDao {
 			@Result(column = "id", property = "langs", many = @Many(select = "readLangs")) })
 	List<Card> quick(String name);
 
+	// @Select("<script>SELECT * "
+	// + "FROM card AS c "
+	// + "WHERE 1 "
+	// + "<foreach item='item' collection='' open='' separator=',' close=''>"
+	// + "</foreach>" + "</script>")
+	//
+	// List<Card> search(List<String> types);
+
 }

@@ -20,7 +20,7 @@ import tcg.db.dbo.CardPriceSource;
 @Component
 public class MtgGoldFishCrawler {
 
-	private static final List<String> IGNORED_EDITION = Arrays.asList("CEI");
+	private static final List<String> IGNORED_EDITION = Arrays.asList("CEI", "pMEI");
 
 	public List<CardPrice> price(Card card) {
 		List<CardPrice> prices = new ArrayList<CardPrice>();
@@ -91,7 +91,7 @@ public class MtgGoldFishCrawler {
 	}
 
 	private String formatName(Card card) {
-		return card.getName().replaceAll("[\".',]", " ");
+		return card.getName().replaceAll("[\".,]", " ").replaceAll("'", "");
 	}
 
 }

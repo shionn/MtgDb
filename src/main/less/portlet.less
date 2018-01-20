@@ -27,18 +27,16 @@ article.portlet {
 	}
 
 	& > section {
-		 & > p, & > ul {
+		& > p {
+			text-align: justify;
+		}
+		& > p, & > ul, & > form {
 			margin : 7px;
 		}
 		& > img {
 			padding : 7px;
 		}
 	}
-
-//	& > section, & > article {
-//		margin : 0 -5px;
-//		padding: 2px 5px;
-//	}
 
 	&.left {
 		flex-direction : row;
@@ -51,7 +49,8 @@ article.portlet {
 			transform: scale(-1);
 		}
 		& > section {
-			display : inline-block;
+			display : block;
+			flex-grow: 1;
 		}
 	}
 }

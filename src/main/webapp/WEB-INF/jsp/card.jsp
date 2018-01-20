@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t"%>
 <t:template>
-	<jsp:attribute name="title">MtgDb - ${card.name} - by Shionn</jsp:attribute>
+	<jsp:attribute name="title">${card.name}</jsp:attribute>
 	<jsp:attribute name="content">
 		<article class="main container card">
 			<section class="editions">

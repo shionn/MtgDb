@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
 
+import tcg.db.dbo.CardTypeClass;
 import tcg.mtgjson.api.Card;
 import tcg.mtgjson.api.ForeignName;
 import tcg.mtgjson.api.Ruling;
@@ -47,6 +48,13 @@ public interface ImporterDao {
 			+ "lang = #{n.language}, multiverse_id = #{n.multiverseid}, name = #{n.name}")
 	int cardName(@Param("n") ForeignName name, @Param("c") Card card);
 
+	@Delete("DELETE FROM card_type WHERE card = #{id}")
+	int deleteTypes(String id);
+
+	@Insert("INSERT INTO card_type (card, type, value) "//
+			+ "VALUES (#{c.id}, #{t}, #{v}) ")
+	int type(@Param("c") Card card, @Param("t") CardTypeClass type, @Param("v") String value);
+
 	@Delete("DELETE FROM card_rule WHERE card = #{id}")
 	int deleteRules(String id);
 
@@ -56,5 +64,6 @@ public interface ImporterDao {
 
 	@Update("UPDATE card SET link_card = #{l.id} WHERE id = #{c.id}")
 	int updateLinkCard(@Param("c") Card card, @Param("l") Card linkCard);
+
 
 }

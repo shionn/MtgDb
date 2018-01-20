@@ -27,6 +27,7 @@
 	<mappers>
 		<mapper class="tcg.db.dao.CardDao"/>
 		<mapper class="tcg.db.dao.CardSearchDao"/>
+		<mapper class="tcg.db.dao.CardTypeDao"/>
 		<mapper class="tcg.db.dao.ImporterDao"/>
 	</mappers>
 </configuration>
