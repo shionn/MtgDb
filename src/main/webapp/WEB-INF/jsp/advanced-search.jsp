@@ -31,6 +31,9 @@
 							<c:forEach items="${cards}" var="c">
 								<tr>
 									<td><a href='<spring:url value="/c/${c.id}"/>'>${c.name}</a></td>
+									<td><a href='<spring:url value="/c/${c.id}"/>'>${c.lang('fr').name}</a></td>
+									<td>${c.type}</td>
+									<td>${c.manaCost}</td>
 								</tr>
 							</c:forEach>
 						</table>

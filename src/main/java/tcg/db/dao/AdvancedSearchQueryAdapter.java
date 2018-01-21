@@ -14,7 +14,7 @@ import tcg.search.FilterType;
 public class AdvancedSearchQueryAdapter {
 
 	public String search(@Param("types") List<Filter> filters) {
-		SQL sql = new SQL().SELECT("c.id").SELECT("c.name").SELECT("c.card").FROM("card AS c");
+		SQL sql = new SQL().SELECT("c.id, c.name, c.card, c.mana_cost, c.type").FROM("card AS c");
 		int i=0;
 		for (String type : values(filters, FilterType.Type)) {
 			sql.INNER_JOIN("card_type AS t" + i + " ON c.id = t" + i + ".id AND t" + i + ".type='" + CardTypeClass.Type
@@ -67,6 +67,13 @@ public class AdvancedSearchQueryAdapter {
 			}
 			sql.WHERE("c.colors='" + color + "'");
 		}
+		for (String name : values(filters, FilterType.Name)) {
+			sql.WHERE("c.name LIKE '%" + name + "%'");
+		}
+		for (String text : values(filters, FilterType.Text)) {
+			sql.WHERE("c.text LIKE '%" + text + "%'");
+		}
+
 		sql.ORDER_BY("name").GROUP_BY("card");
 		return sql.toString() + " LIMIT 1000";
 	}

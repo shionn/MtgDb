@@ -18,12 +18,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
+import tcg.card.formater.CardFormater;
 import tcg.db.dao.CardSearchDao;
 import tcg.db.dbo.Card;
 
 @Controller
 @SessionScope
 public class AdvancedSearchController {
+
+	private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z]$");
 
 	private static final Pattern POWER_AND_TOUGHNESS_PATTERN = Pattern.compile("^[0-9*]+/[0-9*]+$");
 
@@ -52,11 +55,15 @@ public class AdvancedSearchController {
 	@Autowired
 	private SqlSession session;
 
+	@Autowired
+	private CardFormater formater;
+
 	@RequestMapping(path = "/as", method = RequestMethod.GET)
 	public ModelAndView view() {
 		List<Card> cards = new ArrayList<>();
 		if (!filters.isEmpty()) {
 			cards = session.getMapper(CardSearchDao.class).search(filters);
+			cards.stream().forEach(c -> c.setManaCost(formater.manaCost(c)));
 		}
 		return new ModelAndView("advanced-search").addObject("filters", filters).addObject("cards", cards);
 	}
@@ -67,6 +74,10 @@ public class AdvancedSearchController {
 		if (legal(filter)) {
 			if (!filters.remove(filter)) {
 				this.filters.add(filter);
+			}
+			if (filters.size() > 100) {
+				filters.clear();
+				throw new IllegalArgumentException("Max 100 Filters");
 			}
 			return "redirect:/as";
 		}
@@ -86,6 +97,9 @@ public class AdvancedSearchController {
 			return CMC_PATTERN.matcher(filter.getValue()).find();
 		case PowerAndToughness:
 			return POWER_AND_TOUGHNESS_PATTERN.matcher(filter.getValue()).find();
+		case Name:
+		case Text:
+			return NAME_PATTERN.matcher(filter.getValue()).find();
 		case Color:
 			return COLORS.contains(filter.getValue());
 		case Type:
@@ -120,6 +134,10 @@ public class AdvancedSearchController {
 				.map(t -> new Filter(FilterType.Color, t)).collect(Collectors.toList()));
 		filters.addAll(allKeyWord.stream().filter(t -> StringUtils.startsWithIgnoreCase(t, filter))
 				.map(t -> new Filter(FilterType.KeyWord, t)).collect(Collectors.toList()));
+		if (NAME_PATTERN.matcher(filter).find()) {
+			filters.add(new Filter(FilterType.Name, filter));
+			filters.add(new Filter(FilterType.Text, filter));
+		}
 		return new ModelAndView("advanced-search-autocomplete").addObject("filters", filters);
 	}
 

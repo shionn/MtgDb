@@ -30,6 +30,8 @@ public interface CardSearchDao extends CardFragDao {
 	List<Card> quick(String name);
 
 	@SelectProvider(type = AdvancedSearchQueryAdapter.class, method = "search")
+	@Results({ @Result(column = "id", property = "id"),
+			@Result(column = "id", property = "langs", many = @Many(select = "readLangs")) })
 	List<Card> search(@Param("types") List<Filter> filters);
 
 }
