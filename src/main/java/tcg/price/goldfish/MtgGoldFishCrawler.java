@@ -23,7 +23,7 @@ import tcg.db.dbo.Edition.Foil;
 public class MtgGoldFishCrawler {
 	private Logger logger = LoggerFactory.getLogger(MtgGoldFishCrawler.class);
 
-	private static final List<String> IGNORED_EDITION = Arrays.asList("CEI", "pMEI");
+	private static final List<String> IGNORED_EDITION = Arrays.asList("CEI");
 
 	public List<CardPrice> price(Card card) {
 		List<CardPrice> prices = new ArrayList<CardPrice>();

@@ -21,6 +21,8 @@ import tcg.db.dbo.CardPriceSource;
 @Component
 public class MkmCrawler {
 
+	private static final List<String> IGNORED_EDITION = Arrays.asList("pPRE");
+
 	public List<CardPrice> price(Card card) {
 		CardPrice paper = retrieve(card, CardPriceSource.mkm);
 		CardPrice foil = retrieve(card, CardPriceSource.mkmFoil);
@@ -49,7 +51,7 @@ public class MkmCrawler {
 	}
 
 	private boolean isIgnored(Card card) {
-		return card.getEdition().isOnlineOnly();
+		return card.getEdition().isOnlineOnly() || IGNORED_EDITION.contains(card.getEdition().getCode());
 	}
 
 	private CardPrice retrieve(Card card, CardPriceSource source) {

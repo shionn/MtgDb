@@ -28,6 +28,8 @@ $(function() {
 			$(this).parent().find("li.select").next().addClass("select").prev().removeClass("select");
 		} else if (e.keyCode == 13) {
 			$(this).parent().find("li.select a").doClick();
+		} else if (e.keyCode == 27) {
+			$(this).parent().removeClass("open")
 		} else if ($(this).val().length >= $(this).attr("data-length")) {
 			var parent = $(this).parent(".autocomplete");
 			if (_previous) _previous.abort();
