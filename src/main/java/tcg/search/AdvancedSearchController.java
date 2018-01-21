@@ -1,6 +1,7 @@
 package tcg.search;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -27,6 +28,8 @@ public class AdvancedSearchController {
 	private static final Pattern POWER_AND_TOUGHNESS_PATTERN = Pattern.compile("^[0-9*]+/[0-9*]+$");
 
 	private static final Pattern CMC_PATTERN = Pattern.compile("^\\d+$");
+
+	private static final List<String> COLORS = Arrays.asList("White", "Blue", "Black", "Red", "Green");
 
 	@Autowired
 	@Qualifier("Type")
@@ -83,6 +86,8 @@ public class AdvancedSearchController {
 			return CMC_PATTERN.matcher(filter.getValue()).find();
 		case PowerAndToughness:
 			return POWER_AND_TOUGHNESS_PATTERN.matcher(filter.getValue()).find();
+		case Color:
+			return COLORS.contains(filter.getValue());
 		case Type:
 			return allTypes.contains(filter.getValue());
 		case SubType:
@@ -111,6 +116,8 @@ public class AdvancedSearchController {
 				.map(t -> new Filter(FilterType.Type, t)).collect(Collectors.toList()));
 		filters.addAll(allSubTypes.stream().filter(t -> StringUtils.startsWithIgnoreCase(t, filter))
 				.map(t -> new Filter(FilterType.SubType, t)).collect(Collectors.toList()));
+		filters.addAll(COLORS.stream().filter(t -> StringUtils.startsWithIgnoreCase(t, filter))
+				.map(t -> new Filter(FilterType.Color, t)).collect(Collectors.toList()));
 		filters.addAll(allKeyWord.stream().filter(t -> StringUtils.startsWithIgnoreCase(t, filter))
 				.map(t -> new Filter(FilterType.KeyWord, t)).collect(Collectors.toList()));
 		return new ModelAndView("advanced-search-autocomplete").addObject("filters", filters);

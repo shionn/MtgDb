@@ -408,7 +408,7 @@ public class Card {
 			if (colors.contains("Red")) {
 				colorId += "R";
 			}
-			if (colors.contains("Grren")) {
+			if (colors.contains("Green")) {
 				colorId += "G";
 			}
 		}

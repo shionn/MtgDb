@@ -47,8 +47,28 @@ public class AdvancedSearchQueryAdapter {
 					.map(s -> "c.power='" + s[0] + "' AND c.toughness='" + s[1] + "'").collect(Collectors.toList());
 			sql.WHERE('(' + StringUtils.join(conditions, " OR ") + ')');
 		}
+		List<String> colors = values(filters, FilterType.Color);
+		if (!colors.isEmpty()) {
+			String color = "";
+			if (colors.contains("White")) {
+				color += "W";
+			}
+			if (colors.contains("Blue")) {
+				color += "U";
+			}
+			if (colors.contains("Black")) {
+				color += "B";
+			}
+			if (colors.contains("Red")) {
+				color += "R";
+			}
+			if (colors.contains("Green")) {
+				color += "G";
+			}
+			sql.WHERE("c.colors='" + color + "'");
+		}
 		sql.ORDER_BY("name").GROUP_BY("card");
-		return sql.toString();
+		return sql.toString() + " LIMIT 1000";
 	}
 
 	private List<String> values(List<Filter> filters, FilterType type) {
