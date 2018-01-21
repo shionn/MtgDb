@@ -3,6 +3,10 @@ package tcg.db.dbo;
 import java.util.Date;
 
 public class Edition {
+	public enum Foil {
+		both, onlyfoil, nofoil
+	}
+
 	private String code;
 	private String mciCode;
 	private String name;
@@ -11,6 +15,7 @@ public class Edition {
 	private String goldfishName;
 	private int mkmId;
 	private boolean onlineOnly;
+	private Foil foil;
 
 	public String getCode() {
 		return code;
@@ -74,5 +79,13 @@ public class Edition {
 
 	public void setOnlineOnly(boolean onlineOnly) {
 		this.onlineOnly = onlineOnly;
+	}
+
+	public Foil getFoil() {
+		return foil;
+	}
+
+	public void setFoil(Foil foil) {
+		this.foil = foil;
 	}
 }

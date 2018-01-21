@@ -1,6 +1,9 @@
 
 drop table card_lang;
 drop table card_price;
+drop table card_keyword;
+drop table card_type;
+drop table card_rule;
 drop table card;
 drop table edition;
 create table edition (
@@ -12,12 +15,16 @@ create table edition (
   mkm_name              varchar(64) NULL, -- non mis à jour automatiquement pour permettre l'édition à postiory
   mkm_id                int         NULL,
   online_only           boolean     NOT NULL,
+  foil                  varchar(32) NOT NULL default 'both',
   PRIMARY  KEY (code),
   INDEX        name(name)
 ) DEFAULT CHARSET=utf8;
 
 drop table card_lang;
 drop table card_price;
+drop table card_keyword;
+drop table card_type;
+drop table card_rule;
 drop table card;
 create table card (
   id             varchar(64)   NOT NULL, -- sha1 setCode + cardName + cardImageName
@@ -105,3 +112,10 @@ CREATE TABLE card_rule (
   rule      TEXT        NOT NULL ,
   CONSTRAINT  ruling_card    FOREIGN KEY (id)    REFERENCES card(id)
 ) DEFAULT CHARSET=utf8;
+
+drop table card_keyword;
+CREATE TABLE card_keyword (
+  keyword varchar(32) not null,
+  fr      varchar(32),
+  primary key (keyword)
+);
