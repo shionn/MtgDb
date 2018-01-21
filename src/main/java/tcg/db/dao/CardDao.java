@@ -46,7 +46,7 @@ public interface CardDao extends CardFragDao {
 
 	@Select("SELECT * " //
 			+ "FROM card_rule " //
-			+ "WHERE card = #{id}")
+			+ "WHERE id = #{id}")
 	List<CardRule> readRules(String id);
 
 	@Select("SELECT * FROM edition WHERE code = #{code}")

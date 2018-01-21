@@ -61,7 +61,7 @@ create table card (
   FULLTEXT INDEX name(name),
   FULLTEXT INDEX text(text),
   FULLTEXT INDEX flavor(flavor),
-  CONSTRAINT card_edition FOREIGN KEY (edition)   REFERENCES edition(code)
+  CONSTRAINT card_edition FOREIGN KEY (edition)   REFERENCES edition(code),
   CONSTRAINT link_card    FOREIGN KEY (link_card) REFERENCES card(id)
 ) DEFAULT  CHARSET=utf8;
 
@@ -78,11 +78,11 @@ create table card_lang (
 
 drop table card_type;
 CREATE TABLE card_type (
-  card      varchar(64) NOT NULL,
+  id        varchar(64) NOT NULL,
   type      varchar(32) NOT NULL,
   value     varchar(32) NOT NULL,
-  PRIMARY  KEY (card, type, value),
-  CONSTRAINT  type_card    FOREIGN KEY (card)    REFERENCES card(id)
+  PRIMARY  KEY (id, type, value),
+  CONSTRAINT card_type FOREIGN KEY (id) REFERENCES card(id)
 ) DEFAULT CHARSET=utf8;
 
 drop table card_price;
@@ -95,13 +95,13 @@ create table card_price (
   update_date   datetime,
 
   PRIMARY  KEY (id, source),
-  CONSTRAINT card_price FOREIGN KEY (id) REFERENCES card(id)
+  CONSTRAINT card_price FOREIGN KEY (id)   REFERENCES card(id)
 ) DEFAULT  CHARSET=utf8;
 
 drop table card_rule;
 CREATE TABLE card_rule (
-  card      varchar(64) NOT NULL ,
+  id        varchar(64) NOT NULL ,
   created   DATE        NOT NULL ,
   rule      TEXT        NOT NULL ,
-  CONSTRAINT  ruling_card    FOREIGN KEY (card)    REFERENCES card(id)
+  CONSTRAINT  ruling_card    FOREIGN KEY (id)    REFERENCES card(id)
 ) DEFAULT CHARSET=utf8;

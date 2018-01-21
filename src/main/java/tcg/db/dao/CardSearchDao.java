@@ -3,6 +3,7 @@ package tcg.db.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Many;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -26,12 +27,13 @@ public interface CardSearchDao extends CardFragDao {
 			@Result(column = "id", property = "langs", many = @Many(select = "readLangs")) })
 	List<Card> quick(String name);
 
-	// @Select("<script>SELECT * "
-	// + "FROM card AS c "
-	// + "WHERE 1 "
-	// + "<foreach item='item' collection='' open='' separator=',' close=''>"
-	// + "</foreach>" + "</script>")
-	//
-	// List<Card> search(List<String> types);
+	/*		+ "FROM card AS c " //
+			+ "<foreach item='type' index='i' collection='#{types}' open='' separator='' close=''>"
+			+ "INNER JOIN card_type AS t${i} ON t${i}.card = c.id AND t${i}.type = 'type' AND t${i} = #{item} "//
+			+ "</foreach>" //
+			+ "WHERE 1 " //
+			+ "</script>")
+
+	List<Card> search(@Param("types") List<String> types);*/
 
 }

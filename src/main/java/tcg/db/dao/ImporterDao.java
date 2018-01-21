@@ -48,17 +48,17 @@ public interface ImporterDao {
 			+ "lang = #{n.language}, multiverse_id = #{n.multiverseid}, name = #{n.name}")
 	int cardName(@Param("n") ForeignName name, @Param("c") Card card);
 
-	@Delete("DELETE FROM card_type WHERE card = #{id}")
+	@Delete("DELETE FROM card_type WHERE id = #{id}")
 	int deleteTypes(String id);
 
-	@Insert("INSERT INTO card_type (card, type, value) "//
+	@Insert("INSERT INTO card_type (id, type, value) "//
 			+ "VALUES (#{c.id}, #{t}, #{v}) ")
 	int type(@Param("c") Card card, @Param("t") CardTypeClass type, @Param("v") String value);
 
-	@Delete("DELETE FROM card_rule WHERE card = #{id}")
+	@Delete("DELETE FROM card_rule WHERE id = #{id}")
 	int deleteRules(String id);
 
-	@Insert("INSERT INTO card_rule (card, created, rule) "//
+	@Insert("INSERT INTO card_rule (id, created, rule) "//
 			+ "VALUES (#{c.id}, #{r.date}, #{r.text}) ")
 	int rule(@Param("c") Card card, @Param("r") Ruling rule);
 
