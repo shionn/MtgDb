@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import tcg.card.formater.CardFormater;
 import tcg.db.dao.CardSearchDao;
 import tcg.db.dbo.Card;
+import tcg.db.dbo.Edition;
 
 @Controller
 @SessionScope
@@ -50,6 +51,10 @@ public class AdvancedSearchController {
 	@Qualifier("KeyWord")
 	private List<String> allKeyWord;
 
+	@Autowired
+	@Qualifier("Edition")
+	private List<Edition> allEditions;
+
 	private List<Filter> filters = new ArrayList<>();
 
 	@Autowired
@@ -70,7 +75,7 @@ public class AdvancedSearchController {
 
 	@RequestMapping(path = "/as/{type}/{value:.*}", method = RequestMethod.GET)
 	public String addFilter(@PathVariable("type") FilterType type, @PathVariable("value") String value) {
-		Filter filter = new Filter(type, value);
+		Filter filter = buildFilter(type, value);
 		if (legal(filter)) {
 			if (!filters.remove(filter)) {
 				this.filters.add(filter);
@@ -84,6 +89,16 @@ public class AdvancedSearchController {
 		throw new IllegalArgumentException(value);
 	}
 
+	private Filter buildFilter(FilterType type, String value) {
+		if (type == FilterType.Edition) {
+			return new Filter(allEditions.stream().filter(e -> StringUtils.equalsIgnoreCase(e.getCode(), value))
+					.findFirst().orElseThrow(() -> {
+						throw new IllegalArgumentException(value);
+					}));
+		}
+		return new Filter(type, value);
+	}
+
 	/**
 	 * Grosse finte
 	 */
@@ -91,6 +106,7 @@ public class AdvancedSearchController {
 	public String addFilter(@PathVariable("p") String p, @PathVariable("t") String t) {
 		return addFilter(FilterType.PowerAndToughness, p + '/' + t);
 	}
+
 	private boolean legal(Filter filter) {
 		switch (filter.getType()) {
 		case ConvertedManaCost:
@@ -110,6 +126,8 @@ public class AdvancedSearchController {
 			return allSuperTypes.contains(filter.getValue());
 		case KeyWord:
 			return allKeyWord.contains(filter.getValue());
+		case Edition:
+			return filter.getDisplay() != null;
 		default:
 			return false;
 		}
@@ -134,6 +152,8 @@ public class AdvancedSearchController {
 				.map(t -> new Filter(FilterType.SubType, t)).collect(Collectors.toList()));
 		filters.addAll(allKeyWord.stream().filter(t -> StringUtils.startsWithIgnoreCase(t, filter))
 				.map(t -> new Filter(FilterType.KeyWord, t)).collect(Collectors.toList()));
+		filters.addAll(allEditions.stream().filter(e -> StringUtils.startsWithIgnoreCase(e.getName(), filter))
+				.map(e -> new Filter(e)).collect(Collectors.toList()));
 		if (NAME_PATTERN.matcher(filter).find()) {
 			filters.add(new Filter(FilterType.Name, filter));
 			filters.add(new Filter(FilterType.Text, filter));

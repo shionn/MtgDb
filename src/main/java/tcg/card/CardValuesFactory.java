@@ -11,7 +11,9 @@ import org.springframework.web.context.annotation.ApplicationScope;
 
 import tcg.db.dao.CardKeywordDao;
 import tcg.db.dao.CardTypeDao;
+import tcg.db.dao.EditionDao;
 import tcg.db.dbo.CardTypeClass;
+import tcg.db.dbo.Edition;
 
 @Component
 public class CardValuesFactory {
@@ -48,6 +50,14 @@ public class CardValuesFactory {
 	public List<String> keyWords() {
 		try (SqlSession session = factory.openSession()) {
 			return session.getMapper(CardKeywordDao.class).list();
+		}
+	}
+
+	@Bean(name = "Editions")
+	@ApplicationScope
+	public List<Edition> editions() {
+		try (SqlSession session = factory.openSession()) {
+			return session.getMapper(EditionDao.class).list();
 		}
 	}
 

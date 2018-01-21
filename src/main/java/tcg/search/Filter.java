@@ -1,13 +1,22 @@
 package tcg.search;
 
+import tcg.db.dbo.Edition;
+
 public class Filter {
 
 	private String value;
 	private FilterType type;
+	private String display;
 
 	public Filter(FilterType type, String value) {
 		this.type = type;
 		this.value = value;
+	}
+
+	public Filter(Edition e) {
+		this.type = FilterType.Edition;
+		this.value = e.getCode();
+		this.display = e.getName();
 	}
 
 	public FilterType getType() {
@@ -44,6 +53,22 @@ public class Filter {
 		} else if (!value.equals(other.value))
 			return false;
 		return true;
+	}
+
+	public String getDisplay() {
+		return display == null ? value : display;
+	}
+
+	public void setDisplay(String display) {
+		this.display = display;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
+	public void setType(FilterType type) {
+		this.type = type;
 	}
 
 }
