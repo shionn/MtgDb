@@ -2,20 +2,26 @@
 update edition set goldfish_name = mkm_name where code = 'CMD';
 
 update edition set goldfish_name = 'Coldsnap Theme Deck Reprints' where code='CST';
-update edition set goldfish_name = 'Magic Player Rewards'		 where code='pMPR';
-update edition set goldfish_name = 'Arena Promos'				 where code='pARL';
-update edition set goldfish_name = 'JSS MSS Promos'			   where code='pSUS';
-update edition set goldfish_name = 'Conspiracy'				   where code='CNS';
-update edition set goldfish_name = 'Prerelease Cards'			 where code='pPRE';
-update edition set goldfish_name = 'Amonkhet Invocations'		 where code='MPS_AKH';
+update edition set goldfish_name = 'Magic Player Rewards'         where code='pMPR';
+update edition set goldfish_name = 'Arena Promos'                 where code='pARL';
+update edition set goldfish_name = 'JSS MSS Promos'               where code='pSUS';
+update edition set goldfish_name = 'Conspiracy'                   where code='CNS';
+update edition set goldfish_name = 'Prerelease Cards'             where code='pPRE';
+update edition set goldfish_name = 'Amonkhet Invocations'         where code='MPS_AKH';
 
+update edition set mkm_name = 'Junior Super Series Promos'  where code = 'pSUS';
+update edition set mkm_name = 'Player Rewards Promos'       where code = 'pMPR';
+update edition set mkm_name = 'Arena League Promos'         where code = 'pARL';
 
-update edition set mkm_name = 'Junior Super Series Promos' where code = 'pSUS';
-update edition set mkm_name = 'Player Rewards Promos'	  where code = 'pMPR';
-update edition set mkm_name = 'Arena League Promos'		where code = 'pARL';
+update edition set foil = 'nofoil' where code in('PC2', 'HOP');
+update edition set foil = 'nofoil' where code = 'POR';
+update edition set foil = 'nofoil' where code in('2ED', '5ED');
 
-
-INSERT INTO card_keyword (keyword, fr ) values ('awaken',                   'eveil'),
+delete from card_keyword;
+INSERT INTO card_keyword (keyword, fr ) values ('afflict',                  'affliction');
+INSERT INTO card_keyword (keyword, fr ) values ('ascend',                   'ascension');
+INSERT INTO card_keyword (keyword, fr ) values ('awaken',                   'eveil');
+INSERT INTO card_keyword (keyword, fr ) values ('battalion',                'bataillon');
 INSERT INTO card_keyword (keyword, fr ) values ('battle cry',               'cri de guerre');
 INSERT INTO card_keyword (keyword, fr ) values ('bestow',                   'grâce');
 INSERT INTO card_keyword (keyword, fr ) values ('bloodrush',                'coup de sang');
@@ -33,13 +39,19 @@ INSERT INTO card_keyword (keyword, fr ) values ('devoid',                   'car
 INSERT INTO card_keyword (keyword, fr ) values ('devotion',                 'devotion');
 INSERT INTO card_keyword (keyword, fr ) values ('delirium',                 'delire');
 INSERT INTO card_keyword (keyword, fr ) values ('delve',                    'fouille');
+INSERT INTO card_keyword (keyword, fr ) values ('dethrone',                 null);
+INSERT INTO card_keyword (keyword, fr ) values ('embalm',                   'embaumement');
+INSERT INTO card_keyword (keyword, fr ) values ('enrage',                   'rage');
 INSERT INTO card_keyword (keyword, fr ) values ('evoke',                    null);
 INSERT INTO card_keyword (keyword, fr ) values ('escalate',                 'intensification');
+INSERT INTO card_keyword (keyword, fr ) values ('eternalize',               'eternalisation');
 INSERT INTO card_keyword (keyword, fr ) values ('exalted',                  'exaltation');
+INSERT INTO card_keyword (keyword, fr ) values ('exert',                    'surmener');
 INSERT INTO card_keyword (keyword, fr ) values ('exploit',                  'exploitation');
 INSERT INTO card_keyword (keyword, fr ) values ('explores',                 'explore');
 INSERT INTO card_keyword (keyword, fr ) values ('fabricate',                'fabrication');
 INSERT INTO card_keyword (keyword, fr ) values ('ferocious',                'feocite');
+INSERT INTO card_keyword (keyword, fr ) values ('first strike',            'initiative');
 INSERT INTO card_keyword (keyword, fr ) values ('flash',                    'flash');
 INSERT INTO card_keyword (keyword, fr ) values ('flying',                   'vol');
 INSERT INTO card_keyword (keyword, fr ) values ('formidable',               'redoutable');
@@ -50,6 +62,7 @@ INSERT INTO card_keyword (keyword, fr ) values ('hexproof',                 'def
 INSERT INTO card_keyword (keyword, fr ) values ('islandwalk',               'traversee des iles');
 INSERT INTO card_keyword (keyword, fr ) values ('imprint',                  'empreinte');
 INSERT INTO card_keyword (keyword, fr ) values ('improvise',                'improvisation');
+INSERT INTO card_keyword (keyword, fr ) values ('indestructible',           'indestructible');
 INSERT INTO card_keyword (keyword, fr ) values ('ingest',                   'ingestion');
 INSERT INTO card_keyword (keyword, fr ) values ('investigate',              'enqueter');
 INSERT INTO card_keyword (keyword, fr ) values ('kicker',                   'kick');
@@ -59,13 +72,21 @@ INSERT INTO card_keyword (keyword, fr ) values ('manifest',                 'man
 INSERT INTO card_keyword (keyword, fr ) values ('madness',                  'folie');
 INSERT INTO card_keyword (keyword, fr ) values ('megamorph',                'megamue');
 INSERT INTO card_keyword (keyword, fr ) values ('meld',                     'assimilisation');
+INSERT INTO card_keyword (keyword, fr ) values ('melee',                    null);
+INSERT INTO card_keyword (keyword, fr ) values ('menace',                   'menace');
+INSERT INTO card_keyword (keyword, fr ) values ('metalcraft',               'art des metaux');
+INSERT INTO card_keyword (keyword, fr ) values ('miracle',                  'miracle');
+INSERT INTO card_keyword (keyword, fr ) values ('monstrosity',              'monstruosite');
 INSERT INTO card_keyword (keyword, fr ) values ('morph',                    'mue');
 INSERT INTO card_keyword (keyword, fr ) values ('mountainwalk',             null);
+INSERT INTO card_keyword (keyword, fr ) values ('multikicker',              null);
 INSERT INTO card_keyword (keyword, fr ) values ('outlast',                  'resilience');
+INSERT INTO card_keyword (keyword, fr ) values ('parley',                   null);
 INSERT INTO card_keyword (keyword, fr ) values ('plainswalk',               null);
+INSERT INTO card_keyword (keyword, fr ) values ('protection from creatures','protection contre les creatures');
 INSERT INTO card_keyword (keyword, fr ) values ('prowess',                  'prouesse');
+INSERT INTO card_keyword (keyword, fr ) values ('raid',                     'saccage');
 INSERT INTO card_keyword (keyword, fr ) values ('rally',                    'ralliement');
-INSERT INTO card_keyword (keyword, fr ) values ('enrage',                   'rage');
 INSERT INTO card_keyword (keyword, fr ) values ('reach',                    'portee');
 INSERT INTO card_keyword (keyword, fr ) values ('renown',                   'reputation');
 INSERT INTO card_keyword (keyword, fr ) values ('revolt',                   'revolte');
@@ -75,7 +96,6 @@ INSERT INTO card_keyword (keyword, fr ) values ('skulk',                    'fur
 INSERT INTO card_keyword (keyword, fr ) values ('snow-covered forestwalk',  null);
 INSERT INTO card_keyword (keyword, fr ) values ('soulbond',                 'association d''ames');
 INSERT INTO card_keyword (keyword, fr ) values ('spell mastery',            'maitrise de sort');
-INSERT INTO card_keyword (keyword, fr ) values ('strike',                   'initiative');
 INSERT INTO card_keyword (keyword, fr ) values ('strive',                   'obstination');
 INSERT INTO card_keyword (keyword, fr ) values ('suspend',                  'suspension');
 INSERT INTO card_keyword (keyword, fr ) values ('swampwalk',                null);

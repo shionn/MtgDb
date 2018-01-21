@@ -35,6 +35,10 @@ public class AdvancedSearchController {
 	@Qualifier("SuperType")
 	private List<String> allSuperTypes;
 
+	@Autowired
+	@Qualifier("KeyWord")
+	private List<String> allKeyWord;
+
 	private List<Filter> filters = new ArrayList<>();
 
 	@Autowired
@@ -69,6 +73,8 @@ public class AdvancedSearchController {
 			return allSubTypes.contains(filter.getValue());
 		case SuperType:
 			return allSuperTypes.contains(filter.getValue());
+		case KeyWord:
+			return allKeyWord.contains(filter.getValue());
 		default:
 			return false;
 		}
@@ -77,12 +83,14 @@ public class AdvancedSearchController {
 	@RequestMapping(path = "/as/filter", method = RequestMethod.GET)
 	public ModelAndView filters(@Param("filter") String filter) {
 		List<Filter> filters = new ArrayList<>();
-		filters.addAll(allSuperTypes.stream().filter(t -> StringUtils.indexOfIgnoreCase(t, filter) != -1)
+		filters.addAll(allSuperTypes.stream().filter(t -> StringUtils.startsWithIgnoreCase(t, filter))
 				.map(t -> new Filter(FilterType.SuperType, t)).collect(Collectors.toList()));
-		filters.addAll(allTypes.stream().filter(t -> StringUtils.indexOfIgnoreCase(t, filter) != -1)
+		filters.addAll(allTypes.stream().filter(t -> StringUtils.startsWithIgnoreCase(t, filter))
 				.map(t -> new Filter(FilterType.Type, t)).collect(Collectors.toList()));
-		filters.addAll(allSubTypes.stream().filter(t -> StringUtils.indexOfIgnoreCase(t, filter) != -1)
+		filters.addAll(allSubTypes.stream().filter(t -> StringUtils.startsWithIgnoreCase(t, filter))
 				.map(t -> new Filter(FilterType.SubType, t)).collect(Collectors.toList()));
+		filters.addAll(allKeyWord.stream().filter(t -> StringUtils.startsWithIgnoreCase(t, filter))
+				.map(t -> new Filter(FilterType.KeyWord, t)).collect(Collectors.toList()));
 		return new ModelAndView("advanced-search-autocomplete").addObject("filters", filters);
 	}
 

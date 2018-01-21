@@ -9,11 +9,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.ApplicationScope;
 
+import tcg.db.dao.CardKeywordDao;
 import tcg.db.dao.CardTypeDao;
 import tcg.db.dbo.CardTypeClass;
 
 @Component
-public class CardTypeFactory {
+public class CardValuesFactory {
 
 	@Autowired
 	private SqlSessionFactory factory;
@@ -39,6 +40,14 @@ public class CardTypeFactory {
 	public List<String> superTypes() {
 		try (SqlSession session = factory.openSession()) {
 			return session.getMapper(CardTypeDao.class).list(CardTypeClass.SuperType);
+		}
+	}
+
+	@Bean(name = "KeyWord")
+	@ApplicationScope
+	public List<String> keyWords() {
+		try (SqlSession session = factory.openSession()) {
+			return session.getMapper(CardKeywordDao.class).list();
 		}
 	}
 

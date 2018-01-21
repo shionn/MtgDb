@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import tcg.db.dbo.Card;
 import tcg.db.dbo.CardPrice;
 import tcg.db.dbo.CardPriceSource;
+import tcg.db.dbo.Edition.Foil;
 
 @Component
 public class MtgGoldFishCrawler {
@@ -25,8 +26,10 @@ public class MtgGoldFishCrawler {
 	public List<CardPrice> price(Card card) {
 		List<CardPrice> prices = new ArrayList<CardPrice>();
 		prices.addAll(crawl(card, CardPriceSource.MtgGoldFishPaper, CardPriceSource.MtgGoldFishTx, buildUrl(card)));
-		prices.addAll(crawl(card, CardPriceSource.MtgGoldFishFoilPaper, CardPriceSource.MtgGoldFishFoilTx,
-				buildFoilUrl(card)));
+		if (card.getEdition().getFoil() != Foil.nofoil) {
+			prices.addAll(crawl(card, CardPriceSource.MtgGoldFishFoilPaper, CardPriceSource.MtgGoldFishFoilTx,
+					buildFoilUrl(card)));
+		}
 		return prices;
 	}
 
