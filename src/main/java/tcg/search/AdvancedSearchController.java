@@ -2,6 +2,7 @@ package tcg.search;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
@@ -22,6 +23,8 @@ import tcg.db.dbo.Card;
 @Controller
 @SessionScope
 public class AdvancedSearchController {
+
+	private static final Pattern CMC_PATTERN = Pattern.compile("^\\d+$");
 
 	@Autowired
 	@Qualifier("Type")
@@ -67,6 +70,8 @@ public class AdvancedSearchController {
 
 	private boolean legal(Filter filter) {
 		switch (filter.getType()) {
+		case ConvertedManaCost:
+			return CMC_PATTERN.matcher(filter.getValue()).find();
 		case Type:
 			return allTypes.contains(filter.getValue());
 		case SubType:
@@ -83,6 +88,9 @@ public class AdvancedSearchController {
 	@RequestMapping(path = "/as/filter", method = RequestMethod.GET)
 	public ModelAndView filters(@Param("filter") String filter) {
 		List<Filter> filters = new ArrayList<>();
+		if (CMC_PATTERN.matcher(filter).find()) {
+			filters.add(new Filter(FilterType.ConvertedManaCost, filter));
+		}
 		filters.addAll(allSuperTypes.stream().filter(t -> StringUtils.startsWithIgnoreCase(t, filter))
 				.map(t -> new Filter(FilterType.SuperType, t)).collect(Collectors.toList()));
 		filters.addAll(allTypes.stream().filter(t -> StringUtils.startsWithIgnoreCase(t, filter))

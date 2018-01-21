@@ -35,6 +35,10 @@ public class AdvancedSearchQueryAdapter {
 		if (!keywords.isEmpty()) {
 			sql.WHERE("MATCH(text) AGAINST ('+" + StringUtils.join(keywords, " +") + "' IN BOOLEAN MODE)");
 		}
+		List<String> cmcs = values(filters, FilterType.ConvertedManaCost);
+		if (!cmcs.isEmpty()) {
+			sql.WHERE("cmc IN (" + StringUtils.join(cmcs, ",") + ")");
+		}
 		sql.ORDER_BY("name").GROUP_BY("card");
 		return sql.toString();
 	}

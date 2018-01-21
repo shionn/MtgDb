@@ -20,7 +20,7 @@
 				<li>
 					<form action='<spring:url value="/s"/>'>
 						<span class="autocomplete">
-							<input type="text" name="name" placeholder="Quick Search" data-source="<spring:url value="/s"/>" autocomplete="off"/>
+							<input type="text" name="name" placeholder="Quick Search" data-source="<spring:url value="/s"/>" autocomplete="off" data-length="3"/>
 						</span>
 					</form>
 				</li>

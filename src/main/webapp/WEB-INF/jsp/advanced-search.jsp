@@ -12,7 +12,7 @@
 					<section>
 						<form action='<spring:url value="/as/filter"/>'>
 							<span class="autocomplete">
-								<input type="text" name="filter" placeholder="Advanced Search" data-source="<spring:url value="/as/filter"/>" autocomplete="off"/>
+								<input type="text" name="filter" placeholder="Advanced Search" data-source="<spring:url value="/as/filter"/>" autocomplete="off" data-length="1"/>
 							</span>
 						</form>
 						<ul>
