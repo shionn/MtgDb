@@ -26,7 +26,7 @@ import tcg.db.dbo.Card;
 @SessionScope
 public class AdvancedSearchController {
 
-	private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z]$");
+	private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z]+$");
 
 	private static final Pattern POWER_AND_TOUGHNESS_PATTERN = Pattern.compile("^[0-9*]+/[0-9*]+$");
 

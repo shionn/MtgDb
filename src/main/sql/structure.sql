@@ -1,11 +1,11 @@
 
-drop table card_lang;
-drop table card_price;
-drop table card_keyword;
-drop table card_type;
-drop table card_rule;
-drop table card;
-drop table edition;
+drop table if exists card_lang;
+drop table if exists card_price;
+drop table if exists card_keyword;
+drop table if exists card_type;
+drop table if exists card_rule;
+drop table if exists card;
+drop table if exists edition;
 create table edition (
   code                  varchar(8)  NOT NULL,
   mci_code              varchar(7)  NULL,
@@ -20,12 +20,12 @@ create table edition (
   INDEX        name(name)
 ) DEFAULT CHARSET=utf8;
 
-drop table card_lang;
-drop table card_price;
-drop table card_keyword;
-drop table card_type;
-drop table card_rule;
-drop table card;
+drop table if exists card_lang;
+drop table if exists card_price;
+drop table if exists card_keyword;
+drop table if exists card_type;
+drop table if exists card_rule;
+drop table if exists card;
 create table card (
   id             varchar(64)   NOT NULL, -- sha1 setCode + cardName + cardImageName
   card           varchar(64)   NOT NULL, -- sha1 du nom
@@ -72,7 +72,7 @@ create table card (
   CONSTRAINT link_card    FOREIGN KEY (link_card) REFERENCES card(id)
 ) DEFAULT  CHARSET=utf8;
 
-drop table card_lang;
+drop table if exists card_lang;
 create table card_lang (
   id            varchar(64)   NOT NULL,
   lang          varchar(2)    NOT NULL,
@@ -83,7 +83,7 @@ create table card_lang (
   CONSTRAINT card_lang FOREIGN KEY (id) REFERENCES card(id)
 ) DEFAULT  CHARSET=utf8;
 
-drop table card_type;
+drop table if exists card_type;
 CREATE TABLE card_type (
   id        varchar(64) NOT NULL,
   type      varchar(32) NOT NULL,
@@ -92,7 +92,7 @@ CREATE TABLE card_type (
   CONSTRAINT card_type FOREIGN KEY (id) REFERENCES card(id)
 ) DEFAULT CHARSET=utf8;
 
-drop table card_price;
+drop table if exists card_price;
 create table card_price (
   id            varchar(64)   NOT NULL,
   source        varchar(32)    NOT NULL,
@@ -105,7 +105,7 @@ create table card_price (
   CONSTRAINT card_price FOREIGN KEY (id)   REFERENCES card(id)
 ) DEFAULT  CHARSET=utf8;
 
-drop table card_rule;
+drop table if exists card_rule;
 CREATE TABLE card_rule (
   id        varchar(64) NOT NULL ,
   created   DATE        NOT NULL ,
@@ -113,7 +113,7 @@ CREATE TABLE card_rule (
   CONSTRAINT  ruling_card    FOREIGN KEY (id)    REFERENCES card(id)
 ) DEFAULT CHARSET=utf8;
 
-drop table card_keyword;
+drop table if exists card_keyword;
 CREATE TABLE card_keyword (
   keyword varchar(32) not null,
   fr      varchar(32),

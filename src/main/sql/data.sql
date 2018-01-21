@@ -8,14 +8,17 @@ update edition set goldfish_name = 'JSS MSS Promos'               where code='pS
 update edition set goldfish_name = 'Conspiracy'                   where code='CNS';
 update edition set goldfish_name = 'Prerelease Cards'             where code='pPRE';
 update edition set goldfish_name = 'Amonkhet Invocations'         where code='MPS_AKH';
+update edition set goldfish_name = 'Media Promos'                 where code='pMEI';
+
 
 update edition set mkm_name = 'Junior Super Series Promos'  where code = 'pSUS';
 update edition set mkm_name = 'Player Rewards Promos'       where code = 'pMPR';
 update edition set mkm_name = 'Arena League Promos'         where code = 'pARL';
+update edition set mkm_name = 'Buy a Box Promos'            where code = 'pMEI';
 
 update edition set foil = 'nofoil' where code in('PC2', 'HOP');
 update edition set foil = 'nofoil' where code = 'POR';
-update edition set foil = 'nofoil' where code in('2ED', '5ED');
+update edition set foil = 'nofoil' where code in('2ED', '4ED', '5ED', '6ED');
 
 delete from card_keyword;
 INSERT INTO card_keyword (keyword, fr ) values ('Afflict',                  'affliction');

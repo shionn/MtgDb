@@ -10,6 +10,7 @@ import java.util.List;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +21,7 @@ import tcg.db.dbo.Edition.Foil;
 
 @Component
 public class MtgGoldFishCrawler {
+	private Logger logger = LoggerFactory.getLogger(MtgGoldFishCrawler.class);
 
 	private static final List<String> IGNORED_EDITION = Arrays.asList("CEI", "pMEI");
 
@@ -43,18 +45,24 @@ public class MtgGoldFishCrawler {
 			if (!isIgnored(card)) {
 				Document document = Jsoup.connect(link).get();
 				Element e = document.select("div.price-box.paper .price-box-price").first();
-				if (e != null) {
-					paper.setPrice(new BigDecimal(e.text()));
-					paper.setPriceDate(new Date());
-				}
+				if (e != null)
+					try {
+						paper.setPrice(new BigDecimal(e.text().replaceAll(",", "")));
+						paper.setPriceDate(new Date());
+					} catch (NumberFormatException ex) {
+						logger.warn("can't parse " + e.text(), ex);
+					}
 				e = document.select("div.price-box.online .price-box-price").first();
-				if (e != null) {
-					online.setPrice(new BigDecimal(e.text()));
-					online.setPriceDate(new Date());
-				}
+				if (e != null)
+					try {
+						online.setPrice(new BigDecimal(e.text().replaceAll(",", "")));
+						online.setPriceDate(new Date());
+					} catch (NumberFormatException ex) {
+						logger.warn("can't parse " + e.text(), ex);
+					}
 			}
 		} catch (IOException e) {
-			LoggerFactory.getLogger(MtgGoldFishCrawler.class).error("Can't crawl price : ", e);
+			logger.error("Can't crawl price : ", e);
 		}
 		return Arrays.asList(paper, online);
 	}

@@ -1,6 +1,7 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t"%>
 <t:template>
 	<jsp:attribute name="title">${card.name}</jsp:attribute>
@@ -85,7 +86,7 @@
 								<c:if test="${p.price != null}">
 									<li>
 										<a href="${p.link}" target="_blank">
-											<img src='<spring:url value="/img/${p.source.icon}"/>'>
+											<img src='<spring:url value="/img/${p.source.icon}"/>' title='<fmt:formatDate value="${p.priceDate}"/>'>
 											<c:if test="${p.source.foil}">
 												<img src='<spring:url value="/img/foil.gif"/>'>
 											</c:if>
