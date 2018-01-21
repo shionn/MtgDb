@@ -24,6 +24,8 @@ import tcg.db.dbo.Card;
 @SessionScope
 public class AdvancedSearchController {
 
+	private static final Pattern POWER_AND_TOUGHNESS_PATTERN = Pattern.compile("^[0-9*]+/[0-9*]+$");
+
 	private static final Pattern CMC_PATTERN = Pattern.compile("^\\d+$");
 
 	@Autowired
@@ -56,7 +58,7 @@ public class AdvancedSearchController {
 		return new ModelAndView("advanced-search").addObject("filters", filters).addObject("cards", cards);
 	}
 
-	@RequestMapping(path = "/as/{type}/{value}", method = RequestMethod.GET)
+	@RequestMapping(path = "/as/{type}/{value:.*}", method = RequestMethod.GET)
 	public String addFilter(@PathVariable("type") FilterType type, @PathVariable("value") String value) {
 		Filter filter = new Filter(type, value);
 		if (legal(filter)) {
@@ -68,10 +70,19 @@ public class AdvancedSearchController {
 		throw new IllegalArgumentException(value);
 	}
 
+	/**
+	 * Grosse finte
+	 */
+	@RequestMapping(path = "/as/PowerAndToughness/{p}/{t}", method = RequestMethod.GET)
+	public String addFilter(@PathVariable("p") String p, @PathVariable("t") String t) {
+		return addFilter(FilterType.PowerAndToughness, p + '/' + t);
+	}
 	private boolean legal(Filter filter) {
 		switch (filter.getType()) {
 		case ConvertedManaCost:
 			return CMC_PATTERN.matcher(filter.getValue()).find();
+		case PowerAndToughness:
+			return POWER_AND_TOUGHNESS_PATTERN.matcher(filter.getValue()).find();
 		case Type:
 			return allTypes.contains(filter.getValue());
 		case SubType:
@@ -90,6 +101,9 @@ public class AdvancedSearchController {
 		List<Filter> filters = new ArrayList<>();
 		if (CMC_PATTERN.matcher(filter).find()) {
 			filters.add(new Filter(FilterType.ConvertedManaCost, filter));
+		}
+		if (POWER_AND_TOUGHNESS_PATTERN.matcher(filter).find()) {
+			filters.add(new Filter(FilterType.PowerAndToughness, filter));
 		}
 		filters.addAll(allSuperTypes.stream().filter(t -> StringUtils.startsWithIgnoreCase(t, filter))
 				.map(t -> new Filter(FilterType.SuperType, t)).collect(Collectors.toList()));

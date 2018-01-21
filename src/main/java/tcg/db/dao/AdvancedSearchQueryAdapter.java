@@ -33,11 +33,19 @@ public class AdvancedSearchQueryAdapter {
 		}
 		List<String> keywords = values(filters, FilterType.KeyWord);
 		if (!keywords.isEmpty()) {
-			sql.WHERE("MATCH(text) AGAINST ('+" + StringUtils.join(keywords, " +") + "' IN BOOLEAN MODE)");
+			keywords = keywords.stream().map(s -> '+' + (s.indexOf(' ') == -1 ? s : '"' + s + '"'))
+					.collect(Collectors.toList());
+			sql.WHERE("MATCH(c.text) AGAINST ('" + StringUtils.join(keywords, ' ') + "' IN BOOLEAN MODE)");
 		}
 		List<String> cmcs = values(filters, FilterType.ConvertedManaCost);
 		if (!cmcs.isEmpty()) {
-			sql.WHERE("cmc IN (" + StringUtils.join(cmcs, ",") + ")");
+			sql.WHERE("c.cmc IN (" + StringUtils.join(cmcs, ",") + ")");
+		}
+		List<String> pats = values(filters, FilterType.PowerAndToughness);
+		if (!pats.isEmpty()) {
+			List<String> conditions = pats.stream().map(s -> StringUtils.split(s, '/'))
+					.map(s -> "c.power='" + s[0] + "' AND c.toughness='" + s[1] + "'").collect(Collectors.toList());
+			sql.WHERE('(' + StringUtils.join(conditions, " OR ") + ')');
 		}
 		sql.ORDER_BY("name").GROUP_BY("card");
 		return sql.toString();
