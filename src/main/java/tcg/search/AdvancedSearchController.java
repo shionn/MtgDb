@@ -124,14 +124,14 @@ public class AdvancedSearchController {
 		if (POWER_AND_TOUGHNESS_PATTERN.matcher(filter).find()) {
 			filters.add(new Filter(FilterType.PowerAndToughness, filter));
 		}
+		filters.addAll(COLORS.stream().filter(t -> StringUtils.startsWithIgnoreCase(t, filter))
+				.map(t -> new Filter(FilterType.Color, t)).collect(Collectors.toList()));
 		filters.addAll(allSuperTypes.stream().filter(t -> StringUtils.startsWithIgnoreCase(t, filter))
 				.map(t -> new Filter(FilterType.SuperType, t)).collect(Collectors.toList()));
 		filters.addAll(allTypes.stream().filter(t -> StringUtils.startsWithIgnoreCase(t, filter))
 				.map(t -> new Filter(FilterType.Type, t)).collect(Collectors.toList()));
 		filters.addAll(allSubTypes.stream().filter(t -> StringUtils.startsWithIgnoreCase(t, filter))
 				.map(t -> new Filter(FilterType.SubType, t)).collect(Collectors.toList()));
-		filters.addAll(COLORS.stream().filter(t -> StringUtils.startsWithIgnoreCase(t, filter))
-				.map(t -> new Filter(FilterType.Color, t)).collect(Collectors.toList()));
 		filters.addAll(allKeyWord.stream().filter(t -> StringUtils.startsWithIgnoreCase(t, filter))
 				.map(t -> new Filter(FilterType.KeyWord, t)).collect(Collectors.toList()));
 		if (NAME_PATTERN.matcher(filter).find()) {
