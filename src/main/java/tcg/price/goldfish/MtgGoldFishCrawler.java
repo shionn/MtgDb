@@ -45,21 +45,27 @@ public class MtgGoldFishCrawler {
 			if (!isIgnored(card)) {
 				Document document = Jsoup.connect(link).get();
 				Element e = document.select("div.price-box.paper .price-box-price").first();
-				if (e != null)
+				if (e != null) {
 					try {
 						paper.setPrice(new BigDecimal(e.text().replaceAll(",", "")));
 						paper.setPriceDate(new Date());
 					} catch (NumberFormatException ex) {
 						logger.warn("can't parse " + e.text(), ex);
 					}
+				} else {
+					logger.warn("paper price not found");
+				}
 				e = document.select("div.price-box.online .price-box-price").first();
-				if (e != null)
+				if (e != null) {
 					try {
 						online.setPrice(new BigDecimal(e.text().replaceAll(",", "")));
 						online.setPriceDate(new Date());
 					} catch (NumberFormatException ex) {
 						logger.warn("can't parse " + e.text(), ex);
 					}
+				} else {
+					logger.warn("online price not found");
+				}
 			}
 		} catch (IOException e) {
 			logger.error("Can't crawl price : ", e);
