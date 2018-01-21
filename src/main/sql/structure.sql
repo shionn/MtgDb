@@ -100,6 +100,7 @@ create table card_price (
   price         decimal(10,2),
   price_date    datetime,
   update_date   datetime,
+  error         varchar(256),
 
   PRIMARY  KEY (id, source),
   CONSTRAINT card_price FOREIGN KEY (id)   REFERENCES card(id)

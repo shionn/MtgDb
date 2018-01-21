@@ -10,6 +10,7 @@ public class CardPrice {
 	private Date priceDate;
 	private Date updateDate;
 	private String link;
+	private String error;
 
 	public BigDecimal getPrice() {
 		return price;
@@ -57,5 +58,13 @@ public class CardPrice {
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+
+	public void setError(String error) {
+		this.error = error;
+	}
+
+	public String getError() {
+		return error;
 	}
 }

@@ -50,9 +50,11 @@ public class MtgGoldFishCrawler {
 						paper.setPrice(new BigDecimal(e.text().replaceAll(",", "")));
 						paper.setPriceDate(new Date());
 					} catch (NumberFormatException ex) {
+						paper.setError("NumberFormatException");
 						logger.warn("can't parse " + e.text(), ex);
 					}
 				} else {
+					paper.setError("NoElement");
 					logger.warn("paper price not found");
 				}
 				e = document.select("div.price-box.online .price-box-price").first();
@@ -61,13 +63,17 @@ public class MtgGoldFishCrawler {
 						online.setPrice(new BigDecimal(e.text().replaceAll(",", "")));
 						online.setPriceDate(new Date());
 					} catch (NumberFormatException ex) {
+						online.setError("NumberFormatException");
 						logger.warn("can't parse " + e.text(), ex);
 					}
 				} else {
+					online.setError("NumberFormatException");
 					logger.warn("online price not found");
 				}
 			}
 		} catch (IOException e) {
+			paper.setError("IOException");
+			online.setError("IOException");
 			logger.error("Can't crawl price : ", e);
 		}
 		return Arrays.asList(paper, online);
