@@ -7,9 +7,11 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectProvider;
 
 import tcg.db.dao.frag.CardFragDao;
 import tcg.db.dbo.Card;
+import tcg.search.Filter;
 
 public interface CardSearchDao extends CardFragDao {
 
@@ -27,13 +29,16 @@ public interface CardSearchDao extends CardFragDao {
 			@Result(column = "id", property = "langs", many = @Many(select = "readLangs")) })
 	List<Card> quick(String name);
 
-	/*		+ "FROM card AS c " //
+/*	@Select("SELECT c.name " //
+			+ "FROM card AS c " //
 			+ "<foreach item='type' index='i' collection='#{types}' open='' separator='' close=''>"
-			+ "INNER JOIN card_type AS t${i} ON t${i}.card = c.id AND t${i}.type = 'type' AND t${i} = #{item} "//
+			+ "INNER JOIN card_type AS t#{i} ON t#{i}.card = c.id AND t#{i}.type = 'type' AND t#{i} = #{item} "//
 			+ "</foreach>" //
 			+ "WHERE 1 " //
-			+ "</script>")
-
-	List<Card> search(@Param("types") List<String> types);*/
+			+ "ORDER BY name " //
+			+ "LIMIT 100 " //
+			+ "</script>")*/
+	@SelectProvider(type = AdvancedSearchQueryAdapter.class, method = "search")
+	List<Card> search(@Param("types") List<Filter> filters);
 
 }

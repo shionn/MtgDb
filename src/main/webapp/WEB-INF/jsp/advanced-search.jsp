@@ -17,16 +17,22 @@
 						</form>
 						<ul>
 							<c:forEach items="${filters}" var="f">
-								<li>${f.type}: ${f.value}</li>
+								<li><a href="<spring:url value="/as/${f.type}/${f.value}"/>">${f.type}: ${f.value}</a></li>
 							</c:forEach>
 						</ul>
 					</section>
+				</article>
+			</section>
+			<section>
+				<article class="portlet">
+					<header>Result(s)</header>
 					<section>
-
+						<c:forEach items="${cards}" var="c">
+							${c.name}
+						</c:forEach>
 					</section>
 				</article>
 			</section>
-
 		</article>
 	</jsp:attribute>
 </t:template>

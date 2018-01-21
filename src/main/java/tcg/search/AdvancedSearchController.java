@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
+import tcg.db.dao.CardSearchDao;
+import tcg.db.dbo.Card;
+
 @Controller
 @SessionScope
 public class AdvancedSearchController {
@@ -39,30 +42,47 @@ public class AdvancedSearchController {
 
 	@RequestMapping(path = "/as", method = RequestMethod.GET)
 	public ModelAndView view() {
-		List<String> types = filters.stream().filter(f -> f.getType() == FilterType.Type)
-				.map(Filter::getValue).collect(Collectors.toList());
-		// session.getMapper(CardSearchDao.class).search(types);
-		return new ModelAndView("advanced-search").addObject("filters", filters);
+		List<Card> cards = new ArrayList<>();
+		if (!filters.isEmpty()) {
+			cards = session.getMapper(CardSearchDao.class).search(filters);
+		}
+		return new ModelAndView("advanced-search").addObject("filters", filters).addObject("cards", cards);
 	}
 
 	@RequestMapping(path = "/as/{type}/{value}", method = RequestMethod.GET)
-	public String addFilter(@PathVariable("type") FilterType type,
-			@PathVariable("value") String value) {
-		this.filters.add(new Filter(type, value));
-		return "redirect:/as";
+	public String addFilter(@PathVariable("type") FilterType type, @PathVariable("value") String value) {
+		Filter filter = new Filter(type, value);
+		if (legal(filter)) {
+			if (!filters.remove(filter)) {
+				this.filters.add(filter);
+			}
+			return "redirect:/as";
+		}
+		throw new IllegalArgumentException(value);
+	}
+
+	private boolean legal(Filter filter) {
+		switch (filter.getType()) {
+		case Type:
+			return allTypes.contains(filter.getValue());
+		case SubType:
+			return allSubTypes.contains(filter.getValue());
+		case SuperType:
+			return allSuperTypes.contains(filter.getValue());
+		default:
+			return false;
+		}
 	}
 
 	@RequestMapping(path = "/as/filter", method = RequestMethod.GET)
 	public ModelAndView filters(@Param("filter") String filter) {
 		List<Filter> filters = new ArrayList<>();
+		filters.addAll(allSuperTypes.stream().filter(t -> StringUtils.indexOfIgnoreCase(t, filter) != -1)
+				.map(t -> new Filter(FilterType.SuperType, t)).collect(Collectors.toList()));
 		filters.addAll(allTypes.stream().filter(t -> StringUtils.indexOfIgnoreCase(t, filter) != -1)
 				.map(t -> new Filter(FilterType.Type, t)).collect(Collectors.toList()));
-		filters.addAll(
-				allSubTypes.stream().filter(t -> StringUtils.indexOfIgnoreCase(t, filter) != -1)
+		filters.addAll(allSubTypes.stream().filter(t -> StringUtils.indexOfIgnoreCase(t, filter) != -1)
 				.map(t -> new Filter(FilterType.SubType, t)).collect(Collectors.toList()));
-		filters.addAll(allSuperTypes.stream()
-				.filter(t -> StringUtils.indexOfIgnoreCase(t, filter) != -1)
-				.map(t -> new Filter(FilterType.SuperType, t)).collect(Collectors.toList()));
 		return new ModelAndView("advanced-search-autocomplete").addObject("filters", filters);
 	}
 
