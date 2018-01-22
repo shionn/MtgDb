@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
 
 import tcg.db.dbo.CardTypeClass;
+import tcg.db.dbo.GameLegality;
 import tcg.search.Filter;
 import tcg.search.FilterType;
 
@@ -29,6 +30,12 @@ public class AdvancedSearchQueryAdapter {
 		for (String type : values(filters, FilterType.SuperType)) {
 			sql.INNER_JOIN("card_type AS t" + i + " ON c.id = t" + i + ".id AND t" + i + ".type='"
 					+ CardTypeClass.SuperType + "' AND t" + i + ".value='" + type + "'");
+			i++;
+		}
+		for (String format : values(filters, FilterType.Format)) {
+			sql.INNER_JOIN(
+					"card_legality AS t" + i + " ON c.id = t" + i + ".id AND t" + i + ".format='"
+							+ format + "' AND t" + i + ".legality='" + GameLegality.Legal + "'");
 			i++;
 		}
 		for (String code : values(filters, FilterType.Edition)) {

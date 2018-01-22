@@ -4,6 +4,7 @@ drop table if exists card_price;
 drop table if exists card_keyword;
 drop table if exists card_type;
 drop table if exists card_rule;
+drop table if exists card_legality;
 drop table if exists card;
 drop table if exists edition;
 create table edition (
@@ -25,6 +26,7 @@ drop table if exists card_price;
 drop table if exists card_keyword;
 drop table if exists card_type;
 drop table if exists card_rule;
+drop table if exists card_legality;
 drop table if exists card;
 create table card (
   id             varchar(64)   NOT NULL, -- sha1 setCode + cardName + cardImageName
@@ -114,9 +116,20 @@ CREATE TABLE card_rule (
   CONSTRAINT  ruling_card    FOREIGN KEY (id)    REFERENCES card(id)
 ) DEFAULT CHARSET=utf8;
 
+drop table if exists card_legality;
+CREATE TABLE card_legality (
+  id        varchar(64) NOT NULL ,
+  format    varchar(32) not null,
+  legality  varchar(32) not null,
+  primary key (id, format),
+  CONSTRAINT  legal_card    FOREIGN KEY (id)    REFERENCES card(id),
+  INDEX     legality(legality)
+) DEFAULT CHARSET=utf8;
+
 drop table if exists card_keyword;
 CREATE TABLE card_keyword (
   keyword varchar(32) not null,
   fr      varchar(32),
   primary key (keyword)
-);
+) DEFAULT CHARSET=utf8;
+

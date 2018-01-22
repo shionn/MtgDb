@@ -59,4 +59,12 @@ public class CardValuesFactory {
 		}
 	}
 
+	@Bean(name = "AllFormats")
+	@ApplicationScope
+	public List<String> formats() {
+		try (SqlSession session = factory.openSession()) {
+			return session.getMapper(CardValueDomainDao.class).formats();
+		}
+	}
+
 }

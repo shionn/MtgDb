@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
 
 import tcg.db.dbo.CardTypeClass;
+import tcg.db.dbo.Legality;
 import tcg.mtgjson.api.Card;
 import tcg.mtgjson.api.ForeignName;
 import tcg.mtgjson.api.Ruling;
@@ -65,5 +66,11 @@ public interface ImporterDao {
 	@Update("UPDATE card SET link_card = #{l.id} WHERE id = #{c.id}")
 	int updateLinkCard(@Param("c") Card card, @Param("l") Card linkCard);
 
+	@Delete("DELETE FROM card_legality WHERE id = #{id}")
+	void deleteLegality(String id);
+
+	@Insert("INSERT INTO card_legality (id, format, legality) "//
+			+ "VALUES (#{c.id}, #{l.format}, #{l.legality}) ")
+	void legality(@Param("c") Card card, @Param("l") Legality legality);
 
 }

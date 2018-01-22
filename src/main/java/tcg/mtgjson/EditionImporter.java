@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 import tcg.db.dao.ImporterDao;
 import tcg.db.dbo.CardLayout;
 import tcg.db.dbo.CardTypeClass;
+import tcg.db.dbo.Legality;
 import tcg.mtgjson.api.Card;
 import tcg.mtgjson.api.Language;
 import tcg.mtgjson.api.Ruling;
@@ -74,6 +75,12 @@ public class EditionImporter {
 					if (card.getRulings() != null) {
 						for (Ruling rule : card.getRulings()) {
 							dao.rule(card, rule);
+						}
+					}
+					dao.deleteLegality(card.getId());
+					if (card.getLegalities() != null) {
+						for (Legality legality : card.getLegalities()) {
+							dao.legality(card, legality);
 						}
 					}
 				}

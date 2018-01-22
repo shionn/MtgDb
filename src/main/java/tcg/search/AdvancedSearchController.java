@@ -55,6 +55,10 @@ public class AdvancedSearchController {
 	@Qualifier("AllEditions")
 	private List<Edition> allEditions;
 
+	@Autowired
+	@Qualifier("AllFormats")
+	private List<String> allFormats;
+
 	private List<Filter> filters = new ArrayList<>();
 
 	@Autowired
@@ -127,6 +131,8 @@ public class AdvancedSearchController {
 			return allSuperTypes.contains(filter.getValue());
 		case KeyWord:
 			return allKeyWord.contains(filter.getValue());
+		case Format:
+			return allFormats.contains(filter.getValue());
 		case Edition:
 			return filter.getDisplay() != null && filter.getValue() != null;
 		default:
@@ -153,6 +159,8 @@ public class AdvancedSearchController {
 				.map(t -> new Filter(FilterType.SubType, t)).collect(Collectors.toList()));
 		filters.addAll(allKeyWord.stream().filter(t -> StringUtils.startsWithIgnoreCase(t, filter))
 				.map(t -> new Filter(FilterType.KeyWord, t)).collect(Collectors.toList()));
+		filters.addAll(allFormats.stream().filter(f -> StringUtils.startsWithIgnoreCase(f, filter))
+				.map(f -> new Filter(FilterType.Format, f)).collect(Collectors.toList()));
 		filters.addAll(allEditions.stream()
 				.filter(e -> StringUtils.startsWithIgnoreCase(e.getName(), filter))
 				.map(e -> new Filter(e)).collect(Collectors.toList()));

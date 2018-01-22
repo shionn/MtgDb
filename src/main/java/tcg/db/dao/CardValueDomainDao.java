@@ -18,4 +18,7 @@ public interface CardValueDomainDao {
 	@Select("SELECT * FROM edition ORDER BY name")
 	List<Edition> editions();
 
+	@Select("SELECT distinct(format) FROM card_legality ORDER BY format")
+	List<String> formats();
+
 }
