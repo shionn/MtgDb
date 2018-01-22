@@ -95,9 +95,7 @@ public class AdvancedSearchController {
 		if (type == FilterType.Edition) {
 			return new Filter(allEditions.stream()
 					.filter(e -> StringUtils.equalsIgnoreCase(e.getCode(), value)).findFirst()
-					.orElseThrow(() -> {
-						return new IllegalArgumentException(value);
-					}));
+					.orElseThrow(() -> new IllegalArgumentException(value)));
 		}
 		if (type == FilterType.Rarity) {
 			return new Filter(CardRarity.valueOf(value));

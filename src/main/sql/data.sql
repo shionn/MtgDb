@@ -92,7 +92,7 @@ INSERT INTO card_keyword (keyword, fr ) values ('Fateful hour',             null
 INSERT INTO card_keyword (keyword, fr ) values ('Fear',                     'peur');
 INSERT INTO card_keyword (keyword, fr ) values ('Ferocious',                'feocite');
 INSERT INTO card_keyword (keyword, fr ) values ('First strike',            'initiative');
-INSERT INTO card_keyword (keyword, fr ) values ('Flash',                    'flash');Flanking
+INSERT INTO card_keyword (keyword, fr ) values ('Flash',                    'flash');
 INSERT INTO card_keyword (keyword, fr ) values ('Flanking',                 null);
 INSERT INTO card_keyword (keyword, fr ) values ('Flying',                   'vol');
 INSERT INTO card_keyword (keyword, fr ) values ('Formidable',               'redoutable');
