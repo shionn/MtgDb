@@ -31,6 +31,12 @@ public class AdvancedSearchQueryAdapter {
 					+ CardTypeClass.SuperType + "' AND t" + i + ".value='" + type + "'");
 			i++;
 		}
+		for (String code : values(filters, FilterType.Edition)) {
+			sql.INNER_JOIN("(SELECT edition, card FROM card) AS e" + i + " ON c.card = e" + i
+					+ ".card AND e" + i
+					+ ".edition='" + code + "'");
+			i++;
+		}
 		List<String> keywords = values(filters, FilterType.KeyWord);
 		if (!keywords.isEmpty()) {
 			keywords = keywords.stream().map(s -> '+' + (s.indexOf(' ') == -1 ? s : '"' + s + '"'))
@@ -67,13 +73,13 @@ public class AdvancedSearchQueryAdapter {
 			}
 			sql.WHERE("c.colors='" + color + "'");
 		}
+
 		for (String name : values(filters, FilterType.Name)) {
 			sql.WHERE("c.name LIKE '%" + name + "%'");
 		}
 		for (String text : values(filters, FilterType.Text)) {
 			sql.WHERE("c.text LIKE '%" + text + "%'");
 		}
-
 		sql.ORDER_BY("name").GROUP_BY("card");
 		return sql.toString() + " LIMIT 1000";
 	}

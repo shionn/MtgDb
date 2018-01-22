@@ -9,9 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.ApplicationScope;
 
-import tcg.db.dao.CardKeywordDao;
-import tcg.db.dao.CardTypeDao;
-import tcg.db.dao.EditionDao;
+import tcg.db.dao.CardValueDomainDao;
 import tcg.db.dbo.CardTypeClass;
 import tcg.db.dbo.Edition;
 
@@ -21,43 +19,43 @@ public class CardValuesFactory {
 	@Autowired
 	private SqlSessionFactory factory;
 
-	@Bean(name = "Type")
+	@Bean(name = "AllTypes")
 	@ApplicationScope
 	public List<String> types() {
 		try (SqlSession session = factory.openSession()) {
-			return session.getMapper(CardTypeDao.class).list(CardTypeClass.Type);
+			return session.getMapper(CardValueDomainDao.class).types(CardTypeClass.Type);
 		}
 	}
 
-	@Bean(name = "SubType")
+	@Bean(name = "AllSubTypes")
 	@ApplicationScope
 	public List<String> subTypes() {
 		try (SqlSession session = factory.openSession()) {
-			return session.getMapper(CardTypeDao.class).list(CardTypeClass.SubType);
+			return session.getMapper(CardValueDomainDao.class).types(CardTypeClass.SubType);
 		}
 	}
 
-	@Bean(name = "SuperType")
+	@Bean(name = "AllSuperTypes")
 	@ApplicationScope
 	public List<String> superTypes() {
 		try (SqlSession session = factory.openSession()) {
-			return session.getMapper(CardTypeDao.class).list(CardTypeClass.SuperType);
+			return session.getMapper(CardValueDomainDao.class).types(CardTypeClass.SuperType);
 		}
 	}
 
-	@Bean(name = "KeyWord")
+	@Bean(name = "AllKeyWords")
 	@ApplicationScope
 	public List<String> keyWords() {
 		try (SqlSession session = factory.openSession()) {
-			return session.getMapper(CardKeywordDao.class).list();
+			return session.getMapper(CardValueDomainDao.class).keywords();
 		}
 	}
 
-	@Bean(name = "Editions")
+	@Bean(name = "AllEditions")
 	@ApplicationScope
 	public List<Edition> editions() {
 		try (SqlSession session = factory.openSession()) {
-			return session.getMapper(EditionDao.class).list();
+			return session.getMapper(CardValueDomainDao.class).editions();
 		}
 	}
 

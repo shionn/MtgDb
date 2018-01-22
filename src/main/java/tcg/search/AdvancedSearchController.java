@@ -36,23 +36,23 @@ public class AdvancedSearchController {
 	private static final List<String> COLORS = Arrays.asList("White", "Blue", "Black", "Red", "Green");
 
 	@Autowired
-	@Qualifier("Type")
+	@Qualifier("AllTypes")
 	private List<String> allTypes;
 
 	@Autowired
-	@Qualifier("SubType")
+	@Qualifier("AllSubTypes")
 	private List<String> allSubTypes;
 
 	@Autowired
-	@Qualifier("SuperType")
+	@Qualifier("AllSuperTypes")
 	private List<String> allSuperTypes;
 
 	@Autowired
-	@Qualifier("KeyWord")
+	@Qualifier("AllKeyWords")
 	private List<String> allKeyWord;
 
 	@Autowired
-	@Qualifier("Edition")
+	@Qualifier("AllEditions")
 	private List<Edition> allEditions;
 
 	private List<Filter> filters = new ArrayList<>();
@@ -91,8 +91,9 @@ public class AdvancedSearchController {
 
 	private Filter buildFilter(FilterType type, String value) {
 		if (type == FilterType.Edition) {
-			return new Filter(allEditions.stream().filter(e -> StringUtils.equalsIgnoreCase(e.getCode(), value))
-					.findFirst().orElseThrow(() -> {
+			return new Filter(allEditions.stream()
+					.filter(e -> StringUtils.equalsIgnoreCase(e.getCode(), value)).findFirst()
+					.orElseThrow(() -> {
 						throw new IllegalArgumentException(value);
 					}));
 		}
@@ -127,7 +128,7 @@ public class AdvancedSearchController {
 		case KeyWord:
 			return allKeyWord.contains(filter.getValue());
 		case Edition:
-			return filter.getDisplay() != null;
+			return filter.getDisplay() != null && filter.getValue() != null;
 		default:
 			return false;
 		}
@@ -152,7 +153,8 @@ public class AdvancedSearchController {
 				.map(t -> new Filter(FilterType.SubType, t)).collect(Collectors.toList()));
 		filters.addAll(allKeyWord.stream().filter(t -> StringUtils.startsWithIgnoreCase(t, filter))
 				.map(t -> new Filter(FilterType.KeyWord, t)).collect(Collectors.toList()));
-		filters.addAll(allEditions.stream().filter(e -> StringUtils.startsWithIgnoreCase(e.getName(), filter))
+		filters.addAll(allEditions.stream()
+				.filter(e -> StringUtils.startsWithIgnoreCase(e.getName(), filter))
 				.map(e -> new Filter(e)).collect(Collectors.toList()));
 		if (NAME_PATTERN.matcher(filter).find()) {
 			filters.add(new Filter(FilterType.Name, filter));

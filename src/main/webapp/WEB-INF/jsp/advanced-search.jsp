@@ -17,7 +17,7 @@
 						</form>
 						<ul>
 							<c:forEach items="${filters}" var="f">
-								<li><a href="<spring:url value="/as/${f.type}/${f.value}"/>">${f.type}: ${f.value}</a></li>
+								<li><a href="<spring:url value="/as/${f.type}/${f.value}"/>">${f.type}: ${f.display}</a></li>
 							</c:forEach>
 						</ul>
 					</section>

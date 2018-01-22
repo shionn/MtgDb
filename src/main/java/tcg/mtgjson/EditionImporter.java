@@ -5,7 +5,6 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.apache.ibatis.session.SqlSession;
@@ -27,7 +26,9 @@ import tcg.mtgjson.api.Set;
 @Component
 public class EditionImporter {
 
-	private static final int INTERVAL = 10			 * 60			* 1000;
+	private static final int INTERVAL = 10
+			// * 60
+			* 1000;
 	private Logger logger = LoggerFactory.getLogger(EditionImporter.class);
 
 	@Autowired

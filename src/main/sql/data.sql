@@ -49,6 +49,7 @@ INSERT INTO card_keyword (keyword, fr ) values ('Clash',                    'con
 INSERT INTO card_keyword (keyword, fr ) values ('Constellation',            null);
 INSERT INTO card_keyword (keyword, fr ) values ('Convoke',                  'convocation');
 INSERT INTO card_keyword (keyword, fr ) values ('Converge',                 'convergence');
+INSERT INTO card_keyword (keyword, fr ) values ('Crew',                     null);
 INSERT INTO card_keyword (keyword, fr ) values ('Dash',                     'précipitation');
 INSERT INTO card_keyword (keyword, fr ) values ('Defender',                 'defenseur');
 INSERT INTO card_keyword (keyword, fr ) values ('Double strike',            'double initiative');
@@ -57,6 +58,9 @@ INSERT INTO card_keyword (keyword, fr ) values ('Devotion',                 'dev
 INSERT INTO card_keyword (keyword, fr ) values ('Delirium',                 'delire');
 INSERT INTO card_keyword (keyword, fr ) values ('Delve',                    'fouille');
 INSERT INTO card_keyword (keyword, fr ) values ('Dethrone',                 null);
+INSERT INTO card_keyword (keyword, fr ) values ('Deathtouch',               null);
+INSERT INTO card_keyword (keyword, fr ) values ('Domain',                   null);
+INSERT INTO card_keyword (keyword, fr ) values ('Echo',                     null);
 INSERT INTO card_keyword (keyword, fr ) values ('Embalm',                   'embaumement');
 INSERT INTO card_keyword (keyword, fr ) values ('Enrage',                   'rage');
 INSERT INTO card_keyword (keyword, fr ) values ('Evoke',                    null);
@@ -67,6 +71,7 @@ INSERT INTO card_keyword (keyword, fr ) values ('Exert',                    'sur
 INSERT INTO card_keyword (keyword, fr ) values ('Exploit',                  'exploitation');
 INSERT INTO card_keyword (keyword, fr ) values ('Explores',                 'explore');
 INSERT INTO card_keyword (keyword, fr ) values ('Fabricate',                'fabrication');
+INSERT INTO card_keyword (keyword, fr ) values ('Fear',                     'peur');
 INSERT INTO card_keyword (keyword, fr ) values ('Ferocious',                'feocite');
 INSERT INTO card_keyword (keyword, fr ) values ('First strike',            'initiative');
 INSERT INTO card_keyword (keyword, fr ) values ('Flash',                    'flash');
@@ -81,6 +86,7 @@ INSERT INTO card_keyword (keyword, fr ) values ('Imprint',                  'emp
 INSERT INTO card_keyword (keyword, fr ) values ('Improvise',                'improvisation');
 INSERT INTO card_keyword (keyword, fr ) values ('Indestructible',           'indestructible');
 INSERT INTO card_keyword (keyword, fr ) values ('Ingest',                   'ingestion');
+INSERT INTO card_keyword (keyword, fr ) values ('Intimidate',               null);
 INSERT INTO card_keyword (keyword, fr ) values ('Investigate',              'enqueter');
 INSERT INTO card_keyword (keyword, fr ) values ('Kicker',                   'kick');
 INSERT INTO card_keyword (keyword, fr ) values ('Landfall',                 'toucheterre');
@@ -99,6 +105,7 @@ INSERT INTO card_keyword (keyword, fr ) values ('Mountainwalk',             null
 INSERT INTO card_keyword (keyword, fr ) values ('Multikicker',              null);
 INSERT INTO card_keyword (keyword, fr ) values ('Outlast',                  'resilience');
 INSERT INTO card_keyword (keyword, fr ) values ('Parley',                   null);
+INSERT INTO card_keyword (keyword, fr ) values ('Persist',                  null);
 INSERT INTO card_keyword (keyword, fr ) values ('Plainswalk',               null);
 INSERT INTO card_keyword (keyword, fr ) values ('Protection from creatures','protection contre les creatures');
 INSERT INTO card_keyword (keyword, fr ) values ('Prowess',                  'prouesse');
@@ -108,6 +115,7 @@ INSERT INTO card_keyword (keyword, fr ) values ('Reach',                    'por
 INSERT INTO card_keyword (keyword, fr ) values ('Renown',                   'reputation');
 INSERT INTO card_keyword (keyword, fr ) values ('Revolt',                   'revolte');
 INSERT INTO card_keyword (keyword, fr ) values ('Surge',                    'deferlement');
+INSERT INTO card_keyword (keyword, fr ) values ('Shadow',                   null);
 INSERT INTO card_keyword (keyword, fr ) values ('Shroud',                   'linceul');
 INSERT INTO card_keyword (keyword, fr ) values ('Skulk',                    'furtivite');
 INSERT INTO card_keyword (keyword, fr ) values ('Snow-covered forestwalk',  null);
@@ -117,4 +125,6 @@ INSERT INTO card_keyword (keyword, fr ) values ('Strive',                   'obs
 INSERT INTO card_keyword (keyword, fr ) values ('Suspend',                  'suspension');
 INSERT INTO card_keyword (keyword, fr ) values ('Swampwalk',                null);
 INSERT INTO card_keyword (keyword, fr ) values ('Trample',                  'pietinement');
+INSERT INTO card_keyword (keyword, fr ) values ('Undying',                  null);
+INSERT INTO card_keyword (keyword, fr ) values ('Unearth',                  null);
 INSERT INTO card_keyword (keyword, fr ) values ('Vigilance',                null);
