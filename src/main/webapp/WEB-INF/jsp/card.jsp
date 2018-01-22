@@ -96,6 +96,11 @@
 								</c:if>
 							</c:forEach>
 						</ul>
+						<c:if test="${priceupdate}">
+							<div class="priceloading">
+								<span></span>
+							</div>
+						</c:if>
 					</section>
 				</article>
 			</section>
