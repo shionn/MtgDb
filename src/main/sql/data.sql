@@ -3,12 +3,13 @@ update edition set goldfish_name = mkm_name where code = 'CMD';
 
 update edition set goldfish_name = 'Conspiracy'                      where code='CNS';
 update edition set goldfish_name = 'Coldsnap Theme Deck Reprints'    where code='CST';
+update edition set goldfish_name = 'Kaladesh Inventions'             where code='MPS';
 update edition set goldfish_name = 'Amonkhet Invocations'            where code='MPS_AKH';
 update edition set goldfish_name = 'Arena Promos'                    where code='pARL';
 update edition set goldfish_name = 'FNM Promos'                      where code='pFNM';
 update edition set goldfish_name = 'Gateway Promos'                  where code='pGTW';
 update edition set goldfish_name = 'Judge Promos'                    where code='pJGP';
-update edition set goldfish_name = 'Media Promos'                    where code='pMEI'; --Media+Promos
+update edition set goldfish_name = 'Media Promos|Unique and Miscellaneous Promos' where code='pMEI'; --Media+Promos
 update edition set goldfish_name = 'Game+Day+Promos'                 where code='pMGD';
 update edition set goldfish_name = 'Magic Player Rewards'            where code='pMPR';
 update edition set goldfish_name = 'Prerelease Cards'                where code='pPRE';
@@ -22,13 +23,13 @@ update edition set mkm_name = 'Arena League Promos'         where code = 'pARL';
 update edition set mkm_name = 'Friday Night Magic Promos'   where code = 'pFNM';
 update edition set mkm_name = 'Gateway Promos'              where code = 'pGTW';
 update edition set mkm_name = 'Judge Rewards Promos'        where code = 'pJGP';
-update edition set mkm_name = 'Buy a Box Promos'            where code = 'pMEI'; -- Resale Promos, IDW Promos
+update edition set mkm_name = 'Buy a Box Promos|Resale Promos|IDW Promos|Harper Prism Promos' where code = 'pMEI';
 update edition set mkm_name = 'Game Day Promos'             where code = 'pMGD';
 update edition set mkm_name = 'Player Rewards Promos'       where code = 'pMPR';
 update edition set mkm_name = 'Junior Super Series Promos'  where code = 'pSUS';
-update edition set mkm_name = 'Game Day Promos'             where code = 'pWPN'; -- Gateway Promos
+update edition set mkm_name = 'Game Day Promos|Gateway Promos' where code = 'pWPN';
 update edition set mkm_name = 'DCI Promos'                  where code = 'pWOS'; -- pas sur
-
+update edition set mkm_name = 'Kaladesh Inventions'         where code = 'MPS';
 
 
 
@@ -36,7 +37,11 @@ update edition set foil = 'nofoil' where code in('PC2', 'HOP');
 update edition set foil = 'nofoil' where code = 'POR';
 update edition set foil = 'nofoil' where code in('2ED', '4ED', '5ED', '6ED');
 update edition set foil = 'nofoil' where code in('DDQ');
+update edition set foil = 'onlyfoil' where code in('MPS','MPS_AKH');
 
+-- horsemanship, bushido, ninjutsu, protect, scavenge, rampage, debordement, Banding, infest,
+-- Phasing, proliferation, cascade, fatal hour, commander 15/17, entretiens cumulatif, recyclage
+-- Fading, phantomatique, Vanishing
 delete from card_keyword;
 INSERT INTO card_keyword (keyword, fr ) values ('Afflict',                  'affliction');
 INSERT INTO card_keyword (keyword, fr ) values ('Ascend',                   'ascension');

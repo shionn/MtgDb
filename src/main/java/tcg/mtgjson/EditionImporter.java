@@ -42,7 +42,7 @@ public class EditionImporter {
 	@Scheduled(fixedRate = INTERVAL)
 	void doImport() {
 		if (codes.isEmpty()) {
-			Arrays.stream(client.setList()).map(Set::getCode)					.forEach(code -> codes.add(code));
+			Arrays.stream(client.setList()).map(Set::getCode).forEach(code -> codes.add(code));
 			logger.info("Found <" + codes.size() + "> to scan");
 		} else {
 			Set set = client.set(codes.pop());
@@ -61,7 +61,7 @@ public class EditionImporter {
 							dao.type(card, CardTypeClass.SuperType, value);
 						}
 					}
-					if (card.getSubtypes() != null) {
+					if (card.getTypes() != null) {
 						for (String value : card.getTypes()) {
 							dao.type(card, CardTypeClass.Type, value);
 						}
