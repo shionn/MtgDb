@@ -1,19 +1,20 @@
 
 update edition set goldfish_name = mkm_name where code = 'CMD';
 
-update edition set goldfish_name = 'Conspiracy'                   where code='CNS';
-update edition set goldfish_name = 'Coldsnap Theme Deck Reprints' where code='CST';
-update edition set goldfish_name = 'Amonkhet Invocations'         where code='MPS_AKH';
-update edition set goldfish_name = 'Arena Promos'                 where code='pARL';
-update edition set goldfish_name = 'FNM Promos'                   where code='pFNM';
-update edition set goldfish_name = 'Gateway Promos'               where code='pGTW';
-update edition set goldfish_name = 'Judge Promos'                 where code='pJGP';
-update edition set goldfish_name = 'Media Promos'                 where code='pMEI'; --Media+Promos
-update edition set goldfish_name = 'Game+Day+Promos'              where code='pMGD';
-update edition set goldfish_name = 'Magic Player Rewards'         where code='pMPR';
-update edition set goldfish_name = 'Prerelease Cards'             where code='pPRE';
-update edition set goldfish_name = 'JSS MSS Promos'               where code='pSUS';
-update edition set goldfish_name = 'WPN Promos'                   where code='pWPN'; -- Gateway Promos
+update edition set goldfish_name = 'Conspiracy'                      where code='CNS';
+update edition set goldfish_name = 'Coldsnap Theme Deck Reprints'    where code='CST';
+update edition set goldfish_name = 'Amonkhet Invocations'            where code='MPS_AKH';
+update edition set goldfish_name = 'Arena Promos'                    where code='pARL';
+update edition set goldfish_name = 'FNM Promos'                      where code='pFNM';
+update edition set goldfish_name = 'Gateway Promos'                  where code='pGTW';
+update edition set goldfish_name = 'Judge Promos'                    where code='pJGP';
+update edition set goldfish_name = 'Media Promos'                    where code='pMEI'; --Media+Promos
+update edition set goldfish_name = 'Game+Day+Promos'                 where code='pMGD';
+update edition set goldfish_name = 'Magic Player Rewards'            where code='pMPR';
+update edition set goldfish_name = 'Prerelease Cards'                where code='pPRE';
+update edition set goldfish_name = 'JSS MSS Promos'                  where code='pSUS';
+update edition set goldfish_name = 'WPN Promos'                      where code='pWPN'; -- Gateway Promos
+update edition set goldfish_name = 'Unique and Miscellaneous Promos' where code='pWOS';
 
 
 
@@ -26,6 +27,8 @@ update edition set mkm_name = 'Game Day Promos'             where code = 'pMGD';
 update edition set mkm_name = 'Player Rewards Promos'       where code = 'pMPR';
 update edition set mkm_name = 'Junior Super Series Promos'  where code = 'pSUS';
 update edition set mkm_name = 'Game Day Promos'             where code = 'pWPN'; -- Gateway Promos
+update edition set mkm_name = 'DCI Promos'                  where code = 'pWOS'; -- pas sur
+
 
 
 
