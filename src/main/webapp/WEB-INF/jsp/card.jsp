@@ -41,7 +41,7 @@
 						<span class="mtgsymbol cost">${card.manaCost}</span>
 					</header>
 					<section>
-						<p>${card.type}<i class="ss ss-${card.rarity.ss} ss-${card.edition.icon}"></i></p>
+						<p>${card.type}<i class="ss ss-fw ss-grad ss-${card.rarity.ss} ss-${card.edition.icon}"></i></p>
 						<p>${card.text}</p>
 						<c:if test="${card.flavor !=null}">
 							<p class="flavor">${card.flavor}</p>
