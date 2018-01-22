@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import tcg.card.formater.CardFormater;
 import tcg.db.dao.CardSearchDao;
 import tcg.db.dbo.Card;
+import tcg.db.dbo.CardRarity;
 import tcg.db.dbo.Edition;
 
 @Controller
@@ -28,11 +29,8 @@ import tcg.db.dbo.Edition;
 public class AdvancedSearchController {
 
 	private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z]+$");
-
 	private static final Pattern POWER_AND_TOUGHNESS_PATTERN = Pattern.compile("^[0-9*]+/[0-9*]+$");
-
 	private static final Pattern CMC_PATTERN = Pattern.compile("^\\d+$");
-
 	private static final List<String> COLORS = Arrays.asList("White", "Blue", "Black", "Red", "Green");
 
 	@Autowired
@@ -101,6 +99,9 @@ public class AdvancedSearchController {
 						throw new IllegalArgumentException(value);
 					}));
 		}
+		if (type == FilterType.Rarity) {
+			return new Filter(CardRarity.valueOf(value));
+		}
 		return new Filter(type, value);
 	}
 
@@ -133,6 +134,8 @@ public class AdvancedSearchController {
 			return allKeyWord.contains(filter.getValue());
 		case Format:
 			return allFormats.contains(filter.getValue());
+		case Rarity:
+			return filter.getValue() != null;
 		case Edition:
 			return filter.getDisplay() != null && filter.getValue() != null;
 		default:
@@ -151,6 +154,9 @@ public class AdvancedSearchController {
 		}
 		filters.addAll(COLORS.stream().filter(t -> StringUtils.startsWithIgnoreCase(t, filter))
 				.map(t -> new Filter(FilterType.Color, t)).collect(Collectors.toList()));
+		filters.addAll(
+				Arrays.stream(CardRarity.values()).filter(t -> StringUtils.startsWithIgnoreCase(t.name(), filter))
+						.map(t -> new Filter(t)).collect(Collectors.toList()));
 		filters.addAll(allSuperTypes.stream().filter(t -> StringUtils.startsWithIgnoreCase(t, filter))
 				.map(t -> new Filter(FilterType.SuperType, t)).collect(Collectors.toList()));
 		filters.addAll(allTypes.stream().filter(t -> StringUtils.startsWithIgnoreCase(t, filter))

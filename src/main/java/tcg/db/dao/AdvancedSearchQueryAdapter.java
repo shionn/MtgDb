@@ -54,6 +54,11 @@ public class AdvancedSearchQueryAdapter {
 		if (!cmcs.isEmpty()) {
 			sql.WHERE("c.cmc IN (" + StringUtils.join(cmcs, ",") + ")");
 		}
+		List<String> rarities = values(filters, FilterType.Rarity);
+		if (!rarities.isEmpty()) {
+			List<String> conditions = rarities.stream().map(s -> "c.rarity='" + s + "'").collect(Collectors.toList());
+			sql.WHERE('(' + StringUtils.join(conditions, " OR ") + ')');
+		}
 		List<String> pats = values(filters, FilterType.PowerAndToughness);
 		if (!pats.isEmpty()) {
 			List<String> conditions = pats.stream().map(s -> StringUtils.split(s, '/'))

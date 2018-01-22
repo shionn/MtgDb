@@ -1,5 +1,8 @@
 package tcg.search;
 
+import org.apache.commons.lang3.text.WordUtils;
+
+import tcg.db.dbo.CardRarity;
 import tcg.db.dbo.Edition;
 
 public class Filter {
@@ -17,6 +20,12 @@ public class Filter {
 		this.type = FilterType.Edition;
 		this.value = e.getCode();
 		this.display = e.getName();
+	}
+
+	public Filter(CardRarity rarity) {
+		this.type = FilterType.Rarity;
+		this.value = rarity.name();
+		this.display = WordUtils.capitalize(rarity.name());
 	}
 
 	public FilterType getType() {
