@@ -96,7 +96,7 @@ public class AdvancedSearchController {
 			return new Filter(allEditions.stream()
 					.filter(e -> StringUtils.equalsIgnoreCase(e.getCode(), value)).findFirst()
 					.orElseThrow(() -> {
-						throw new IllegalArgumentException(value);
+						return new IllegalArgumentException(value);
 					}));
 		}
 		if (type == FilterType.Rarity) {

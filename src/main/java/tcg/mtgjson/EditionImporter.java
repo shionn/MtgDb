@@ -27,8 +27,7 @@ import tcg.mtgjson.api.Set;
 @Component
 public class EditionImporter {
 
-	private static final int INTERVAL = 10
-			// * 60
+	private static final int INTERVAL = 5 * 60
 			* 1000;
 	private Logger logger = LoggerFactory.getLogger(EditionImporter.class);
 
