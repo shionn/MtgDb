@@ -13,7 +13,7 @@ update edition set goldfish_name = 'Game+Day+Promos'                 where code=
 update edition set goldfish_name = 'Magic Player Rewards'            where code='pMPR';
 update edition set goldfish_name = 'Prerelease Cards'                where code='pPRE';
 update edition set goldfish_name = 'JSS MSS Promos'                  where code='pSUS';
-update edition set goldfish_name = 'WPN Promos'                      where code='pWPN'; -- Gateway Promos
+update edition set goldfish_name = 'WPN Promos|Gateway Promos'       where code='pWPN';
 update edition set goldfish_name = 'Unique and Miscellaneous Promos' where code='pWOS';
 
 

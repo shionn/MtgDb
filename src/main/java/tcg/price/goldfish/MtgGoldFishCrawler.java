@@ -5,8 +5,11 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -27,56 +30,70 @@ public class MtgGoldFishCrawler {
 
 	public List<CardPrice> price(Card card) {
 		List<CardPrice> prices = new ArrayList<CardPrice>();
-		prices.addAll(crawl(card, CardPriceSource.MtgGoldFishPaper, CardPriceSource.MtgGoldFishTx, buildUrl(card)));
+		prices.addAll(crawl(card, CardPriceSource.MtgGoldFishPaper, CardPriceSource.MtgGoldFishTx,
+				buildUrl(card)));
 		if (card.getEdition().getFoil() != Foil.nofoil) {
-			prices.addAll(crawl(card, CardPriceSource.MtgGoldFishFoilPaper, CardPriceSource.MtgGoldFishFoilTx,
-					buildFoilUrl(card)));
+			prices.addAll(crawl(card, CardPriceSource.MtgGoldFishFoilPaper,
+					CardPriceSource.MtgGoldFishFoilTx, buildFoilUrl(card)));
 		}
 		return prices;
 	}
 
-	private List<CardPrice> crawl(Card card, CardPriceSource paperType, CardPriceSource onlineType, String link) {
+	private List<CardPrice> crawl(Card card, CardPriceSource paperType, CardPriceSource onlineType,
+			List<String> links) {
+		Iterator<String> ite = links.iterator();
 		CardPrice paper = retrieve(card, paperType);
 		CardPrice online = retrieve(card, onlineType);
-		try {
-			paper.setLink(link);
-			online.setLink(link);
-
-			if (!isIgnored(card)) {
-				Document document = Jsoup.connect(link).get();
-				Element e = document.select("div.price-box.paper .price-box-price").first();
-				if (e != null) {
-					try {
-						paper.setPrice(new BigDecimal(e.text().replaceAll(",", "")));
-						paper.setPriceDate(new Date());
-					} catch (NumberFormatException ex) {
-						paper.setError("NumberFormatException");
-						logger.warn("can't parse " + e.text(), ex);
-					}
-				} else {
-					paper.setError("NoElement");
-					logger.warn("paper price not found");
-				}
-				e = document.select("div.price-box.online .price-box-price").first();
-				if (e != null) {
-					try {
-						online.setPrice(new BigDecimal(e.text().replaceAll(",", "")));
-						online.setPriceDate(new Date());
-					} catch (NumberFormatException ex) {
-						online.setError("NumberFormatException");
-						logger.warn("can't parse " + e.text(), ex);
-					}
-				} else {
-					online.setError("NumberFormatException");
-					logger.warn("online price not found");
-				}
+		boolean found = false;
+		while (ite.hasNext() && !found) {
+			String link = ite.next();
+			try {
+				crawl(card, paper, online, link);
+				found = true;
+			} catch (IOException e) {
+				logger.warn("Can't crawl price : ", e);
 			}
-		} catch (IOException e) {
+		}
+		if (!found) {
 			paper.setError("IOException");
 			online.setError("IOException");
-			logger.error("Can't crawl price : ", e);
 		}
 		return Arrays.asList(paper, online);
+	}
+
+	private void crawl(Card card, CardPrice paper, CardPrice online, String link)
+			throws IOException {
+		paper.setLink(link);
+		online.setLink(link);
+		if (!isIgnored(card)) {
+			Document document = Jsoup.connect(link).get();
+			Element e = document.select("div.price-box.paper .price-box-price").first();
+			if (e != null) {
+				try {
+					paper.setPrice(new BigDecimal(e.text().replaceAll(",", "")));
+					paper.setPriceDate(new Date());
+				} catch (NumberFormatException ex) {
+					paper.setError("NumberFormatException");
+					logger.warn("can't parse " + e.text(), ex);
+				}
+			} else {
+				paper.setError("NoElement");
+				logger.warn("paper price not found");
+			}
+			e = document.select("div.price-box.online .price-box-price").first();
+			if (e != null) {
+				try {
+					online.setPrice(new BigDecimal(e.text().replaceAll(",", "")));
+					online.setPriceDate(new Date());
+				} catch (NumberFormatException ex) {
+					online.setError("NumberFormatException");
+					logger.warn("can't parse " + e.text(), ex);
+				}
+			} else {
+				online.setError("NumberFormatException");
+				logger.warn("online price not found");
+			}
+		}
 	}
 
 	private boolean isIgnored(Card card) {
@@ -94,23 +111,28 @@ public class MtgGoldFishCrawler {
 		return price;
 	}
 
-	private String buildUrl(Card card) {
-		String url = "https://www.mtggoldfish.com/price/" + formatEdition(card) + "/" + formatName(card) + "#paper";
-		return url.replace(' ', '+').replaceAll("\\+\\+", "+");
+	private List<String> buildUrl(Card card) {
+		return formatEdition(card).stream().map(e -> {
+			String url = "https://www.mtggoldfish.com/price/" + e + "/" + formatName(card)
+					+ "#paper";
+			return url.replace(' ', '+').replaceAll("\\+\\+", "+");
+		}).collect(Collectors.toList());
 	}
 
-	private String buildFoilUrl(Card card) {
-		String url = "https://www.mtggoldfish.com/price/" + formatEdition(card) + ":Foil/" + formatName(card)
-				+ "#paper";
-		return url.replace(' ', '+').replaceAll("\\+\\+", "+");
+	private List<String> buildFoilUrl(Card card) {
+		return formatEdition(card).stream().map(e -> {
+			String url = "https://www.mtggoldfish.com/price/" + e + ":Foil/" + formatName(card)
+					+ "#paper";
+			return url.replace(' ', '+').replaceAll("\\+\\+", "+");
+		}).collect(Collectors.toList());
 	}
 
-	private String formatEdition(Card card) {
+	private List<String> formatEdition(Card card) {
 		String editionName = card.getEdition().getGoldfishName();
 		if (editionName == null) {
 			editionName = card.getEdition().getName();
 		}
-		return editionName.replaceAll("[:.',]", "");
+		return Arrays.asList(StringUtils.split(editionName.replaceAll("[:.',]", ""), '|'));
 	}
 
 	private String formatName(Card card) {
