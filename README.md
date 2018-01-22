@@ -15,5 +15,5 @@
 - github
 - spring
 - font pour mana : (https://github.com/AlexandreArpin/mtg-font/)
-
+- font pour edition : https://github.com/andrewgioia/Keyrune
 
