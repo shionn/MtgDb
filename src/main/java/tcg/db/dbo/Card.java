@@ -25,6 +25,7 @@ public class Card {
 
 	private CardLayout layout;
 	private Edition edition;
+	private CardRarity rarity;
 	private List<CardPrinting> printings;
 	private List<CardPrice> prices = new ArrayList<>();
 	private List<CardLang> langs = new ArrayList<>();
@@ -237,5 +238,13 @@ public class Card {
 
 	public void setLayout(CardLayout layout) {
 		this.layout = layout;
+	}
+
+	public CardRarity getRarity() {
+		return rarity;
+	}
+
+	public void setRarity(CardRarity rarity) {
+		this.rarity = rarity;
 	}
 }

@@ -17,6 +17,10 @@ public class Edition {
 	private boolean onlineOnly;
 	private Foil foil;
 
+	public String getIcon() {
+		return code.toLowerCase();
+	}
+
 	public String getCode() {
 		return code;
 	}

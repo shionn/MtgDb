@@ -10,7 +10,7 @@
 			<section class="editions">
 				<ul>
 					<c:forEach items="${card.printings}" var="p">
-						<li<c:if test="${card.id == p.id}"> class="active"</c:if>><a href='<spring:url value="/c/${p.id}"/>' title="${p.edition.name}"><i class="ss ss-${p.edition.code.toLowerCase()}"></i></a></li>
+						<li<c:if test="${card.id == p.id}"> class="active"</c:if>><a href='<spring:url value="/c/${p.id}"/>' title="${p.edition.name}"><i class="ss ss-${p.edition.icon}"></i></a></li>
 					</c:forEach>
 				</ul>
 			</section>
@@ -41,7 +41,7 @@
 						<span class="mtgsymbol cost">${card.manaCost}</span>
 					</header>
 					<section>
-						<p>${card.type}</p>
+						<p>${card.type}<i class="ss ss-${card.rarity.ss} ss-${card.edition.icon}"></i></p>
 						<p>${card.text}</p>
 						<c:if test="${card.flavor !=null}">
 							<p class="flavor">${card.flavor}</p>
