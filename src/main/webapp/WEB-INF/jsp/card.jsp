@@ -102,6 +102,11 @@
 							</div>
 						</c:if>
 					</section>
+					<header>Trade</header>
+					<section>
+						<button>Ajouter</button>
+						<button>Ajouter <img src='<spring:url value="/img/foil.gif"/>'></button>
+					</section>
 				</article>
 			</section>
 			<section>

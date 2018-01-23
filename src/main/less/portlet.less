@@ -4,12 +4,12 @@ article.portlet {
 	margin: 0 5px 14px;
 	min-width : 125px;
 	& > header {
-		color: lighten(@color3, 25%);
+		color: lighten(@portlet-color, 25%);
 		padding: 8px 0;
 		text-align: center;
 		font: italic bold 1.5em Serif;
-		background-color: @color3;
-		border-bottom: 5px solid lighten(@color3, 25%);
+		background-color: @portlet-color;
+		border-bottom: 5px solid lighten(@portlet-color, 25%);
 		.mtgsymbol {
 			line-height: 0.6em;
 			&.cost {
@@ -45,7 +45,7 @@ article.portlet {
 			display : inline-block;
 			border-bottom : none;
 			padding: 5px 5px;
-			border-left: 5px solid lighten(@color3, 25%);
+			border-left: 5px solid lighten(@portlet-color, 25%);
 			writing-mode: tb-rl;
 			transform: scale(-1);
 			width: 40px;

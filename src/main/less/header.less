@@ -1,6 +1,6 @@
 body > header {
-	color: @color5;
-	background-color: @color1;
+	color: @nav-bar-text-color;
+	background-color: @nav-bar-background-color;
 	nav {
 		ul {
 			display: flex;
@@ -11,9 +11,13 @@ body > header {
 				list-style: none;
 				padding: 5px;
 					a {
-						color: @color5;
+						color: @nav-bar-text-color;
 					}
 			}
+		}
+		input {
+			background-color : @nav-bar-text-color;
+			color: @nav-bar-background-color;
 		}
 	}
 }

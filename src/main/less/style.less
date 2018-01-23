@@ -8,62 +8,30 @@
 }
 
 body {
-	color: @color1;
-	background-color: @color5;
+	color: @text-color;
+	background-color: @back-background-color;
 	font: 0.875em / 1.4em "Source Sans Pro", Helvetica, sans-serif;
 }
 
 a {
-	color: @color1;
+	color: @text-color;
 	text-decoration: none;
 }
-
-@import "portlet.less";
-@import "header.less";
 p > .mi {
 	position: relative;
 	top: 0.125em;
 }
 
 body > article.main {
-	background-color: @color4;
+	background-color: @background-color;
 	min-height: 250px;
 }
+
+@import "portlet.less";
+@import "header.less";
+@import "form.less";
+
 @import "card.less";
 @import "advanced-search.less";
 
-span.autocomplete {
-	ul {
-		display: none;
-		flex-direction: column;
-		position: absolute;
-		background: @color4;
-		list-style: none;
-		margin: 1px 0 0;
-		z-index: 2;
-		padding: 2px;
-		border: solid 1px @color3;
-		align-items: stretch;
-		li {
-			padding: 0;
-			margin: 0;
-			display: flex;
-			a {
-				padding: 4px;
-				flex-grow: 1;
-			}
-
-			&:hover, &.select {
-				background: @color3;
-				a {
-					color: lighten(@color3, 25%);
-				}
-			}
-		}
-	}
-
-	&.open ul {
-		display: flex;
-	}
-}
 
