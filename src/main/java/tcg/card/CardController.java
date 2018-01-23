@@ -2,11 +2,9 @@ package tcg.card;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Queue;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +16,7 @@ import tcg.db.dao.CardDao;
 import tcg.db.dbo.Card;
 import tcg.db.dbo.CardPrice;
 import tcg.db.dbo.CardRule;
+import tcg.price.PriceDeamon;
 
 @Controller
 public class CardController {
@@ -29,8 +28,7 @@ public class CardController {
 	private CardFormater formater;
 
 	@Autowired
-	@Qualifier("PriceCardToUpdate")
-	private Queue<String> priceCardToUpdate;
+	private PriceDeamon priceUpdater;
 
 	@RequestMapping(value = "/c/{id}", method = RequestMethod.GET)
 	public ModelAndView open(@PathVariable("id") String id) {
@@ -44,7 +42,7 @@ public class CardController {
 		card.setFlavor(formater.flavor(card));
 		ModelAndView view = new ModelAndView("card");
 		if (isOldPrice(card)) {
-			priceCardToUpdate.add(card.getId());
+			priceUpdater.request(card);
 			view.addObject("priceupdate", true);
 		}
 		return view.addObject("card", card);

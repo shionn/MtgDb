@@ -84,7 +84,6 @@ public class MkmCrawler {
 	}
 
 	private List<String> buildUrl(Card card) throws IOException {
-
 		String editions = card.getEdition().getMkmName();
 		if (editions == null) {
 			editions = card.getEdition().getName();

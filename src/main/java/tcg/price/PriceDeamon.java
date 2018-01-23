@@ -3,13 +3,14 @@ package tcg.price;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.ApplicationScope;
 
 import tcg.db.dao.CardDao;
 import tcg.db.dbo.Card;
@@ -18,6 +19,7 @@ import tcg.price.goldfish.MtgGoldFishCrawler;
 import tcg.price.mkm.MkmCrawler;
 
 @Component
+@ApplicationScope
 public class PriceDeamon {
 
 	@Autowired
@@ -28,9 +30,7 @@ public class PriceDeamon {
 	@Autowired
 	private MkmCrawler mkmCrawler;
 
-	@Autowired
-	@Qualifier("PriceCardToUpdate")
-	private Queue<String> priceCardToUpdate;
+	private Queue<String> priceCardToUpdate = new ConcurrentLinkedQueue<>();;
 
 	@Scheduled(fixedRate = 1000)
 	public void update() {
@@ -48,4 +48,7 @@ public class PriceDeamon {
 		}
 	}
 
+	public void request(Card card) {
+		priceCardToUpdate.add(card.getId());
+	}
 }
