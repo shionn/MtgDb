@@ -6,12 +6,12 @@ $(function() {
 			return this.length > 0;
 		},
 		doClick : function() {
-			if (this.length === 1) this[0].click();
+			if (this.length === 1)
+				this[0].click();
 		}
 	});
 
 });
-
 
 $(function() {
 	$("form").on("keypress", function(e) {
@@ -32,7 +32,8 @@ $(function() {
 			$(this).parent().removeClass("open")
 		} else if ($(this).val().length >= $(this).attr("data-length")) {
 			var parent = $(this).parent(".autocomplete");
-			if (_previous) _previous.abort();
+			if (_previous)
+				_previous.abort();
 			_previous = $.ajax({
 				url : $(this).attr("data-source") + "?" + $(this).attr("name") + "=" + $(this).val(),
 				method : 'GET',
@@ -48,8 +49,8 @@ $(function() {
 		$(this).append($("<ul>"));
 	});
 
-	$("body").on("click", function(e){
-		if(!$(e.target).parents("span.autocomplete").exists()) {
+	$("body").on("click", function(e) {
+		if (!$(e.target).parents("span.autocomplete").exists()) {
 			$("span.autocomplete.open").removeClass("open");
 		}
 	});
@@ -59,4 +60,19 @@ $(function() {
 $(function() {
 	$("header nav input").first().focus();
 	$("body .advanced-search input").first().focus();
+});
+
+$(function() {
+	$("div.priceloading").on("animationend", function(e) {
+		if (e.target != this)
+			return;
+		$.ajax({
+			url : $(this).attr("data-source"),
+			method : 'GET',
+			context : this,
+			success : function(data) {
+				$(this).closest("article").find("ul").replaceWith(data);
+			}
+		});
+	});
 });

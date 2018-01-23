@@ -97,7 +97,7 @@
 							</c:forEach>
 						</ul>
 						<c:if test="${priceupdate}">
-							<div class="priceloading">
+							<div class="priceloading" data-source='<spring:url value="/p/${card.id}"/>'>
 								<span></span>
 							</div>
 						</c:if>

@@ -2,7 +2,9 @@ package tcg.price;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.apache.ibatis.session.SqlSession;
@@ -30,25 +32,40 @@ public class PriceDeamon {
 	@Autowired
 	private MkmCrawler mkmCrawler;
 
-	private Queue<String> priceCardToUpdate = new ConcurrentLinkedQueue<>();;
+	private Queue<String> priceCardToUpdate = new ConcurrentLinkedQueue<>();
+	private Map<String, List<CardPrice>> results = new ConcurrentHashMap<>();
 
 	@Scheduled(fixedRate = 1000)
 	public void update() {
 		try (SqlSession session = factory.openSession()) {
 			String id = priceCardToUpdate.poll();
 			if (id != null) {
-				CardDao dao = session.getMapper(CardDao.class);
-				Card card = dao.read(id);
-				List<CardPrice> prices = new ArrayList<>();
-				prices.addAll(mkmCrawler.price(card));
-				prices.addAll(fishCrawler.price(card));
-				prices.stream().forEach(session.getMapper(CardDao.class)::price);
-				session.commit();
+				synchronized (this) {
+					if (results.size() > 50) {
+						results.clear();
+					}
+					CardDao dao = session.getMapper(CardDao.class);
+					Card card = dao.read(id);
+					List<CardPrice> prices = new ArrayList<>();
+					prices.addAll(mkmCrawler.price(card));
+					prices.addAll(fishCrawler.price(card));
+					prices.stream().forEach(session.getMapper(CardDao.class)::price);
+					session.commit();
+					results.put(id, prices);
+				}
 			}
 		}
 	}
 
 	public void request(Card card) {
 		priceCardToUpdate.add(card.getId());
+	}
+
+	public List<CardPrice> get(String id) {
+		synchronized (this) {
+			List<CardPrice> prices = results.get(id);
+			results.remove(id);
+			return prices;
+		}
 	}
 }

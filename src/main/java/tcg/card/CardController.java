@@ -48,13 +48,17 @@ public class CardController {
 		return view.addObject("card", card);
 	}
 
-
 	private boolean isOldPrice(Card card) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.DAY_OF_YEAR, -1);
 		Date toOld = calendar.getTime();
 		return card.getPrices().stream().map(CardPrice::getUpdateDate).filter(toOld::after).map(d -> true).findFirst()
 				.orElse(card.getPrices().isEmpty());
+	}
+
+	@RequestMapping(value = "/p/{id}", method = RequestMethod.GET)
+	private ModelAndView price(@PathVariable("id") String id) {
+		return new ModelAndView("card-prices").addObject("prices", priceUpdater.get(id));
 	}
 
 }
