@@ -1,3 +1,12 @@
+
+button {
+	background-color: @blue;
+	border: 3px solid lighten(@blue, 25%);
+	color: lighten(@blue, 25%);
+	border-radius: 7px;
+	padding: 4px 8px 2px;
+}
+
 span.autocomplete {
 	ul {
 		display: none;
@@ -20,7 +29,7 @@ span.autocomplete {
 				flex-grow: 1;
 			}
 
-			&:hover, &.select {
+			&:hover , &.select {
 				background: @portlet-color;
 				a {
 					color: lighten(@portlet-color, 25%);
@@ -33,3 +42,4 @@ span.autocomplete {
 		display: flex;
 	}
 }
+

@@ -103,9 +103,14 @@
 						</c:if>
 					</section>
 					<header>Trade</header>
-					<section>
-						<button>Ajouter</button>
-						<button>Ajouter <img src='<spring:url value="/img/foil.gif"/>'></button>
+					<section style="text-align: center; padding : 10px 0px">
+						<button>Add to Trade</button>
+						<button>Add foil to Trade</button>
+					</section>
+					<header>Deck</header>
+					<section style="text-align: center; padding : 10px 0px">
+						<button>Add to Deck</button>
+						<button>Add to Side</button>
 					</section>
 				</article>
 			</section>
