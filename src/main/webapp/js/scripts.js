@@ -76,3 +76,16 @@ $(function() {
 		});
 	});
 });
+
+$(function() {
+	$(document).on("keydown", function(e){
+		if (e.keyCode == 112) {
+			$("header nav input").first().focus();
+			return false;
+		}
+		if (e.keyCode == 113) {
+			$("header nav a.as").doClick();
+			return false;
+		}
+	});
+});

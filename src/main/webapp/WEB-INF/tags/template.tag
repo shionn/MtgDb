@@ -27,7 +27,10 @@
 					</form>
 				</li>
 				<li>
-					<a href='<spring:url value="/as"/>'>Advanced Search</a>
+					<a href='<spring:url value="/as"/>' class="as">Advanced Search</a>
+				</li>
+				<li>
+					<a href='<spring:url value="/t"/>' class="t">Trade</a>
 				</li>
 			</ul>
 		</nav>
