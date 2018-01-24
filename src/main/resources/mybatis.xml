@@ -25,9 +25,6 @@
 		</environment>
 	</environments>
 	<mappers>
-		<mapper class="tcg.db.dao.CardDao"/>
-		<mapper class="tcg.db.dao.CardSearchDao"/>
-		<mapper class="tcg.db.dao.CardValueDomainDao"/>
-		<mapper class="tcg.db.dao.ImporterDao"/>
+		<package name="tcg.db.dao"/>
 	</mappers>
 </configuration>

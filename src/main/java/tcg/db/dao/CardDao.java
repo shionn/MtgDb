@@ -14,7 +14,6 @@ import tcg.db.dbo.Card;
 import tcg.db.dbo.CardPrice;
 import tcg.db.dbo.CardPrinting;
 import tcg.db.dbo.CardRule;
-import tcg.db.dbo.Edition;
 
 public interface CardDao extends CardFragDao {
 
@@ -39,18 +38,9 @@ public interface CardDao extends CardFragDao {
 	List<CardPrinting> readPrintings(String card);
 
 	@Select("SELECT * " //
-			+ "FROM card_price " //
-			+ "WHERE id = #{id} " //
-			+ "ORDER BY source ASC")
-	List<CardPrice> readPrices(String id);
-
-	@Select("SELECT * " //
 			+ "FROM card_rule " //
 			+ "WHERE id = #{id}")
 	List<CardRule> readRules(String id);
-
-	@Select("SELECT * FROM edition WHERE code = #{code}")
-	Edition readEdition(String code);
 
 	@Select("SELECT CONCAT(e.mci_code, '/', IFNULL(c.mci_number,c.number) ) "//
 			+ "FROM card AS c " //

@@ -32,6 +32,9 @@
 				<li>
 					<a href='<spring:url value="/t"/>' class="t">Trade</a>
 				</li>
+				<li>
+					<a href='<spring:url value="/d"/>' class="d">Deck</a>
+				</li>
 			</ul>
 		</nav>
 	</header>

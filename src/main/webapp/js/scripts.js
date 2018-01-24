@@ -87,5 +87,13 @@ $(function() {
 			$("header nav a.as").doClick();
 			return false;
 		}
+		if (e.keyCode == 114) {
+			$("header nav a.t").doClick();
+			return false;
+		}
+		if (e.keyCode == 115) {
+			$("header nav a.d").doClick();
+			return false;
+		}
 	});
 });

@@ -1,0 +1,23 @@
+	table {
+	width: 100%;
+	thead {
+		background-color: @portlet-color;
+		color: lighten(@portlet-color, 25%);
+		font: italic bold 1.5em Serif;
+		border-bottom: 5px solid lighten(@portlet-color, 25%);
+		th {
+			padding: 8px 0;
+		}
+	}
+
+	tbody {
+		tr:nth-child(even) {
+			background-color: lighten(@portlet-color, 35%);
+		}
+
+		td {
+			padding: 3px 3px 1px;
+		}
+	}
+}
+

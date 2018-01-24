@@ -104,8 +104,8 @@
 					</section>
 					<header>Trade</header>
 					<section>
-						<button>Add to Trade</button>
-						<button>Add foil to Trade</button>
+						<a class="button" href='<spring:url value="/t/add/${card.id}"/>'>Add to Trade</a>
+						<a class="button" href='<spring:url value="/t/add-f/${card.id}"/>'>Add foil to Trade</a>
 					</section>
 					<header>Deck</header>
 					<section>
