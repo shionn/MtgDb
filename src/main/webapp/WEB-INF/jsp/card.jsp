@@ -103,12 +103,12 @@
 						</c:if>
 					</section>
 					<header>Trade</header>
-					<section style="text-align: center; padding : 10px 0px">
+					<section>
 						<button>Add to Trade</button>
 						<button>Add foil to Trade</button>
 					</section>
 					<header>Deck</header>
-					<section style="text-align: center; padding : 10px 0px">
+					<section>
 						<button>Add to Deck</button>
 						<button>Add to Side</button>
 					</section>

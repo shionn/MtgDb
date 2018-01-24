@@ -62,19 +62,26 @@ body > article.main.card {
 			}
 		}
 
-		article.prices ul {
-			padding: 0;
-			li {
-				display: flex;
-				list-style: none;
-				flex-wrap: nowrap;
-				align-items: center;
-				justify-content: space-between;
-				white-space: nowrap;
-				list-style: none;
-				img {
-					margin-right: 5px;
+		article.prices {
+			ul {
+				padding: 0;
+				li {
+					display: flex;
+					list-style: none;
+					flex-wrap: nowrap;
+					align-items: center;
+					justify-content: space-between;
+					white-space: nowrap;
+					list-style: none;
+					img {
+						margin-right: 5px;
+					}
 				}
+			}
+
+			button {
+				margin: 7px auto;
+				display: block;
 			}
 		}
 	}
@@ -98,15 +105,15 @@ body > article.main.card {
 
 	@keyframes loader-div {
 		0% {
-		padding: 5px;
+			padding: 5px;
 		}
 
 		80% {
-		padding: 5px;
+			padding: 5px;
 		}
 
 		100% {
-		padding: 0px;
+			padding: 0px;
 		}
 	}
 

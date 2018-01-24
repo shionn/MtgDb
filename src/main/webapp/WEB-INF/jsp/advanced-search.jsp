@@ -23,23 +23,34 @@
 					</section>
 				</article>
 			</section>
-			<section>
-				<article class="portlet">
-					<header>Result(s)</header>
-					<section>
-						<table>
-							<c:forEach items="${cards}" var="c">
-								<tr>
-									<td><a href='<spring:url value="/c/${c.id}"/>'>${c.name}</a></td>
-									<td><a href='<spring:url value="/c/${c.id}"/>'>${c.lang('fr').name}</a></td>
-									<td>${c.type}</td>
-									<td>${c.manaCost}</td>
-								</tr>
-							</c:forEach>
-						</table>
-					</section>
-				</article>
-			</section>
+			<c:if test="${not empty cards}">
+				<section>
+					<article class="portlet">
+						<section>
+							<table>
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Name (fr)</th>
+										<th>Types</th>
+										<th>Mana Cost</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${cards}" var="c">
+										<tr>
+											<td><a href='<spring:url value="/c/${c.id}"/>'>${c.name}</a></td>
+											<td><a href='<spring:url value="/c/${c.id}"/>'>${c.lang('fr').name}</a></td>
+											<td>${c.type}</td>
+											<td>${c.manaCost}</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</section>
+					</article>
+				</section>
+			</c:if>
 		</article>
 	</jsp:attribute>
 </t:template>
