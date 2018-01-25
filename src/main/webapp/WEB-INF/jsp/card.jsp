@@ -102,8 +102,8 @@
 							</div>
 						</c:if>
 					</section>
-					<header>Trade</header>
-					<section>
+					<header<c:if test="${priceupdate}"> class="hide"</c:if>>Trade</header>
+					<section<c:if test="${priceupdate}"> class="hide"</c:if>>
 						<a class="button" href='<spring:url value="/t/add/${card.id}"/>'>Add to Trade</a>
 						<a class="button" href='<spring:url value="/t/add-f/${card.id}"/>'>Add foil to Trade</a>
 					</section>

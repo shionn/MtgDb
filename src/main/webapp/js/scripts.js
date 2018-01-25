@@ -72,6 +72,7 @@ $(function() {
 			context : this,
 			success : function(data) {
 				$(this).closest("article").find("ul").replaceWith(data);
+				$(".hide").removeClass("hide");
 			}
 		});
 	});
