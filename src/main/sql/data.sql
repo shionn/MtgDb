@@ -30,6 +30,7 @@ update edition set mkm_name = 'Junior Super Series Promos'  where code = 'pSUS';
 update edition set mkm_name = 'Game Day Promos|Gateway Promos' where code = 'pWPN';
 update edition set mkm_name = 'DCI Promos'                  where code = 'pWOS'; -- pas sur
 update edition set mkm_name = 'Kaladesh Inventions'         where code = 'MPS';
+update edition set mkm_name = 'Rivals of Ixalan'            where code = 'RIX';
 
 
 

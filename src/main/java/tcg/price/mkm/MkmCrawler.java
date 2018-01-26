@@ -94,7 +94,7 @@ public class MkmCrawler {
 					+ URLEncoder.encode(edition, "UTF-8") + "/"
 					+ URLEncoder.encode(card.getName(), "UTF-8"));
 		}
-
+		// https://www.cardmarket.com/en/Magic/Products/Singles/Rivals+of+Ixalan/Merfolk+Mistbinder
 		return urls;
 	}
 
