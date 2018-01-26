@@ -22,7 +22,7 @@
 							<tbody>
 								<c:forEach items="${cards1}" var="t">
 									<tr>
-										<td>${t.card.name} <c:if test="${t.foil}"><img src='<spring:url value="/img/foil-inline.gif"/>'></c:if></td>
+										<td><a href='<spring:url value="/c/${t.card.id}"/>'>${t.card.name}</a> <c:if test="${t.foil}"><img src='<spring:url value="/img/foil-inline.gif"/>'></c:if></td>
 										<td>${t.mkmPrice.price} ${t.mkmPrice.source.currency}</td>
 										<td>${t.mtgGoldFishPrice.price} ${t.mtgGoldFishPrice.source.currency}</td>
 										<td>${t.mtgGoldFishTxPrice.price} ${t.mtgGoldFishTxPrice.source.currency}</td>
@@ -63,7 +63,7 @@
 											<a href='<spring:url value="/t/left/${t.card.id}"/>'><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></a>
 											<a href='<spring:url value="/t/rm/${t.card.id}"/>'><i class="fa fa-times" aria-hidden="true"></i></a>
 										</td>
-										<td>${t.card.name} <c:if test="${t.foil}"><img src='<spring:url value="/img/foil-inline.gif"/>'></c:if></td>
+										<td><a href='<spring:url value="/c/${t.card.id}"/>'>${t.card.name}</a> <c:if test="${t.foil}"><img src='<spring:url value="/img/foil-inline.gif"/>'></c:if></td>
 										<td>${t.mkmPrice.price} ${t.mkmPrice.source.currency}</td>
 										<td>${t.mtgGoldFishPrice.price} ${t.mtgGoldFishPrice.source.currency}</td>
 										<td>${t.mtgGoldFishTxPrice.price} ${t.mtgGoldFishTxPrice.source.currency}</td>
