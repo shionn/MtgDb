@@ -133,3 +133,10 @@ CREATE TABLE card_keyword (
   primary key (keyword)
 ) DEFAULT CHARSET=utf8;
 
+
+CREATE TABLE IF NOT EXISTS `user` (
+  `email`    varchar(128) CHARACTER SET utf8 NOT NULL,
+  `password` varchar(256) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`email`)
+) DEFAULT CHARSET=utf8;
+

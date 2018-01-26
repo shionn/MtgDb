@@ -9,7 +9,7 @@
 				<article class="portlet">
 					<header>Sign in</header>
 					<section>
-						<form method="POST">
+						<form method="POST" action='<spring:url value="/signin"/>'>
 							<div>
 								<label for="username">Email :</label> <input name="username" type="email" />
 							</div>
