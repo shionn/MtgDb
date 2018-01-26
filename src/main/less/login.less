@@ -1,0 +1,38 @@
+
+body > article.main.signin {
+	.portlet {
+		@media (min-width: @min-sm) {
+			width: 40%;
+			margin: 0 auto;
+		}
+
+		@media (min-width: @min-md) {
+			width: 30%;
+			margin: 0 auto;
+		}
+
+		@media (min-width: @min-lg) {
+			width: 25%;
+			margin: 0 auto;
+		}
+
+		form {
+			div {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 2px 0;
+				input[type=submit] {
+					margin: 0 auto;
+					width: 200px;
+				}
+			}
+		}
+
+		footer {
+			display: flex;
+			justify-content: space-between;
+		}
+	}
+}
+
