@@ -17,6 +17,8 @@
 - font pour mana : (https://github.com/AlexandreArpin/mtg-font/)
 - font pour edition : https://github.com/andrewgioia/Keyrune
 
+# bug
 - cote sly spy
-- rix
+- doubke face ixalan (enchantement vert)
+- symbol mana text face verso
 
