@@ -1,5 +1,11 @@
 package tcg.security;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.text.MessageFormat;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -29,7 +35,8 @@ public class MailSender {
 	@Value("${smtp.replyto}")
 	private String replyto;
 
-	public void send(String email, String subjet, String content) throws MessagingException {
+	public void send(String email, String subjet, String content, Object... params)
+			throws MessagingException, IOException {
 		Properties props = new Properties();
 
 		props.put("mail.smtp.host", host);
@@ -46,13 +53,27 @@ public class MailSender {
 		Message message = new MimeMessage(session);
 		message.setFrom(new InternetAddress(from));
 		message.setReplyTo(new InternetAddress[] { new InternetAddress(replyto) });
-		message.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse(email));
+		message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
 		message.setSubject(subjet);
-		message.setText(content);
+		message.setText(read(content, params));
 
 		Transport.send(message);
 
+	}
+
+	private String read(String content, Object[] params) throws IOException {
+		StringBuilder message = new StringBuilder();
+		try (InputStream is = Thread.currentThread().getContextClassLoader()
+				.getResourceAsStream(content + ".mail");
+				InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
+				BufferedReader br = new BufferedReader(isr)) {
+			String line = br.readLine();
+			while (line != null) {
+				message.append(MessageFormat.format(line, params)).append('\n');
+				line = br.readLine();
+			}
+		}
+		return message.toString();
 	}
 
 }

@@ -1,12 +1,15 @@
 package tcg.security;
 
+import java.io.IOException;
+
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +27,9 @@ public class SignInController {
 	private PasswordEncoder encoder;
 	@Autowired
 	private MailSender mailSender;
+	@Autowired
+	@Value("${server.host}")
+	private String host;
 
 	@RequestMapping(value = "/signin", method = RequestMethod.GET)
 	public ModelAndView loginPage() {
@@ -38,7 +44,8 @@ public class SignInController {
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public String signUp(@RequestParam("email") String email,
 			@RequestParam("password") String password, @RequestParam("confirm") String confirm,
-			RedirectAttributes attr) throws MessagingException {
+			RedirectAttributes attr, HttpServletRequest request)
+			throws MessagingException, IOException {
 		SignInDao dao = session.getMapper(SignInDao.class);
 		if (dao.exist(email)) {
 			attr.addFlashAttribute("email", email);
@@ -51,14 +58,14 @@ public class SignInController {
 			return "redirect:/signup";
 		}
 		dao.register(email, encoder.encode(password));
-		mailSender.send(email, "Welcome", "Contenu à définir");
-		return "redirect:/signup/confirm/" + email;
+		mailSender.send(email, "Welcome", "welcome", "http://" +
+				host + request.getContextPath() + "/signup/confirm/" + email + "/"
+						+ encoder.encode(email));
+		return "redirect:/signup/confirm/";
 	}
 
-	@RequestMapping(value = "/signup/confirm/{email}", method = RequestMethod.GET)
-	public ModelAndView signUpConfirm(@PathVariable("email") String email) {
-
-
+	@RequestMapping(value = "/signup/confirm/", method = RequestMethod.GET)
+	public ModelAndView signUpConfirm() {
 		return new ModelAndView("signup-confirm");
 	}
 }
