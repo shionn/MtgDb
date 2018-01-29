@@ -1,11 +1,7 @@
 package tcg.security;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.ibatis.session.SqlSession;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -30,11 +26,9 @@ public class AuthenticationProvider implements org.springframework.security.auth
 	@Autowired
 	private SqlSession session;
 
-	@Autowired
-	@Value("${auth.salt}")
-	private String salt = "salt";
 
-	private Logger logger = LoggerFactory.getLogger(AuthenticationProvider.class);
+	@Autowired
+	private PasswordEncoder encoder;
 
 	@Override
 	public boolean supports(Class<?> type) {
@@ -56,12 +50,7 @@ public class AuthenticationProvider implements org.springframework.security.auth
 	}
 
 	private boolean checkPassword(UsernamePasswordAuthenticationToken token, User user) {
-		return user.getPassword().equals(encodePassword(token));
+		return user.getPassword().equals(encoder.encode(token));
 	}
 
-	private String encodePassword(UsernamePasswordAuthenticationToken token) {
-		String encoded = DigestUtils.sha512Hex(token.getCredentials() + salt);
-		logger.info(encoded);
-		return encoded;
-	}
 }

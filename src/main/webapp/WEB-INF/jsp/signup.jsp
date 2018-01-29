@@ -1,6 +1,7 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t"%>
 <t:template>
 	<jsp:attribute name="title">Sign up</jsp:attribute>
@@ -13,14 +14,20 @@
 						<spring:url value="/signup" var="action"/>
 						<form:form method="POST" action='${action}'>
 							<div>
-								<label for="email">Email :</label> <input name="email" type="email" />
+								<label for="email">Email :</label> <input name="email" type="email" value="${email}"/>
+							</div>
+							<c:if test="${error == 'emailAlreadyTaken' }">
+								<div class="error">Email alreay used.</div>
+							</c:if>
+							<div>
+								<label for="password">Password :</label> <input name="password" type="password" min="5" required="required"/>
 							</div>
 							<div>
-								<label for="password">Password :</label> <input name="password" type="password" />
+								<label for="confirm">Confirm :</label> <input name="confirm" type="password" min="5" required="required"/>
 							</div>
-							<div>
-								<label for="confirm">Confirm :</label> <input name="confirm" type="password" />
-							</div>
+							<c:if test="${error == 'passwordDontMatch' }">
+								<div class="error">Passwords didn't match.</div>
+							</c:if>
 							<div>
 								<input type="submit" value="Sign Up" />
 							</div>
