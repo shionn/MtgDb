@@ -77,11 +77,65 @@ public class SignInController {
 			session.commit();
 			return new ModelAndView("sign/signup-activate-success");
 		}
-		return new ModelAndView("sign/signup-activate-fail");
+		return new ModelAndView("sign/fail");
+	}
+
+	@RequestMapping(value = "/recover", method = RequestMethod.GET)
+	public ModelAndView recover() {
+		return new ModelAndView("sign/recover-step1");
+	}
+
+	@RequestMapping(value = "/recover", method = RequestMethod.POST)
+	public ModelAndView recover(@RequestParam("email") String email, RedirectAttributes attr,
+			HttpServletRequest request) throws MessagingException, IOException {
+		SignInDao dao = session.getMapper(SignInDao.class);
+		if (!dao.exist(email)) {
+			attr.addFlashAttribute("email", email);
+			attr.addFlashAttribute("error", SignUpError.emailNotUsed);
+			return new ModelAndView("redirect:/recover");
+		}
+		mailSender.send(email, "Password reseting", "recover", recoverLink(email, request));
+		return new ModelAndView("sign/recover-step2");
+	}
+
+	@RequestMapping(value = "/recover/{email}/{key}", method = RequestMethod.GET)
+	public ModelAndView recover(@PathVariable("email") String email,
+			@PathVariable("key") String key) {
+		SignInDao dao = session.getMapper(SignInDao.class);
+		if (StringUtils.equals(encoder.encode(email), key) && dao.exist(email)) {
+			return new ModelAndView("sign/recover-step3").addObject("email", email).addObject("key",
+					key);
+		}
+		return new ModelAndView("sign/fail");
+	}
+
+	@RequestMapping(value = "/recover/{email}/{key}", method = RequestMethod.POST)
+	public ModelAndView recover(@PathVariable("email") String email,
+			@PathVariable("key") String key, @RequestParam("password") String password,
+			@RequestParam("confirm") String confirm, RedirectAttributes attr,
+			HttpServletRequest request) {
+		SignInDao dao = session.getMapper(SignInDao.class);
+		if (!dao.exist(email) || !StringUtils.equals(encoder.encode(email), key)) {
+			return new ModelAndView("sign/fail");
+		}
+		if (!StringUtils.equals(password, confirm)) {
+			attr.addFlashAttribute("email", email);
+			attr.addFlashAttribute("key", key);
+			attr.addFlashAttribute("error", SignUpError.passwordDontMatch);
+			return new ModelAndView("redirect:/recover/" + email + "/" + key);
+		}
+		dao.updatePassword(email, password);
+		session.commit();
+		return new ModelAndView("sign/recover-step4");
 	}
 
 	private String activationLink(String email, HttpServletRequest request) {
 		return "http://" + host + request.getContextPath() + "/signup/activate/" + email + "/"
+				+ encoder.encode(email);
+	}
+
+	private String recoverLink(String email, HttpServletRequest request) {
+		return "http://" + host + request.getContextPath() + "/recover/" + email + "/"
 				+ encoder.encode(email);
 	}
 

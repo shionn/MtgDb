@@ -4,15 +4,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t"%>
 <t:template>
-	<jsp:attribute name="title">Sign up failed</jsp:attribute>
+	<jsp:attribute name="title">account recover</jsp:attribute>
 	<jsp:attribute name="content">
 		<article class="main container signup">
 			<section>
 				<article class="portlet">
-					<header>Fail</header>
+					<header>Password Updated</header>
 					<section>
-						<p>Something went wrong. Please, try again.</p>
-						<p>If you encounter any problem, contact us at <a href="mailto:shionn@gmail.com">shionn@gmail.com</a></p>
+						<p>Your password is updated. Try to connect by following this <a href='<spring:url value="/signin"/>'>link</a>.</p>
 					</section>
 				</article>
 			</section>

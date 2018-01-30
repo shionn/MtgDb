@@ -16,4 +16,7 @@ public interface SignInDao {
 	@Update("UPDATE user SET activated = true WHERE email = #{email}")
 	int activate(String email);
 
+	@Update("UPDATE user SET password = #{pass} WHERE email = #{email}")
+	int updatePassword(@Param("email") String email, @Param("pass") String password);
+
 }

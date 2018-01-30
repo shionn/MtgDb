@@ -1,6 +1,6 @@
 package tcg.security;
 
 public enum SignUpError {
-	emailAlreadyTaken, passwordDontMatch
+	emailAlreadyTaken, passwordDontMatch, emailNotUsed
 
 }
