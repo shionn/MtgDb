@@ -39,7 +39,7 @@ public class SignInController {
 
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public ModelAndView signUp() {
-		return new ModelAndView("sign/signup");
+		return new ModelAndView("sign/signup-step1");
 	}
 
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
@@ -66,7 +66,7 @@ public class SignInController {
 
 	@RequestMapping(value = "/signup/confirm/", method = RequestMethod.GET)
 	public ModelAndView signUpConfirm() {
-		return new ModelAndView("sign/signup-confirm");
+		return new ModelAndView("sign/signup-step2");
 	}
 
 	@RequestMapping(value = "/signup/activate/{email}/{key}", method = RequestMethod.GET)
@@ -75,7 +75,7 @@ public class SignInController {
 		if (StringUtils.equals(encoder.encode(email), key)
 				&& session.getMapper(SignInDao.class).activate(email) == 1) {
 			session.commit();
-			return new ModelAndView("sign/signup-activate-success");
+			return new ModelAndView("sign/signup-step3");
 		}
 		return new ModelAndView("sign/fail");
 	}
