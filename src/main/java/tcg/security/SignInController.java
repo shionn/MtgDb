@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,12 +34,12 @@ public class SignInController {
 
 	@RequestMapping(value = "/signin", method = RequestMethod.GET)
 	public ModelAndView loginPage() {
-		return new ModelAndView("signin");
+		return new ModelAndView("sign/signin");
 	}
 
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public ModelAndView signUp() {
-		return new ModelAndView("signup");
+		return new ModelAndView("sign/signup");
 	}
 
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
@@ -58,14 +59,30 @@ public class SignInController {
 			return "redirect:/signup";
 		}
 		dao.register(email, encoder.encode(password));
-		mailSender.send(email, "Welcome", "welcome", "http://" +
-				host + request.getContextPath() + "/signup/confirm/" + email + "/"
-						+ encoder.encode(email));
+		mailSender.send(email, "Welcome", "welcome", activationLink(email, request));
+		session.commit();
 		return "redirect:/signup/confirm/";
 	}
 
 	@RequestMapping(value = "/signup/confirm/", method = RequestMethod.GET)
 	public ModelAndView signUpConfirm() {
-		return new ModelAndView("signup-confirm");
+		return new ModelAndView("sign/signup-confirm");
 	}
+
+	@RequestMapping(value = "/signup/activate/{email}/{key}", method = RequestMethod.GET)
+	public ModelAndView signUpActivate(@PathVariable("email") String email,
+			@PathVariable("key") String key) {
+		if (StringUtils.equals(encoder.encode(email), key)
+				&& session.getMapper(SignInDao.class).activate(email) == 1) {
+			session.commit();
+			return new ModelAndView("sign/signup-activate-success");
+		}
+		return new ModelAndView("sign/signup-activate-fail");
+	}
+
+	private String activationLink(String email, HttpServletRequest request) {
+		return "http://" + host + request.getContextPath() + "/signup/activate/" + email + "/"
+				+ encoder.encode(email);
+	}
+
 }

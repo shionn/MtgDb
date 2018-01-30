@@ -3,6 +3,7 @@ package tcg.db.dao;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 public interface SignInDao {
 
@@ -10,6 +11,9 @@ public interface SignInDao {
 	boolean exist(String email);
 
 	@Insert("INSERT INTO user (email, password, activated) VALUES ( #{email}, #{pass}, false )")
-	void register(@Param("email") String email, @Param("pass") String password);
+	int register(@Param("email") String email, @Param("pass") String password);
+
+	@Update("UPDATE user SET activated = true WHERE email = #{email}")
+	int activate(String email);
 
 }
