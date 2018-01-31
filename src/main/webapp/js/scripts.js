@@ -58,6 +58,19 @@ $(function() {
 });
 
 $(function() {
+	$("div.btn-select").on("click", "button", function(){
+		$(this).closest("div.btn-select").addClass("open");
+	});
+	$("div.btn-select").on("click", "a", function() {
+		var root = $(this).closest("div.btn-select");
+		root.find("input[type=hidden]").val($(this).attr("href").substring(1));
+		root.find("button").text($(this).text());
+		root.removeClass("open");
+		return false;
+	})
+});
+
+$(function() {
 	$("header nav input").first().focus();
 	$("body .advanced-search input").first().focus();
 });

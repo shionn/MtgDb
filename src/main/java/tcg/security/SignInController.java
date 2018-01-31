@@ -124,7 +124,7 @@ public class SignInController {
 			attr.addFlashAttribute("error", SignUpError.passwordDontMatch);
 			return new ModelAndView("redirect:/recover/" + email + "/" + key);
 		}
-		dao.updatePassword(email, password);
+		dao.updatePassword(email, encoder.encode(password));
 		session.commit();
 		return new ModelAndView("sign/recover-step4");
 	}

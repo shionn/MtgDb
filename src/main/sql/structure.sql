@@ -134,10 +134,20 @@ CREATE TABLE card_keyword (
 ) DEFAULT CHARSET=utf8;
 
 drop table if exists `user`;
-CREATE TABLE IF NOT EXISTS `user` (
-  `email`    varchar(128) CHARACTER SET utf8 NOT NULL,
-  `password` varchar(256) CHARACTER SET utf8 NOT NULL,
+CREATE TABLE `user` (
+  `email`    varchar(128) NOT NULL,
+  `password` varchar(256) NOT NULL,
   activated  boolean,
   PRIMARY KEY (`email`)
+) DEFAULT CHARSET=utf8;
+
+drop table if exists deck;
+CREATE TABLE IF NOT EXISTS deck (
+  id       INT          NOT NULL AUTO_INCREMENT,
+  user     varchar(128) NOT NULL,
+  name     varchar(128) NOT NULL,
+  type     varchar(32)  NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT deck_user FOREIGN KEY (user)    REFERENCES user(email)
 ) DEFAULT CHARSET=utf8;
 
