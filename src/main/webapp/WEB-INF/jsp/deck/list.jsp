@@ -28,6 +28,7 @@
 									<li><a href="#other">Other</a></li>
 								</ul>
 							</div>
+							<button type="submit">Add new Deck</button>
 						</form>
 					</section>
 					<section>

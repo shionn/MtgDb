@@ -67,7 +67,12 @@ $(function() {
 		root.find("button").text($(this).text());
 		root.removeClass("open");
 		return false;
-	})
+	});
+	$("body").on("click", function(e) {
+		if (!$(e.target).parents("div.btn-select").exists()) {
+			$("div.btn-select.open").removeClass("open");
+		}
+	});
 });
 
 $(function() {
