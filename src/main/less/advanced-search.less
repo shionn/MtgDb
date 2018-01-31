@@ -2,5 +2,22 @@ body > article.main.advanced-search {
 	input {
 		width: 100%;
 	}
+
+	article.portlet.left {
+		section > ul {
+			display: flex;
+			list-style: none;
+			padding: 0;
+			flex-wrap: wrap;
+			li {
+				margin: 2px 1px;
+				a:before {
+					content: '\f00d';
+					font-family: FontAwesome;
+					margin-right: 5px;
+				}
+			}
+		}
+	}
 }
 

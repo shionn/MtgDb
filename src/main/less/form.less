@@ -21,6 +21,9 @@ input[type=text] , input[type=password] , input[type=email] {
 	border: 3px solid @portlet-color;
 	border-radius: 7px;
 	padding: 7px 8px 4px;
+	&:focus {
+		outline: none;
+	}
 }
 
 .error {
@@ -30,7 +33,7 @@ input[type=text] , input[type=password] , input[type=email] {
 div.btn-select {
 	display: inline-block;
 	button {
-	padding: 3px 8px 1px;
+		padding: 3px 8px 1px;
 		&:after {
 			content: '\f0d7';
 			font-family: FontAwesome;
@@ -72,7 +75,6 @@ span.autocomplete {
 		margin: 1px 0 0;
 		z-index: 2;
 		padding: 2px;
-		border: solid 1px @portlet-color;
 		align-items: stretch;
 		li {
 			padding: 0;
@@ -95,6 +97,8 @@ span.autocomplete {
 
 	&.open ul {
 		display: flex;
+		border-radius: 5px;
+		border: solid 2px @portlet-color;
 	}
 }
 

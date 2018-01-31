@@ -4,6 +4,10 @@
 <t:template>
 	<jsp:attribute name="title">MtgDb by Shionn</jsp:attribute>
 	<jsp:attribute name="content">
-		Version BETA
+		<article class="main container">
+			<section>
+				Version BETA
+			</section>
+		</article>
 	</jsp:attribute>
 </t:template>
