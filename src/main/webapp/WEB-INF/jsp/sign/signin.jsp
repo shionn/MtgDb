@@ -7,23 +7,29 @@
 		<article class="main container signin">
 			<section>
 				<article class="portlet">
-					<header>Sign in</header>
+					<header><spring:message code="SIGNIN"/></header>
 					<section>
 						<form method="POST" action='<spring:url value="/signin"/>'>
 							<div>
-								<label for="username">Email :</label> <input name="username" type="email" />
+								<label for="username"><spring:message code="SIGNIN_EMAIL"/></label>
+								<input name="username" type="email" />
 							</div>
 							<div>
-								<label for="password">Password :</label> <input name="password" type="password" />
+								<label for="password"><spring:message code="SIGNIN_PASSWORD"/></label>
+								<input name="password" type="password" />
 							</div>
 							<div>
-								<input type="submit" value="Sign In" />
+								<input type="submit" value="<spring:message code="SIGNIN_SUBMIT"/>" />
 							</div>
 						</form>
 					</section>
 					<footer>
-						<a class="button grey" href='<spring:url value="/signup"/>'>Create an account</a>
-						<a class="button grey" href='<spring:url value="/recover"/>'>Forgot password?</a>
+						<a class="button grey" href='<spring:url value="/signup"/>'>
+							<spring:message code="SIGNIN_SIGNUP"/>
+						</a>
+						<a class="button grey" href='<spring:url value="/recover"/>'>
+							<spring:message code="SIGNIN_RECOVER"/>
+						</a>
 					</footer>
 				</article>
 			</section>

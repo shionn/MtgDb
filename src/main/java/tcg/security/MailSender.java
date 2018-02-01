@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
+import java.util.Locale;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -17,6 +18,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -62,9 +64,10 @@ public class MailSender {
 	}
 
 	private String read(String content, Object[] params) throws IOException {
+		Locale locale = LocaleContextHolder.getLocale();
 		StringBuilder message = new StringBuilder();
 		try (InputStream is = Thread.currentThread().getContextClassLoader()
-				.getResourceAsStream(content + ".mail");
+				.getResourceAsStream(content + locale + ".mail");
 				InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
 				BufferedReader br = new BufferedReader(isr)) {
 			String line = br.readLine();

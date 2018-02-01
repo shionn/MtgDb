@@ -10,18 +10,22 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.filter.RequestContextFilter;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -91,6 +95,12 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 			return resolver;
 		}
 
+		@Bean
+		public MessageSource messageSource() {
+			ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+			messageSource.setBasename("/i18n/bundle");
+			return messageSource;
+		}
 		@Override
 		public void addResourceHandlers(ResourceHandlerRegistry registry) {
 			registry.addResourceHandler("/css/**").addResourceLocations("/css/");
@@ -99,5 +109,11 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 			registry.addResourceHandler("/img/**").addResourceLocations("/img/");
 		}
 
+		@Override
+		public void addInterceptors(InterceptorRegistry registry) {
+			LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
+			interceptor.setParamName("lg");
+			registry.addInterceptor(interceptor);
+		}
 	}
 }

@@ -9,11 +9,9 @@
 		<article class="main container signup">
 			<section>
 				<article class="portlet">
-					<header>Confirmation</header>
+					<header><spring:message code="SIGNUP_CONFIRM"/></header>
 					<section>
-						<p>You should have received an email with the procedure to complete your account's activation.</p>
-						<p>If you can not find the email, consider looking in your spam.</p>
-						<p>If you encounter any problem, contact us at <a href="mailto:shionn@gmail.com">shionn@gmail.com</a></p>
+						<spring:message code="SIGNUP_CONFIRM_TEXT"/>
 					</section>
 				</article>
 			</section>

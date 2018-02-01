@@ -2,19 +2,17 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<fmt:setBundle basename="bundle" var="bundle"/>
 <t:template>
 	<jsp:attribute name="title">Advanced Search</jsp:attribute>
 	<jsp:attribute name="content">
 		<article class="main container advanced-search">
 			<section>
 				<article class="portlet left">
-					<header><fmt:message bundle="${bundle}" key="ADVANCED_SEARCH_FILTERS"/></header>
+					<header><spring:message code="ADVANCED_SEARCH_FILTERS"/></header>
 					<section>
 						<form action='<spring:url value="/as/filter"/>'>
 							<span class="autocomplete">
-								<input type="text" name="filter" placeholder="<fmt:message bundle="${bundle}" key="ADVANCED_SEARCH_INPUT"/>" data-source="<spring:url value="/as/filter"/>" autocomplete="off" data-length="1"/>
+								<input type="text" name="filter" placeholder="<spring:message code="ADVANCED_SEARCH_INPUT"/>" data-source="<spring:url value="/as/filter"/>" autocomplete="off" data-length="1"/>
 							</span>
 						</form>
 						<ul>
@@ -32,10 +30,10 @@
 							<table>
 								<thead>
 									<tr>
-										<th><fmt:message bundle="${bundle}" key="ADVANCED_SEARCH_NAME"/></th>
-										<th><fmt:message bundle="${bundle}" key="ADVANCED_SEARCH_NAME_FR"/></th>
-										<th><fmt:message bundle="${bundle}" key="ADVANCED_SEARCH_TYPES"/></th>
-										<th><fmt:message bundle="${bundle}" key="ADVANCED_SEARCH_MANA_COST"/></th>
+										<th><spring:message code="ADVANCED_SEARCH_NAME"/></th>
+										<th><spring:message code="ADVANCED_SEARCH_NAME_FR"/></th>
+										<th><spring:message code="ADVANCED_SEARCH_TYPES"/></th>
+										<th><spring:message code="ADVANCED_SEARCH_MANA_COST"/></th>
 									</tr>
 								</thead>
 								<tbody>

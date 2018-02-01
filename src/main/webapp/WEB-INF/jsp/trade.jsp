@@ -2,8 +2,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<fmt:setBundle basename="bundle" var="bundle"/>
 <t:template>
 	<jsp:attribute name="title">Trade</jsp:attribute>
 	<jsp:attribute name="content">
@@ -14,7 +12,7 @@
 						<table>
 							<thead>
 								<tr>
-									<th><fmt:message bundle="${bundle}" key="TRADE_CARD"/></th>
+									<th><spring:message code="TRADE_CARD"/></th>
 									<th><img src='<spring:url value="/img/mkm.gif"/>'></th>
 									<th><img src='<spring:url value="/img/MtgGoldFish.gif"/>'></th>
 									<th><img src='<spring:url value="/img/MtgGoldFish.gif"/>'></th>
@@ -35,7 +33,7 @@
 									</tr>
 								</c:forEach>
 								<tr>
-									<td><fmt:message bundle="${bundle}" key="TRADE_TOTAL"/></td>
+									<td><spring:message code="TRADE_TOTAL"/></td>
 									<td>${total1.mkm}</td>
 									<td>${total1.mtgGoldFish}</td>
 									<td>${total1.mtgGoldFishTx}</td>
@@ -51,7 +49,7 @@
 							<thead>
 								<tr>
 									<th></th>
-									<th>Card</th>
+									<th><spring:message code="TRADE_CARD"/></th>
 									<th><img src='<spring:url value="/img/mkm.gif"/>'></th>
 									<th><img src='<spring:url value="/img/MtgGoldFish.gif"/>'></th>
 									<th><img src='<spring:url value="/img/MtgGoldFish.gif"/>'></th>
@@ -73,7 +71,7 @@
 								</c:forEach>
 								<tr>
 									<td></td>
-									<td>Total</td>
+									<td><spring:message code="TRADE_TOTAL"/></td>
 									<td>${total2.mkm}</td>
 									<td>${total2.mtgGoldFish}</td>
 									<td>${total2.mtgGoldFishTx}</td>

@@ -3,8 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<fmt:setBundle basename="bundle" var="bundle"/>
 <t:template>
 	<jsp:attribute name="title">${card.name}</jsp:attribute>
 	<jsp:attribute name="content">
@@ -24,7 +22,7 @@
 					</section>
 					<c:if test="${card.flip}">
 						<section>
-							<a href='<spring:url value="/c/${card.linkCard.id}"/>'><fmt:message bundle="${bundle}" key="CARD_OTHER_FACE"/></a>
+							<a href='<spring:url value="/c/${card.linkCard.id}"/>'><spring:message code="CARD_OTHER_FACE"/></a>
 						</section>
 					</c:if>
 				</article>
@@ -57,7 +55,7 @@
 					</section>
 					<c:if test="${card.flip}">
 						<article class="portlet left">
-							<header><fmt:message bundle="${bundle}" key="CARD_OTHER_FACE"/></header>
+							<header><spring:message code="CARD_OTHER_FACE"/></header>
 							<section>
 								<p>${card.linkCard.type}</p>
 								<p>${card.linkCard.text}</p>
@@ -72,7 +70,7 @@
 					</c:if>
 					<c:if test="${card.displayOriginal}">
 						<article class="portlet left">
-							<header><fmt:message bundle="${bundle}" key="CARD_ORIGINAL"/></header>
+							<header><spring:message code="CARD_ORIGINAL"/></header>
 							<section>
 								<p>${card.originalType}</p>
 								<p>${card.originalText}</p>
@@ -81,7 +79,7 @@
 					</c:if>
 				</article>
 				<article class="portlet prices">
-					<header><fmt:message bundle="${bundle}" key="CARD_PRICE"/></header>
+					<header><spring:message code="CARD_PRICE"/></header>
 					<section>
 						<ul>
 							<c:forEach items="${card.prices}" var="p">
@@ -104,21 +102,21 @@
 							</div>
 						</c:if>
 					</section>
-					<header<c:if test="${priceupdate}"> class="hide"</c:if>><fmt:message bundle="${bundle}" key="CARD_TRADE"/></header>
+					<header<c:if test="${priceupdate}"> class="hide"</c:if>><spring:message code="CARD_TRADE"/></header>
 					<section<c:if test="${priceupdate}"> class="hide"</c:if>>
-						<a class="button" href='<spring:url value="/t/add/${card.id}"/>'><fmt:message bundle="${bundle}" key="CARD_TRADE_ADD"/></a>
-						<a class="button" href='<spring:url value="/t/add-f/${card.id}"/>'><fmt:message bundle="${bundle}" key="CARD_TRADE_FOIL_ADD"/></a>
+						<a class="button" href='<spring:url value="/t/add/${card.id}"/>'><spring:message code="CARD_TRADE_ADD"/></a>
+						<a class="button" href='<spring:url value="/t/add-f/${card.id}"/>'><spring:message code="CARD_TRADE_FOIL_ADD"/></a>
 					</section>
-					<header><fmt:message bundle="${bundle}" key="CARD_DECK"/></header>
+					<header><spring:message code="CARD_DECK"/></header>
 					<section>
-						<button><fmt:message bundle="${bundle}" key="CARD_DECK_ADD"/></button>
-						<button><fmt:message bundle="${bundle}" key="CARD_DECK_SIDE_ADD"/></button>
+						<button><spring:message code="CARD_DECK_ADD"/></button>
+						<button><spring:message code="CARD_DECK_SIDE_ADD"/></button>
 					</section>
 				</article>
 			</section>
 			<section>
 				<article class="portlet rules">
-					<header><fmt:message bundle="${bundle}" key="CARD_RULES"/></header>
+					<header><spring:message code="CARD_RULES"/></header>
 					<section>
 						<ul>
 							<c:forEach items="${card.rules}" var="r">

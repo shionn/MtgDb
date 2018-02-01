@@ -9,27 +9,30 @@
 		<article class="main container signup">
 			<section>
 				<article class="portlet">
-					<header>Sign Up</header>
+					<header><spring:message code="SIGNUP"/></header>
 					<section>
 						<spring:url value="/signup" var="action"/>
 						<form:form method="POST" action='${action}'>
 							<div>
-								<label for="email">Email :</label> <input name="email" type="email" value="${email}"/>
+								<label for="email"><spring:message code="SIGNUP_EMAIL"/></label>
+								<input name="email" type="email" value="${email}"/>
 							</div>
 							<c:if test="${error == 'emailAlreadyTaken' }">
-								<div class="error">Email alreay used.</div>
+								<div class="error"><spring:message code="SignUpError.${error}"/></div>
 							</c:if>
 							<div>
-								<label for="password">Password :</label> <input name="password" type="password" min="5" required="required"/>
+								<label for="password"><spring:message code="SIGNUP_PASSWORD"/></label>
+								<input name="password" type="password" min="5" required="required"/>
 							</div>
 							<div>
-								<label for="confirm">Confirm :</label> <input name="confirm" type="password" min="5" required="required"/>
+								<label for="confirm"><spring:message code="SIGNUP_PASSWORD_CONFIRM"/></label>
+								<input name="confirm" type="password" min="5" required="required"/>
 							</div>
 							<c:if test="${error == 'passwordDontMatch' }">
-								<div class="error">Passwords didn't match.</div>
+								<div class="error"><spring:message code="SignUpError.${error}"/></div>
 							</c:if>
 							<div>
-								<input type="submit" value="Sign Up" />
+								<input type="submit" value="<spring:message code="SIGNUP_SUBMIT"/>" />
 							</div>
 						</form:form>
 					</section>
