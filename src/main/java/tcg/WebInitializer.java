@@ -2,6 +2,7 @@ package tcg;
 
 
 
+import java.util.Locale;
 import java.util.TimeZone;
 
 import javax.servlet.Filter;
@@ -17,9 +18,11 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.filter.RequestContextFilter;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
@@ -79,6 +82,13 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 			viewResolver.setPrefix("/WEB-INF/jsp/");
 			viewResolver.setSuffix(".jsp");
 			return viewResolver;
+		}
+
+		@Bean
+		public LocaleResolver localeResolver() {
+			SessionLocaleResolver resolver = new SessionLocaleResolver();
+			resolver.setDefaultLocale(Locale.FRANCE); // UK
+			return resolver;
 		}
 
 		@Override

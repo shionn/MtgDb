@@ -6,7 +6,8 @@
 	<jsp:attribute name="content">
 		<article class="main container">
 			<section>
-				Version BETA
+				Version BETA<br>
+				locale : ${locale}
 			</section>
 		</article>
 	</jsp:attribute>

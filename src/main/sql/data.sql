@@ -40,7 +40,7 @@ update edition set foil = 'nofoil' where code in('2ED', '4ED', '5ED', '6ED');
 update edition set foil = 'nofoil' where code in('DDQ');
 update edition set foil = 'onlyfoil' where code in('MPS','MPS_AKH');
 
---  swap aura
+--  swap aura, forecast
 delete from card_keyword;
 INSERT INTO card_keyword (keyword, fr ) values ('Afflict',                  'affliction');
 INSERT INTO card_keyword (keyword, fr ) values ('Ascend',                   'ascension');
