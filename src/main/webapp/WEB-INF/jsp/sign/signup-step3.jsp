@@ -8,7 +8,8 @@
 			<section>
 				<article class="portlet">
 					<header><spring:message code="SIGNUP_ACTIVATE"/></header>
-					<section><spring:message code="SIGNUP_ACTIVATE_TEXT"/></section>
+					<spring:url value="/signin" var="url"/>
+					<section><spring:message code="SIGNUP_ACTIVATE_TEXT" arguments="${url}"/></section>
 				</article>
 			</section>
 		</article>

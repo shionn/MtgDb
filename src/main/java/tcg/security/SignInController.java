@@ -60,7 +60,7 @@ public class SignInController {
 		}
 		dao.register(email, encoder.encode(password));
 		mailSender.send(email, "Welcome", "welcome", activationLink(email, request));
-		// session.commit();
+		session.commit();
 		return "redirect:/signup/confirm/";
 	}
 
