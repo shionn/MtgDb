@@ -19,7 +19,7 @@
 <body>
 	<header>
 		<nav class="container">
-			<ul >
+			<ul>
 				<li>
 					<form action='<spring:url value="/s"/>'>
 						<span class="autocomplete">
@@ -35,6 +35,12 @@
 				</li>
 				<li>
 					<a href='<spring:url value="/d"/>' class="d"><spring:message code="MAIN_MENU_DECK"/></a>
+				</li>
+				<li>
+					<a href="?lg=fr_FR">fr</a>
+				</li>
+				<li>
+					<a href="?lg=en_GB">en</a>
 				</li>
 			</ul>
 		</nav>

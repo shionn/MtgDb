@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
+import java.util.Locale;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -64,8 +65,9 @@ public class MailSender {
 
 	private String read(String content, Object[] params) throws IOException {
 		StringBuilder message = new StringBuilder();
+		String mail = content + '_' + LocaleContextHolder.getLocale() + ".mail";
 		try (InputStream is = Thread.currentThread().getContextClassLoader()
-				.getResourceAsStream(content + LocaleContextHolder.getLocale() + ".mail");
+				.getResourceAsStream(mail);
 				InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
 				BufferedReader br = new BufferedReader(isr)) {
 			String line = br.readLine();
