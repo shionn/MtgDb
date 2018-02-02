@@ -10,6 +10,7 @@ import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import tcg.db.dao.DeckDao;
+import tcg.db.dbo.DeckType;
 
 @Controller
 @SessionScope
@@ -24,7 +25,8 @@ public class DeckController {
 
 	@RequestMapping(value = "/d", method = RequestMethod.GET)
 	public ModelAndView list() {
-		return new ModelAndView("deck/list").addObject("decks",
+		return new ModelAndView("deck/list").addObject("types", DeckType.values())
+				.addObject("decks",
 				session.getMapper(DeckDao.class).readAll(user));
 	}
 
