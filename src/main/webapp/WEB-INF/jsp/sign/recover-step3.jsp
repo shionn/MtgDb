@@ -9,25 +9,28 @@
 		<article class="main container signup">
 			<section>
 				<article class="portlet">
-					<header>Account Recover</header>
+					<header><spring:message code="SIGN_RECOVER_FORM"/></header>
 					<section>
 						<spring:url value="/recover/${email}/${key}" var="action"/>
 						<form:form method="POST" action='${action}'>
 							<input type="hidden" name="key" value="${key}">
 							<div>
-								<label for="email">Email :</label> <input name="email" type="email" value="${email}" readonly="readonly"/>
+								<label for="email"><spring:message code="SIGN_RECOVER_FORM_EMAIL"/></label>
+								<input name="email" type="email" value="${email}" readonly="readonly"/>
 							</div>
 							<div>
-								<label for="password">New Password :</label> <input name="password" type="password" min="5" required="required"/>
+								<label for="password"><spring:message code="SIGN_RECOVER_FORM_PASSWORD"/></label>
+								<input name="password" type="password" min="5" required="required"/>
 							</div>
 							<div>
-								<label for="confirm">Confirm :</label> <input name="confirm" type="password" min="5" required="required"/>
+								<label for="confirm"><spring:message code="SIGN_RECOVER_FORM_PASSWORD_CONFIRM"/></label>
+								<input name="confirm" type="password" min="5" required="required"/>
 							</div>
 							<c:if test="${error == 'passwordDontMatch' }">
-								<div class="error">Passwords didn't match.</div>
+								<div class="error"><spring:message code="SignUpError.${error}"/></div>
 							</c:if>
 							<div>
-								<input type="submit" value="Recover" />
+								<input type="submit" value="<spring:message code="SIGN_RECOVER_FORM_SUBMIT"/>" />
 							</div>
 						</form:form>
 					</section>

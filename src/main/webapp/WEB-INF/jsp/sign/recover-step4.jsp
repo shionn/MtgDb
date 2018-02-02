@@ -1,7 +1,6 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t"%>
 <t:template>
 	<jsp:attribute name="title">account recover</jsp:attribute>
@@ -9,10 +8,9 @@
 		<article class="main container signup">
 			<section>
 				<article class="portlet">
-					<header>Password Updated</header>
-					<section>
-						<p>Your password is updated. Try to connect by following this <a href='<spring:url value="/signin"/>'>link</a>.</p>
-					</section>
+					<header><spring:message code="SIGN_RECOVER_END"/></header>
+					<spring:url value="<spring:url value="/signin"/>" var="url"/>
+					<section><spring:message code="SIGN_RECOVER_END_TEXT" arguments="${url}"/></section>
 				</article>
 			</section>
 		</article>

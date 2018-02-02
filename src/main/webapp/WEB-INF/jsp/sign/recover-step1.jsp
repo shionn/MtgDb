@@ -9,18 +9,19 @@
 		<article class="main container signup">
 			<section>
 				<article class="portlet">
-					<header>Account Recover</header>
+					<header><spring:message code="SIGN_RECOVER"/></header>
 					<section>
 						<spring:url value="/recover" var="action"/>
 						<form:form method="POST" action='${action}'>
 							<div>
-								<label for="email">Email :</label> <input name="email" type="email" value="${email}"/>
+								<label for="email"><spring:message code="SIGN_RECOVER_EMAIL"/></label>
+								<input name="email" type="email" value="${email}"/>
 							</div>
 							<c:if test="${error == 'emailNotUsed' }">
-								<div class="error">Email unknown.</div>
+								<div class="error"><spring:message code="SignUpError.${error}"/></div>
 							</c:if>
 							<div>
-								<input type="submit" value="Recover" />
+								<input type="submit" value="<spring:message code="SIGN_RECOVER_SUBMIT"/>" />
 							</div>
 						</form:form>
 					</section>

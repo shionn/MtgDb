@@ -1,7 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t"%>
 <t:template>
 	<jsp:attribute name="title">account recover</jsp:attribute>
@@ -9,12 +7,8 @@
 		<article class="main container signup">
 			<section>
 				<article class="portlet">
-					<header>Account Recover</header>
-					<section>
-						<p>You should have received an email with the procedure to complete your account's reset.</p>
-						<p>If you can not find the email, consider looking in your spam.</p>
-						<p>If you encounter any problem, contact us at <a href="mailto:shionn@gmail.com">shionn@gmail.com</a></p>
-					</section>
+					<header><spring:message code="SIGN_RECOVER_CONFIRM"/></header>
+					<section><spring:message code="SIGN_RECOVER_CONFIRM_TEXT"/></section>
 				</article>
 			</section>
 		</article>
