@@ -8,27 +8,20 @@
 		<article class="main container deck-list">
 			<section>
 				<article class="portlet left">
-					<header>Create</header>
+					<header><spring:message code="DECK_LIST_CREATE"/></header>
 					<section>
 						<form>
-							<input type="text" placeholder="Name" name="name">
+							<input type="text" placeholder="<spring:message code="DECK_LIST_CREATE_NAME"/>" name="name">
 							<div class="btn-select">
-								<button type="button" class="secondary">Format</button>
+								<button type="button" class="secondary"><spring:message code="DECK_LIST_CREATE_FORMAT"/></button>
 								<input type="hidden" name="type" value="none">
 								<ul>
-									<li><a href="#standart">Standart</a></li>
-									<li><a href="#modern">Modern</a></li>
-									<li><a href="#legacy">Legacy</a></li>
-									<li><a href="#vintage">Vintage</a></li>
-									<li><a href="#classic">Classic</a></li>
-									<li><a href="#commander">Commander</a></li>
-									<li><a href="#cube">Cube</a></li>
-									<li><a href="#wagic">Wagic</a></li>
-									<li><a href="#pauper">Pauper</a></li>
-									<li><a href="#other">Other</a></li>
+									<c:forEach items="${types}" var="type">
+										<li><a href="#${type}"><spring:message code="DeckType.${type}"/></a></li>
+									</c:forEach>
 								</ul>
 							</div>
-							<input type="submit" value="Add new Deck"/>
+							<input type="submit" value="<spring:message code="DECK_LIST_CREATE_SUBMIT"/>"/>
 						</form>
 					</section>
 				</article>
@@ -39,14 +32,16 @@
 						<table>
 							<thead>
 								<tr>
-									<th>Name</th>
-									<th>Type</th>
+									<th><spring:message code="DECK_LIST_NAME"/></th>
+									<th><spring:message code="DECK_LIST_TYPE"/></th>
+									<th><spring:message code="DECK_LIST_COLOR"/></th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach items="${decks}" var="deck">
 									<tr>
 										<td><a href='<spring:url value="/deck/${deck.id}"/>'>${deck.name}</a></td>
+										<td></td>
 										<td></td>
 									</tr>
 								</c:forEach>

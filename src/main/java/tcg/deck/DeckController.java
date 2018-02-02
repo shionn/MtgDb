@@ -26,8 +26,7 @@ public class DeckController {
 	@RequestMapping(value = "/d", method = RequestMethod.GET)
 	public ModelAndView list() {
 		return new ModelAndView("deck/list").addObject("types", DeckType.values())
-				.addObject("decks",
-				session.getMapper(DeckDao.class).readAll(user));
+				.addObject("decks", session.getMapper(DeckDao.class).readAll(user));
 	}
 
 }
