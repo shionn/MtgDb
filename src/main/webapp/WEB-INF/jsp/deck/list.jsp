@@ -29,6 +29,7 @@
 								</ul>
 							</div>
 							<input type="submit" value="Add new Deck"/>
+							<a class="button" href="#">test</a>
 						</form>
 					</section>
 				</article>
