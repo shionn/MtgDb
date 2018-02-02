@@ -59,7 +59,7 @@ $(function() {
 
 $(function() {
 	$("div.btn-select").on("click", "button", function(){
-		$(this).closest("div.btn-select").addClass("open");
+		$(this).closest("div.btn-select").toggleClass("open");
 	});
 	$("div.btn-select").on("click", "a", function() {
 		var root = $(this).closest("div.btn-select");

@@ -7,8 +7,8 @@
 	<jsp:attribute name="content">
 		<article class="main container deck-list">
 			<section>
-				<article class="portlet">
-					<header>Deck List</header>
+				<article class="portlet left">
+					<header>Create</header>
 					<section>
 						<form>
 							<input type="text" placeholder="Name" name="name">
@@ -28,9 +28,13 @@
 									<li><a href="#other">Other</a></li>
 								</ul>
 							</div>
-							<button type="submit">Add new Deck</button>
+							<input type="submit" value="Add new Deck"/>
 						</form>
 					</section>
+				</article>
+			</section>
+			<section>
+				<article class="portlet">
 					<section>
 						<table>
 							<thead>

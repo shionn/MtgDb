@@ -1,13 +1,19 @@
 
-button , a.button , input[type=submit] {
+@form-border-width : 3px;
+@form-border-radius : 7px;
+@form-padding : 7px 8px 4px;
+
+
+
+button , a.button, input[type=submit], input[type=button] {
 	background-color: @blue;
-	border: 3px solid lighten(@blue, 25%);
+	border: @form-border-width solid lighten(@blue, 25%);
 	color: lighten(@blue, 25%);
-	border-radius: 7px;
-	padding: 5px 8px 1px;
+	border-radius: @form-border-radius;
+	padding: @form-padding;
 	&.grey {
 		background-color: @portlet-color;
-		border: 3px solid lighten(@portlet-color, 25%);
+		border: @form-border-width solid lighten(@portlet-color, 25%);
 		color: lighten(@portlet-color, 25%);
 	}
 }
@@ -18,9 +24,9 @@ a.button {
 
 input[type=text] , input[type=password] , input[type=email] {
 	background-color: lighten(@portlet-color-light, 25%);
-	border: 3px solid @portlet-color;
-	border-radius: 7px;
-	padding: 7px 8px 4px;
+	border: @form-border-width solid @portlet-color;
+	border-radius: @form-border-radius;
+	padding: @form-padding;
 	&:focus {
 		outline: none;
 	}
@@ -33,19 +39,22 @@ input[type=text] , input[type=password] , input[type=email] {
 div.btn-select {
 	display: inline-block;
 	button {
-		padding: 3px 8px 1px;
+		padding: 5px 8px 1px;
 		&:after {
 			content: '\f0d7';
 			font-family: FontAwesome;
 			margin-left: 5px;
+			float: right;
+			position: relative;
+			bottom: 2px;
 		}
 	}
 
 	ul {
 		position: absolute;
 		background-color: @background-color;
-		border: 2px solid @portlet-color-light;
-		border-radius: 5px;
+		border: @form-border-width solid @portlet-color-light;
+		border-radius: @form-border-radius;
 		margin: 2px 0;
 		padding: 0;
 		list-style: none;
@@ -97,8 +106,8 @@ span.autocomplete {
 
 	&.open ul {
 		display: flex;
-		border-radius: 5px;
-		border: solid 2px @portlet-color;
+		border-radius: @form-border-radius;
+		border: solid @form-border-width @portlet-color;
 	}
 }
 
