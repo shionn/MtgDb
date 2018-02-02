@@ -1,15 +1,20 @@
 
 @form-border-width : 3px;
 @form-border-radius : 7px;
-@form-padding : 7px 8px 4px;
+@form-padding : 5px 8px 2px;
 
+
+input, button {
+	line-height: 22px;
+	padding: @form-padding;
+	border-radius: @form-border-radius;
+}
 
 
 button, a.button, input[type=submit], input[type=button] {
 	background-color: @blue;
 	border: @form-border-width solid lighten(@blue, 25%);
 	color: lighten(@blue, 25%);
-	border-radius: @form-border-radius;
 	&.grey {
 		background-color: @portlet-color;
 		border: @form-border-width solid lighten(@portlet-color, 25%);
@@ -17,23 +22,15 @@ button, a.button, input[type=submit], input[type=button] {
 	}
 }
 
-input[type=submit], input[type=button] {
-	padding: @form-padding;
-}
-
-button, a.button {
-		padding: 5px 8px 1px;
-}
-
 a.button {
 	display: inline-block;
+	padding: @form-padding;
+	border-radius: @form-border-radius;
 }
 
 input[type=text] , input[type=password] , input[type=email] {
 	background-color: lighten(@portlet-color-light, 25%);
 	border: @form-border-width solid @portlet-color;
-	border-radius: @form-border-radius;
-	padding: @form-padding;
 	&:focus {
 		outline: none;
 	}
