@@ -91,7 +91,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 		@Bean
 		public LocaleResolver localeResolver() {
 			SessionLocaleResolver resolver = new SessionLocaleResolver();
-			resolver.setDefaultLocale(Locale.FRANCE); // UK
+			resolver.setDefaultLocale(Locale.UK);
 			return resolver;
 		}
 
@@ -101,6 +101,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 			messageSource.setBasename("/i18n/bundle");
 			return messageSource;
 		}
+
 		@Override
 		public void addResourceHandlers(ResourceHandlerRegistry registry) {
 			registry.addResourceHandler("/css/**").addResourceLocations("/css/");
