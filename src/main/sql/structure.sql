@@ -147,6 +147,7 @@ CREATE TABLE IF NOT EXISTS deck (
   user     varchar(128) NOT NULL,
   name     varchar(128) NOT NULL,
   type     varchar(32)  NOT NULL,
+  colors   varchar(5)   NULL,
   PRIMARY KEY (id),
   CONSTRAINT deck_user FOREIGN KEY (user)    REFERENCES user(email)
 ) DEFAULT CHARSET=utf8;

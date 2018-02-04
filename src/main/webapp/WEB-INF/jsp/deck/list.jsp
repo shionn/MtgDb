@@ -1,5 +1,6 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t"%>
 <t:template>
@@ -10,7 +11,7 @@
 				<article class="portlet left">
 					<header><spring:message code="DECK_LIST_CREATE"/></header>
 					<section>
-						<form>
+						<form:form method="POST">
 							<input type="text" placeholder="<spring:message code="DECK_LIST_CREATE_NAME"/>" name="name">
 							<div class="btn-select">
 								<button type="button" class="secondary"><spring:message code="DECK_LIST_CREATE_FORMAT"/></button>
@@ -22,7 +23,7 @@
 								</ul>
 							</div>
 							<input type="submit" value="<spring:message code="DECK_LIST_CREATE_SUBMIT"/>"/>
-						</form>
+						</form:form>
 					</section>
 				</article>
 			</section>
@@ -41,7 +42,7 @@
 								<c:forEach items="${decks}" var="deck">
 									<tr>
 										<td><a href='<spring:url value="/deck/${deck.id}"/>'>${deck.name}</a></td>
-										<td></td>
+										<td><spring:message code="DeckType.${deck.type}"/></td>
 										<td></td>
 									</tr>
 								</c:forEach>
