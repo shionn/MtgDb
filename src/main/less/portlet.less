@@ -2,7 +2,7 @@ article.portlet {
 	display: flex;
 	flex-direction: column;
 	margin: 0 5px 14px;
-	min-width : 125px;
+	min-width: 125px;
 	& > header {
 		color: lighten(@portlet-color, 25%);
 		padding: 8px 0;
@@ -30,33 +30,50 @@ article.portlet {
 		& > p {
 			text-align: justify;
 		}
-		& > p, & > ul, & > form, & > div {
-			margin : 7px;
+
+		& > p , & > ul , & > form , & > div {
+			margin: 7px;
 		}
+
 		& > table {
-			padding : 7px;
+			padding: 7px;
 		}
+
 		& > img {
-			padding : 7px;
+			padding: 7px;
 			width: 100%;
 		}
 	}
 
 	&.left {
-		flex-direction : row;
+		flex-direction: row;
 		& > header {
-			display : inline-block;
-			border-bottom : none;
+			display: inline-block;
+			border-bottom: none;
 			padding: 5px 5px;
-			border-left: 5px solid lighten(@portlet-color, 25%);
+			border-left: 5px solid @portlet-color-light;
 			writing-mode: tb-rl;
 			transform: scale(-1);
 			width: 40px;
-			flex-shrink:0;
+			flex-shrink: 0;
 		}
+
 		& > section {
-			display : block;
+			display: block;
 			flex-grow: 1;
+		}
+	}
+
+	&.nav > header {
+		ul {
+			margin: 0;
+			padding: 0;
+			display: flex;
+			justify-content: space-around;
+			list-style: none;
+			a {
+				color: @portlet-color-light;
+			}
 		}
 	}
 }

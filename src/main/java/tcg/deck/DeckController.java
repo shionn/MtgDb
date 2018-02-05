@@ -39,8 +39,8 @@ public class DeckController {
 	}
 
 	@RequestMapping(value = "/d/{id}", method = RequestMethod.GET)
-	public ModelAndView view(@PathVariable("id") int id) {
-		return new ModelAndView("deck/view");
+	public String view(@PathVariable("id") int id) {
+		return "redirect:/d/table/" + id;
 	}
 
 }

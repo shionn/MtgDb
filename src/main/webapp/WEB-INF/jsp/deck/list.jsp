@@ -36,14 +36,25 @@
 									<th><spring:message code="DECK_LIST_NAME"/></th>
 									<th><spring:message code="DECK_LIST_TYPE"/></th>
 									<th><spring:message code="DECK_LIST_COLOR"/></th>
+									<th>#</th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach items="${decks}" var="deck">
 									<tr>
-										<td><a href='<spring:url value="/deck/${deck.id}"/>'>${deck.name}</a></td>
+										<td><a href='<spring:url value="/d/${deck.id}"/>'>${deck.name}</a></td>
 										<td><spring:message code="DeckType.${deck.type}"/></td>
 										<td></td>
+										<td>
+											<div class="btn-select">
+												<button type="button" class="secondary">TODO</button>
+												<ul>
+													<li><a href="#todo">Duplicate</a></li>
+													<li><a href="#todo">Delete</a></li>
+													<li><a href="#todo">Update Prices</a></li>
+												</ul>
+											</div>
+										</td>
 									</tr>
 								</c:forEach>
 							</tbody>

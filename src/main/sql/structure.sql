@@ -6,6 +6,7 @@ drop table if exists card_type;
 drop table if exists card_rule;
 drop table if exists card_legality;
 drop table if exists card;
+drop table if exists deck_entry;
 drop table if exists edition;
 create table edition (
   code                  varchar(8)  NOT NULL,
@@ -28,6 +29,7 @@ drop table if exists card_type;
 drop table if exists card_rule;
 drop table if exists card_legality;
 drop table if exists card;
+drop table if exists deck_entry;
 create table card (
   id             varchar(64)   NOT NULL, -- sha1 setCode + cardName + cardImageName
   card           varchar(64)   NOT NULL, -- sha1 du nom
@@ -134,6 +136,8 @@ CREATE TABLE card_keyword (
 ) DEFAULT CHARSET=utf8;
 
 drop table if exists `user`;
+drop table if exists deck;
+drop table if exists deck_entry;
 CREATE TABLE `user` (
   `email`    varchar(128) NOT NULL,
   `password` varchar(256) NOT NULL,
@@ -142,13 +146,30 @@ CREATE TABLE `user` (
 ) DEFAULT CHARSET=utf8;
 
 drop table if exists deck;
+drop table if exists deck_entry;
 CREATE TABLE IF NOT EXISTS deck (
   id       INT          NOT NULL AUTO_INCREMENT,
   user     varchar(128) NOT NULL,
   name     varchar(128) NOT NULL,
   type     varchar(32)  NOT NULL,
   colors   varchar(5)   NULL,
+  datetime created      NOT NULL,
+  datetime updated      NOT NULL,
   PRIMARY KEY (id),
   CONSTRAINT deck_user FOREIGN KEY (user)    REFERENCES user(email)
+) DEFAULT CHARSET=utf8;
+
+drop table if exists deck_entry;
+CREATE TABLE IF NOT EXISTS deck_entry (
+  id       INT          NOT NULL AUTO_INCREMENT,
+  deck     INT          NOT NULL,
+  card     varchar(64)  NOT NULL,
+  qty      int          NOT NULL,
+  foil     boolean      NOT NULL,
+  category varchar(32)  NOT NULL,
+  tag      varchar(32)  NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT in_deck   FOREIGN KEY (deck)    REFERENCES deck(id),
+  CONSTRAINT card_deck FOREIGN KEY (card)    REFERENCES card(id)
 ) DEFAULT CHARSET=utf8;
 
