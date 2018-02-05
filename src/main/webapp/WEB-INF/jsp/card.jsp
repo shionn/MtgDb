@@ -107,11 +107,13 @@
 						<a class="button" href='<spring:url value="/t/add/${card.id}"/>'><spring:message code="CARD_TRADE_ADD"/></a>
 						<a class="button" href='<spring:url value="/t/add-f/${card.id}"/>'><spring:message code="CARD_TRADE_FOIL_ADD"/></a>
 					</section>
-					<header><spring:message code="CARD_DECK"/></header>
-					<section>
-						<button><spring:message code="CARD_DECK_ADD"/></button>
-						<button><spring:message code="CARD_DECK_SIDE_ADD"/></button>
-					</section>
+					<c:if test="${user.currentDeck != 0}">
+						<header><spring:message code="CARD_DECK"/></header>
+						<section>
+							<a class="button" href='<spring:url value="/d/add/${card.id}"/>'><spring:message code="CARD_DECK_ADD"/></a>
+							<a class="button" href='<spring:url value="/d/add-s/${card.id}"/>'><spring:message code="CARD_DECK_SIDE_ADD"/></a>
+						</section>
+					</c:if>
 				</article>
 			</section>
 			<section>
