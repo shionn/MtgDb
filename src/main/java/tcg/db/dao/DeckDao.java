@@ -19,7 +19,8 @@ public interface DeckDao {
 	@Select("SELECT * FROM deck WHERE user = #{user}")
 	List<Deck> readAll(String user);
 
-	@Insert("INSERT INTO deck(name, user, type) VALUES(#{name}, #{user}, #{type})")
+	@Insert("INSERT INTO deck(name, user, type, created, updated) "
+			+ "VALUES(#{name}, #{user}, #{type}, NOW(), NOW())")
 	int create(@Param("name") String name, @Param("type") DeckType type, @Param("user") String user);
 
 	@Select("SELECT * FROM deck WHERE id = #{id}")
@@ -30,7 +31,8 @@ public interface DeckDao {
 	Deck read(int id);
 
 	@Select("SELECT * FROM deck_entry WHERE deck = #{id}")
-	@Results({ @Result(column = "card", property = "card", one = @One(select = "CardDao.read")) })
+	@Results({
+			@Result(column = "card", property = "card", one = @One(select = "tcg.db.dao.CardDao.read")) })
 	List<DeckEntry> readEntry(int id);
 
 }

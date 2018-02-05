@@ -39,6 +39,7 @@ public class DeckController {
 
 	@RequestMapping(value = "/d/{id}", method = RequestMethod.GET)
 	public String view(@PathVariable("id") int id) {
+		user.setCurrentDeck(id);
 		return "redirect:/d/table/" + id;
 	}
 

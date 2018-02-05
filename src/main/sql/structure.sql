@@ -145,16 +145,16 @@ CREATE TABLE `user` (
   PRIMARY KEY (`email`)
 ) DEFAULT CHARSET=utf8;
 
-drop table if exists deck;
 drop table if exists deck_entry;
+drop table if exists deck;
 CREATE TABLE IF NOT EXISTS deck (
   id       INT          NOT NULL AUTO_INCREMENT,
   user     varchar(128) NOT NULL,
   name     varchar(128) NOT NULL,
   type     varchar(32)  NOT NULL,
   colors   varchar(5)   NULL,
-  datetime created      NOT NULL,
-  datetime updated      NOT NULL,
+  created  datetime     NOT NULL,
+  updated  datetime     NOT NULL,
   PRIMARY KEY (id),
   CONSTRAINT deck_user FOREIGN KEY (user)    REFERENCES user(email)
 ) DEFAULT CHARSET=utf8;
@@ -169,6 +169,7 @@ CREATE TABLE IF NOT EXISTS deck_entry (
   category varchar(32)  NOT NULL,
   tag      varchar(32)  NULL,
   PRIMARY KEY (id),
+  UNIQUE card_deck_entry (deck, card, foil, category),
   CONSTRAINT in_deck   FOREIGN KEY (deck)    REFERENCES deck(id),
   CONSTRAINT card_deck FOREIGN KEY (card)    REFERENCES card(id)
 ) DEFAULT CHARSET=utf8;

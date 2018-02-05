@@ -19,43 +19,43 @@
 							<li><a href="#">Statistique</a></li>
 						</ul>
 					</header>
+					<section>
+						<table>
+							<thead>
+								<tr>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:if test="${empty decks.mains}">
+									<tr>
+										<td colspan="5">
+											<p>Votre deck est vide, rechercher une carte et cliquer sur <em>Ajouter</em> dans le groupe <em>Deck</em>.</p>
+										</td>
+									</tr>
+								</c:if>
+								<c:forEach items="${decks.mains}" var="e">
+									<tr>
+										<td>${e.qty}</td>
+										<td>${e.card.name}</td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</c:forEach>
+							</tbody>
+							<thead>
+								<tr>
+									<th rowspan="5">Sideboard</th>
+								<tr>
+							</thead>
+						</table>
+					</section>
 				</article>
-				<section>
-					<table>
-						<thead>
-							<tr>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:if test="${empty decks.mains}">
-								<tr>
-									<td colspan="5">
-										<p>Rechercher une carte et cliquer sur Ajouter aux deck.
-									</td>
-								</tr>
-							</c:if>
-							<c:forEach items="${decks.mains}" var="e">
-								<tr>
-									<td>${e.qty}</td>
-									<td>${e.card.name}</td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-							</c:forEach>
-						</tbody>
-						<thead>
-							<tr>
-								<th rowspan="5">Sideboard</th>
-							<tr>
-						</thead>
-					</table>
-				</section>
 			</section>
 		</article>
 	</jsp:attribute>

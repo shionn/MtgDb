@@ -3,6 +3,7 @@ package tcg.db.dbo;
 public class DeckEntry {
 
 	private Card card;
+	private int deck;
 	private int qty;
 	private String tag;
 	private boolean foil;
@@ -46,6 +47,14 @@ public class DeckEntry {
 
 	public void setCategory(DeckEntryCategory category) {
 		this.category = category;
+	}
+
+	public int getDeck() {
+		return deck;
+	}
+
+	public void setDeck(int deck) {
+		this.deck = deck;
 	}
 
 }
