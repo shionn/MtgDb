@@ -20,6 +20,9 @@
 						</ul>
 					</header>
 					<section>
+						<p style="text-align: center">${deck.name} / <spring:message code="DeckType.${deck.type}"/> / XX cards</p>
+					</section>
+					<section>
 						<table style="margin-top:5px">
 							<thead>
 								<tr>
