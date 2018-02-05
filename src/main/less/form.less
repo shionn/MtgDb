@@ -1,17 +1,14 @@
 
-@form-border-width : 3px;
-@form-border-radius : 7px;
-@form-padding : 5px 8px 2px;
-
-
-input, button {
+@form-border-width: 3px;
+@form-border-radius: 7px;
+@form-padding: 5px 8px 2px;
+input , button {
 	line-height: 22px;
 	padding: @form-padding;
 	border-radius: @form-border-radius;
 }
 
-
-button, a.button, input[type=submit], input[type=button] {
+button , a.button , input[type=submit] , input[type=button] {
 	background-color: @blue;
 	border: @form-border-width solid lighten(@blue, 25%);
 	color: lighten(@blue, 25%);
@@ -42,6 +39,7 @@ input[type=text] , input[type=password] , input[type=email] {
 
 div.btn-select {
 	display: inline-block;
+	position: relative;
 	button {
 		&:after {
 			content: '\f0d7';
@@ -62,9 +60,12 @@ div.btn-select {
 		padding: 0;
 		list-style: none;
 		display: none;
+		right: 0px;
+		z-index : 1;
 		li a {
 			display: block;
 			margin: 1px 3px;
+			white-space: nowrap;
 			&:hover {
 				color: @portlet-color-light;
 				background-color: @portlet-color;

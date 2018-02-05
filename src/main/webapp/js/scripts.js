@@ -59,17 +59,20 @@ $(function() {
 
 $(function() {
 	$("div.btn-select").on("click", "button", function(){
+		if (!$(this).closest("div.btn-select.open").exists()) {
+			$("div.btn-select.open").removeClass("open");
+		}
 		$(this).closest("div.btn-select").toggleClass("open");
 	});
 	$("div.btn-select").on("click", "a", function() {
 		var root = $(this).closest("div.btn-select");
-		root.find("input[type=hidden]").val($(this).attr("href").substring(1));
 		root.find("button").text($(this).text());
 		root.removeClass("open");
-		return false;
+		root.find("input[type=hidden]").val($(this).attr("href").substring(1));
+		return $(this).attr("href").substring(0,1) !== "#"
 	});
 	$("body").on("click", function(e) {
-		if (!$(e.target).parents("div.btn-select").exists()) {
+		if (!$(e.target).closest("div.btn-select.open").exists()) {
 			$("div.btn-select.open").removeClass("open");
 		}
 	});

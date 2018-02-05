@@ -29,13 +29,7 @@
 				<article class="text portlet">
 					<header>
 						<span class="mtgsymbol type">
-							<c:if test="${card.creature}"><i class="mi mi-creature" title="creature"></i></c:if>
-							<c:if test="${card.enchantment}"><i class="mi mi-enchantment" title="enchantment"></i></c:if>
-							<c:if test="${card.planeswalker}"><i class="mi mi-planeswalker" title="planeswalker"></i></c:if>
-							<c:if test="${card.instant}"><i class="mi mi-instant" title="instant"></i></c:if>
-							<c:if test="${card.sorcery}"><i class="mi mi-sorcery" title="sorcery"></i></c:if>
-							<c:if test="${card.land}"><i class="mi mi-land" title="land"></i></c:if>
-							<c:if test="${card.artifact}"><i class="mi mi-artifact" title="artifact"></i></c:if>
+							<t:card-type-symbole card="${card}"/>
 						</span>
 						<span>${card.name} - ${card.lang('fr').name}</span>
 						<span class="mtgsymbol cost">${card.manaCost}</span>
@@ -111,6 +105,7 @@
 						<header><spring:message code="CARD_DECK"/></header>
 						<section>
 							<a class="button" href='<spring:url value="/d/add/${card.id}"/>'><spring:message code="CARD_DECK_ADD"/></a>
+							<a class="button" href='<spring:url value="/d/add-p/${card.id}"/>'><spring:message code="CARD_DECK_PLAYSET_ADD"/></a>
 							<a class="button" href='<spring:url value="/d/add-s/${card.id}"/>'><spring:message code="CARD_DECK_SIDE_ADD"/></a>
 						</section>
 					</c:if>
