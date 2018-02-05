@@ -20,15 +20,14 @@
 						</ul>
 					</header>
 					<section>
-						<table>
+						<table style="margin-top:5px">
 							<thead>
 								<tr>
 									<th></th>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th></th>
+									<th>Name</th>
+									<th>Type</th>
+									<th colspan="2">Edition</th>
+									<th>Manacost</th>
 									<th></th>
 								</tr>
 							</thead>
@@ -61,7 +60,8 @@
 													<li><a href="/todo">Remove All</a></li>
 													<li><a href="/todo">Move one to Side</a></li>
 													<li><a href="/todo">Move all Side</a></li>
-													<li><a href="/todo">Change declinaison</a></li>
+													<li><a href="/todo">Change edition</a></li>
+													<li><a href="/todo">Set foiled</a></li>
 												</ul>
 											</div>
 										</td>
@@ -73,6 +73,36 @@
 									<th colspan="7">Sideboard</th>
 								</tr>
 							</thead>
+							<tbody>
+								<c:forEach items="${deck.sides}" var="e">
+									<tr>
+										<td>${e.qty}</td>
+										<td><a href='<spring:url value="/c/${e.card.id}"/>'>${e.card.name}</a></td>
+										<td><t:card-type-symbole card="${e.card}"/> ${e.card.type}</td>
+										<td><i class="ss ss-fw ss-grad ss-${e.card.rarity.ss} ss-${e.card.edition.icon}"></i></td>
+										<td>
+											<c:if test="${e.foil}">
+												<img src='<spring:url value="/img/foil.gif"/>'>
+											</c:if>
+										</td>
+										<td>${e.card.manaCost}</td>
+										<td>
+											<div class="btn-select">
+												<button type="button" class="secondary">Action</button>
+												<ul>
+													<li><a href="/todo">Add One</a></li>
+													<li><a href="/todo">Remove One</a></li>
+													<li><a href="/todo">Remove All</a></li>
+													<li><a href="/todo">Move one to Main</a></li>
+													<li><a href="/todo">Move all Main</a></li>
+													<li><a href="/todo">Change edition</a></li>
+													<li><a href="/todo">Set foiled</a></li>
+												</ul>
+											</div>
+										</td>
+									</tr>
+								</c:forEach>
+							</tbody>
 						</table>
 					</section>
 				</article>

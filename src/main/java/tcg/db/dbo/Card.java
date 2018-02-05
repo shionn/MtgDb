@@ -22,6 +22,7 @@ public class Card {
 	private String power;
 	private String toughness;
 	private int loyalty;
+	private int cmc;
 
 	private CardLayout layout;
 	private Edition edition;
@@ -246,5 +247,13 @@ public class Card {
 
 	public void setRarity(CardRarity rarity) {
 		this.rarity = rarity;
+	}
+
+	public int getCmc() {
+		return cmc;
+	}
+
+	public void setCmc(int cmc) {
+		this.cmc = cmc;
 	}
 }

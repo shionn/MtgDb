@@ -46,7 +46,12 @@ public class Deck {
 
 	public List<DeckEntry> getMains() {
 		return this.cards.stream().filter(c -> c.getCategory() == DeckEntryCategory.main)
+				.sorted((e, f) -> Integer.compare(e.getCard().getCmc(), f.getCard().getCmc()))
 				.collect(Collectors.toList());
+	}
+
+	public List<DeckEntry> getSides() {
+		return this.cards.stream().filter(c -> c.getCategory() == DeckEntryCategory.side).collect(Collectors.toList());
 	}
 
 }

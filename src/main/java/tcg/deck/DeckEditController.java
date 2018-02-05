@@ -22,23 +22,37 @@ public class DeckEditController {
 	private User user;
 
 	@RequestMapping(value = "/d/add/{card}", method = RequestMethod.GET)
-	public String view(@PathVariable("card") String id) {
+	public String addMain(@PathVariable("card") String id) {
+		return add(id, 1, DeckEntryCategory.main);
+	}
+
+	@RequestMapping(value = "/d/add-p/{card}", method = RequestMethod.GET)
+	public String addMainPlayset(@PathVariable("card") String id) {
+		return add(id, 4, DeckEntryCategory.main);
+	}
+
+	@RequestMapping(value = "/d/add-s/{card}", method = RequestMethod.GET)
+	public String addSide(@PathVariable("card") String id) {
+		return add(id, 1, DeckEntryCategory.side);
+	}
+
+	private String add(String cardId, int qty, DeckEntryCategory category) {
 		DeckEditDao dao = session.getMapper(DeckEditDao.class);
 		if (dao.checkAllow(user.getUser(), user.getCurrentDeck())) {
 			Card card = new Card();
-			card.setId(id);
+			card.setId(cardId);
 			DeckEntry entry = new DeckEntry();
 			entry.setCard(card);
-			entry.setCategory(DeckEntryCategory.main);
+			entry.setCategory(category);
 			entry.setDeck(user.getCurrentDeck());
 			entry.setFoil(false);
-			entry.setQty(1);
+			entry.setQty(qty);
 			dao.addEntry(entry);
 			dao.updateDeck(user.getCurrentDeck());
 			// dao.addHistory()
 			session.commit();
 		}
-		return "redirect:/c/" + id;
+		return "redirect:/c/" + cardId;
 	}
 
 
