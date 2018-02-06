@@ -16,11 +16,15 @@ public interface DeckEditDao {
 			+ "VALUES (#{deck}, #{card.id}, #{qty}, #{foil}, #{category}) " //
 			+ "ON DUPLICATE KEY UPDATE " //
 			+ "qty = qty + #{qty} "//
-	// + "WHERE deck = #{deck} AND card = #{card.id} AND category = #{category} and foil = #{foil} "
 	)
 	int addEntry(DeckEntry entry);
 
 	@Update("UPDATE deck SET updated = NOW() WHERE id = #{deck}")
 	int updateDeck(int deck);
+
+	@Select("SELECT qty FROM deck_entry " //
+			+ "WHERE deck = #{deck} AND card = #{card.id} " //
+			+ "AND foil = #{foil} AND category = #{category}")
+	int count(DeckEntry entry);
 
 }

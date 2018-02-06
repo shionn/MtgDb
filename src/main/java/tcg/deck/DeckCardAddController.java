@@ -14,24 +14,24 @@ import tcg.db.dbo.DeckEntryCategory;
 import tcg.security.User;
 
 @Controller
-public class DeckEditController {
+public class DeckCardAddController {
 
 	@Autowired
 	private SqlSession session;
 	@Autowired
 	private User user;
 
-	@RequestMapping(value = "/d/add/{card}", method = RequestMethod.GET)
+	@RequestMapping(value = "/c/d/add/{card}", method = RequestMethod.GET)
 	public String addMain(@PathVariable("card") String id) {
 		return add(id, 1, DeckEntryCategory.main);
 	}
 
-	@RequestMapping(value = "/d/add-p/{card}", method = RequestMethod.GET)
+	@RequestMapping(value = "/c/d/add-p/{card}", method = RequestMethod.GET)
 	public String addMainPlayset(@PathVariable("card") String id) {
 		return add(id, 4, DeckEntryCategory.main);
 	}
 
-	@RequestMapping(value = "/d/add-s/{card}", method = RequestMethod.GET)
+	@RequestMapping(value = "/c/d/add-s/{card}", method = RequestMethod.GET)
 	public String addSide(@PathVariable("card") String id) {
 		return add(id, 1, DeckEntryCategory.side);
 	}

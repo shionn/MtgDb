@@ -135,9 +135,9 @@ CREATE TABLE card_keyword (
   primary key (keyword)
 ) DEFAULT CHARSET=utf8;
 
-drop table if exists `user`;
-drop table if exists deck;
 drop table if exists deck_entry;
+drop table if exists deck;
+drop table if exists `user`;
 CREATE TABLE `user` (
   `email`    varchar(128) NOT NULL,
   `password` varchar(256) NOT NULL,

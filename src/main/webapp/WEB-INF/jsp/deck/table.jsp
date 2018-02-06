@@ -58,7 +58,7 @@
 											<div class="btn-select">
 												<button type="button" class="secondary">Action</button>
 												<ul>
-													<li><a href="/todo">Add One</a></li>
+													<li><a href='<spring:url value="/d/add/${e.card.id}"/>'>Add One</a></li>
 													<li><a href="/todo">Remove One</a></li>
 													<li><a href="/todo">Remove All</a></li>
 													<li><a href="/todo">Move one to Side</a></li>
