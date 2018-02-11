@@ -54,7 +54,6 @@ $(function() {
 			$("span.autocomplete.open").removeClass("open");
 		}
 	});
-
 });
 
 $(function() {
@@ -119,3 +118,4 @@ $(function() {
 		}
 	});
 });
+

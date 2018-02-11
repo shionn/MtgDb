@@ -21,4 +21,6 @@
 - cote sly spy
 - doubke face ixalan (enchantement vert)
 - symbol mana text face verso
+- cote very cryptic command
+- trade resonsive
 
