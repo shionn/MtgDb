@@ -2,12 +2,14 @@ package tcg.db.dbo;
 
 public class DeckEntry {
 
-	private Card card;
 	private int deck;
-	private int qty;
-	private String tag;
+
+	private Card card;
 	private boolean foil;
 	private DeckEntryCategory category;
+
+	private int qty;
+	private String tag;
 
 	public boolean isFoil() {
 		return foil;

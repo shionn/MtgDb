@@ -25,38 +25,65 @@ public class DeckCardAddController {
 	@RequestMapping(value = "/d/add/{card}", method = RequestMethod.GET)
 	@ResponseBody
 	public DeckChange addMain(@PathVariable("card") String id) {
-		return new DeckChange(add(id, 1, DeckEntryCategory.main));
+		return new DeckChange(add(id, 1, DeckEntryCategory.main, false));
 	}
+
 
 	@RequestMapping(value = "/d/add-p/{card}", method = RequestMethod.GET)
 	@ResponseBody
 	public DeckChange addMainPlayset(@PathVariable("card") String id) {
-		return new DeckChange(add(id, 4, DeckEntryCategory.main));
+		return new DeckChange(add(id, 4, DeckEntryCategory.main, false));
 	}
 
 	@RequestMapping(value = "/d/add-s/{card}", method = RequestMethod.GET)
 	@ResponseBody
 	public DeckChange addSide(@PathVariable("card") String id) {
-		return new DeckChange(add(id, 1, DeckEntryCategory.side));
+		return new DeckChange(add(id, 1, DeckEntryCategory.side, false));
 	}
 
-	private int add(String cardId, int qty, DeckEntryCategory category) {
+	@RequestMapping(value = "/d/add/{qty}/{card}/{category}/{foil}", method = RequestMethod.GET)
+	@ResponseBody
+	public DeckChange add(
+			@PathVariable("qty") int qty,
+			@PathVariable("card") String id,
+			@PathVariable("category") DeckEntryCategory category,
+			@PathVariable("foil") boolean foil) {
+		return new DeckChange(add(id, qty, category, foil));
+	}
+
+	@RequestMapping(value = "/d/rm/{qty}/{card}/{category}/{foil}", method = RequestMethod.GET)
+	@ResponseBody
+	public DeckChange rm(
+			@PathVariable("qty") int qty,
+			@PathVariable("card") String id,
+			@PathVariable("category") DeckEntryCategory category,
+			@PathVariable("foil") boolean foil) {
+		return new DeckChange(add(id, -qty, category, foil));
+	}
+
+	private int add(String cardId, int qty, DeckEntryCategory category, boolean foil) {
 		DeckEditDao dao = session.getMapper(DeckEditDao.class);
+		DeckEntry delta = entry(cardId, qty, category, foil);
+		if (dao.checkAllow(user.getUser(), user.getCurrentDeck())) {
+			dao.addEntry(delta);
+			dao.updateDeck(user.getCurrentDeck());
+			dao.deleteZero(user.getCurrentDeck());
+			// dao.addHistory()
+			session.commit();
+		}
+		return dao.count(delta);
+	}
+
+	private DeckEntry entry(String cardId, int qty, DeckEntryCategory category, boolean foil) {
 		Card card = new Card();
 		card.setId(cardId);
 		DeckEntry entry = new DeckEntry();
 		entry.setCard(card);
 		entry.setCategory(category);
 		entry.setDeck(user.getCurrentDeck());
-		entry.setFoil(false);
+		entry.setFoil(foil);
 		entry.setQty(qty);
-		if (dao.checkAllow(user.getUser(), user.getCurrentDeck())) {
-			dao.addEntry(entry);
-			dao.updateDeck(user.getCurrentDeck());
-			// dao.addHistory()
-			session.commit();
-		}
-		return dao.count(entry);
+		return entry;
 	}
 
 }

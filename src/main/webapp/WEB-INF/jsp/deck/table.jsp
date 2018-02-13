@@ -58,13 +58,13 @@
 											<div class="btn-select">
 												<button type="button" class="secondary">Action</button>
 												<ul>
-													<li><a href='<spring:url value="/d/add/${e.card.id}"/>'>Add One</a></li>
-													<li><a href="/todo">Remove One</a></li>
-													<li><a href="/todo">Remove All</a></li>
-													<li><a href="/todo">Move one to Side</a></li>
-													<li><a href="/todo">Move all Side</a></li>
-													<li><a href="/todo">Change edition</a></li>
-													<li><a href="/todo">Set foiled</a></li>
+													<li><a class="ajax add-one" href='<spring:url value="/d/add/1/${e.card.id}/${e.category}/${e.foil}"/>'>Add One</a></li>
+													<li><a class="ajax rm-one" href='<spring:url value="/d/rm/1/${e.card.id}/${e.category}/${e.foil}"/>'>Remove One</a></li>
+													<li><a class="ajax" href="/todo">Remove All</a></li>
+													<li><a class="ajax" href="/todo">Move one to Side</a></li>
+													<li><a class="ajax" href="/todo">Move all Side</a></li>
+													<li><a class="ajax" href="/todo">Change edition</a></li>
+													<li><a class="ajax" href="/todo">Set foiled</a></li>
 												</ul>
 											</div>
 										</td>
@@ -111,5 +111,8 @@
 				</article>
 			</section>
 		</article>
+	</jsp:attribute>
+	<jsp:attribute name="scripts">
+		<script type="text/javascript" src='<spring:url value="/js/decks.js"/>'></script>
 	</jsp:attribute>
 </t:template>

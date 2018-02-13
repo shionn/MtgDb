@@ -1,3 +1,5 @@
+'use strict';
+
 $(function() {
 	$("a.ajax").on("click", function() {
 		$.ajax({

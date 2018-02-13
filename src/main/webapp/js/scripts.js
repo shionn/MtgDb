@@ -65,7 +65,9 @@ $(function() {
 	});
 	$("div.btn-select").on("click", "a", function() {
 		var root = $(this).closest("div.btn-select");
-		root.find("button").text($(this).text());
+		if (!$(this).hasClass("ajax")) {
+			root.find("button").text($(this).text());
+		}
 		root.removeClass("open");
 		root.find("input[type=hidden]").val($(this).attr("href").substring(1));
 		return $(this).attr("href").substring(0,1) !== "#"
