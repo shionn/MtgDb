@@ -19,6 +19,9 @@ public interface DeckDao {
 	@Select("SELECT * FROM deck WHERE user = #{user}")
 	List<Deck> readAll(String user);
 
+	@Select("SELECT * FROM deck WHERE id = #{id}")
+	Deck readOne(int id);
+
 	@Insert("INSERT INTO deck(name, user, type, created, updated) "
 			+ "VALUES(#{name}, #{user}, #{type}, NOW(), NOW())")
 	int create(@Param("name") String name, @Param("type") DeckType type, @Param("user") String user);

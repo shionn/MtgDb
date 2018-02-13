@@ -17,7 +17,6 @@ import tcg.db.dbo.Card;
 import tcg.db.dbo.CardPrice;
 import tcg.db.dbo.CardRule;
 import tcg.price.PriceDeamon;
-import tcg.security.User;
 
 @Controller
 public class CardController {
@@ -30,9 +29,6 @@ public class CardController {
 
 	@Autowired
 	private PriceDeamon priceUpdater;
-
-	@Autowired
-	private User user;
 
 	@RequestMapping(value = "/c/{id}", method = RequestMethod.GET)
 	public ModelAndView open(@PathVariable("id") String id) {
@@ -49,7 +45,7 @@ public class CardController {
 			priceUpdater.request(card);
 			view.addObject("priceupdate", true);
 		}
-		return view.addObject("card", card).addObject("user", user);
+		return view.addObject("card", card);
 	}
 
 	private boolean isOldPrice(Card card) {

@@ -116,6 +116,10 @@ $(function() {
 			$("header nav a.d").doClick();
 			return false;
 		}
+		if (e.keyCode == 116) {
+			$("header nav a.cd").doClick();
+			return false;
+		}
 	});
 });
 

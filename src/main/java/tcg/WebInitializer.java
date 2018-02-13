@@ -85,6 +85,8 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 			viewResolver.setViewClass(JstlView.class);
 			viewResolver.setPrefix("/WEB-INF/jsp/");
 			viewResolver.setSuffix(".jsp");
+			viewResolver.setExposeContextBeansAsAttributes(true);
+			viewResolver.setExposedContextBeanNames("user");
 			return viewResolver;
 		}
 

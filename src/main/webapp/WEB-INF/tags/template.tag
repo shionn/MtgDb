@@ -36,6 +36,11 @@
 				<li>
 					<a href='<spring:url value="/d"/>' class="d"><spring:message code="MAIN_MENU_DECK"/></a>
 				</li>
+				<c:if test="${user.currentDeck > 0}">
+					<li>
+						<a href='<spring:url value="/d/${user.currentDeck}"/>' class="cd">Deck : ${user.currentDeckName}</a>
+					</li>
+				</c:if>
 				<li>
 					<a href="?lg=fr_FR">fr</a>
 				</li>

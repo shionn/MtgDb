@@ -11,6 +11,7 @@ import org.springframework.web.context.annotation.SessionScope;
 public class User {
 
 	private int currentDeck;
+	private String currentDeckName;
 
 	public String getUser() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -26,6 +27,14 @@ public class User {
 
 	public void setCurrentDeck(int currentDeck) {
 		this.currentDeck = currentDeck;
+	}
+
+	public String getCurrentDeckName() {
+		return currentDeckName;
+	}
+
+	public void setCurrentDeckName(String currentDeckName) {
+		this.currentDeckName = currentDeckName;
 	}
 
 }
