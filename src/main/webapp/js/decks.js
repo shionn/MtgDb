@@ -1,18 +1,7 @@
 'use strict';
 
 $(function() {
-	$("a.ajax.add-one").on("click", function(e) {
-		e.preventDefault();
-		$.ajax({
-			url : $(this).attr("href"),
-			method : 'GET',
-			context : this,
-			success : function(r) {
-				$(this).closest("tr").find("td").first().text(r.qty);
-			}
-		});
-	});
-	$("a.ajax.rm-one").on("click", function(e) {
+	$("a.ajax.add-one, a.ajax.rm-one, a.ajax.rm-all").on("click", function(e) {
 		e.preventDefault();
 		$.ajax({
 			url : $(this).attr("href"),
@@ -28,5 +17,23 @@ $(function() {
 		});
 	});
 
+	$("table").on("click", "a.ajax.mv", function(e) {
+		e.preventDefault();
+		$.ajax({
+			url : $(this).attr("href"),
+			method : 'GET',
+			context : this,
+			success : function(r) {
+				$.each($(r).find("tr"), function() {
+					var source = $("tr[data-card="+$(this).attr("data-card")+"][data-category=" + $(this).attr("data-category") + "]");
+					if(source.exists()) {
+						source.replaceWith($(this));
+					} else {
+						alert("todo");
+					}
+				});
+			}
+		});
+	});
 
 });

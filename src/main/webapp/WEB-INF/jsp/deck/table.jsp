@@ -43,8 +43,8 @@
 									</tr>
 								</c:if>
 								<c:forEach items="${deck.mains}" var="e">
-									<tr>
-										<td>${e.qty}</td>
+									<tr data-card="${e.card.id}" data-category="${e.category}">
+										<td data-type="qty">${e.qty}</td>
 										<td><a href='<spring:url value="/c/${e.card.id}"/>'>${e.card.name}</a></td>
 										<td><t:card-type-symbole card="${e.card}"/> ${e.card.type}</td>
 										<td><i class="ss ss-fw ss-grad ss-${e.card.rarity.ss} ss-${e.card.edition.icon}"></i></td>
@@ -60,11 +60,11 @@
 												<ul>
 													<li><a class="ajax add-one" href='<spring:url value="/d/add/1/${e.card.id}/${e.category}/${e.foil}"/>'>Add One</a></li>
 													<li><a class="ajax rm-one" href='<spring:url value="/d/rm/1/${e.card.id}/${e.category}/${e.foil}"/>'>Remove One</a></li>
-													<li><a class="ajax" href="/todo">Remove All</a></li>
-													<li><a class="ajax" href="/todo">Move one to Side</a></li>
+													<li><a class="ajax rm-all" href='<spring:url value="/d/rm/all/${e.card.id}/${e.category}/${e.foil}"/>'>Remove All</a></li>
+													<li><a class="ajax mv" href='<spring:url value="/d/mv/1/${e.card.id}/${e.category}/${e.foil}/side"/>'>Move one to Side</a></li>
 													<li><a class="ajax" href="/todo">Move all Side</a></li>
-													<li><a class="ajax" href="/todo">Change edition</a></li>
-													<li><a class="ajax" href="/todo">Set foiled</a></li>
+													<!-- <li><a class="ajax" href="/todo">Change edition</a></li> -->
+													<!-- <li><a class="ajax" href="/todo">Set foiled</a></li> -->
 												</ul>
 											</div>
 										</td>
@@ -78,7 +78,7 @@
 							</thead>
 							<tbody>
 								<c:forEach items="${deck.sides}" var="e">
-									<tr>
+									<tr data-card="${e.card.id}" data-category="${e.category}">
 										<td>${e.qty}</td>
 										<td><a href='<spring:url value="/c/${e.card.id}"/>'>${e.card.name}</a></td>
 										<td><t:card-type-symbole card="${e.card}"/> ${e.card.type}</td>
