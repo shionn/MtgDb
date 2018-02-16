@@ -57,13 +57,13 @@ $(function() {
 });
 
 $(function() {
-	$("div.btn-select").on("click", "button", function(){
+	$("body").on("click", "div.btn-select button", function(){
 		if (!$(this).closest("div.btn-select.open").exists()) {
 			$("div.btn-select.open").removeClass("open");
 		}
 		$(this).closest("div.btn-select").toggleClass("open");
 	});
-	$("div.btn-select").on("click", "a", function() {
+	$("body").on("click", "div.btn-select a", function() {
 		var root = $(this).closest("div.btn-select");
 		if (!$(this).hasClass("ajax")) {
 			root.find("button").text($(this).text());
@@ -82,22 +82,6 @@ $(function() {
 $(function() {
 	$("header nav input").first().focus();
 	$("body .advanced-search input").first().focus();
-});
-
-$(function() {
-	$("div.priceloading").on("animationend", function(e) {
-		if (e.target != this)
-			return;
-		$.ajax({
-			url : $(this).attr("data-source"),
-			method : 'GET',
-			context : this,
-			success : function(data) {
-				$(this).closest("article").find("ul").replaceWith(data);
-				$(".hide").removeClass("hide");
-			}
-		});
-	});
 });
 
 $(function() {

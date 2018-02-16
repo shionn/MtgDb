@@ -1,7 +1,5 @@
 package tcg.deck;
 
-import java.util.List;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,9 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import tcg.card.formater.CardFormater;
 import tcg.db.dao.DeckEditDao;
 import tcg.db.dbo.Card;
 import tcg.db.dbo.DeckEntry;
@@ -19,31 +15,12 @@ import tcg.db.dbo.DeckEntryCategory;
 import tcg.security.User;
 
 @Controller
-public class DeckCardAddController {
+public class DeckCardEditController {
 
 	@Autowired
 	private SqlSession session;
 	@Autowired
 	private User user;
-
-	@RequestMapping(value = "/d/add/{card}", method = RequestMethod.GET)
-	@ResponseBody
-	public DeckChange addMain(@PathVariable("card") String id) {
-		return new DeckChange(update(entry(id, 1, DeckEntryCategory.main, false)));
-	}
-
-
-	@RequestMapping(value = "/d/add-p/{card}", method = RequestMethod.GET)
-	@ResponseBody
-	public DeckChange addMainPlayset(@PathVariable("card") String id) {
-		return new DeckChange(update(entry(id, 4, DeckEntryCategory.main, false)));
-	}
-
-	@RequestMapping(value = "/d/add-s/{card}", method = RequestMethod.GET)
-	@ResponseBody
-	public DeckChange addSide(@PathVariable("card") String id) {
-		return new DeckChange(update(entry(id, 1, DeckEntryCategory.side, false)));
-	}
 
 	@RequestMapping(value = "/d/add/{qty}/{card}/{category}/{foil}", method = RequestMethod.GET)
 	@ResponseBody
@@ -75,7 +52,7 @@ public class DeckCardAddController {
 	}
 
 	@RequestMapping(value = "/d/mv/{qty}/{card}/{source}/{foil}/{dest}", method = RequestMethod.GET)
-	public ModelAndView mv(
+	public String mv(
 			@PathVariable("qty") int qty,
 			@PathVariable("card") String id,
 			@PathVariable("source") DeckEntryCategory sourceCat,
@@ -83,16 +60,7 @@ public class DeckCardAddController {
 			@PathVariable("dest") DeckEntryCategory destCat) {
 		update(entry(id, -qty, sourceCat, foil));
 		update(entry(id, qty, destCat, foil));
-		List<DeckEntry> entries = session.getMapper(DeckEditDao.class).readEntries(user.getCurrentDeck(), id);
-		entries.stream().forEach(this::format);
-		return new ModelAndView("deck/table-ajax").addObject("items", entries);
-	}
-
-	@Autowired
-	private CardFormater formater;
-
-	private void format(DeckEntry e) {
-		e.getCard().setManaCost(formater.manaCost(e.getCard()));
+		return "redirect:/d/" + user.getCurrentDeck();
 	}
 
 	private int update(DeckEntry delta) {

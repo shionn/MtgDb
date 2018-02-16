@@ -104,9 +104,9 @@
 					<c:if test="${user.currentDeck != 0}">
 						<header><spring:message code="CARD_DECK"/></header>
 						<section>
-							<a class="button ajax" href='<spring:url value="/d/add/${card.id}"/>'><spring:message code="CARD_DECK_ADD"/></a>
-							<a class="button ajax" href='<spring:url value="/d/add-p/${card.id}"/>'><spring:message code="CARD_DECK_PLAYSET_ADD"/></a>
-							<a class="button ajax" href='<spring:url value="/d/add-s/${card.id}"/>'><spring:message code="CARD_DECK_SIDE_ADD"/></a>
+							<a class="button ajax" href='<spring:url value="/d/add/1/${card.id}/main/false"/>'><spring:message code="CARD_DECK_ADD"/></a>
+							<a class="button ajax" href='<spring:url value="/d/add/4/${card.id}/main/false"/>'><spring:message code="CARD_DECK_PLAYSET_ADD"/></a>
+							<a class="button ajax" href='<spring:url value="/d/add/1/${card.id}/side/false"/>'><spring:message code="CARD_DECK_SIDE_ADD"/></a>
 						</section>
 					</c:if>
 				</article>

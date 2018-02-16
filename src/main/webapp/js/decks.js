@@ -1,7 +1,7 @@
 'use strict';
 
 $(function() {
-	$("a.ajax.add-one, a.ajax.rm-one, a.ajax.rm-all").on("click", function(e) {
+	$("body").on("click", "a.ajax.add-one, a.ajax.rm-one, a.ajax.rm-all", function(e) {
 		e.preventDefault();
 		$.ajax({
 			url : $(this).attr("href"),
@@ -17,21 +17,14 @@ $(function() {
 		});
 	});
 
-	$("table").on("click", "a.ajax.mv", function(e) {
+	$("body").on("click", "table a.ajax.mv", function(e) {
 		e.preventDefault();
 		$.ajax({
 			url : $(this).attr("href"),
 			method : 'GET',
 			context : this,
 			success : function(r) {
-				$.each($(r).find("tr"), function() {
-					var source = $("tr[data-card="+$(this).attr("data-card")+"][data-category=" + $(this).attr("data-category") + "]");
-					if(source.exists()) {
-						source.replaceWith($(this));
-					} else {
-						alert("todo");
-					}
-				});
+				$("table").replaceWith($(r).find("table"));
 			}
 		});
 	});

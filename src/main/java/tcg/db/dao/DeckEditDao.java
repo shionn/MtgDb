@@ -1,13 +1,8 @@
 package tcg.db.dao;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.One;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -40,11 +35,5 @@ public interface DeckEditDao {
 			+ "WHERE deck = #{deck} AND card = #{card.id} " //
 			+ "AND foil = #{foil} AND category = #{category}")
 	int count(DeckEntry entry);
-
-	@Select("SELECT * FROM deck_entry WHERE deck = #{deck} AND card = #{card}")
-	@Results({
-			@Result(column = "card", property = "card", one = @One(select = "tcg.db.dao.CardDao.read")) })
-	List<DeckEntry> readEntries(@Param("deck") int deck, @Param("card") String card);
-
 
 }

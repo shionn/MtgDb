@@ -62,7 +62,7 @@
 													<li><a class="ajax rm-one" href='<spring:url value="/d/rm/1/${e.card.id}/${e.category}/${e.foil}"/>'>Remove One</a></li>
 													<li><a class="ajax rm-all" href='<spring:url value="/d/rm/all/${e.card.id}/${e.category}/${e.foil}"/>'>Remove All</a></li>
 													<li><a class="ajax mv" href='<spring:url value="/d/mv/1/${e.card.id}/${e.category}/${e.foil}/side"/>'>Move one to Side</a></li>
-													<li><a class="ajax" href="/todo">Move all Side</a></li>
+													<li><a class="ajax mv" href='<spring:url value="/d/mv/${e.qty}/${e.card.id}/${e.category}/${e.foil}/side"/>'>Move all to Side</a></li>
 													<!-- <li><a class="ajax" href="/todo">Change edition</a></li> -->
 													<!-- <li><a class="ajax" href="/todo">Set foiled</a></li> -->
 												</ul>
@@ -93,13 +93,13 @@
 											<div class="btn-select">
 												<button type="button" class="secondary">Action</button>
 												<ul>
-													<li><a href="/todo">Add One</a></li>
-													<li><a href="/todo">Remove One</a></li>
-													<li><a href="/todo">Remove All</a></li>
-													<li><a href="/todo">Move one to Main</a></li>
-													<li><a href="/todo">Move all Main</a></li>
-													<li><a href="/todo">Change edition</a></li>
-													<li><a href="/todo">Set foiled</a></li>
+													<li><a class="ajax add-one" href='<spring:url value="/d/add/1/${e.card.id}/${e.category}/${e.foil}"/>'>Add One</a></li>
+													<li><a class="ajax rm-one" href='<spring:url value="/d/rm/1/${e.card.id}/${e.category}/${e.foil}"/>'>Remove One</a></li>
+													<li><a class="ajax rm-all" href='<spring:url value="/d/rm/all/${e.card.id}/${e.category}/${e.foil}"/>'>Remove All</a></li>
+													<li><a class="ajax mv" href='<spring:url value="/d/mv/1/${e.card.id}/${e.category}/${e.foil}/main"/>'>Move one to Main</a></li>
+													<li><a class="ajax mv" href='<spring:url value="/d/mv/${e.qty}/${e.card.id}/${e.category}/${e.foil}/main"/>'>Move all to Main</a></li>
+													<!-- <li><a class="ajax" href="/todo">Change edition</a></li> -->
+													<!-- <li><a class="ajax" href="/todo">Set foiled</a></li> -->
 												</ul>
 											</div>
 										</td>
