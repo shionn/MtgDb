@@ -20,7 +20,7 @@
 						</ul>
 					</header>
 					<section>
-						<p style="text-align: center">${deck.name} / <spring:message code="DeckType.${deck.type}"/> / XX cards</p>
+						<p style="text-align: center">${deck.name} / <spring:message code="DeckType.${deck.type}"/> / ${deck.count('main')} cards</p>
 					</section>
 					<section>
 						<table style="margin-top:5px">

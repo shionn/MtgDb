@@ -54,4 +54,9 @@ public class Deck {
 		return this.cards.stream().filter(c -> c.getCategory() == DeckEntryCategory.side).collect(Collectors.toList());
 	}
 
+	public int count(DeckEntryCategory category) {
+		return cards.stream().filter(e -> e.getCategory() == category)
+				.collect(Collectors.summingInt(DeckEntry::getQty));
+	}
+
 }
