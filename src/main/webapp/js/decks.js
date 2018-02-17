@@ -17,14 +17,18 @@ $(function() {
 		});
 	});
 
-	$("body").on("click", "table a.ajax.mv", function(e) {
+	$("article.deck-table").on("click", "a.ajax.mv", function(e) {
 		e.preventDefault();
 		$.ajax({
 			url : $(this).attr("href"),
 			method : 'GET',
 			context : this,
 			success : function(r) {
-				$("table").replaceWith($(r).find("table"));
+				$.each($(this).attr("data-update").split(','), function(){
+					$(this).replaceWith($(r).find(this));
+				});
+//				$("table").replaceWith($(r).find("table"));
+//				$("section.deck-title").replaceWith($(r).find("section.deck-title"))
 			}
 		});
 	});

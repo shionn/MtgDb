@@ -19,7 +19,7 @@
 							<li><a href="#">Statistique</a></li>
 						</ul>
 					</header>
-					<section>
+					<section class="deck-title">
 						<p style="text-align: center">${deck.name} / <spring:message code="DeckType.${deck.type}"/> / ${deck.count('main')} cards</p>
 					</section>
 					<section>
@@ -61,8 +61,8 @@
 													<li><a class="ajax add-one" href='<spring:url value="/d/add/1/${e.card.id}/${e.category}/${e.foil}"/>'>Add One</a></li>
 													<li><a class="ajax rm-one" href='<spring:url value="/d/rm/1/${e.card.id}/${e.category}/${e.foil}"/>'>Remove One</a></li>
 													<li><a class="ajax rm-all" href='<spring:url value="/d/rm/all/${e.card.id}/${e.category}/${e.foil}"/>'>Remove All</a></li>
-													<li><a class="ajax mv" href='<spring:url value="/d/mv/1/${e.card.id}/${e.category}/${e.foil}/side"/>'>Move one to Side</a></li>
-													<li><a class="ajax mv" href='<spring:url value="/d/mv/${e.qty}/${e.card.id}/${e.category}/${e.foil}/side"/>'>Move all to Side</a></li>
+													<li><a class="ajax mv" href='<spring:url value="/d/mv/1/${e.card.id}/${e.category}/${e.foil}/side"/>' data-update="table,section.deck-title">Move one to Side</a></li>
+													<li><a class="ajax mv" href='<spring:url value="/d/mv/${e.qty}/${e.card.id}/${e.category}/${e.foil}/side"/>' data-update="table,section.deck-title">Move all to Side</a></li>
 													<!-- <li><a class="ajax" href="/todo">Change edition</a></li> -->
 													<!-- <li><a class="ajax" href="/todo">Set foiled</a></li> -->
 												</ul>
