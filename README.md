@@ -23,4 +23,4 @@
 - symbol mana text face verso
 - cote very cryptic command
 - trade resonsive
-
+- Gavony ne remonte pas dans les land ?
