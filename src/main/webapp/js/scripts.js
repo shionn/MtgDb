@@ -65,7 +65,7 @@ $(function() {
 	});
 	$("body").on("click", "div.btn-select a", function() {
 		var root = $(this).closest("div.btn-select");
-		if (!$(this).hasClass("ajax")) {
+		if (!$(this).hasClass("ajax") && !$(this).hasClass("modal")) {
 			root.find("button").text($(this).text());
 		}
 		root.removeClass("open");
@@ -124,5 +124,18 @@ $(function() {
 		});
 		return false;
 	});
-})
+});
+
+$(function() {
+	$("body").on("click", "a.modal", function(){
+		$.ajax({
+			url : $(this).attr("href"),
+			method : 'GET',
+			success : function(r) {
+				$()
+			}
+		});
+		return false;
+	});
+});
 

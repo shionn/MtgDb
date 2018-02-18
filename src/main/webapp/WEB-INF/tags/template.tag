@@ -51,8 +51,8 @@
 		</nav>
 	</header>
 	<jsp:invoke fragment="content" />
-	<footer>
-	</footer>
+	<footer></footer>
+	<div class="modal"></div>
 	<script type="text/javascript" src='<spring:url value="/js/jquery-3.1.0.min.js"/>'></script>
 	<script type="text/javascript" src='<spring:url value="/js/scripts.js"/>'></script>
 	<jsp:invoke fragment="scripts" />

@@ -1,0 +1,33 @@
+@import "variables.less";
+div.modal {
+	background-color: rgba(0, 0, 0, 0.4);
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	z-index: 5;
+	left: 0;
+	right: 0;
+	display: none;
+	&.open {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	article {
+		background-color: @background-color;
+		width: 90%;
+		@media (min-width: @min-sm) {
+			width: 700px;
+		}
+
+		@media (min-width: @min-md) {
+			width: 850px;
+		}
+
+		@media (min-width: @min-lg) {
+			width: 1000px;
+		}
+	}
+}
+

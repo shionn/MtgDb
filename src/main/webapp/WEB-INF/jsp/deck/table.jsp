@@ -38,7 +38,7 @@
 									</tr>
 								</c:if>
 								<c:forEach items="${deck.mains}" var="e">
-									<tr data-card="${e.card.id}" data-category="${e.category}">
+									<tr>
 										<td data-type="qty">${e.qty}</td>
 										<td><a href='<spring:url value="/c/${e.card.id}"/>'>${e.card.name}</a></td>
 										<td><t:card-type-symbole card="${e.card}"/> ${e.card.type}</td>
@@ -71,7 +71,7 @@
 							</thead>
 							<tbody>
 								<c:forEach items="${deck.sides}" var="e">
-									<tr data-card="${e.card.id}" data-category="${e.category}">
+									<tr>
 										<td>${e.qty}</td>
 										<td><a href='<spring:url value="/c/${e.card.id}"/>'>${e.card.name}</a></td>
 										<td><t:card-type-symbole card="${e.card}"/> ${e.card.type}</td>
