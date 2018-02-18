@@ -31,9 +31,4 @@ public interface DeckEditDao {
 	@Update("UPDATE deck SET updated = NOW() WHERE id = #{deck}")
 	int updateDeck(int deck);
 
-	@Select("SELECT IFNULL(sum(qty),0) FROM deck_entry " //
-			+ "WHERE deck = #{deck} AND card = #{card.id} " //
-			+ "AND foil = #{foil} AND category = #{category}")
-	int count(DeckEntry entry);
-
 }

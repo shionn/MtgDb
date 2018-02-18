@@ -18,7 +18,7 @@
 - font pour edition : https://github.com/andrewgioia/Keyrune
 
 # bug
-- cote sly spy
+- cote sly spy / blood sun / Journey to Eternity
 - doubke face ixalan (enchantement vert)
 - symbol mana text face verso
 - cote very cryptic command

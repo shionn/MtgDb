@@ -2,7 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t"%>
 <t:template>
-	<jsp:attribute name="title">MtgDb by Shionn</jsp:attribute>
+	<jsp:attribute name="title">Home</jsp:attribute>
 	<jsp:attribute name="content">
 		<article class="main container">
 			<section>

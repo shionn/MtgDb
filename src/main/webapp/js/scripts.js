@@ -109,3 +109,20 @@ $(function() {
 	});
 });
 
+$(function() {
+	$("body").on("click", "a.ajax", function(e) {
+		e.preventDefault();
+		$.ajax({
+			url : $(this).attr("href"),
+			method : 'GET',
+			context : this,
+			success : function(r) {
+				$.each($(this).attr("data-update").split(','), function(){
+					$(this).replaceWith($(r).find(this));
+				});
+			}
+		});
+		return false;
+	});
+})
+

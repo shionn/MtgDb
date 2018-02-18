@@ -9,37 +9,32 @@
 		<article class="main container deck-table">
 			<section>
 				<article class="portlet nav">
-					<header>
-						<ul>
-							<li><a href="#">Table Liste</a></li>
-							<li><a href="#">Flat liste</a></li>
-							<li><a href="#">Cube liste</a></li>
-							<li><a href="#">Prix</a></li>
-							<li><a href="#">Historique</a></li>
-							<li><a href="#">Statistique</a></li>
-						</ul>
-					</header>
+					<t:deck-nav deck="${deck}"/>
 					<section class="deck-title">
-						<p style="text-align: center">${deck.name} / <spring:message code="DeckType.${deck.type}"/> / ${deck.count('main')} cards</p>
+						<p style="text-align: center">
+							<spring:message code="DECK_TABLE_TITLE">
+								<spring:argument>${deck.name}</spring:argument>
+								<spring:argument><spring:message code="DeckType.${deck.type}"/></spring:argument>
+								<spring:argument>${deck.count('main')}</spring:argument>
+							</spring:message>
+						</p>
 					</section>
 					<section>
 						<table style="margin-top:5px">
 							<thead>
 								<tr>
 									<th></th>
-									<th>Name</th>
-									<th>Type</th>
-									<th colspan="2">Edition</th>
-									<th>Manacost</th>
+									<th><spring:message code="DECK_TABLE_NAME"/></th>
+									<th><spring:message code="DECK_TABLE_TYPE"/></th>
+									<th colspan="2"><spring:message code="DECK_TABLE_EDITION"/></th>
+									<th><spring:message code="DECK_TABLE_MANACOST"/></th>
 									<th></th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:if test="${empty deck.mains}">
 									<tr>
-										<td colspan="7">
-											<p>Votre deck est vide, rechercher une carte et cliquer sur <em>Ajouter</em> dans le groupe <em>Deck</em>.</p>
-										</td>
+										<td colspan="7"><p><spring:message code="DECK_TABLE_MAIN_EMPTY"/></p></td>
 									</tr>
 								</c:if>
 								<c:forEach items="${deck.mains}" var="e">
@@ -56,15 +51,13 @@
 										<td>${e.card.manaCost}</td>
 										<td>
 											<div class="btn-select">
-												<button type="button" class="secondary">Action</button>
+												<button type="button" class="secondary"><spring:message code="DECK_TABLE_ACTION"/></button>
 												<ul>
-													<li><a class="ajax add-one" href='<spring:url value="/d/add/1/${e.card.id}/${e.category}/${e.foil}"/>'>Add One</a></li>
-													<li><a class="ajax rm-one" href='<spring:url value="/d/rm/1/${e.card.id}/${e.category}/${e.foil}"/>'>Remove One</a></li>
-													<li><a class="ajax rm-all" href='<spring:url value="/d/rm/all/${e.card.id}/${e.category}/${e.foil}"/>'>Remove All</a></li>
-													<li><a class="ajax mv" href='<spring:url value="/d/mv/1/${e.card.id}/${e.category}/${e.foil}/side"/>' data-update="table,section.deck-title">Move one to Side</a></li>
-													<li><a class="ajax mv" href='<spring:url value="/d/mv/${e.qty}/${e.card.id}/${e.category}/${e.foil}/side"/>' data-update="table,section.deck-title">Move all to Side</a></li>
-													<!-- <li><a class="ajax" href="/todo">Change edition</a></li> -->
-													<!-- <li><a class="ajax" href="/todo">Set foiled</a></li> -->
+													<li><a class="ajax" href='<spring:url value="/d/add/1/${e.card.id}/${e.category}/${e.foil}"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_ADD_ONE"/></a></li>
+													<li><a class="ajax" href='<spring:url value="/d/rm/1/${e.card.id}/${e.category}/${e.foil}"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_RM_ONE"/></a></li>
+													<li><a class="ajax" href='<spring:url value="/d/rm/all/${e.card.id}/${e.category}/${e.foil}"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_RM_ALL"/></a></li>
+													<li><a class="ajax" href='<spring:url value="/d/mv/1/${e.card.id}/${e.category}/${e.foil}/side"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_MV_ONE_SIDE"/></a></li>
+													<li><a class="ajax" href='<spring:url value="/d/mv/${e.qty}/${e.card.id}/${e.category}/${e.foil}/side"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_MV_ALL_SIDE"/></a></li>
 												</ul>
 											</div>
 										</td>
@@ -73,7 +66,7 @@
 							</tbody>
 							<thead>
 								<tr>
-									<th colspan="7">Sideboard</th>
+									<th colspan="7"><spring:message code="DECK_TABLE_SIDEBOARD_TITLE" arguments="${deck.count('side')}"/></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -91,15 +84,13 @@
 										<td>${e.card.manaCost}</td>
 										<td>
 											<div class="btn-select">
-												<button type="button" class="secondary">Action</button>
+												<button type="button" class="secondary"><spring:message code="DECK_TABLE_ACTION"/></button>
 												<ul>
-													<li><a class="ajax add-one" href='<spring:url value="/d/add/1/${e.card.id}/${e.category}/${e.foil}"/>'>Add One</a></li>
-													<li><a class="ajax rm-one" href='<spring:url value="/d/rm/1/${e.card.id}/${e.category}/${e.foil}"/>'>Remove One</a></li>
-													<li><a class="ajax rm-all" href='<spring:url value="/d/rm/all/${e.card.id}/${e.category}/${e.foil}"/>'>Remove All</a></li>
-													<li><a class="ajax mv" href='<spring:url value="/d/mv/1/${e.card.id}/${e.category}/${e.foil}/main"/>'>Move one to Main</a></li>
-													<li><a class="ajax mv" href='<spring:url value="/d/mv/${e.qty}/${e.card.id}/${e.category}/${e.foil}/main"/>'>Move all to Main</a></li>
-													<!-- <li><a class="ajax" href="/todo">Change edition</a></li> -->
-													<!-- <li><a class="ajax" href="/todo">Set foiled</a></li> -->
+													<li><a class="ajax" href='<spring:url value="/d/add/1/${e.card.id}/${e.category}/${e.foil}"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_ADD_ONE"/></a></li>
+													<li><a class="ajax" href='<spring:url value="/d/rm/1/${e.card.id}/${e.category}/${e.foil}"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_RM_ONE"/></a></li>
+													<li><a class="ajax" href='<spring:url value="/d/rm/all/${e.card.id}/${e.category}/${e.foil}"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_RM_ALL"/></a></li>
+													<li><a class="ajax" href='<spring:url value="/d/mv/1/${e.card.id}/${e.category}/${e.foil}/main"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_MV_ONE_MAIN"/></a></li>
+													<li><a class="ajax" href='<spring:url value="/d/mv/${e.qty}/${e.card.id}/${e.category}/${e.foil}/main"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_MV_ALL_MAIN"/></a></li>
 												</ul>
 											</div>
 										</td>
@@ -111,8 +102,5 @@
 				</article>
 			</section>
 		</article>
-	</jsp:attribute>
-	<jsp:attribute name="scripts">
-		<script type="text/javascript" src='<spring:url value="/js/decks.js"/>'></script>
 	</jsp:attribute>
 </t:template>

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import tcg.db.dao.DeckEditDao;
 import tcg.db.dbo.Card;
@@ -23,32 +22,32 @@ public class DeckCardEditController {
 	private User user;
 
 	@RequestMapping(value = "/d/add/{qty}/{card}/{category}/{foil}", method = RequestMethod.GET)
-	@ResponseBody
-	public DeckChange add(
+	public String add(
 			@PathVariable("qty") int qty,
 			@PathVariable("card") String id,
 			@PathVariable("category") DeckEntryCategory category,
 			@PathVariable("foil") boolean foil) {
-		return new DeckChange(update(entry(id, qty, category, foil)));
+		update(entry(id, qty, category, foil));
+		return "redirect:/d/" + user.getCurrentDeck();
 	}
 
 	@RequestMapping(value = "/d/rm/{qty}/{card}/{category}/{foil}", method = RequestMethod.GET)
-	@ResponseBody
-	public DeckChange rm(
+	public String rm(
 			@PathVariable("qty") int qty,
 			@PathVariable("card") String id,
 			@PathVariable("category") DeckEntryCategory category,
 			@PathVariable("foil") boolean foil) {
-		return new DeckChange(update(entry(id, -qty, category, foil)));
+		update(entry(id, -qty, category, foil));
+		return "redirect:/d/" + user.getCurrentDeck();
 	}
 
 	@RequestMapping(value = "/d/rm/all/{card}/{category}/{foil}", method = RequestMethod.GET)
-	@ResponseBody
-	public DeckChange rmAll(
+	public String rmAll(
 			@PathVariable("card") String id,
 			@PathVariable("category") DeckEntryCategory category,
 			@PathVariable("foil") boolean foil) {
-		return new DeckChange(rm(entry(id, 0, category, foil)));
+		rm(entry(id, 0, category, foil));
+		return "redirect:/d/" + user.getCurrentDeck();
 	}
 
 	@RequestMapping(value = "/d/mv/{qty}/{card}/{source}/{foil}/{dest}", method = RequestMethod.GET)
@@ -63,7 +62,7 @@ public class DeckCardEditController {
 		return "redirect:/d/" + user.getCurrentDeck();
 	}
 
-	private int update(DeckEntry delta) {
+	private void update(DeckEntry delta) {
 		DeckEditDao dao = session.getMapper(DeckEditDao.class);
 		if (dao.checkAllow(user.getUser(), user.getCurrentDeck())) {
 			dao.updateEntry(delta);
@@ -72,10 +71,9 @@ public class DeckCardEditController {
 			// dao.addHistory()
 			session.commit();
 		}
-		return dao.count(delta);
 	}
 
-	private int rm(DeckEntry entry) {
+	private void rm(DeckEntry entry) {
 		DeckEditDao dao = session.getMapper(DeckEditDao.class);
 		if (dao.checkAllow(user.getUser(), user.getCurrentDeck())) {
 			dao.deleteEntry(entry);
@@ -83,7 +81,6 @@ public class DeckCardEditController {
 			// dao.addHistory()
 			session.commit();
 		}
-		return dao.count(entry);
 	}
 
 	private DeckEntry entry(String cardId, int qty, DeckEntryCategory category, boolean foil) {

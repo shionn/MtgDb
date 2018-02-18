@@ -23,10 +23,40 @@ public class DeckViewController {
 	private CardFormater formater;
 
 	@RequestMapping(value = "/d/table/{id}", method = RequestMethod.GET)
-	public ModelAndView view(@PathVariable("id") int id) {
+	public ModelAndView table(@PathVariable("id") int id) {
 		Deck deck = session.getMapper(DeckDao.class).read(id);
 		deck.getCards().stream().forEach(this::format);
 		return new ModelAndView("deck/table").addObject("deck", deck);
+	}
+
+	@RequestMapping(value = "/d/flat/{id}", method = RequestMethod.GET)
+	public ModelAndView flat(@PathVariable("id") int id) {
+		Deck deck = session.getMapper(DeckDao.class).read(id);
+		return new ModelAndView("deck/flat").addObject("deck", deck);
+	}
+
+	@RequestMapping(value = "/d/cube/{id}", method = RequestMethod.GET)
+	public ModelAndView cube(@PathVariable("id") int id) {
+		Deck deck = session.getMapper(DeckDao.class).read(id);
+		return new ModelAndView("deck/cube").addObject("deck", deck);
+	}
+
+	@RequestMapping(value = "/d/price/{id}", method = RequestMethod.GET)
+	public ModelAndView price(@PathVariable("id") int id) {
+		Deck deck = session.getMapper(DeckDao.class).read(id);
+		return new ModelAndView("deck/price").addObject("deck", deck);
+	}
+
+	@RequestMapping(value = "/d/history/{id}", method = RequestMethod.GET)
+	public ModelAndView history(@PathVariable("id") int id) {
+		Deck deck = session.getMapper(DeckDao.class).read(id);
+		return new ModelAndView("deck/history").addObject("deck", deck);
+	}
+
+	@RequestMapping(value = "/d/stat/{id}", method = RequestMethod.GET)
+	public ModelAndView stat(@PathVariable("id") int id) {
+		Deck deck = session.getMapper(DeckDao.class).read(id);
+		return new ModelAndView("deck/stat").addObject("deck", deck);
 	}
 
 	private void format(DeckEntry e) {
