@@ -35,7 +35,6 @@
 								<tr>
 									<th><spring:message code="DECK_LIST_NAME"/></th>
 									<th><spring:message code="DECK_LIST_TYPE"/></th>
-									<th><spring:message code="DECK_LIST_COLOR"/></th>
 									<th>#</th>
 								</tr>
 							</thead>
@@ -44,10 +43,9 @@
 									<tr>
 										<td><a href='<spring:url value="/d/${deck.id}"/>'>${deck.name}</a></td>
 										<td><spring:message code="DeckType.${deck.type}"/></td>
-										<td></td>
 										<td>
 											<div class="btn-select">
-												<button type="button" class="secondary">TODO</button>
+												<button type="button" class="secondary"><spring:message code="DECK_LIST_ACTION"/></button>
 												<ul>
 													<li><a href="#todo">Duplicate</a></li>
 													<li><a href="#todo">Delete</a></li>

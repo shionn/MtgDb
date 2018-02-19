@@ -9,7 +9,7 @@ public class Deck {
 	private DeckType type;
 	private List<DeckEntry> cards;
 
-	// color, value
+	// value
 	// event statistique ?
 
 	public int getId() {

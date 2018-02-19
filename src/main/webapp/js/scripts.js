@@ -132,10 +132,19 @@ $(function() {
 			url : $(this).attr("href"),
 			method : 'GET',
 			success : function(r) {
-				$()
+				$("div.modal").html(r);
+				$("div.modal").addClass("open");
 			}
 		});
 		return false;
+	});
+	$("div.modal").on("click", function(e) {
+		if($(e.target).hasClass("modal") && $(e.target).hasClass("open")) {
+			$(this).removeClass("open");
+		}
+	});
+	$("body").on("click", ".closeModal", function(e) {
+		$("div.modal.open").removeClass("open");
 	});
 });
 
