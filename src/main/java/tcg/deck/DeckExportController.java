@@ -56,9 +56,8 @@ public class DeckExportController {
 
 		HttpHeaders header = new HttpHeaders();
 		header.set(HttpHeaders.CONTENT_DISPOSITION,
-				"attachment; filename=export-"
-						+ deck.getName() + '-'
-						+ new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + ".txt");
+				"attachment; filename=" + deck.getName() + '-' + new SimpleDateFormat("yyyy-MM-dd").format(new Date())
+						+ ".txt");
 		return new HttpEntity<String>(export.toString(), header);
 	}
 

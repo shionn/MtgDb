@@ -18,7 +18,10 @@
 				</ul>
 			</div>
 			<label><spring:message code="DECK_IMPORT_FILE"/></label>
-			<input type="file" value="<spring:message code="DECK_IMPORT_FILE_BUTTON"/>">
+			<span class="btn">
+				<spring:message code="DECK_IMPORT_FILE_BUTTON"/>
+				<input type="file" name="file">
+			</span>
 			<input type="submit" class="closeModal" value="<spring:message code="DECK_IMPORT_SUBMIT"/>"/>
 		</form:form>
 	</section>
