@@ -5,8 +5,8 @@
 <article class="portlet">
 	<header><spring:message code="DECK_IMPORT_TITLE"/> ${deck.name}</header>
 	<section>
-		<spring:url value="/d/export/${deck.id}" var="action" />
-		<form:form action="${action}" method="POST">
+		<spring:url value="/d/import/${deck.id}?${_csrf.parameterName}=${_csrf.token}" var="action" />
+		<form:form action="${action}" method="POST" enctype="multipart/form-data" >
 			<label><spring:message code="DECK_IMPORT_FORMAT"/></label>
 			<div class="btn-select">
 				<button type="button" class="secondary"><spring:message code="DeckExportFormat.${formats[0]}"/></button>

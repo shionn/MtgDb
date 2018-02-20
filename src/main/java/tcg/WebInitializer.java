@@ -2,6 +2,7 @@ package tcg;
 
 
 
+import java.io.IOException;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -20,6 +21,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.filter.RequestContextFilter;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -90,6 +92,12 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 			return viewResolver;
 		}
 
+		@Bean(name = "multipartResolver")
+		public CommonsMultipartResolver getResolver() throws IOException {
+			CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+			resolver.setMaxUploadSizePerFile(1024 * 1024);// 1MB
+			return resolver;
+		}
 		@Bean
 		public LocaleResolver localeResolver() {
 			SessionLocaleResolver resolver = new SessionLocaleResolver();

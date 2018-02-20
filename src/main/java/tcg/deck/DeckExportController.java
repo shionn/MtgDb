@@ -1,5 +1,8 @@
 package tcg.deck;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import tcg.db.dao.DeckDao;
@@ -66,6 +70,19 @@ public class DeckExportController {
 		return new ModelAndView("deck/import-modal")//
 				.addObject("formats", FORMATS)//
 				.addObject("deck", session.getMapper(DeckDao.class).readOne(id));//
+	}
+
+	@RequestMapping(value = "/d/import/{id}", method = RequestMethod.POST)
+	public String impoort(@PathVariable("id") int id, @RequestParam("file") MultipartFile file) throws IOException {
+		try (InputStreamReader isr = new InputStreamReader(file.getInputStream());
+				BufferedReader r = new BufferedReader(isr)) {
+			String line = r.readLine();
+			while (line != null) {
+
+				line = r.readLine();
+			}
+		}
+		return "redirect:/d/" + id;
 	}
 
 }
