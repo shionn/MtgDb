@@ -16,7 +16,7 @@ import tcg.db.dbo.DeckType;
 
 public interface DeckDao {
 
-	@Select("SELECT * FROM deck WHERE user = #{user}")
+	@Select("SELECT * FROM deck WHERE user = #{user} ORDER BY updated DESC")
 	List<Deck> readAll(String user);
 
 	@Insert("INSERT INTO deck(name, user, type, created, updated) "

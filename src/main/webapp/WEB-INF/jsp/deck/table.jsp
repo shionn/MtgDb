@@ -11,13 +11,23 @@
 				<article class="portlet nav">
 					<t:deck-nav deck="${deck}"/>
 					<section class="deck-title">
-						<p style="text-align: center">
+						<div>
 							<spring:message code="DECK_TABLE_TITLE">
 								<spring:argument>${deck.name}</spring:argument>
 								<spring:argument><spring:message code="DeckType.${deck.type}"/></spring:argument>
 								<spring:argument>${deck.count('main')}</spring:argument>
 							</spring:message>
-						</p>
+						</div>
+						<div class="btn-select">
+							<button type="button" class="secondary"><spring:message code="DECK_ACTION"/></button>
+							<ul>
+<!-- 								<li><a href="#todo">Duplicate</a></li> -->
+<!-- 								<li><a href="#todo">Delete</a></li> -->
+								<li><a class="modal" href='<spring:url value="/d/export/${deck.id}"/>'><spring:message code="DECK_ACTION_EXPORT"/></a></li>
+								<li><a class="modal" href='<spring:url value="/d/import/${deck.id}"/>'><spring:message code="DECK_ACTION_IMPORT"/></a></li>
+<!-- 								<li><a href="#todo">Update Prices</a></li> -->
+							</ul>
+						</div>
 					</section>
 					<section>
 						<table style="margin-top:5px">

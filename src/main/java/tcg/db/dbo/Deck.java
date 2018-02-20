@@ -46,17 +46,29 @@ public class Deck {
 
 	public List<DeckEntry> getMains() {
 		return this.cards.stream().filter(c -> c.getCategory() == DeckEntryCategory.main)
-				.sorted((e, f) -> Integer.compare(e.getCard().getCmc(), f.getCard().getCmc()))
+				.sorted(this::sort)
 				.collect(Collectors.toList());
 	}
 
 	public List<DeckEntry> getSides() {
-		return this.cards.stream().filter(c -> c.getCategory() == DeckEntryCategory.side).collect(Collectors.toList());
+		return this.cards.stream().filter(c -> c.getCategory() == DeckEntryCategory.side)
+				.sorted(this::sort).collect(Collectors.toList());
 	}
 
 	public int count(DeckEntryCategory category) {
 		return cards.stream().filter(e -> e.getCategory() == category)
 				.collect(Collectors.summingInt(DeckEntry::getQty));
+	}
+
+	private int sort(DeckEntry e, DeckEntry f) {
+		int result = -Boolean.compare(e.getCard().isCreature(), f.getCard().isCreature());
+		if (result == 0) {
+			result = Boolean.compare(e.getCard().isLand(), f.getCard().isLand());
+		}
+		if (result == 0) {
+			result = Integer.compare(e.getCard().getCmc(), f.getCard().getCmc());
+		}
+		return result;
 	}
 
 }

@@ -45,13 +45,13 @@
 										<td><spring:message code="DeckType.${deck.type}"/></td>
 										<td>
 											<div class="btn-select">
-												<button type="button" class="secondary"><spring:message code="DECK_LIST_ACTION"/></button>
+												<button type="button" class="secondary"><spring:message code="DECK_ACTION"/></button>
 												<ul>
-													<li><a href="#todo">Duplicate</a></li>
-													<li><a href="#todo">Delete</a></li>
-													<li><a class="modal" href='<spring:url value="/d/export/${deck.id}"/>'>Export</a></li>
-													<li><a class="modal" href='<spring:url value="/d/import/${deck.id}"/>'>Import</a></li>
-													<li><a href="#todo">Update Prices</a></li>
+<!-- 													<li><a href="#todo">Duplicate</a></li> -->
+<!-- 													<li><a href="#todo">Delete</a></li> -->
+													<li><a class="modal" href='<spring:url value="/d/export/${deck.id}"/>'><spring:message code="DECK_ACTION_EXPORT"/></a></li>
+													<li><a class="modal" href='<spring:url value="/d/import/${deck.id}"/>'><spring:message code="DECK_ACTION_IMPORT"/></a></li>
+<!-- 													<li><a href="#todo">Update Prices</a></li> -->
 												</ul>
 											</div>
 										</td>
