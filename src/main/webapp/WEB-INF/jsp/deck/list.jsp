@@ -50,7 +50,7 @@
 													<li><a href="#todo">Duplicate</a></li>
 													<li><a href="#todo">Delete</a></li>
 													<li><a class="modal" href='<spring:url value="/d/export/${deck.id}"/>'>Export</a></li>
-													<li><a href="#todo">Import</a></li>
+													<li><a class="modal" href='<spring:url value="/d/import/${deck.id}"/>'>Import</a></li>
 													<li><a href="#todo">Update Prices</a></li>
 												</ul>
 											</div>

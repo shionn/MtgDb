@@ -21,13 +21,14 @@ import tcg.db.dbo.DeckEntry;
 
 @Controller
 public class DeckExportController {
+	private static final DeckExportFormat[] FORMATS = new DeckExportFormat[] { DeckExportFormat.simple };
 	@Autowired
 	private SqlSession session;
 
 	@RequestMapping(value = "/d/export/{id}", method = RequestMethod.GET)
-	public ModelAndView open(@PathVariable("id") int id) {
+	public ModelAndView export(@PathVariable("id") int id) {
 		return new ModelAndView("deck/export-modal")//
-				.addObject("formats", DeckExportFormat.values())//
+				.addObject("formats", FORMATS)//
 				.addObject("deck", session.getMapper(DeckDao.class).readOne(id));//
 	}
 
@@ -59,6 +60,13 @@ public class DeckExportController {
 						+ deck.getName() + '-'
 						+ new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + ".txt");
 		return new HttpEntity<String>(export.toString(), header);
+	}
+
+	@RequestMapping(value = "/d/import/{id}", method = RequestMethod.GET)
+	public ModelAndView impoort(@PathVariable("id") int id) {
+		return new ModelAndView("deck/import-modal")//
+				.addObject("formats", FORMATS)//
+				.addObject("deck", session.getMapper(DeckDao.class).readOne(id));//
 	}
 
 }
