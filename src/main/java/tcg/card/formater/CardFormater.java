@@ -34,10 +34,10 @@ public class CardFormater {
 		patterns.put(Pattern.compile("\\{C\\}"), "<i class=\"mi mi-c mi-mana\"></i>");
 
 		patterns.put(Pattern.compile("\\{2/W\\}"), split("2", "w"));
-		patterns.put(Pattern.compile("\\{2/U\\}"), split("2", "w"));
-		patterns.put(Pattern.compile("\\{2/B\\}"), split("2", "w"));
-		patterns.put(Pattern.compile("\\{2/R\\}"), split("2", "w"));
-		patterns.put(Pattern.compile("\\{2/G\\}"), split("2", "w"));
+		patterns.put(Pattern.compile("\\{2/U\\}"), split("2", "u"));
+		patterns.put(Pattern.compile("\\{2/B\\}"), split("2", "b"));
+		patterns.put(Pattern.compile("\\{2/R\\}"), split("2", "r"));
+		patterns.put(Pattern.compile("\\{2/G\\}"), split("2", "g"));
 
 		patterns.put(Pattern.compile("\\{W/U\\}"), split("w", "u"));
 		patterns.put(Pattern.compile("\\{U/B\\}"), split("u", "b"));
@@ -51,12 +51,23 @@ public class CardFormater {
 		patterns.put(Pattern.compile("\\{R/W\\}"), split("r", "w"));
 		patterns.put(Pattern.compile("\\{G/U\\}"), split("g", "u"));
 
+		patterns.put(Pattern.compile("\\{W/P\\}"), phyrexia("w"));
+		patterns.put(Pattern.compile("\\{U/P\\}"), phyrexia("u"));
+		patterns.put(Pattern.compile("\\{B/P\\}"), phyrexia("b"));
+		patterns.put(Pattern.compile("\\{R/P\\}"), phyrexia("r"));
+		patterns.put(Pattern.compile("\\{G/P\\}"), phyrexia("g"));
+
 		patterns.put(Pattern.compile("\\{T\\}"), "<i class=\"mi mi-t\"></i>");
 		return patterns;
 	}
 
+
 	private String split(String m1, String m2) {
 		return "<span class=\"mi-split\"><i class=\"mi mi-" + m1 + "\"></i><i class=\"mi mi-" + m2 + "\"></i></span>";
+	}
+
+	private String phyrexia(String mana) {
+		return "<i class=\"mi mi-p mi-mana-" + mana + "\"></i>";
 	}
 
 	private Map<Pattern, String> buildManacostsPatterns() {
@@ -87,6 +98,12 @@ public class CardFormater {
 		patterns.put(Pattern.compile("\\{R/W\\}"), splitShadow("r", "w"));
 		patterns.put(Pattern.compile("\\{G/U\\}"), splitShadow("g", "u"));
 
+		patterns.put(Pattern.compile("\\{W/P\\}"), phyrexiaShadow("w"));
+		patterns.put(Pattern.compile("\\{U/P\\}"), phyrexiaShadow("u"));
+		patterns.put(Pattern.compile("\\{B/P\\}"), phyrexiaShadow("b"));
+		patterns.put(Pattern.compile("\\{R/P\\}"), phyrexiaShadow("r"));
+		patterns.put(Pattern.compile("\\{G/P\\}"), phyrexiaShadow("g"));
+
 		for (int i = 0; i <= 20; i++) {
 			patterns.put(Pattern.compile("\\{" + i + "\\}"),
 					"<i class=\"mi mi-" + i + " mi-mana mi-shadow\"></i>");
@@ -97,6 +114,10 @@ public class CardFormater {
 	private String splitShadow(String m1, String m2) {
 		return "<span class=\"mi-split mi-shadow\"><i class=\"mi mi-" + m1 + "\"></i><i class=\"mi mi-" + m2
 				+ "\"></i></span>";
+	}
+
+	private String phyrexiaShadow(String mana) {
+		return "<i class=\"mi mi-p mi-mana-" + mana + " mi-shadow\"></i>";
 	}
 
 	public String text(String text) {
