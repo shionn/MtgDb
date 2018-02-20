@@ -7,4 +7,7 @@
 			<a href="<spring:url value="/c/${c.id}"/>">${c.name} - ${c.lang('fr').name}</a>
 		</li>
 	</c:forEach>
+	<c:if test="${empty cards}">
+		<li><spring:message code="QUICK_SEARCH_NO_RESULT"/></li>
+	</c:if>
 </ul>
