@@ -1,8 +1,5 @@
 package tcg.deck;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -16,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import tcg.db.dao.DeckDao;
 import tcg.db.dbo.Deck;
 import tcg.db.dbo.DeckEntry;
+import tcg.db.dbo.DeckEntryCategory;
 
 @Controller
 public class DeckExportController {
@@ -33,7 +30,7 @@ public class DeckExportController {
 	public ModelAndView export(@PathVariable("id") int id) {
 		return new ModelAndView("deck/export-modal")//
 				.addObject("formats", FORMATS)//
-				.addObject("deck", session.getMapper(DeckDao.class).readOne(id));//
+				.addObject("deck", session.getMapper(DeckDao.class).readDeckBase(id));//
 	}
 
 	@RequestMapping(value = "/d/export/{id}", method = RequestMethod.POST)
@@ -45,10 +42,12 @@ public class DeckExportController {
 		switch (format) {
 		case simple:
 			export = new StringBuilder();
+			export.append('[').append(DeckEntryCategory.main).append(']').append('\n');
 			for (DeckEntry e : deck.getMains()) {
 				export.append(e.getQty()).append('\t').append(e.getCard().getName()).append('\n');
 			}
 			export.append('\n');
+			export.append('[').append(DeckEntryCategory.side).append(']').append('\n');
 			for (DeckEntry e : deck.getSides()) {
 				export.append(e.getQty()).append('\t').append(e.getCard().getName()).append('\n');
 			}
@@ -63,26 +62,6 @@ public class DeckExportController {
 				"attachment; filename=" + deck.getName() + '-' + new SimpleDateFormat("yyyy-MM-dd").format(new Date())
 						+ ".txt");
 		return new HttpEntity<String>(export.toString(), header);
-	}
-
-	@RequestMapping(value = "/d/import/{id}", method = RequestMethod.GET)
-	public ModelAndView impoort(@PathVariable("id") int id) {
-		return new ModelAndView("deck/import-modal")//
-				.addObject("formats", FORMATS)//
-				.addObject("deck", session.getMapper(DeckDao.class).readOne(id));//
-	}
-
-	@RequestMapping(value = "/d/import/{id}", method = RequestMethod.POST)
-	public String impoort(@PathVariable("id") int id, @RequestParam("file") MultipartFile file) throws IOException {
-		try (InputStreamReader isr = new InputStreamReader(file.getInputStream());
-				BufferedReader r = new BufferedReader(isr)) {
-			String line = r.readLine();
-			while (line != null) {
-
-				line = r.readLine();
-			}
-		}
-		return "redirect:/d/" + id;
 	}
 
 }

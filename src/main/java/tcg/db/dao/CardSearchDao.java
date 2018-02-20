@@ -34,4 +34,7 @@ public interface CardSearchDao extends CardFragDao {
 			@Result(column = "id", property = "langs", many = @Many(select = "readLangs")) })
 	List<Card> search(@Param("types") List<Filter> filters);
 
+	@Select("SELECT * FROM card WHERE name = #{name} LIMIT 1")
+	Card findFirstName(String name);
+
 }

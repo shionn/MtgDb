@@ -41,7 +41,7 @@ public class DeckController {
 	@RequestMapping(value = "/d/{id}", method = RequestMethod.GET)
 	public String view(@PathVariable("id") int id) {
 		user.setCurrentDeck(id);
-		user.setCurrentDeckName(session.getMapper(DeckDao.class).readOne(id).getName());
+		user.setCurrentDeckName(session.getMapper(DeckDao.class).readDeckBase(id).getName());
 		return "redirect:/d/table/" + id;
 	}
 
