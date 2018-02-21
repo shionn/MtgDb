@@ -161,15 +161,13 @@ CREATE TABLE IF NOT EXISTS deck (
 
 drop table if exists deck_entry;
 CREATE TABLE IF NOT EXISTS deck_entry (
-  id       INT          NOT NULL AUTO_INCREMENT,
   deck     INT          NOT NULL,
   card     varchar(64)  NOT NULL,
   qty      int          NOT NULL,
   foil     boolean      NOT NULL,
   category varchar(32)  NOT NULL,
   tag      varchar(32)  NULL,
-  PRIMARY KEY (id),
-  UNIQUE card_deck_entry (deck, card, foil, category),
+  PRIMARY KEY (deck, card, foil, category),
   CONSTRAINT in_deck   FOREIGN KEY (deck)    REFERENCES deck(id),
   CONSTRAINT card_deck FOREIGN KEY (card)    REFERENCES card(id)
 ) DEFAULT CHARSET=utf8;
