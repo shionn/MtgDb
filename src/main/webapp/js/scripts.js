@@ -10,7 +10,6 @@ $(function() {
 				this[0].click();
 		}
 	});
-
 });
 
 $(function() {
@@ -53,6 +52,16 @@ $(function() {
 		if (!$(e.target).parents("span.autocomplete").exists()) {
 			$("span.autocomplete.open").removeClass("open");
 		}
+	});
+});
+
+$(function(){
+	$("header nav.menu ul a").first().on("click", function() {
+		$(this).closest("ul").toggleClass("open");
+		return false;
+	});
+	$("body").on("click",function() {
+		$("nav.menu ul.open").removeClass("menu");
 	});
 });
 

@@ -3,22 +3,48 @@ body > header {
 	background-color: @nav-bar-background-color;
 	nav {
 		ul {
-			display: flex;
-			align-items: center;
-			padding: 0;
+			padding: 2px 4px;
 			margin: 0;
-			justify-content: space-between;
+			@media (min-width: @min-sm) {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+			}
+
 			li {
 				list-style: none;
 				padding: 5px;
-					a {
-						color: @nav-bar-text-color;
+				a {
+					color: @nav-bar-text-color;
+					display: block;
+					padding: 5px 0px;
+					span.fa {
+						float:right;
+						margin-top: 2px;
 					}
+				}
+
+				&:first-child {
+					@media (min-width: @min-sm) {
+						display: none;
+					}
+				}
+
+				&:not(:first-child) {
+					@media (max-width: @max-xs) {
+						display: none;
+					}
+				}
+			}
+			&.open li {
+				display: list-item;
 			}
 		}
+
 		input {
-			background-color : @nav-bar-text-color;
+			background-color: @nav-bar-text-color;
 			color: @nav-bar-background-color;
 		}
 	}
 }
+

@@ -18,8 +18,11 @@
 </head>
 <body>
 	<header>
-		<nav class="container">
+		<nav class="container menu">
 			<ul>
+				<li>
+					<a href="#"><spring:message code="MAIN_MENU"/><span class="fa fa-2 fa-bars"></span></a>
+				</li>
 				<li>
 					<form action='<spring:url value="/s"/>'>
 						<span class="autocomplete">
