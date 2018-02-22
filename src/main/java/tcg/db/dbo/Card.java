@@ -17,6 +17,7 @@ public class Card {
 	private String artist;
 	private String flavor;
 	private String manaCost;
+	private String colors;
 	private String type;
 	private String originalType;
 	private String power;
@@ -255,5 +256,17 @@ public class Card {
 
 	public void setCmc(int cmc) {
 		this.cmc = cmc;
+	}
+
+	public String getColors() {
+		return colors;
+	}
+
+	public void setColors(String colors) {
+		this.colors = colors;
+	}
+
+	public GuildColor getGuildColor() {
+		return GuildColor.from(colors);
 	}
 }

@@ -1,5 +1,7 @@
 package tcg.deck;
 
+import java.util.Arrays;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import tcg.card.formater.CardFormater;
 import tcg.db.dao.DeckDao;
 import tcg.db.dbo.Deck;
 import tcg.db.dbo.DeckEntry;
+import tcg.db.dbo.GuildColor;
 
 @Controller
 public class DeckViewController {
@@ -24,9 +27,7 @@ public class DeckViewController {
 
 	@RequestMapping(value = "/d/table/{id}", method = RequestMethod.GET)
 	public ModelAndView table(@PathVariable("id") int id) {
-		Deck deck = session.getMapper(DeckDao.class).read(id);
-		deck.getCards().stream().forEach(this::format);
-		return new ModelAndView("deck/table").addObject("deck", deck);
+		return new ModelAndView("deck/table").addObject("deck", deck(id));
 	}
 
 	@RequestMapping(value = "/d/flat/{id}", method = RequestMethod.GET)
@@ -37,8 +38,13 @@ public class DeckViewController {
 
 	@RequestMapping(value = "/d/cube/{id}", method = RequestMethod.GET)
 	public ModelAndView cube(@PathVariable("id") int id) {
-		Deck deck = session.getMapper(DeckDao.class).read(id);
-		return new ModelAndView("deck/cube").addObject("deck", deck);
+		return new ModelAndView("deck/cube").addObject("deck", deck(id))
+				.addObject("colors",
+						Arrays.asList(GuildColor.white, GuildColor.blue, GuildColor.black,
+								GuildColor.red, GuildColor.green))
+				.addObject("guilds", Arrays.asList(GuildColor.azorius, GuildColor.dimir,
+						GuildColor.rakdos, GuildColor.gruul, GuildColor.selesnya, GuildColor.orzhov,
+						GuildColor.golgari, GuildColor.simic, GuildColor.izzet, GuildColor.boros));
 	}
 
 	@RequestMapping(value = "/d/price/{id}", method = RequestMethod.GET)
@@ -57,6 +63,12 @@ public class DeckViewController {
 	public ModelAndView stat(@PathVariable("id") int id) {
 		Deck deck = session.getMapper(DeckDao.class).read(id);
 		return new ModelAndView("deck/stat").addObject("deck", deck);
+	}
+
+	private Deck deck(int id) {
+		Deck deck = session.getMapper(DeckDao.class).read(id);
+		deck.getCards().stream().forEach(this::format);
+		return deck;
 	}
 
 	private void format(DeckEntry e) {

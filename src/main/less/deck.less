@@ -1,8 +1,34 @@
-.deck-table {
+article.deck-table {
 	.deck-title {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+	}
+}
+
+article.deck-cube {
+	section.cube {
+		display: flex;
+		ul {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			width: 100 / 8%;
+			li {
+				height : 20px;
+				overflow : hidden;
+				img {
+					width: 100%;
+					z-index : 0;
+				}
+				&:hover {
+					overflow : visible;
+					img {
+						z-index : 1;
+					}
+				}
+			}
+		}
 	}
 }
 
