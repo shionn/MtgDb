@@ -157,3 +157,11 @@ $(function() {
 	});
 });
 
+$(function(){
+	$("section.cube").on("mouseenter", "ul li a, ul li a i", function() {
+		$(this).closest("li").addClass("over");
+	});
+	$("section.cube").on("mouseout", "ul li a, ul li a i", function() {
+		$(this).closest("li").removeClass("over");
+	});
+})

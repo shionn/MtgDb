@@ -16,16 +16,43 @@
 					<section class="cube">
 						<c:forEach items="${colors}" var="color">
 							<ul>
-								<c:forEach items="${deck.mains(color)}" var="e">
-									<li><img src='<spring:url value="/c/img/${e.card.id}.jpg"/>'/></li>
+								<li class="title">${color}</li>
+								<c:forEach items="${deck.cubeColor(color)}" var="e">
+									<li>
+										<a href="#"><i class="fa fa-cog"></i></a>
+										<img src='<spring:url value="/c/img/${e.card.id}.jpg"/>'/>
+									</li>
 								</c:forEach>
 							</ul>
 						</c:forEach>
 						<ul>
+							<li class="title">Golds</li>
 							<c:forEach items="${guilds}" var="color">
-								<c:forEach items="${deck.mains(color)}" var="e">
-									<li><img src='<spring:url value="/c/img/${e.card.id}.jpg"/>'/></li>
+								<li class="title">${color}</li>
+								<c:forEach items="${deck.cubeColor(color)}" var="e">
+									<li>
+										<a href="#"><i class="fa fa-cog"></i></a>
+										<img src='<spring:url value="/c/img/${e.card.id}.jpg"/>'/>
+									</li>
 								</c:forEach>
+							</c:forEach>
+						</ul>
+						<ul>
+							<li class="title">Colorless</li>
+							<c:forEach items="${deck.cubeColor('none')}" var="e">
+								<li>
+									<a href="#"><i class="fa fa-cog"></i></a>
+									<img src='<spring:url value="/c/img/${e.card.id}.jpg"/>'/>
+								</li>
+							</c:forEach>
+						</ul>
+						<ul>
+							<li class="title">Lands</li>
+							<c:forEach items="${deck.cubeLand()}" var="e">
+								<li>
+									<a href="#"><i class="fa fa-cog"></i></a>
+									<img src='<spring:url value="/c/img/${e.card.id}.jpg"/>'/>
+								</li>
 							</c:forEach>
 						</ul>
 					</section>

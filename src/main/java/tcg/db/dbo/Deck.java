@@ -49,10 +49,17 @@ public class Deck {
 				.sorted(this::sort).collect(Collectors.toList());
 	}
 
-	public List<DeckEntry> mains(GuildColor color) {
+	public List<DeckEntry> cubeColor(GuildColor color) {
 		return this.cards.stream().filter(c -> c.getCategory() == DeckEntryCategory.main)
 				.filter(c -> c.getCard().getGuildColor() == color) //
 				.filter(c -> !c.getCard().isLand()) //
+				.sorted(this::sort) //
+				.collect(Collectors.toList());
+	}
+
+	public List<DeckEntry> cubeLand() {
+		return this.cards.stream().filter(c -> c.getCategory() == DeckEntryCategory.main)
+				.filter(c -> c.getCard().isLand()) //
 				.sorted(this::sort) //
 				.collect(Collectors.toList());
 	}
@@ -79,6 +86,9 @@ public class Deck {
 		}
 		if (result == 0) {
 			result = Integer.compare(e.getCard().getCmc(), f.getCard().getCmc());
+		}
+		if (result == 0) {
+			result = e.getCard().getName().compareTo(f.getCard().getName());
 		}
 		return result;
 	}

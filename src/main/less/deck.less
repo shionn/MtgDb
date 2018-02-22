@@ -15,17 +15,42 @@ article.deck-cube {
 			list-style: none;
 			width: 100 / 8%;
 			li {
-				height : 20px;
-				overflow : hidden;
+				height: 20px;
+				overflow: hidden;
+				position: relative;
+				a {
+					position: absolute;
+					height: 20px;
+					width: 100%;
+					z-index: 2;
+					i.fa {
+						top: 3px;
+						position: absolute;
+						right: 4px;
+						display : none;
+						color : #FFF;
+						text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+					}
+				}
+
 				img {
 					width: 100%;
-					z-index : 0;
+					z-index: 0;
+					position: absolute;
 				}
-				&:hover {
-					overflow : visible;
-					img {
-						z-index : 1;
+
+				&.over {
+					overflow: visible;
+					i.fa {
+						display: inline;
 					}
+					img {
+						z-index: 1;
+					}
+				}
+
+				&.title {
+					text-align: center;
 				}
 			}
 		}
