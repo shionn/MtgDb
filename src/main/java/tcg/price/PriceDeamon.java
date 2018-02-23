@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.ApplicationScope;
 
 import tcg.db.dao.CardDao;
+import tcg.db.dao.CardPriceDao;
 import tcg.db.dbo.Card;
 import tcg.db.dbo.CardPrice;
 import tcg.price.goldfish.MtgGoldFishCrawler;
@@ -49,7 +50,7 @@ public class PriceDeamon {
 					List<CardPrice> prices = new ArrayList<>();
 					prices.addAll(mkmCrawler.price(card));
 					prices.addAll(fishCrawler.price(card));
-					prices.stream().forEach(session.getMapper(CardDao.class)::price);
+					prices.stream().forEach(session.getMapper(CardPriceDao.class)::price);
 					session.commit();
 					results.put(id, prices);
 				}

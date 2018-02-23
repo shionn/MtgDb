@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -24,10 +25,14 @@ public class DeckCardEditController {
 	@RequestMapping(value = "/d/add/{qty}/{card}/{category}/{foil}", method = RequestMethod.GET)
 	public String add(
 			@PathVariable("qty") int qty,
-			@PathVariable("card") String id,
+			@PathVariable("card") String card,
 			@PathVariable("category") DeckEntryCategory category,
-			@PathVariable("foil") boolean foil) {
-		update(entry(id, qty, category, foil));
+			@PathVariable("foil") boolean foil,
+			@RequestHeader("referer") String referer) {
+		update(entry(card, qty, category, foil));
+		if (referer.contains("/c/" + card)) {
+			return "redirect:/c/" + card;
+		}
 		return "redirect:/d/" + user.getCurrentDeck();
 	}
 

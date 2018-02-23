@@ -103,10 +103,16 @@
 					</section>
 					<c:if test="${user.currentDeck != 0}">
 						<header><spring:message code="CARD_DECK"/></header>
-						<section>
-							<a class="button ajax" href='<spring:url value="/d/add/1/${card.id}/main/false"/>'><spring:message code="CARD_DECK_ADD"/></a>
-							<a class="button ajax" href='<spring:url value="/d/add/4/${card.id}/main/false"/>'><spring:message code="CARD_DECK_PLAYSET_ADD"/></a>
-							<a class="button ajax" href='<spring:url value="/d/add/1/${card.id}/side/false"/>'><spring:message code="CARD_DECK_SIDE_ADD"/></a>
+						<section class="deck">
+							<a class="button ajax" href='<spring:url value="/d/add/1/${card.id}/main/false"/>' data-update="section.deck">
+								<spring:message code="CARD_DECK_ADD"/><span>${deckMainQty}</span>
+							</a>
+							<a class="button ajax" href='<spring:url value="/d/add/4/${card.id}/main/false"/>' data-update="section.deck">
+								<spring:message code="CARD_DECK_PLAYSET_ADD"/><span>${deckMainQty}</span>
+							</a>
+							<a class="button ajax" href='<spring:url value="/d/add/1/${card.id}/side/false"/>' data-update="section.deck">
+								<spring:message code="CARD_DECK_SIDE_ADD"/><span>${deckSideQty}</span>
+							</a>
 						</section>
 					</c:if>
 				</article>

@@ -26,9 +26,9 @@ public interface DeckDao {
 	@Select("SELECT * FROM deck WHERE id = #{id}")
 	@Results({
 			@Result(column = "id", property = "id"),
-			@Result(column = "id", property = "cards", many = @Many(select = "readEntry"))
+			@Result(column = "id", property = "cards", many = @Many(select = "readEntries"))
 	})
-	Deck read(int id);
+	Deck readDeck(int id);
 
 	@Select("SELECT * FROM deck WHERE id = #{id}")
 	Deck readDeckBase(int id);
@@ -36,6 +36,9 @@ public interface DeckDao {
 	@Select("SELECT * FROM deck_entry WHERE deck = #{id}")
 	@Results({
 			@Result(column = "card", property = "card", one = @One(select = "tcg.db.dao.CardDao.read")) })
-	List<DeckEntry> readEntry(int id);
+	List<DeckEntry> readEntries(int id);
+
+	@Select("SELECT * FROM deck_entry WHERE deck = #{deck} AND card = #{card}")
+	List<DeckEntry> readCardEntries(@Param("deck") int deck, @Param("card") String card);
 
 }

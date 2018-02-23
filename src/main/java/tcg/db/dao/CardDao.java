@@ -2,7 +2,6 @@ package tcg.db.dao;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.annotations.One;
 import org.apache.ibatis.annotations.Result;
@@ -11,7 +10,6 @@ import org.apache.ibatis.annotations.Select;
 
 import tcg.db.dao.frag.CardFragDao;
 import tcg.db.dbo.Card;
-import tcg.db.dbo.CardPrice;
 import tcg.db.dbo.CardPrinting;
 import tcg.db.dbo.CardRule;
 
@@ -48,10 +46,5 @@ public interface CardDao extends CardFragDao {
 			+ "WHERE c.id = #{id} ")
 	String readImg(String id);
 
-	@Insert("INSERT INTO card_price (id, source, price, update_date, price_date, link, error ) "
-			+ "VALUES (#{id}, #{source}, #{price}, #{updateDate}, #{priceDate}, #{link}, #{error} ) "
-			+ "ON DUPLICATE KEY UPDATE source = #{source}, update_date = #{updateDate}, price_date = #{priceDate}, "
-			+ "link = #{link}, error = #{error} ")
-	int price(CardPrice price);
 
 }

@@ -37,7 +37,7 @@ public class DeckExportController {
 	@ResponseBody
 	public HttpEntity<String> export(@PathVariable("id") int id,
 			@RequestParam("format") DeckExportFormat format) {
-		Deck deck = session.getMapper(DeckDao.class).read(id);
+		Deck deck = session.getMapper(DeckDao.class).readDeck(id);
 		StringBuilder export;
 		switch (format) {
 		case simple:
