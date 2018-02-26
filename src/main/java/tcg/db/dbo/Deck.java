@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 public class Deck {
 	private int id;
 	private String name;
+	private DeckView view;
 	private DeckType type;
 	private List<DeckEntry> cards;
 
@@ -91,6 +92,14 @@ public class Deck {
 			result = e.getCard().getName().compareTo(f.getCard().getName());
 		}
 		return result;
+	}
+
+	public DeckView getView() {
+		return view;
+	}
+
+	public void setView(DeckView view) {
+		this.view = view;
 	}
 
 }

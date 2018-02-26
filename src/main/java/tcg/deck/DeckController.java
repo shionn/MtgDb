@@ -11,6 +11,7 @@ import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import tcg.db.dao.DeckDao;
+import tcg.db.dbo.Deck;
 import tcg.db.dbo.DeckType;
 import tcg.security.User;
 
@@ -41,8 +42,9 @@ public class DeckController {
 	@RequestMapping(value = "/d/{id}", method = RequestMethod.GET)
 	public String view(@PathVariable("id") int id) {
 		user.setCurrentDeck(id);
-		user.setCurrentDeckName(session.getMapper(DeckDao.class).readDeckBase(id).getName());
-		return "redirect:/d/table/" + id;
+		Deck deck = session.getMapper(DeckDao.class).readDeckBase(id);
+		user.setCurrentDeckName(deck.getName());
+		return "redirect:/d/" + deck.getView() + "/" + id;
 	}
 
 }

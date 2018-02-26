@@ -1,6 +1,7 @@
 package tcg.deck;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +13,23 @@ import org.springframework.web.servlet.ModelAndView;
 
 import tcg.card.formater.CardFormater;
 import tcg.db.dao.DeckDao;
+import tcg.db.dao.DeckEditDao;
 import tcg.db.dbo.Deck;
 import tcg.db.dbo.DeckEntry;
+import tcg.db.dbo.DeckView;
 import tcg.db.dbo.GuildColor;
+import tcg.security.User;
 
 @Controller
 public class DeckViewController {
+
+	private static final List<GuildColor> GUILDS = Arrays.asList(GuildColor.azorius,
+			GuildColor.dimir, GuildColor.rakdos, GuildColor.gruul, GuildColor.selesnya,
+			GuildColor.orzhov, GuildColor.golgari, GuildColor.simic, GuildColor.izzet,
+			GuildColor.boros);
+
+	private static final List<GuildColor> COLORS = Arrays.asList(GuildColor.white, GuildColor.blue,
+			GuildColor.black, GuildColor.red, GuildColor.green);
 
 	@Autowired
 	private SqlSession session;
@@ -25,9 +37,14 @@ public class DeckViewController {
 	@Autowired
 	private CardFormater formater;
 
+	@Autowired
+	private User user;
+
 	@RequestMapping(value = "/d/table/{id}", method = RequestMethod.GET)
 	public ModelAndView table(@PathVariable("id") int id) {
-		return new ModelAndView("deck/table").addObject("deck", deck(id));
+		Deck deck = deck(id);
+		checkAndUpdatView(deck, DeckView.table);
+		return new ModelAndView("deck/table").addObject("deck", deck);
 	}
 
 	@RequestMapping(value = "/d/flat/{id}", method = RequestMethod.GET)
@@ -38,13 +55,10 @@ public class DeckViewController {
 
 	@RequestMapping(value = "/d/cube/{id}", method = RequestMethod.GET)
 	public ModelAndView cube(@PathVariable("id") int id) {
-		return new ModelAndView("deck/cube").addObject("deck", deck(id))
-				.addObject("colors",
-						Arrays.asList(GuildColor.white, GuildColor.blue, GuildColor.black,
-								GuildColor.red, GuildColor.green))
-				.addObject("guilds", Arrays.asList(GuildColor.azorius, GuildColor.dimir,
-						GuildColor.rakdos, GuildColor.gruul, GuildColor.selesnya, GuildColor.orzhov,
-						GuildColor.golgari, GuildColor.simic, GuildColor.izzet, GuildColor.boros));
+		Deck deck = deck(id);
+		checkAndUpdatView(deck, DeckView.cube);
+		return new ModelAndView("deck/cube").addObject("deck", deck).addObject("colors", COLORS)
+				.addObject("guilds", GUILDS);
 	}
 
 	@RequestMapping(value = "/d/price/{id}", method = RequestMethod.GET)
@@ -73,6 +87,14 @@ public class DeckViewController {
 
 	private void format(DeckEntry e) {
 		e.getCard().setManaCost(formater.manaCost(e.getCard()));
+	}
+
+	private void checkAndUpdatView(Deck deck, DeckView view) {
+		DeckEditDao dao = session.getMapper(DeckEditDao.class);
+		if (deck.getView() != view && dao.checkAllow(user.getUser(), deck.getId())) {
+			dao.updateView(deck.getId(), view);
+			session.commit();
+		}
 	}
 
 }

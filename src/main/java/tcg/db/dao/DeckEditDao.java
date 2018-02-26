@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import tcg.db.dbo.DeckEntry;
+import tcg.db.dbo.DeckView;
 
 public interface DeckEditDao {
 
@@ -30,5 +31,8 @@ public interface DeckEditDao {
 
 	@Update("UPDATE deck SET updated = NOW() WHERE id = #{deck}")
 	int updateDeck(int deck);
+
+	@Update("UPDATE deck SET view = #{view} WHERE id = #{deck}")
+	int updateView(@Param("deck") int deck, @Param("view") DeckView view);
 
 }

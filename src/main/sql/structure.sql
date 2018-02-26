@@ -152,6 +152,7 @@ CREATE TABLE IF NOT EXISTS deck (
   user     varchar(128) NOT NULL,
   name     varchar(128) NOT NULL,
   type     varchar(32)  NOT NULL,
+  view     varchar(32)  NOT NULL default 'table',
   colors   varchar(5)   NULL,
   created  datetime     NOT NULL,
   updated  datetime     NOT NULL,
