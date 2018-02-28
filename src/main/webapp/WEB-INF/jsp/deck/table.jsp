@@ -18,16 +18,15 @@
 								<spring:argument>${deck.count('main')}</spring:argument>
 							</spring:message>
 						</div>
-						<div class="btn-select">
-							<button type="button" class="secondary"><spring:message code="DECK_ACTION"/></button>
-							<ul>
-<!-- 								<li><a href="#todo">Duplicate</a></li> -->
-<!-- 								<li><a href="#todo">Delete</a></li> -->
-								<li><a class="modal" href='<spring:url value="/d/export/${deck.id}"/>'><spring:message code="DECK_ACTION_EXPORT"/></a></li>
-								<li><a class="modal" href='<spring:url value="/d/import/${deck.id}"/>'><spring:message code="DECK_ACTION_IMPORT"/></a></li>
-<!-- 								<li><a href="#todo">Update Prices</a></li> -->
-							</ul>
-						</div>
+						<c:if test="${deck.user == user.user}">
+							<div class="btn-select">
+								<button type="button" class="secondary"><spring:message code="DECK_ACTION"/></button>
+								<ul>
+									<li><a class="modal" href='<spring:url value="/d/export/${deck.id}"/>'><spring:message code="DECK_ACTION_EXPORT"/></a></li>
+									<li><a class="modal" href='<spring:url value="/d/import/${deck.id}"/>'><spring:message code="DECK_ACTION_IMPORT"/></a></li>
+								</ul>
+							</div>
+						</c:if>
 					</section>
 					<section>
 						<table style="margin-top:5px">
@@ -60,16 +59,18 @@
 										</td>
 										<td>${e.card.manaCost}</td>
 										<td>
-											<div class="btn-select">
-												<button type="button" class="secondary"><spring:message code="DECK_TABLE_ACTION"/></button>
-												<ul>
-													<li><a class="ajax" href='<spring:url value="/d/add/1/${e.card.id}/${e.category}/${e.foil}"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_ADD_ONE"/></a></li>
-													<li><a class="ajax" href='<spring:url value="/d/rm/1/${e.card.id}/${e.category}/${e.foil}"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_RM_ONE"/></a></li>
-													<li><a class="ajax" href='<spring:url value="/d/rm/all/${e.card.id}/${e.category}/${e.foil}"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_RM_ALL"/></a></li>
-													<li><a class="ajax" href='<spring:url value="/d/mv/1/${e.card.id}/${e.category}/${e.foil}/side"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_MV_ONE_SIDE"/></a></li>
-													<li><a class="ajax" href='<spring:url value="/d/mv/${e.qty}/${e.card.id}/${e.category}/${e.foil}/side"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_MV_ALL_SIDE"/></a></li>
-												</ul>
-											</div>
+											<c:if test="${deck.user == user.user}">
+												<div class="btn-select">
+													<button type="button" class="secondary"><spring:message code="DECK_TABLE_ACTION"/></button>
+													<ul>
+														<li><a class="ajax" href='<spring:url value="/d/add/${e.deck}/1/${e.card.id}/${e.category}/${e.foil}"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_ADD_ONE"/></a></li>
+														<li><a class="ajax" href='<spring:url value="/d/rm/${e.deck}/1/${e.card.id}/${e.category}/${e.foil}"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_RM_ONE"/></a></li>
+														<li><a class="ajax" href='<spring:url value="/d/rm/${e.deck}/${e.qty}/${e.card.id}/${e.category}/${e.foil}"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_RM_ALL"/></a></li>
+														<li><a class="ajax" href='<spring:url value="/d/mv/${e.deck}/1/${e.card.id}/${e.category}/${e.foil}/side"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_MV_ONE_SIDE"/></a></li>
+														<li><a class="ajax" href='<spring:url value="/d/mv/${e.deck}/${e.qty}/${e.card.id}/${e.category}/${e.foil}/side"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_MV_ALL_SIDE"/></a></li>
+													</ul>
+												</div>
+											</c:if>
 										</td>
 									</tr>
 								</c:forEach>
@@ -93,16 +94,18 @@
 										</td>
 										<td>${e.card.manaCost}</td>
 										<td>
-											<div class="btn-select">
-												<button type="button" class="secondary"><spring:message code="DECK_TABLE_ACTION"/></button>
-												<ul>
-													<li><a class="ajax" href='<spring:url value="/d/add/1/${e.card.id}/${e.category}/${e.foil}"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_ADD_ONE"/></a></li>
-													<li><a class="ajax" href='<spring:url value="/d/rm/1/${e.card.id}/${e.category}/${e.foil}"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_RM_ONE"/></a></li>
-													<li><a class="ajax" href='<spring:url value="/d/rm/all/${e.card.id}/${e.category}/${e.foil}"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_RM_ALL"/></a></li>
-													<li><a class="ajax" href='<spring:url value="/d/mv/1/${e.card.id}/${e.category}/${e.foil}/main"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_MV_ONE_MAIN"/></a></li>
-													<li><a class="ajax" href='<spring:url value="/d/mv/${e.qty}/${e.card.id}/${e.category}/${e.foil}/main"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_MV_ALL_MAIN"/></a></li>
-												</ul>
-											</div>
+											<c:if test="${deck.user == user.user}">
+												<div class="btn-select">
+													<button type="button" class="secondary"><spring:message code="DECK_TABLE_ACTION"/></button>
+													<ul>
+														<li><a class="ajax" href='<spring:url value="/d/add/${e.deck}/1/${e.card.id}/${e.category}/${e.foil}"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_ADD_ONE"/></a></li>
+														<li><a class="ajax" href='<spring:url value="/d/rm/${e.deck}/1/${e.card.id}/${e.category}/${e.foil}"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_RM_ONE"/></a></li>
+														<li><a class="ajax" href='<spring:url value="/d/rm/${e.deck}/${e.qty}/${e.card.id}/${e.category}/${e.foil}"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_RM_ALL"/></a></li>
+														<li><a class="ajax" href='<spring:url value="/d/mv/${e.deck}/1/${e.card.id}/${e.category}/${e.foil}/main"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_MV_ONE_MAIN"/></a></li>
+														<li><a class="ajax" href='<spring:url value="/d/mv/${e.deck}/${e.qty}/${e.card.id}/${e.category}/${e.foil}/main"/>' data-update="table,section.deck-title"><spring:message code="DECK_TABLE_MV_ALL_MAIN"/></a></li>
+													</ul>
+												</div>
+											</c:if>
 										</td>
 									</tr>
 								</c:forEach>

@@ -69,7 +69,7 @@ create table card (
   INDEX          power(power),
   INDEX          toughness(toughness),
   INDEX          loyalty(loyalty),
-  FULLTEXT INDEX name(name),
+  INDEX          name(name),
   FULLTEXT INDEX text(text),
   FULLTEXT INDEX flavor(flavor),
   CONSTRAINT card_edition FOREIGN KEY (edition)   REFERENCES edition(code),

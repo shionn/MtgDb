@@ -1,1 +1,0 @@
-ALTER TABLE `deck` ADD `view` VARCHAR(32) NOT NULL DEFAULT 'table' AFTER `type`;

@@ -21,11 +21,6 @@ public interface DeckEditDao {
 	)
 	int updateEntry(DeckEntry entry);
 
-	@Delete("DELETE FROM deck_entry " //
-			+ "WHERE deck = #{deck} AND card = #{card.id} " //
-			+ "AND foil = #{foil} AND category = #{category}")
-	void deleteEntry(DeckEntry entry);
-
 	@Delete("DELETE FROM deck_entry WHERE deck = #{deck} AND qty = 0")
 	int deleteZero(int deck);
 

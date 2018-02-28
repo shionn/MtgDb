@@ -41,4 +41,10 @@ public interface DeckDao {
 	@Select("SELECT * FROM deck_entry WHERE deck = #{deck} AND card = #{card}")
 	List<DeckEntry> readCardEntries(@Param("deck") int deck, @Param("card") String card);
 
+	@Select("SELECT * FROM deck_entry WHERE deck = #{deck} AND card = #{card.id} "
+			+ "AND category = #{category} AND foil = #{foil}")
+	@Results({
+			@Result(column = "card", property = "card", one = @One(select = "tcg.db.dao.CardDao.read")) })
+	DeckEntry readEntry(DeckEntry entry);
+
 }

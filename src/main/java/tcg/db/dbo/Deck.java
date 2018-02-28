@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 public class Deck {
 	private int id;
 	private String name;
+	private String user;
 	private DeckView view;
 	private DeckType type;
 	private List<DeckEntry> cards;
@@ -100,6 +101,14 @@ public class Deck {
 
 	public void setView(DeckView view) {
 		this.view = view;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
 	}
 
 }

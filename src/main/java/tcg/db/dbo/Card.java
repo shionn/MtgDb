@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 public class Card {
 
 	private String id;
+	private String card;
 	private String linkCardId;
 	private Card linkCard;
 	private String name;
@@ -268,5 +269,13 @@ public class Card {
 
 	public GuildColor getGuildColor() {
 		return GuildColor.from(colors);
+	}
+
+	public String getCard() {
+		return card;
+	}
+
+	public void setCard(String card) {
+		this.card = card;
 	}
 }

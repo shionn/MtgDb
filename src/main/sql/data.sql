@@ -104,6 +104,7 @@ INSERT INTO card_keyword (keyword, fr ) values ('Haste',                    'cel
 INSERT INTO card_keyword (keyword, fr ) values ('Hellbent',                 null);
 INSERT INTO card_keyword (keyword, fr ) values ('Heroic',                   'heroique');--
 INSERT INTO card_keyword (keyword, fr ) values ('Hexproof',                 'defense talismanique');
+INSERT INTO card_keyword (keyword, fr ) values ('Hideaway',                 null);
 INSERT INTO card_keyword (keyword, fr ) values ('Horsemanship',             null);
 INSERT INTO card_keyword (keyword, fr ) values ('Islandcycling',            null);
 INSERT INTO card_keyword (keyword, fr ) values ('Islandwalk',               'traversee des iles');
