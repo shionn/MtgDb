@@ -2,13 +2,14 @@
 @form-border-width: 3px;
 @form-border-radius: 7px;
 @form-padding: 4px 8px 3px;
-input , button , span.btn {
+input , button , div.btn {
 	line-height: 22px;
 	padding: @form-padding;
 	border-radius: @form-border-radius;
+	margin: 0 2px;
 }
 
-button , a.button , input[type=submit] , input[type=button] , span.btn {
+button , a.button , input[type=submit] , input[type=button] , div.btn {
 	background-color: @blue;
 	border: @form-border-width solid lighten(@blue, 25%);
 	color: lighten(@blue, 25%);
@@ -19,11 +20,11 @@ button , a.button , input[type=submit] , input[type=button] , span.btn {
 	}
 }
 
-span.btn {
+div.btn {
 	position: relative;
 	overflow: hidden;
-	display: inline-flex;
 	cursor: pointer;
+	display: inline-flex;
 	input[type=file] {
 		position: absolute;
 		top: 0;

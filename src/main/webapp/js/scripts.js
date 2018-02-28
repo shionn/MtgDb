@@ -89,6 +89,12 @@ $(function() {
 });
 
 $(function() {
+	$("body").on("change", "input[type=file]", function(e) {
+		$(this).closest("div.btn").text($(this).val());
+	});
+});
+
+$(function() {
 	$("header nav input").first().focus();
 	$("body .advanced-search input").first().focus();
 });
@@ -164,4 +170,4 @@ $(function(){
 	$("section.cube").on("mouseout", "ul li a, ul li a i", function() {
 		$(this).closest("li").removeClass("over");
 	});
-})
+});
