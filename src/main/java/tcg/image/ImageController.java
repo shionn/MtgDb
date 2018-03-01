@@ -15,6 +15,8 @@ import org.apache.http.util.EntityUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,20 +33,22 @@ public class ImageController {
 
 	@ResponseBody
 	@RequestMapping(value = "/c/img/{id}.jpg", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
-	public byte[] image(@PathVariable("id") String id) throws IOException {
+	public HttpEntity<byte[]> image(@PathVariable("id") String id) throws IOException {
 		String filename = session.getMapper(CardDao.class).readImg(id);
 		File file = new File(fullFileName(filename));
 		if (!file.exists()) {
 			download(filename);
 		}
+		HttpHeaders headers = new HttpHeaders();
 		if (!file.exists()) {
 			try (InputStream is = Thread.currentThread().getContextClassLoader()
 					.getResourceAsStream("img-404.gif")) {
-				return IOUtils.toByteArray(is);
+				return new HttpEntity<byte[]>(IOUtils.toByteArray(is), headers);
 			}
 		}
+		headers.setLastModified(file.lastModified());
 		try (FileInputStream is = new FileInputStream(file)) {
-			return IOUtils.toByteArray(is);
+			return new HttpEntity<byte[]>(IOUtils.toByteArray(is), headers);
 		}
 	}
 
