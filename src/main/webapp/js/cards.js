@@ -14,4 +14,16 @@ $(function() {
 			}
 		});
 	});
+	
+	$(document).on("keydown", function(e) {
+		if (e.key === '+' && e.ctrlKey) {
+			if (e.shiftKey) {
+				$(".portlet.prices a.add-side").doClick();
+			} else {
+				$(".portlet.prices a.add-main").doClick();
+			}
+			return false;
+		}
+	});
+
 });

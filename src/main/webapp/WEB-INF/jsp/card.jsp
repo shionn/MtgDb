@@ -104,13 +104,13 @@
 					<c:if test="${user.currentDeck != 0}">
 						<header><spring:message code="CARD_DECK"/></header>
 						<section class="deck">
-							<a class="button ajax" href='<spring:url value="/d/add/${user.currentDeck}/1/${card.id}/main/false"/>' data-update="section.deck">
+							<a class="button ajax add-main" href='<spring:url value="/d/add/${user.currentDeck}/1/${card.id}/main/false"/>' data-update="section.deck" title="Ctrl +">
 								<spring:message code="CARD_DECK_ADD"/><span>${deckMainQty}</span>
 							</a>
 							<a class="button ajax" href='<spring:url value="/d/add/${user.currentDeck}/4/${card.id}/main/false"/>' data-update="section.deck">
 								<spring:message code="CARD_DECK_PLAYSET_ADD"/><span>${deckMainQty}</span>
 							</a>
-							<a class="button ajax" href='<spring:url value="/d/add/${user.currentDeck}/1/${card.id}/side/false"/>' data-update="section.deck">
+							<a class="button ajax add-side" href='<spring:url value="/d/add/${user.currentDeck}/1/${card.id}/side/false"/>' data-update="section.deck" title="Ctrl Shift +">
 								<spring:message code="CARD_DECK_SIDE_ADD"/><span>${deckSideQty}</span>
 							</a>
 						</section>
