@@ -9,7 +9,7 @@
 			<section>
 				<article class="portlet">
 					<header><spring:message code="SIGN_RECOVER_END"/></header>
-					<spring:url value="<spring:url value="/signin"/>" var="url"/>
+					<spring:url value="/signin" var="url" />
 					<section><spring:message code="SIGN_RECOVER_END_TEXT" arguments="${url}"/></section>
 				</article>
 			</section>

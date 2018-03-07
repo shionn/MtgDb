@@ -90,7 +90,9 @@ $(function() {
 
 $(function() {
 	$("body").on("change", "input[type=file]", function(e) {
-		$(this).closest("div.btn").text($(this).val());
+		var filename = $(this).val();
+		filename = filename.substring(filename.lastIndexOf("\\")+1);
+		$(this).closest("div.btn").find("span").text(filename);
 	});
 });
 

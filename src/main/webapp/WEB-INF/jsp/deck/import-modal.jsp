@@ -19,7 +19,7 @@
 			</div>
 			<label><spring:message code="DECK_IMPORT_FILE"/></label>
 			<div class="btn">
-				<spring:message code="DECK_IMPORT_FILE_BUTTON"/>
+				<span><spring:message code="DECK_IMPORT_FILE_BUTTON"/></span>
 				<input type="file" name="file">
 			</div>
 			<input type="submit" class="closeModal" value="<spring:message code="DECK_IMPORT_SUBMIT"/>"/>
