@@ -43,6 +43,7 @@ update edition set foil = 'onlyfoil' where code in('MPS','MPS_AKH');
 --  swap aura, forecast
 delete from card_keyword;
 INSERT INTO card_keyword (keyword, fr ) values ('Afflict',                  'affliction');
+INSERT INTO card_keyword (keyword, fr ) values ('Aftermath',                null);
 INSERT INTO card_keyword (keyword, fr ) values ('Ascend',                   'ascension');
 INSERT INTO card_keyword (keyword, fr ) values ('Aura swap',                null);
 INSERT INTO card_keyword (keyword, fr ) values ('Awaken',                   'eveil');
