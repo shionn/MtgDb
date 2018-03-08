@@ -73,4 +73,11 @@ public interface ImporterDao {
 			+ "VALUES (#{c.id}, #{l.format}, #{l.legality}) ")
 	void legality(@Param("c") Card card, @Param("l") Legality legality);
 
+	@Delete("DELETE FROM card_assistance WHERE id = #{id}")
+	void deleteAssistance(String id);
+
+	@Insert("INSERT INTO card_assistance (id, lang, name) "//
+			+ "VALUES (#{c}, #{l}, #{a}) ")
+	void assistance(@Param("c") String id, @Param("l") String lang, @Param("a") String assistance);
+
 }

@@ -15,14 +15,10 @@ import tcg.search.Filter;
 
 public interface CardSearchDao extends CardFragDao {
 
-	@Select("SELECT id FROM card WHERE name LIKE #{name} ORDER BY name, edition, card LIMIT 1")
-	String findFirstId(String name);
-
 	@Select("SELECT c.id, c.name, c.card " //
 			+ "FROM card AS c " //
-			+ "LEFT JOIN card_lang AS l ON c.id = l.id AND l.lang = 'fr' " //
-			+ "WHERE c.name LIKE #{name} "//
-			+ "OR l.name LIKE #{name} " //
+			+ "LEFT JOIN card_assistance AS a ON c.id = a.id " //
+			+ "WHERE a.name = #{name} "//
 			+ "GROUP BY c.card " //
 			+ "ORDER BY c.name")
 	@Results({ @Result(column = "id", property = "id"),

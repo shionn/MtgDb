@@ -128,6 +128,18 @@ CREATE TABLE card_legality (
   INDEX     legality(legality)
 ) DEFAULT CHARSET=utf8;
 
+drop table if exists card_assistance;
+create table card_assistance (
+  id        varchar(64)   NOT NULL,
+  lang      varchar(2)    NOT NULL,
+  name      varchar(256)  NOT NULL,
+  INDEX          name(name),
+  INDEX          lang(lang),
+  CONSTRAINT card_asst FOREIGN KEY (id) REFERENCES card(id)
+) DEFAULT CHARSET=utf8;
+
+
+
 drop table if exists card_keyword;
 CREATE TABLE card_keyword (
   keyword varchar(32) not null,

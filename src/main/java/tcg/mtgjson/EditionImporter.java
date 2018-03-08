@@ -1,5 +1,8 @@
 package tcg.mtgjson;
 
+import java.text.Normalizer;
+import java.text.Normalizer.Form;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
@@ -28,8 +31,7 @@ import tcg.mtgjson.api.Set;
 @Component
 public class EditionImporter {
 
-	private static final int INTERVAL = 5 * 60
-			* 1000;
+	private static final int INTERVAL = 5 * 60 * 1000;
 	private Logger logger = LoggerFactory.getLogger(EditionImporter.class);
 
 	@Autowired
@@ -83,10 +85,16 @@ public class EditionImporter {
 							dao.legality(card, legality);
 						}
 					} else {
-						for (Legality legality : defaultLegalities()) {
-							dao.legality(card, legality);
-						}
+						defaultLegalities().stream().forEach(l -> dao.legality(card, l));
 					}
+					dao.deleteAssistance(card.getId());
+					assistances(card.getName()).stream()
+							.forEach(a -> dao.assistance(card.getId(), "en", a));
+					card.getForeignNames().stream()
+							.filter(name -> name.getLanguage() == Language.fr)
+							.map(name -> name.getName())
+							.flatMap(name -> assistances(name).stream())
+							.forEach(assistance -> dao.assistance(card.getId(), "fr", assistance));
 				}
 				List<Card> doubleFaceds = set.getCards().stream()
 						.filter(c -> c.getLayout() == CardLayout.doublefaced)
@@ -105,6 +113,18 @@ public class EditionImporter {
 				session.commit();
 			}
 		}
+	}
+
+	List<String> assistances(String name) {
+		String normalized = Normalizer.normalize(name, Form.NFD).toLowerCase().replaceAll("[^ a-z]",
+				"");
+		List<String> assistances = new ArrayList<>();
+		for (int l = 3; l <= normalized.length(); l++) {
+			for (int i = 0; i <= normalized.length() - l; i++) {
+				assistances.add(normalized.substring(i, i + l));
+			}
+		}
+		return assistances.stream().distinct().collect(Collectors.toList());
 	}
 
 	private List<Legality> defaultLegalities() {

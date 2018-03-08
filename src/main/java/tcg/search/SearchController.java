@@ -16,15 +16,9 @@ public class SearchController {
 	@Autowired
 	private SqlSession session;
 
-	// @RequestMapping(value = "/s", method = RequestMethod.GET)
-	// public String testSearch(@Param("name") String name) {
-	// return "redirect:/c/" +
-	// session.getMapper(CardSearchDao.class).findFirstId('%' + name + '%');
-	// }
-
 	@RequestMapping(value = "/s", method = RequestMethod.GET)
 	public ModelAndView quickSearch(@Param("name") String name) {
 		return new ModelAndView("quicksearch").addObject("cards",
-				session.getMapper(CardSearchDao.class).quick('%' + name + '%'));
+				session.getMapper(CardSearchDao.class).quick(name));
 	}
 }
