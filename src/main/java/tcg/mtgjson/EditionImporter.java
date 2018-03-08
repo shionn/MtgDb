@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 import tcg.db.dao.ImporterDao;
 import tcg.db.dbo.CardLayout;
 import tcg.db.dbo.CardTypeClass;
+import tcg.db.dbo.GameLegality;
 import tcg.db.dbo.Legality;
 import tcg.mtgjson.api.Card;
 import tcg.mtgjson.api.Language;
@@ -77,8 +78,12 @@ public class EditionImporter {
 						}
 					}
 					dao.deleteLegality(card.getId());
-					if (card.getLegalities() != null) {
+					if (card.getLegalities() != null && !card.getLegalities().isEmpty()) {
 						for (Legality legality : card.getLegalities()) {
+							dao.legality(card, legality);
+						}
+					} else {
+						for (Legality legality : defaultLegalities()) {
 							dao.legality(card, legality);
 						}
 					}
@@ -100,6 +105,18 @@ public class EditionImporter {
 				session.commit();
 			}
 		}
+	}
+
+	private List<Legality> defaultLegalities() {
+		return Arrays.asList(legality("Commander"), legality("Legacy"), legality("Vintage"),
+				legality("Modern"), legality("Standard"));
+	}
+
+	private Legality legality(String format) {
+		Legality legality = new Legality();
+		legality.setFormat(format);
+		legality.setLegality(GameLegality.Legal);
+		return legality;
 	}
 
 }
