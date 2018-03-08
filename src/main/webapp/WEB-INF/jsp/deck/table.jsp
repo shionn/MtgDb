@@ -22,6 +22,7 @@
 							<div class="btn-select">
 								<button type="button" class="secondary"><spring:message code="DECK_ACTION"/></button>
 								<ul>
+									<li><a class="modal" href='<spring:url value="/d/edit/${deck.id}"/>'><spring:message code="DECK_ACTION_EDIT"/></a></li>
 									<li><a class="modal" href='<spring:url value="/d/export/${deck.id}"/>'><spring:message code="DECK_ACTION_EXPORT"/></a></li>
 									<li><a class="modal" href='<spring:url value="/d/import/${deck.id}"/>'><spring:message code="DECK_ACTION_IMPORT"/></a></li>
 								</ul>

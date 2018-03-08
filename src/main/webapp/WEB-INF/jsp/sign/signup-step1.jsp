@@ -12,7 +12,7 @@
 					<header><spring:message code="SIGNUP"/></header>
 					<section>
 						<spring:url value="/signup" var="action"/>
-						<form:form method="POST" action='${action}'>
+						<form:form method="POST" action="${action}" class="row">
 							<div>
 								<label for="email"><spring:message code="SIGNUP_EMAIL"/></label>
 								<input name="email" type="email" value="${email}"/>

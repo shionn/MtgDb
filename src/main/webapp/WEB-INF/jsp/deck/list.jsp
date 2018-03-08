@@ -49,6 +49,7 @@
 												<ul>
 <!-- 													<li><a href="#todo">Duplicate</a></li> -->
 <!-- 													<li><a href="#todo">Delete</a></li> -->
+													<li><a class="modal" href='<spring:url value="/d/edit/${deck.id}"/>'><spring:message code="DECK_ACTION_EDIT"/></a></li>
 													<li><a class="modal" href='<spring:url value="/d/export/${deck.id}"/>'><spring:message code="DECK_ACTION_EXPORT"/></a></li>
 													<li><a class="modal" href='<spring:url value="/d/import/${deck.id}"/>'><spring:message code="DECK_ACTION_IMPORT"/></a></li>
 <!-- 													<li><a href="#todo">Update Prices</a></li> -->

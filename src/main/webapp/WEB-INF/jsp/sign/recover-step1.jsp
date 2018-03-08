@@ -12,7 +12,7 @@
 					<header><spring:message code="SIGN_RECOVER"/></header>
 					<section>
 						<spring:url value="/recover" var="action"/>
-						<form:form method="POST" action='${action}'>
+						<form:form method="POST" action='${action}' class="row">
 							<div>
 								<label for="email"><spring:message code="SIGN_RECOVER_EMAIL"/></label>
 								<input name="email" type="email" value="${email}"/>

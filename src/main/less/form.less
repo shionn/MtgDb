@@ -2,6 +2,18 @@
 @form-border-width: 3px;
 @form-border-radius: 7px;
 @form-padding: 4px 8px 3px;
+
+form.row > div {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 2px 0;
+	input[type=submit] {
+		margin: 0 auto;
+		width: 200px;
+	}
+}
+
 input , button , div.btn {
 	line-height: 22px;
 	padding: @form-padding;

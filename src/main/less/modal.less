@@ -17,6 +17,10 @@ div.modal {
 	article {
 		background-color: @background-color;
 		width: 90%;
+		&.small {
+			max-width: 400px;
+		}
+		
 		@media (min-width: @min-sm) {
 			width: 700px;
 		}
