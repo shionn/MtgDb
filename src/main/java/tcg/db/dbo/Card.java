@@ -33,6 +33,7 @@ public class Card {
 	private List<CardPrice> prices = new ArrayList<>();
 	private List<CardLang> langs = new ArrayList<>();
 	private List<CardRule> rules = new ArrayList<>();
+	private List<Legality> legalities = new ArrayList<>();
 
 	public boolean isCreature() {
 		return type != null && type.toLowerCase().indexOf("creature") != -1;
@@ -277,5 +278,13 @@ public class Card {
 
 	public void setCard(String card) {
 		this.card = card;
+	}
+
+	public List<Legality> getLegalities() {
+		return legalities;
+	}
+
+	public void setLegalities(List<Legality> legalities) {
+		this.legalities = legalities;
 	}
 }

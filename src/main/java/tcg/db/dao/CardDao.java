@@ -12,6 +12,7 @@ import tcg.db.dao.frag.CardFragDao;
 import tcg.db.dbo.Card;
 import tcg.db.dbo.CardPrinting;
 import tcg.db.dbo.CardRule;
+import tcg.db.dbo.Legality;
 
 public interface CardDao extends CardFragDao {
 
@@ -20,6 +21,7 @@ public interface CardDao extends CardFragDao {
 			@Result(column = "id", property = "prices", many = @Many(select = "readPrices")),
 			@Result(column = "id", property = "langs", many = @Many(select = "readLangs")),
 			@Result(column = "id", property = "rules", many = @Many(select = "readRules")),
+			@Result(column = "id", property = "legalities", many = @Many(select = "readLegalities")),
 			@Result(column = "link_card", property = "linkCardId"),
 			@Result(column = "link_card", property = "linkCard", one = @One(select = "read")),
 			@Result(column = "card", property = "card"),
@@ -40,6 +42,11 @@ public interface CardDao extends CardFragDao {
 			+ "FROM card_rule " //
 			+ "WHERE id = #{id}")
 	List<CardRule> readRules(String id);
+
+	@Select("SELECT * " //
+			+ "FROM card_legality " //
+			+ "WHERE id = #{id}")
+	List<Legality> readLegalities(String id);
 
 	@Select("SELECT CONCAT(e.mci_code, '/', IFNULL(c.mci_number,c.number) ) "//
 			+ "FROM card AS c " //

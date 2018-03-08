@@ -71,6 +71,14 @@
 							</section>
 						</article>
 					</c:if>
+					<article class="portlet left">
+						<header><spring:message code="CARD_LEGALITIES"/></header>
+						<section>
+							<c:forEach items="${card.legalities}" var="l">
+								<p>${l.format} : <spring:message code="GameLegality.${l.legality}"/></p>
+							</c:forEach>
+						</section>
+					</article>
 				</article>
 				<article class="portlet prices">
 					<header><spring:message code="CARD_PRICE"/></header>
