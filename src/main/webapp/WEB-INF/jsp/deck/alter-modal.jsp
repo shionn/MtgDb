@@ -17,7 +17,10 @@
 			</c:forEach>
 		</ul>
 	</section>
+	<header><spring:message code="DECK_ALTER_ENTRY_FOIL" /></header>
 	<section>
-		TODO
+		<img src='<spring:url value="/img/foil.gif"/>'>
+		<a>Oui</a>
+		<a>Non</a>
 	</section>
 </article>

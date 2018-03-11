@@ -25,4 +25,7 @@
 			<input type="submit" class="closeModal" value="<spring:message code="DECK_IMPORT_SUBMIT"/>"/>
 		</form:form>
 	</section>
+	<section>
+		TODO descriptif des format
+	</section>
 </article>
