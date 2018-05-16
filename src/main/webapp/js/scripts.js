@@ -141,6 +141,21 @@ $(function() {
 		});
 		return false;
 	});
+
+	$("body").on("submit", "form.ajax", function(e) {
+		e.preventDefault();
+		$.ajax({
+			url : $(this).attr("action")+"?"+$(this).serialize(),
+			method : 'GET',
+			context : this,
+			success : function(r) {
+				$.each($(this).attr("data-update").split(','), function(){
+					$(this).replaceWith($(r).find(this));
+				});
+			}
+		});
+		return false;
+	});
 });
 
 $(function() {

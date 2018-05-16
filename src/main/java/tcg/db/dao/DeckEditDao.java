@@ -15,10 +15,10 @@ public interface DeckEditDao {
 	@Select("SELECT count(*) FROM deck WHERE user = #{user} AND id = #{deck}")
 	boolean checkAllow(@Param("user") String user, @Param("deck") int deck);
 
-	@Insert("INSERT INTO deck_entry (deck, card, qty, foil, category) " //
-			+ "VALUES (#{deck}, #{card.id}, #{qty}, #{foil}, #{category}) " //
+	@Insert("INSERT INTO deck_entry (deck, card, qty, foil, category, tag) " //
+			+ "VALUES (#{deck}, #{card.id}, #{qty}, #{foil}, #{category}, #{tag}) " //
 			+ "ON DUPLICATE KEY UPDATE " //
-			+ "qty = qty + #{qty} "//
+			+ "qty = qty + #{qty}, tag = #{tag} "//
 	)
 	int updateEntry(DeckEntry entry);
 
@@ -35,5 +35,6 @@ public interface DeckEditDao {
 			+ "WHERE id = #{deck}")
 	void udateDeckBase(@Param("deck") int deck, @Param("name") String name,
 			@Param("type") DeckType type);
+
 
 }

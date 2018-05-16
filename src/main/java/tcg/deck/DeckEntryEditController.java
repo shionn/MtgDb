@@ -92,29 +92,37 @@ public class DeckEntryEditController {
 		return "redirect:/d/" + deck;
 	}
 
-	@RequestMapping(value = "/d/tag/{deck}/{card}/{category}/{foil}", method = RequestMethod.POST)
+	@RequestMapping(value = "/d/tag/{deck}/{card}/{category}/{foil}/{tag}", method = RequestMethod.GET)
+	public String tag(@PathVariable("deck") int deck, //
+			@PathVariable("card") String card, //
+			@PathVariable("category") DeckEntryCategory category, //
+			@PathVariable("foil") boolean foil, //
+			@PathVariable("tag") String tag) {
+		DeckEntry entry = session.getMapper(DeckDao.class)
+				.readEntry(entry(deck, card, 0, category, foil));
+		entry.setQty(0);
+		if (StringUtils.isBlank(entry.getTag())) {
+			entry.setTag(tag);
+		} else if (entry.getTags().contains(tag)) {
+			Set<String> tags = new TreeSet<>(entry.getTags());
+			tags.remove(tag);
+			entry.setTag(StringUtils.join(tags, ';'));
+		} else {
+			Set<String> tags = new TreeSet<>(entry.getTags());
+			tags.add(tag);
+			entry.setTag(StringUtils.join(tags, ';'));
+		}
+		update(entry);
+		return "redirect:/d/" + deck;
+	}
+
+	@RequestMapping(value = "/d/tag/{deck}/{card}/{category}/{foil}", method = RequestMethod.GET)
 	public String addTag(@PathVariable("deck") int deck, //
 			@PathVariable("card") String card, //
 			@PathVariable("category") DeckEntryCategory category, //
 			@PathVariable("foil") boolean foil, //
 			@RequestParam("tag") String tag) {
-		DeckEditDao dao = session.getMapper(DeckEditDao.class);
-		if (dao.checkAllow(user.getUser(), deck)) {
-			DeckEntry entry = session.getMapper(DeckDao.class).readEntry(entry(deck, card, 0, category, foil));
-			if (entry.getTag() == null) {
-				entry.setTag(tag);
-			} else if (entry.getTags().contains(tag)) {
-				Set<String> tags = new TreeSet<>(entry.getTags());
-				tags.remove(tag);
-				entry.setTag(StringUtils.join(tags, ';'));
-			} else {
-				Set<String> tags = new TreeSet<>(entry.getTags());
-				tags.add(tag);
-				entry.setTag(StringUtils.join(tags, ';'));
-			}
-			dao.updateTag(entry);
-		}
-		return "";
+		return tag(deck, card, category, foil, tag);
 	}
 
 	private void update(DeckEntry delta) {

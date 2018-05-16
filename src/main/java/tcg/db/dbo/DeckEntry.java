@@ -65,7 +65,7 @@ public class DeckEntry {
 	}
 
 	public List<String> getTags() {
-		return Arrays.asList(StringUtils.split(tag, ';'));
+		return Arrays.asList(StringUtils.split(tag == null ? "" : tag, ';'));
 	}
 
 }
