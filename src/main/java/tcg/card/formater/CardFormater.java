@@ -1,5 +1,7 @@
 package tcg.card.formater;
 
+import java.text.Normalizer;
+import java.text.Normalizer.Form;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -145,6 +147,10 @@ public class CardFormater {
 			flavor = Pattern.compile("\n").matcher(flavor).replaceAll("<br/>");
 		}
 		return flavor;
+	}
+
+	public String normalize(String name) {
+		return Normalizer.normalize(name, Form.NFD).toLowerCase().replaceAll("[^ a-z]", "");
 	}
 
 }

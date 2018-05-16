@@ -1,7 +1,5 @@
 package tcg.mtgjson;
 
-import java.text.Normalizer;
-import java.text.Normalizer.Form;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Deque;
@@ -18,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import tcg.card.formater.CardFormater;
 import tcg.db.dao.ImporterDao;
 import tcg.db.dbo.CardLayout;
 import tcg.db.dbo.CardTypeClass;
@@ -38,6 +37,8 @@ public class EditionImporter {
 	private SqlSessionFactory factory;
 	@Autowired
 	private MtgJsonClient client;
+	@Autowired
+	private CardFormater formater;
 
 	private Deque<String> codes = new LinkedList<>();
 
@@ -116,8 +117,7 @@ public class EditionImporter {
 	}
 
 	List<String> assistances(String name) {
-		String normalized = Normalizer.normalize(name, Form.NFD).toLowerCase().replaceAll("[^ a-z]",
-				"");
+		String normalized = formater.normalize(name);
 		List<String> assistances = new ArrayList<>();
 		for (int l = 3; l <= normalized.length(); l++) {
 			for (int i = 0; i <= normalized.length() - l; i++) {
