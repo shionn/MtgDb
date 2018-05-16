@@ -18,9 +18,19 @@
 		</ul>
 	</section>
 	<header><spring:message code="DECK_ALTER_ENTRY_FOIL" /></header>
+	<section>TODO
+
+<%-- 		<img src='<spring:url value="/img/foil.gif"/>'> --%>
+<!-- 		<a>Oui</a> -->
+<!-- 		<a>Non</a> -->
+	</section>
+	<header><spring:message code="DECK_ALTER_ENTRY_TAGS" /></header>
+		<spring:url value="/d/add-tag/${entry.deck}/${entry.card.id}/${entry.category}/${entry.foil}" var="action"/>
+		<form:form action="${action}">
+			<input type="text" required="required" name="tag"
+				placeholder='<spring:message code="DECK_ALTER_ENTRY_ADD_TAG_PLACEHOLDER"/>'>
+			<input type="submit" value='<spring:message code="DECK_ALTER_ENTRY_ADD_TAG_BUTTON"/>'>
+		</form:form>
 	<section>
-		<img src='<spring:url value="/img/foil.gif"/>'>
-		<a>Oui</a>
-		<a>Non</a>
 	</section>
 </article>

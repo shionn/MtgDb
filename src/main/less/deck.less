@@ -4,6 +4,16 @@ article.deck-table {
 		justify-content: space-between;
 		align-items: center;
 	}
+
+	td:nth-child(4){
+		&:not(:hover) > a {
+			display : none;
+		}
+		i.fa {
+			color : #FFF;
+			text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+		}
+	}
 }
 
 article.deck-cube {

@@ -1,5 +1,9 @@
 package tcg.deck;
 
+import java.util.Set;
+import java.util.TreeSet;
+
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import tcg.db.dao.DeckDao;
@@ -17,7 +22,7 @@ import tcg.db.dbo.DeckEntryCategory;
 import tcg.security.User;
 
 @Controller
-public class DeckCardEditController {
+public class DeckEntryEditController {
 
 	@Autowired
 	private SqlSession session;
@@ -69,21 +74,47 @@ public class DeckCardEditController {
 			@PathVariable("card") String card,
 			@PathVariable("category") DeckEntryCategory category,
 			@PathVariable("foil") boolean foil) {
-		return new ModelAndView("deck/alter-modal").addObject("entry",
-				session.getMapper(DeckDao.class).readEntry(entry(deck, card, 0, category, foil)));
+		DeckEntry entry = session.getMapper(DeckDao.class)
+				.readEntry(entry(deck, card, 0, category, foil));
+		return new ModelAndView("deck/alter-modal").addObject("entry", entry);
 	}
 
 	@RequestMapping(value = "/d/printing/{deck}/{qty}/{source-card}/{dest-card}/{category}/{foil}", method = RequestMethod.GET)
 	public String changeEdition(
-			@PathVariable("deck") int deck,
-			@PathVariable("qty") int qty,
-			@PathVariable("source-card") String sourceCard,
-			@PathVariable("dest-card") String destCard,
-			@PathVariable("category") DeckEntryCategory category,
+			@PathVariable("deck") int deck, //
+			@PathVariable("qty") int qty, //
+			@PathVariable("source-card") String sourceCard, //
+			@PathVariable("dest-card") String destCard, //
+			@PathVariable("category") DeckEntryCategory category, //
 			@PathVariable("foil") boolean foil) {
 		update(entry(deck, sourceCard, -qty, category, foil));
 		update(entry(deck, destCard, qty, category, foil));
 		return "redirect:/d/" + deck;
+	}
+
+	@RequestMapping(value = "/d/tag/{deck}/{card}/{category}/{foil}", method = RequestMethod.POST)
+	public String addTag(@PathVariable("deck") int deck, //
+			@PathVariable("card") String card, //
+			@PathVariable("category") DeckEntryCategory category, //
+			@PathVariable("foil") boolean foil, //
+			@RequestParam("tag") String tag) {
+		DeckEditDao dao = session.getMapper(DeckEditDao.class);
+		if (dao.checkAllow(user.getUser(), deck)) {
+			DeckEntry entry = session.getMapper(DeckDao.class).readEntry(entry(deck, card, 0, category, foil));
+			if (entry.getTag() == null) {
+				entry.setTag(tag);
+			} else if (entry.getTags().contains(tag)) {
+				Set<String> tags = new TreeSet<>(entry.getTags());
+				tags.remove(tag);
+				entry.setTag(StringUtils.join(tags, ';'));
+			} else {
+				Set<String> tags = new TreeSet<>(entry.getTags());
+				tags.add(tag);
+				entry.setTag(StringUtils.join(tags, ';'));
+			}
+			dao.updateTag(entry);
+		}
+		return "";
 	}
 
 	private void update(DeckEntry delta) {

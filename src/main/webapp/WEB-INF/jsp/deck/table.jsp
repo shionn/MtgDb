@@ -52,7 +52,10 @@
 										<td data-type="qty">${e.qty}</td>
 										<td><a href='<spring:url value="/c/${e.card.id}"/>'>${e.card.name}</a></td>
 										<td><t:card-type-symbole card="${e.card}"/> ${e.card.type}</td>
-										<td><i class="ss ss-fw ss-grad ss-${e.card.rarity.ss} ss-${e.card.edition.icon}"></i></td>
+										<td>
+											<i class="ss ss-fw ss-grad ss-${e.card.rarity.ss} ss-${e.card.edition.icon}"></i>
+											<a href='<spring:url value="/d/alter/${e.deck}/${e.card.id}/${e.category}/${e.foil}"/>' class="modal"><i class="fa fa-cog"></i></a>
+										</td>
 										<td>
 											<c:if test="${e.foil}">
 												<img src='<spring:url value="/img/foil.gif"/>'>

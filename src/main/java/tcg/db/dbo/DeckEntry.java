@@ -1,5 +1,10 @@
 package tcg.db.dbo;
 
+import java.util.Arrays;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+
 public class DeckEntry {
 
 	private int deck;
@@ -57,6 +62,10 @@ public class DeckEntry {
 
 	public void setDeck(int deck) {
 		this.deck = deck;
+	}
+
+	public List<String> getTags() {
+		return Arrays.asList(StringUtils.split(tag, ';'));
 	}
 
 }
