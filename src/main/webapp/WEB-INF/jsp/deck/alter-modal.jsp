@@ -3,6 +3,55 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <article class="portlet alter-deck-entry">
+	<header><spring:message code="DECK_ALTER_ENTRY_MOVE" /></header>
+	<section>
+		<p style="text-align: center">
+			<a class="ajax button closeModal" data-update="table.deck,section.deck-title"
+					href='<spring:url value="/d/add/${entry.deck}/1/${entry.card.id}/${entry.category}/${entry.foil}"/>'>
+				<spring:message code="DECK_ALTER_ENTRY_ADD_ONE"/>
+			</a>
+			<a class="ajax button closeModal" data-update="table.deck,section.deck-title"
+					href='<spring:url value="/d/rm/${entry.deck}/1/${entry.card.id}/${entry.category}/${entry.foil}"/>'>
+				<spring:message code="DECK_ALTER_ENTRY_RM_ONE"/>
+			</a>
+			<a class="ajax button closeModal" data-update="table.deck,section.deck-title"
+					href='<spring:url value="/d/rm/${entry.deck}/${entry.qty}/${entry.card.id}/${entry.category}/${entry.foil}"/>'>
+				<spring:message code="DECK_ALTER_ENTRY_RM_ALL"/>
+			</a>
+		</p>
+		<c:if test='${entry.category != "side"}'>
+			<p style="text-align: center">
+				<a class="ajax button closeModal" data-update="table.deck,section.deck-title"
+						href='<spring:url value="/d/mv/${entry.deck}/1/${entry.card.id}/${entry.category}/${entry.foil}/side"/>'>
+					<spring:message code="DECK_ALTER_ENTRY_MV_ONE_SIDE"/>
+				</a>
+				<a class="ajax button closeModal" data-update="table.deck,section.deck-title"
+						href='<spring:url value="/d/mv/${entry.deck}/${entry.qty}/${entry.card.id}/${entry.category}/${entry.foil}/side"/>'>
+					<spring:message code="DECK_ALTER_ENTRY_MV_ALL_SIDE"/>
+				</a>
+			</p>
+		</c:if>
+		<c:if test='${entry.category != "main"}'>
+			<p style="text-align: center">
+				<a class="ajax button closeModal" data-update="table.deck,section.deck-title"
+						href='<spring:url value="/d/mv/${entry.deck}/1/${entry.card.id}/${entry.category}/${entry.foil}/main"/>'>
+					<spring:message code="DECK_ALTER_ENTRY_MV_ONE_MAIN"/>
+				</a>
+				<a class="ajax button closeModal" data-update="table.deck,section.deck-title"
+						href='<spring:url value="/d/mv/${entry.deck}/${entry.qty}/${entry.card.id}/${entry.category}/${entry.foil}/main"/>'>
+					<spring:message code="DECK_ALTER_ENTRY_MV_ALL_MAIN"/>
+				</a>
+			</p>
+		</c:if>
+		<c:if test='${entry.category != "commander" && deck.type == "commander"}'>
+			<p style="text-align: center">
+				<a class="ajax button closeModal" data-update="table.deck,section.deck-title"
+						href='<spring:url value="/d/mv/${entry.deck}/${entry.qty}/${entry.card.id}/${entry.category}/${entry.foil}/commander"/>'>
+					<spring:message code="DECK_ALTER_ENTRY_MV_COMMANDER"/>
+				</a>
+			</p>
+		</c:if>
+	</section>
 	<header><spring:message code="DECK_ALTER_ENTRY_EDITION" /></header>
 	<section class="editions">
 		<div>
@@ -11,7 +60,7 @@
 					<li<c:if test="${entry.card.id == p.id}"> class="active"</c:if>>
 						<a href='<spring:url value="/d/printing/${entry.deck}/${entry.qty}/${entry.card.id}/${p.id}/${entry.category}/${entry.foil}"/>'
 								class="ajax closeModal"
-								data-update="section.cube li[data-card=${entry.card.card}],table.deck-table"
+								data-update="section.cube li[data-card=${entry.card.card}],table.deck,section.deck-title"
 								title="${p.edition.name}">
 							<i class="ss ss-${p.edition.icon}"></i>
 						</a>
@@ -29,18 +78,18 @@
 	</section>
 	<header><spring:message code="DECK_ALTER_ENTRY_TAGS" /></header>
 	<section>
-		<div>
+		<div style="text-align: center;">
 			<c:forEach items="${entry.tags}" var="tag">
-				<a class="button grey" 
-						data-update=".deck-table table"
+				<a class="button grey"
+						data-update="table.deck"
 						href="<spring:url value="/d/tag/${entry.deck}/${entry.card.id}/${entry.category}/${entry.foil}/${tag}"/>">${tag}</a>
 			</c:forEach>
 		</div>
 	</section>
-	<section>
+	<section style="text-align: center;">
 		<spring:url value="/d/tag/${entry.deck}/${entry.card.id}/${entry.category}/${entry.foil}" var="action"/>
-		<form:form action="${action}" class="ajax" 
-				data-update=".deck-table table"
+		<form:form action="${action}" class="ajax"
+				data-update="table.deck"
 				method="GET">
 			<input type="text" required="required" name="tag"
 				placeholder='<spring:message code="DECK_ALTER_ENTRY_ADD_TAG_PLACEHOLDER"/>'>

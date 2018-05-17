@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import tcg.db.dao.DeckDao;
 import tcg.db.dao.DeckEditDao;
 import tcg.db.dbo.Card;
+import tcg.db.dbo.Deck;
 import tcg.db.dbo.DeckEntry;
 import tcg.db.dbo.DeckEntryCategory;
 import tcg.security.User;
@@ -70,13 +71,16 @@ public class DeckEntryEditController {
 
 	@RequestMapping(value = "/d/alter/{deck}/{card}/{category}/{foil}", method = RequestMethod.GET)
 	public ModelAndView openAlterModal(
-			@PathVariable("deck") int deck,
+			@PathVariable("deck") int id,
 			@PathVariable("card") String card,
 			@PathVariable("category") DeckEntryCategory category,
 			@PathVariable("foil") boolean foil) {
-		DeckEntry entry = session.getMapper(DeckDao.class)
-				.readEntry(entry(deck, card, 0, category, foil));
-		return new ModelAndView("deck/alter-modal").addObject("entry", entry);
+		DeckDao dao = session.getMapper(DeckDao.class);
+		DeckEntry entry = dao.readEntry(entry(id, card, 0, category, foil));
+		Deck deck = dao.readDeckBase(id);
+		return new ModelAndView("deck/alter-modal") //
+				.addObject("entry", entry) //
+				.addObject("deck", deck);
 	}
 
 	@RequestMapping(value = "/d/printing/{deck}/{qty}/{source-card}/{dest-card}/{category}/{foil}", method = RequestMethod.GET)

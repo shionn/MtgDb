@@ -46,6 +46,11 @@ public class Deck {
 		this.cards = cards;
 	}
 
+	public List<DeckEntry> getCommanders() {
+		return this.cards.stream().filter(c -> c.getCategory() == DeckEntryCategory.commander)
+				.sorted(this::sort).collect(Collectors.toList());
+	}
+
 	public List<DeckEntry> getMains() {
 		return this.cards.stream().filter(c -> c.getCategory() == DeckEntryCategory.main)
 				.sorted(this::sort).collect(Collectors.toList());

@@ -1,5 +1,5 @@
 package tcg.db.dbo;
 
 public enum DeckEntryCategory {
-	main, side, extra
+	main, side, extra, commander
 }
