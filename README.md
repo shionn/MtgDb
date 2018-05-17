@@ -17,6 +17,10 @@
 - font pour mana : (https://github.com/AlexandreArpin/mtg-font/)
 - font pour edition : https://github.com/andrewgioia/Keyrune
 
+# todo
+- Ajouter la suppression d'un deck
+- gestion des tags
+
 # bug
 - cote sly spy / blood sun / Journey to Eternity
 - doubke face ixalan (enchantement vert)
