@@ -5,9 +5,10 @@
 	<jsp:attribute name="title">Home</jsp:attribute>
 	<jsp:attribute name="content">
 		<article class="main container">
-			<section>
+			<section style="padding:10px">
 				Version BETA<br>
-				locale : ${locale}
+				locale : ${locale}<br>
+				<a href="http://dev.shionn.org/dev" target="_blank">Ancienne version disponible ici</a>
 			</section>
 		</article>
 	</jsp:attribute>

@@ -1,4 +1,4 @@
-package tcg.test;
+package tcg.home;
 
 import java.util.Locale;
 
@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class TestPageController {
+public class HomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView testPage() {
 		Locale locale = LocaleContextHolder.getLocale();
-		return new ModelAndView("test").addObject("locale", locale);
+		return new ModelAndView("home").addObject("locale", locale);
 	}
 
 }
