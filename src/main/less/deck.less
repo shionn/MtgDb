@@ -1,9 +1,7 @@
-article.deck-table {
-	.deck-title {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
+article .deck-title {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 article.deck-cube {
@@ -27,8 +25,8 @@ article.deck-cube {
 						top: 3px;
 						position: absolute;
 						right: 4px;
-						display : none;
-						color : #FFF;
+						display: none;
+						color: #FFF;
 						text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 					}
 				}
@@ -41,8 +39,7 @@ article.deck-cube {
 
 				&:last-child {
 					overflow: visible;
-					// faudra faire mieux !
-					padding-bottom : 212px;
+					padding-bottom: 212px;
 				}
 
 				&.over {
@@ -50,6 +47,7 @@ article.deck-cube {
 					i.fa {
 						display: inline;
 					}
+
 					img {
 						z-index: 1;
 					}
@@ -68,14 +66,48 @@ table.deck {
 		td {
 			padding: 9px 2px;
 			i.fa {
-				color : #FFF;
+				color: #FFF;
 				text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 			}
 		}
 
 		td:nth-child(4) {
 			&:not(:hover) > a {
-				display : none;
+				display: none;
+			}
+		}
+
+		@media (max-width: @max-xs) {
+			td:nth-child(1) > a {
+				display: none;
+			}
+
+			td:nth-child(3) > span {
+				display: none;
+			}
+
+			th:nth-child(3) {
+				&:before {
+					content: 'Tp';
+				}
+
+				& > span {
+					display: none;
+				}
+			}
+
+			th:nth-child(4) {
+				&:before {
+					content: 'Ed';
+				}
+
+				& > span {
+					display: none;
+				}
+			}
+
+			td:nth-child(6) , th:nth-child(5) {
+				display: none;
 			}
 		}
 	}
@@ -91,3 +123,4 @@ article.alter-deck-entry {
 		bottom: 1px;
 	}
 }
+

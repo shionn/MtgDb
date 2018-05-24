@@ -12,3 +12,22 @@
 		<li><a href="<spring:url value="/d/stat/${deck.id}"/>"><spring:message code="DECK_NAV_STAT"/></a></li>
 	</ul>
 </header>
+<section class="deck-title">
+	<div>
+		<spring:message code="DECK_TABLE_TITLE">
+			<spring:argument>${deck.name}</spring:argument>
+			<spring:argument><spring:message code="DeckType.${deck.type}"/></spring:argument>
+			<spring:argument>${deck.count('main')}</spring:argument>
+		</spring:message>
+	</div>
+	<c:if test="${deck.user == user.user}">
+		<div class="btn-select">
+			<button type="button" class="secondary"><spring:message code="DECK_ACTION"/></button>
+			<ul>
+				<li><a class="modal" href='<spring:url value="/d/edit/${deck.id}"/>'><spring:message code="DECK_ACTION_EDIT"/></a></li>
+				<li><a class="modal" href='<spring:url value="/d/export/${deck.id}"/>'><spring:message code="DECK_ACTION_EXPORT"/></a></li>
+				<li><a class="modal" href='<spring:url value="/d/import/${deck.id}"/>'><spring:message code="DECK_ACTION_IMPORT"/></a></li>
+			</ul>
+		</div>
+	</c:if>
+</section>
