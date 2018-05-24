@@ -23,7 +23,7 @@
 			</c:if>
 		</td>
 		<td><a href='<spring:url value="/c/${e.card.id}"/>'>${e.card.name}</a></td>
-		<td><t:card-type-symbole card="${e.card}"/> ${e.card.type}</td>
+		<td><t:card-type-symbole card="${e.card}"/><span>${e.card.type}</span></td>
 		<td>
 			<i class="ss ss-fw ss-grad ss-${e.card.rarity.ss} ss-${e.card.edition.icon}"></i>
 			<c:if test="${deck.user == user.user}">
@@ -35,6 +35,7 @@
 				<img src='<spring:url value="/img/foil.gif"/>'>
 			</c:if>
 		</td>
+		<td>${e.tag}</td>
 		<td>${e.card.manaCost}</td>
 		<td>
 			<c:if test="${deck.user == user.user}">

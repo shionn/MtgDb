@@ -68,9 +68,12 @@ article.portlet {
 		ul {
 			margin: 0;
 			padding: 0;
-			display: flex;
-			justify-content: space-around;
 			list-style: none;
+			@media (min-width: @min-sm) {
+				display: flex;
+				justify-content: space-around;
+			}
+
 			a {
 				color: @portlet-color-light;
 			}

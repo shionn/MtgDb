@@ -22,7 +22,7 @@
 - gestion des tags
 
 # bug
-- cote sly spy / blood sun / Journey to Eternity
+- cote sly spy / blood sun / Journey to Eternity / Dread Shade
 - doubke face ixalan (enchantement vert)
 - symbol mana text face verso
 - cote very cryptic command

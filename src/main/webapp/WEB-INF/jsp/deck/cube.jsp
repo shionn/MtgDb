@@ -10,9 +10,6 @@
 			<section>
 				<article class="portlet nav">
 					<t:deck-nav deck="${deck}"/>
-					<section class="deck-title">
-						<p style="text-align: center">TODO</p>
-					</section>
 					<section class="cube">
 						<c:forEach items="${colors}" var="color">
 							<ul>
@@ -60,7 +57,7 @@
 						<table class="deck">
 							<thead>
 								<tr>
-									<th colspan="7"><spring:message code="DECK_TABLE_SIDEBOARD_TITLE" arguments="${deck.count('side')}"/></th>
+									<th colspan="8"><spring:message code="DECK_TABLE_SIDEBOARD_TITLE" arguments="${deck.count('side')}"/></th>
 								</tr>
 							</thead>
 							<tbody>
