@@ -6,7 +6,7 @@
 <%@ attribute name="scripts" fragment="true"%>
 <%@ attribute name="title" type="java.lang.String" %>
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">

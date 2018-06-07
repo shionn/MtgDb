@@ -32,7 +32,7 @@
 				<configuration>
 					<url>${tomcat.url}</url>
 					<server>${tomcat.server}</server>
-					<path>/dev</path>
+					<path>/mtg</path>
 					<skipTests>true</skipTests>
 				</configuration>
 			</plugin>
