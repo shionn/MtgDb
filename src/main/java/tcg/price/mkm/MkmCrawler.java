@@ -23,6 +23,7 @@ import tcg.db.dbo.CardPriceSource;
 @Component
 public class MkmCrawler {
 
+	private static final String ENCODING = "UTF-8";
 	private static final List<String> IGNORED_EDITION = Arrays.asList("pPRE");
 
 	public List<CardPrice> price(Card card) {
@@ -90,11 +91,16 @@ public class MkmCrawler {
 		}
 		List<String> urls = new ArrayList<>();
 		for (String edition : StringUtils.split(editions, '|')) {
-			urls.add("https://www.cardmarket.com/en/Magic/Products/Singles/"
-					+ URLEncoder.encode(edition, "UTF-8") + "/"
-					+ URLEncoder.encode(card.getName(), "UTF-8"));
+			String url = "https://www.cardmarket.com/en/Magic/Products/Singles/"
+					+ URLEncoder.encode(edition, ENCODING) + "/"
+					+ URLEncoder.encode(card.getName(), ENCODING);
+			if (card.getLinkCard() != null) {
+				url += URLEncoder.encode(" // " + card.getLinkCard().getName(), ENCODING);
+			}
+			//https://www.cardmarket.com/en/Magic/Products/Singles/Rivals+of+Ixalan/Journey+to+Eternity+%2F%2F+Atzal%2C+Cave+of+Eternity
+			//https://www.cardmarket.com/en/Magic/Products/Singles/Rivals+of+Ixalan/Journey+to+Eternity+%2F%2F+Atzal%2C+Cave+of+Eternity
+			urls.add(url);
 		}
-		// https://www.cardmarket.com/en/Magic/Products/Singles/Rivals+of+Ixalan/Merfolk+Mistbinder
 		return urls;
 	}
 

@@ -20,4 +20,18 @@ public class MkmCrawlerTest {
 		card.setName("Ob Nixilis Reignited");
 		assertThat(new MkmCrawler().price(card).get(0).getPrice()).isPositive();
 	}
+
+	@Test
+	public void testRixPrice() throws IOException {
+		Card otherFace = new Card();
+		otherFace.setName("Atzal, Cave of Eternity");
+		Edition edition = new Edition();
+		edition.setMkmName("Rivals of Ixalan");
+		Card card = new Card();
+		card.setEdition(edition);
+		card.setName("Journey to Eternity");
+		card.setLinkCard(otherFace);
+		assertThat(new MkmCrawler().price(card).get(0).getPrice()).isPositive();
+	}
+
 }

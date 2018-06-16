@@ -48,6 +48,9 @@ public class CardController {
 		}
 		card.setManaCost(formater.manaCost(card));
 		card.setFlavor(formater.flavor(card));
+		if (card.getLinkCard() != null) {
+			card.getLinkCard().setText(card.getLinkCard().getText());
+		}
 		ModelAndView view = new ModelAndView("card");
 		if (isOldPrice(card)) {
 			priceUpdater.request(card);
