@@ -22,8 +22,8 @@
 - gestion des tags
 
 # bug
-- cote sly spy / blood sun / Journey to Eternity / Dread Shade
-- doubke face ixalan (enchantement vert)
+- cote sly spy / Dread Shade /
+- mkm : Whir of Invention / Kataki, War's Wage
 - symbol mana text face verso
 - cote very cryptic command
 - trade resonsive

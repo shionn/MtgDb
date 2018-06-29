@@ -22,16 +22,23 @@ public class MkmCrawlerTest {
 	}
 
 	@Test
-	public void testRixPrice() throws IOException {
-		Card otherFace = new Card();
-		otherFace.setName("Atzal, Cave of Eternity");
-		Edition edition = new Edition();
-		edition.setMkmName("Rivals of Ixalan");
-		Card card = new Card();
-		card.setEdition(edition);
-		card.setName("Journey to Eternity");
-		card.setLinkCard(otherFace);
+	public void testDoublePrice() throws IOException {
+		Card card = doubleFace("Rivals of Ixalan", "Journey to Eternity", "Atzal, Cave of Eternity");
 		assertThat(new MkmCrawler().price(card).get(0).getPrice()).isPositive();
+		card = doubleFace("Ixalan", "Search for Azcanta", "Azcanta, the Sunken Ruin");
+		assertThat(new MkmCrawler().price(card).get(0).getPrice()).isPositive();
+	}
+
+	private Card doubleFace(String edition, String front, String back) {
+		Card otherFace = new Card();
+		otherFace.setName(back);
+		Edition ed = new Edition();
+		ed.setMkmName(edition);
+		Card card = new Card();
+		card.setEdition(ed);
+		card.setName(front);
+		card.setLinkCard(otherFace);
+		return card;
 	}
 
 }
