@@ -120,6 +120,10 @@ $(function() {
 			return false;
 		}
 		if (e.keyCode == 116) {
+			$("header nav a.e").doClick();
+			return false;
+		}
+		if (e.keyCode == 117) {
 			$("header nav a.cd").doClick();
 			return false;
 		}

@@ -96,14 +96,9 @@ public class MkmCrawler {
 					+ URLEncoder.encode(card.getName(), ENCODING);
 			if (card.getLinkCard() != null) {
 				urls.add(base + URLEncoder.encode(" // " + card.getLinkCard().getName(), ENCODING));
-				urls.add(base + URLEncoder.encode(" / " + card.getLinkCard().getName(), ENCODING));
 			} else {
 				urls.add(base);
 			}
-			//https://www.cardmarket.com/en/Magic/Products/Singles/Rivals+of+Ixalan/Journey+to+Eternity+%2F%2F+Atzal%2C+Cave+of+Eternity
-			//https://www.cardmarket.com/en/Magic/Products/Singles/Rivals+of+Ixalan/Journey+to+Eternity+%2F%2F+Atzal%2C+Cave+of+Eternity
-			//https://www.cardmarket.com/en/Magic/Products/Singles/Ixalan/Search+for+Azcanta+%2F%2F+Azcanta%2C+the+Sunken+Ruin
-			//https://www.cardmarket.com/en/Magic/Products/Singles/Ixalan/Search+for+Azcanta+%2F+Azcanta%2C+the+Sunken+Ruin
 		}
 		return urls;
 	}

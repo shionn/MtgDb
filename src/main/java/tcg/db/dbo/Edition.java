@@ -10,7 +10,7 @@ public class Edition {
 	private String code;
 	private String mciCode;
 	private String name;
-	private Date realeaseDate;
+	private Date releaseDate;
 	private String mkmName;
 	private String goldfishName;
 	private int mkmId;
@@ -45,12 +45,12 @@ public class Edition {
 		this.name = name;
 	}
 
-	public Date getRealeaseDate() {
-		return realeaseDate;
+	public Date getReleaseDate() {
+		return releaseDate;
 	}
 
-	public void setRealeaseDate(Date realeaseDate) {
-		this.realeaseDate = realeaseDate;
+	public void setReleaseDate(Date realeaseDate) {
+		this.releaseDate = realeaseDate;
 	}
 
 	public String getGoldfishName() {
