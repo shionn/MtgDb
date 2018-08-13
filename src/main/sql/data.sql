@@ -1,4 +1,10 @@
 
+UPDATE `edition` SET `icon` = 'xcle' WHERE `edition`.`code` = 'CED';
+UPDATE `edition` SET `icon` = 'x2ps' WHERE `edition`.`code` = 'ITP';
+UPDATE `edition` SET `icon` = 'por'  WHERE `edition`.`code` = 'pPOD';
+
+
+
 update edition set goldfish_name = mkm_name where code = 'CMD';
 
 update edition set goldfish_name = 'Conspiracy'                      where code='CNS';

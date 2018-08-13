@@ -8,6 +8,7 @@ public class Edition {
 	}
 
 	private String code;
+	private String icon;
 	private String mciCode;
 	private String name;
 	private Date releaseDate;
@@ -18,7 +19,7 @@ public class Edition {
 	private Foil foil;
 
 	public String getIcon() {
-		return code.toLowerCase();
+		return icon == null ? code.toLowerCase() : icon;
 	}
 
 	public String getCode() {
@@ -91,5 +92,9 @@ public class Edition {
 
 	public void setFoil(Foil foil) {
 		this.foil = foil;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 }
