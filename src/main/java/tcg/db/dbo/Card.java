@@ -1,6 +1,8 @@
 package tcg.db.dbo;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -74,6 +76,21 @@ public class Card {
 
 	public CardPrice getPrice(CardPriceSource source) {
 		return prices.stream().filter(card -> card.getSource() == source).findFirst().orElse(null);
+	}
+
+	public Date getLastPriceDate() {
+		return prices.stream().filter(Objects::nonNull) //
+				.map(CardPrice::getPriceDate) //
+				.filter(Objects::nonNull) //
+				.max(Date::compareTo) //
+				.orElse(null);
+	}
+
+	public boolean isOldPrice() {
+		Calendar yesterday = Calendar.getInstance();
+		yesterday.add(Calendar.DAY_OF_YEAR, -1);
+		Date last = getLastPriceDate();
+		return last == null || yesterday.getTime().after(last);
 	}
 
 	public CardLang lang(Lang lang) {
@@ -287,4 +304,5 @@ public class Card {
 	public void setLegalities(List<Legality> legalities) {
 		this.legalities = legalities;
 	}
+
 }

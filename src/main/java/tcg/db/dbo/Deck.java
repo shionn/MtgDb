@@ -1,5 +1,6 @@
 package tcg.db.dbo;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -115,5 +116,32 @@ public class Deck {
 	public void setUser(String user) {
 		this.user = user;
 	}
+
+	public CardPrice getMkmPrice() {
+		return cards.stream() //
+				.filter(e -> e.getMkmPrice() != null && e.getMkmPrice().getPrice() != null) //
+				.map(e -> e.getMkmPrice().mul(BigDecimal.valueOf(e.getQty()))) //
+				.reduce(CardPrice::add) //
+				.orElse(new CardPrice());
+	}
+
+	public CardPrice getMtgGoldFishPrice() {
+		return cards.stream() //
+				.filter(e -> e.getMtgGoldFishPrice() != null
+						&& e.getMtgGoldFishPrice().getPrice() != null) //
+				.map(e -> e.getMtgGoldFishPrice().mul(BigDecimal.valueOf(e.getQty()))) //
+				.reduce(CardPrice::add) //
+				.orElse(new CardPrice());
+	}
+
+	public CardPrice getMtgGoldFishTxPrice() {
+		return cards.stream() //
+				.filter(e -> e.getMtgGoldFishTxPrice() != null
+						&& e.getMtgGoldFishTxPrice().getPrice() != null) //
+				.map(e -> e.getMtgGoldFishTxPrice().mul(BigDecimal.valueOf(e.getQty()))) //
+				.reduce(CardPrice::add) //
+				.orElse(new CardPrice());
+	}
+
 
 }

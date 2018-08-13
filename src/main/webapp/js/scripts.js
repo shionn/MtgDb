@@ -192,3 +192,10 @@ $(function(){
 		$(this).closest("li").removeClass("over");
 	});
 });
+
+$(function() {
+	$("body").on("click", "a.hide-on-click", function() {
+		$(this).hide();
+	});
+
+})

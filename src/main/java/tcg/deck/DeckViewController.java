@@ -18,6 +18,7 @@ import tcg.db.dbo.Deck;
 import tcg.db.dbo.DeckEntry;
 import tcg.db.dbo.DeckView;
 import tcg.db.dbo.GuildColor;
+import tcg.price.PriceDeamon;
 import tcg.security.User;
 
 @Controller
@@ -39,6 +40,9 @@ public class DeckViewController {
 
 	@Autowired
 	private User user;
+
+	@Autowired
+	private PriceDeamon price;
 
 	@RequestMapping(value = "/d/table/{id}", method = RequestMethod.GET)
 	public ModelAndView table(@PathVariable("id") int id) {
@@ -65,6 +69,14 @@ public class DeckViewController {
 	public ModelAndView price(@PathVariable("id") int id) {
 		Deck deck = session.getMapper(DeckDao.class).readDeck(id);
 		return new ModelAndView("deck/price").addObject("deck", deck);
+	}
+
+	@RequestMapping(value = "/d/price/{deck}/refresh/{card}", method = RequestMethod.GET)
+	public String refreshPrice(@PathVariable("deck") int deck,
+			@PathVariable("card") String card) throws InterruptedException {
+		price.request(card);
+		price.waitFor(card);
+		return "redirect:/d/price/" + deck;
 	}
 
 	@RequestMapping(value = "/d/history/{id}", method = RequestMethod.GET)

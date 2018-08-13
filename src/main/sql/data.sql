@@ -18,7 +18,7 @@ UPDATE `edition` SET `icon` = 'pmei' WHERE `edition`.`code` = 'pPRE';
 UPDATE `edition` SET `icon` = 'pmei' WHERE `edition`.`code` = 'pLPA';
 UPDATE `edition` SET `icon` = 'pmei' WHERE `edition`.`code` = 'pREL';
 UPDATE `edition` SET `icon` = 'm15' WHERE `edition`.`code` = 'CP1';
-
+UPDATE `edition` SET `icon` = 'parl' WHERE `edition`.`code` = 'pGTW';
 
 
 update edition set goldfish_name = mkm_name where code = 'CMD';

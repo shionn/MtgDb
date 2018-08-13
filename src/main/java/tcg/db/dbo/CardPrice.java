@@ -67,4 +67,19 @@ public class CardPrice {
 	public String getError() {
 		return error;
 	}
+
+	public CardPrice mul(BigDecimal factor) {
+		CardPrice price = new CardPrice();
+		price.setPrice(this.price.multiply(factor));
+		price.setSource(source);
+		return price;
+	}
+
+	public CardPrice add(CardPrice o) {
+		CardPrice price = new CardPrice();
+		price.setPrice(this.price.add(o.getPrice()));
+		price.setSource(source);
+		return price;
+	}
+
 }

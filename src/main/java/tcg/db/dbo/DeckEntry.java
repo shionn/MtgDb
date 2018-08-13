@@ -68,4 +68,18 @@ public class DeckEntry {
 		return Arrays.asList(StringUtils.split(tag == null ? "" : tag, ';'));
 	}
 
+	public CardPrice getMkmPrice() {
+		return card.getPrice(foil ? CardPriceSource.mkmFoil : CardPriceSource.mkm);
+	}
+
+	public CardPrice getMtgGoldFishPrice() {
+		return card.getPrice(
+				foil ? CardPriceSource.MtgGoldFishFoilPaper : CardPriceSource.MtgGoldFishPaper);
+	}
+
+	public CardPrice getMtgGoldFishTxPrice() {
+		return card
+				.getPrice(foil ? CardPriceSource.MtgGoldFishFoilTx : CardPriceSource.MtgGoldFishTx);
+	}
+
 }

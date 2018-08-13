@@ -17,7 +17,7 @@
 		<spring:message code="DECK_TABLE_TITLE">
 			<spring:argument>${deck.name}</spring:argument>
 			<spring:argument><spring:message code="DeckType.${deck.type}"/></spring:argument>
-			<spring:argument>${deck.count('main')}</spring:argument>
+			<spring:argument>${deck.count('main')}<c:if test="${deck.type == 'commander'}"> + ${deck.count('commander')}</c:if></spring:argument>
 		</spring:message>
 	</div>
 	<c:if test="${deck.user == user.user}">

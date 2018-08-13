@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -36,7 +37,7 @@ public class PriceDeamon {
 	private Queue<String> priceCardToUpdate = new ConcurrentLinkedQueue<>();
 	private Map<String, List<CardPrice>> results = new ConcurrentHashMap<>();
 
-	@Scheduled(fixedRate = 1000)
+	@Scheduled(fixedRate = 100)
 	public void update() {
 		try (SqlSession session = factory.openSession()) {
 			String id = priceCardToUpdate.poll();
@@ -62,11 +63,25 @@ public class PriceDeamon {
 		priceCardToUpdate.add(card.getId());
 	}
 
+	public void request(String id) {
+		priceCardToUpdate.add(id);
+	}
+
 	public List<CardPrice> get(String id) {
 		synchronized (this) {
 			List<CardPrice> prices = results.get(id);
 			results.remove(id);
 			return prices;
 		}
+	}
+
+	public List<CardPrice> waitFor(String card) throws InterruptedException {
+		List<CardPrice> prices = get(card);
+		int count = 0;
+		while (prices == null && count++ < 10) {
+			TimeUnit.MILLISECONDS.sleep(100);
+			prices = get(card);
+		}
+		return prices;
 	}
 }
