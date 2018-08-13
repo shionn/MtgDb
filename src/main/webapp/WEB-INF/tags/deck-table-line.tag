@@ -26,13 +26,11 @@
 		<td><t:card-type-symbole card="${e.card}"/><span>${e.card.type}</span></td>
 		<td>
 			<i class="ss ss-fw ss-grad ss-${e.card.rarity.ss} ss-${e.card.edition.icon}"></i>
+			<c:if test="${e.foil}">
+				<i class="ss ss-pmei"></i>
+			</c:if>
 			<c:if test="${deck.user == user.user}">
 				<a href='<spring:url value="/d/alter/${e.deck}/${e.card.id}/${e.category}/${e.foil}"/>' class="modal"><i class="fa fa-cog"></i></a>
-			</c:if>
-		</td>
-		<td>
-			<c:if test="${e.foil}">
-				<img src='<spring:url value="/img/foil.gif"/>'>
 			</c:if>
 		</td>
 		<td>${e.tag}</td>

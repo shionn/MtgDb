@@ -57,7 +57,7 @@
 						<table class="deck">
 							<thead>
 								<tr>
-									<th colspan="8"><spring:message code="DECK_TABLE_SIDEBOARD_TITLE" arguments="${deck.count('side')}"/></th>
+									<th colspan="7"><spring:message code="DECK_TABLE_SIDEBOARD_TITLE" arguments="${deck.count('side')}"/></th>
 								</tr>
 							</thead>
 							<tbody>

@@ -96,6 +96,17 @@ public class DeckEntryEditController {
 		return "redirect:/d/" + deck;
 	}
 
+	@RequestMapping(value = "/d/foil/{deck}/{qty}/{card}/{category}/{foil}", method = RequestMethod.GET)
+	public String changeFoil(@PathVariable("deck") int deck, //
+			@PathVariable("qty") int qty, //
+			@PathVariable("card") String card, //
+			@PathVariable("category") DeckEntryCategory category, //
+			@PathVariable("foil") boolean foil) {
+		update(entry(deck, card, -qty, category, foil));
+		update(entry(deck, card, qty, category, !foil));
+		return "redirect:/d/" + deck;
+	}
+
 	@RequestMapping(value = "/d/tag/{deck}/{card}/{category}/{foil}/{tag}", method = RequestMethod.GET)
 	public String tag(@PathVariable("deck") int deck, //
 			@PathVariable("card") String card, //

@@ -71,10 +71,22 @@
 	</section>
 	<header><spring:message code="DECK_ALTER_ENTRY_FOIL" /></header>
 	<section>
-		<p>TODO</p>
-<%-- 		<img src='<spring:url value="/img/foil.gif"/>'> --%>
-<!-- 		<a>Oui</a> -->
-<!-- 		<a>Non</a> -->
+		<p style="text-align: center">
+			<c:if test="${entry.foil}">
+				<a href='<spring:url value="/d/foil/${entry.deck}/1/${entry.card.id}/${entry.category}/${entry.foil}"/>'
+						class="ajax closeModal button"
+						data-update="section.cube li[data-card=${entry.card.card}],table.deck,section.deck-title">
+					<spring:message code="DECK_ALTER_ENTRY_RM_ONE_FOIL"/>
+				</a>
+			</c:if>
+			<c:if test="${not entry.foil}">
+				<a href='<spring:url value="/d/foil/${entry.deck}/1/${entry.card.id}/${entry.category}/${entry.foil}"/>'
+						class="ajax closeModal button"
+						data-update="section.cube li[data-card=${entry.card.card}],table.deck,section.deck-title">
+					<spring:message code="DECK_ALTER_ENTRY_ADD_ONE_FOIL"/>
+				</a>
+			</c:if>
+		</p>
 	</section>
 	<header><spring:message code="DECK_ALTER_ENTRY_TAGS" /></header>
 	<section>

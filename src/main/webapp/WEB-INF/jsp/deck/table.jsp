@@ -17,7 +17,7 @@
 									<th></th>
 									<th><spring:message code="DECK_TABLE_NAME"/></th>
 									<th><span><spring:message code="DECK_TABLE_TYPE"/></span></th>
-									<th colspan="2"><span><spring:message code="DECK_TABLE_EDITION"/></span></th>
+									<th><span><spring:message code="DECK_TABLE_EDITION"/></span></th>
 									<th><spring:message code="DECK_TABLE_TAG"/></th>
 									<th><spring:message code="DECK_TABLE_MANACOST"/></th>
 									<th></th>
@@ -29,7 +29,7 @@
 								</c:if>
 								<c:if test="${empty deck.mains}">
 									<tr>
-										<td colspan="8"><p><spring:message code="DECK_TABLE_MAIN_EMPTY"/></p></td>
+										<td colspan="7"><p><spring:message code="DECK_TABLE_MAIN_EMPTY"/></p></td>
 									</tr>
 								</c:if>
 								<t:deck-table-line deck="${deck}" entries="${deck.mains}" user="${user}"/>
@@ -37,7 +37,7 @@
 							<c:if test="${not empty deck.sides}">
 								<thead>
 									<tr>
-										<th colspan="8"><spring:message code="DECK_TABLE_SIDEBOARD_TITLE" arguments="${deck.count('side')}"/></th>
+										<th colspan="7"><spring:message code="DECK_TABLE_SIDEBOARD_TITLE" arguments="${deck.count('side')}"/></th>
 									</tr>
 								</thead>
 								<tbody>
