@@ -29,13 +29,14 @@ public interface CardDao extends CardFragDao {
 			@Result(column = "edition", property = "edition", one = @One(select = "readEdition")) })
 	Card read(String id);
 
-	@Select("SELECT c.id, e.code, e.name " //
+	@Select("SELECT c.id, e.code, e.name, e.icon " //
 			+ "FROM card AS c " //
 			+ "LEFT JOIN edition AS e ON c.edition = e.code " //
 			+ "WHERE c.card = #{card} " //
 			+ "ORDER BY e.release_date ASC")
 	@Results({ @Result(column = "code", property = "edition.code"),
-			@Result(column = "name", property = "edition.name") })
+			@Result(column = "name", property = "edition.name"),
+			@Result(column = "icon", property = "edition.icon") })
 	List<CardPrinting> readPrintings(String card);
 
 	@Select("SELECT * " //

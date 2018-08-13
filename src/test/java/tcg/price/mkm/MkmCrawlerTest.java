@@ -24,9 +24,9 @@ public class MkmCrawlerTest {
 	@Test
 	public void testDoublePrice() throws IOException {
 		Card card = doubleFace("Rivals of Ixalan", "Journey to Eternity", "Atzal, Cave of Eternity");
-		assertThat(new MkmCrawler().price(card).get(0).getPrice()).isPositive();
+		assertThat(new MkmCrawler().price(card).get(0).getPrice()).as("double // url").isPositive();
 		card = doubleFace("Ixalan", "Search for Azcanta", "Azcanta, the Sunken Ruin");
-		assertThat(new MkmCrawler().price(card).get(0).getPrice()).isPositive();
+		assertThat(new MkmCrawler().price(card).get(0).getPrice()).as("Simple / url").isPositive();
 	}
 
 	private Card doubleFace(String edition, String front, String back) {

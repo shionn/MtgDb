@@ -95,7 +95,11 @@ public class MkmCrawler {
 					+ URLEncoder.encode(edition, ENCODING) + "/"
 					+ URLEncoder.encode(card.getName(), ENCODING);
 			if (card.getLinkCard() != null) {
+				/**
+				 * Certaine carte double face sont séparer par / et d'autre par //
+				 */
 				urls.add(base + URLEncoder.encode(" // " + card.getLinkCard().getName(), ENCODING));
+				urls.add(base + URLEncoder.encode(" / " + card.getLinkCard().getName(), ENCODING));
 			} else {
 				urls.add(base);
 			}
