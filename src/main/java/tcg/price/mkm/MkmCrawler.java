@@ -48,16 +48,19 @@ public class MkmCrawler {
 		try {
 			paper.setLink(url);
 			Document document = Jsoup.connect(url).get();
-			Element e = document.select("table.availTable tr.row_Even.row_2 td.outerRight").first();
+			Element e = document.select("div.info-list-container dl dd").last();
 			if (e != null) {
 				paper.setPrice(
-						new BigDecimal(e.text().replaceAll("[^,0-9]", "").replace(',', '.')));
+						new BigDecimal(e.select("span").first().text().replaceAll("[^,0-9]", "")
+								.replace(',', '.')));
 				paper.setPriceDate(new Date());
 				found = true;
 			}
-			e = document.select("table.availTable tr.row_Even.row_4 td.outerRight").first();
+			document = Jsoup.connect(url + "?foilMode=1").get();
+			e = document.select("div.info-list-container dl dd").last();
 			if (e != null) {
-				foil.setPrice(new BigDecimal(e.text().replaceAll("[^,0-9]", "").replace(',', '.')));
+				foil.setPrice(new BigDecimal(e.select("span").first().text()
+						.replaceAll("[^,0-9]", "").replace(',', '.')));
 				foil.setPriceDate(new Date());
 				found = true;
 			}
@@ -93,18 +96,20 @@ public class MkmCrawler {
 		for (String edition : StringUtils.split(editions, '|')) {
 			String base = "https://www.cardmarket.com/en/Magic/Products/Singles/"
 					+ URLEncoder.encode(edition, ENCODING) + "/"
-					+ URLEncoder.encode(card.getName(), ENCODING);
+					+ URLEncoder.encode(name(card), ENCODING);
 			if (card.getLinkCard() != null) {
-				/**
-				 * Certaine carte double face sont séparer par / et d'autre par //
-				 */
-				urls.add(base + URLEncoder.encode(" // " + card.getLinkCard().getName(), ENCODING));
-				urls.add(base + URLEncoder.encode(" / " + card.getLinkCard().getName(), ENCODING));
+				urls.add(base + URLEncoder.encode("-" + name(card.getLinkCard()), ENCODING));
 			} else {
 				urls.add(base);
 			}
 		}
+		//https://www.cardmarket.com/en/Magic/Products/Singles/Rivals+of+Ixalan/Journey-to-Eternity-Atzal-Cave-of-Eternity
+		//https://www.cardmarket.com/en/Magic/Products/Singles/Battle+for+Zendikar/Ob-Nixilis-Reignited
 		return urls;
+	}
+
+	private String name(Card card) {
+		return card.getName().replaceAll("[^a-zA-Z-]", "-").replaceAll("--", "-");
 	}
 
 }
