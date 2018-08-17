@@ -1,9 +1,8 @@
 'use strict';
 
 $(function() {
-	$("div.priceloading").on("animationend", function(e) {
-		if (e.target != this)
-			return;
+	var error = 0;
+	$("div.priceloading").on("animationiteration", function(e) {
 		$.ajax({
 			url : $(this).attr("data-source"),
 			method : 'GET',
@@ -11,10 +10,16 @@ $(function() {
 			success : function(data) {
 				$(this).closest("article").find("ul").replaceWith(data);
 				$(".hide").removeClass("hide");
+				$(this).remove();
+			},
+			error : function(e) {
+				if (error++>12) {
+					$(this).remove();
+				}
 			}
 		});
 	});
-	
+
 	$(document).on("keydown", function(e) {
 		if (e.key === '+' && e.ctrlKey) {
 			if (e.shiftKey) {

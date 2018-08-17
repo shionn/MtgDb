@@ -68,11 +68,12 @@ public class PriceDeamon {
 	}
 
 	public List<CardPrice> get(String id) {
-		synchronized (this) {
-			List<CardPrice> prices = results.get(id);
-			results.remove(id);
-			return prices;
-		}
+		//		synchronized (this) {
+		//			List<CardPrice> prices = results.get(id);
+		//			results.remove(id);
+		//			return prices;
+		//		}
+		return results.get(id);
 	}
 
 	public List<CardPrice> waitFor(String card) throws InterruptedException {

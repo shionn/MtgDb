@@ -22,9 +22,5 @@
 - gestion des tags
 
 # bug
-- cote sly spy / Dread Shade /
-- mkm : Whir of Invention / Kataki, War's Wage
-- symbol mana text face verso
-- cote very cryptic command
-- trade resonsive
-- Gavony ne remonte pas dans les land ?
+- cote sly spy / Dread Shade / commit-memory / lotus dorée (dominaria)
+- cote blood artist Commandeur 2017

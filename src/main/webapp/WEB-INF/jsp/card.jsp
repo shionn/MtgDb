@@ -84,6 +84,9 @@
 					<header><spring:message code="CARD_PRICE"/></header>
 					<section>
 						<ul>
+							<c:if test="${empty card.prices}">
+								<li><em><spring:message code="CARD_NO_PRICE_FOUND"/></em></li>
+							</c:if>
 							<c:forEach items="${card.prices}" var="p">
 								<c:if test="${p.price != null}">
 									<li>

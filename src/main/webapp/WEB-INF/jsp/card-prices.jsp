@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <ul>
+	<c:if test="${empty prices}">
+		<li><em><spring:message code="CARD_NO_PRICE_FOUND"/></em></li>
+	</c:if>
 	<c:forEach items="${prices}" var="p">
 		<c:if test="${p.price != null}">
 			<li>

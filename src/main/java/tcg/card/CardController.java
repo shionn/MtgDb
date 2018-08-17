@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -79,7 +80,12 @@ public class CardController {
 
 	@RequestMapping(value = "/p/{id}", method = RequestMethod.GET)
 	private ModelAndView price(@PathVariable("id") String id) {
-		return new ModelAndView("card-prices").addObject("prices", priceUpdater.get(id));
+		List<CardPrice> prices = priceUpdater.get(id);
+		ModelAndView model = new ModelAndView("card-prices").addObject("prices", prices);
+		if (prices == null || prices.isEmpty()) {
+			model.setStatus(HttpStatus.NOT_FOUND);
+		}
+		return model;
 	}
 
 }
