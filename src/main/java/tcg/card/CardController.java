@@ -3,6 +3,7 @@ package tcg.card;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +68,7 @@ public class CardController {
 					entries.stream().filter(e -> e.getCategory() == DeckEntryCategory.side)
 							.map(e -> e.getQty()).reduce(0, (a, b) -> a + b));
 		}
+		card.setPrices(filterPrices(card.getPrices()));
 		return view.addObject("card", card);
 	}
 
@@ -81,11 +83,18 @@ public class CardController {
 	@RequestMapping(value = "/p/{id}", method = RequestMethod.GET)
 	private ModelAndView price(@PathVariable("id") String id) {
 		List<CardPrice> prices = priceUpdater.get(id);
-		ModelAndView model = new ModelAndView("card-prices").addObject("prices", prices);
+		ModelAndView model = new ModelAndView("card-prices");
 		if (prices == null || prices.isEmpty()) {
 			model.setStatus(HttpStatus.NOT_FOUND);
+		} else {
+			prices = filterPrices(prices);
 		}
+		model.addObject("prices", prices);
 		return model;
+	}
+
+	private List<CardPrice> filterPrices(List<CardPrice> prices) {
+		return prices.stream().filter(p -> p.getPrice() != null).collect(Collectors.toList());
 	}
 
 }
