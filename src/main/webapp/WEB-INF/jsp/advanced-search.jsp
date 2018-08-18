@@ -26,6 +26,7 @@
 			<c:if test="${not empty cards}">
 				<section>
 					<article class="portlet">
+						<c:if test="${cards.size() == 1000}"><spring:message code="ADVANCED_SEARCH_LIMIT"/></c:if>
 						<section>
 							<table>
 								<thead>

@@ -1,3 +1,4 @@
+@import "variables.less";
 article .deck-title {
 	display: flex;
 	justify-content: space-between;
@@ -70,44 +71,71 @@ table.deck {
 				text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 			}
 		}
+	}
+}
 
-		td:nth-child(4) {
-			&:not(:hover) > a {
-				display: none;
-			}
+article.deck-price table.deck tr {
+	@media (max-width: @max-sm) {
+		th:nth-child(5), td:nth-child(5) {
+			display : none;
 		}
+		td:nth-child(6) span {
+			display : none;
+		}
+	}
+}
 
-		@media (max-width: @max-xs) {
-			td:nth-child(1) > a {
-				display: none;
-			}
-
-			td:nth-child(3) > span {
-				display: none;
-			}
-
-			th:nth-child(3) {
-				&:before {
-					content: 'Tp';
-				}
-
-				& > span {
+article.deck-table , article.deck-cube {
+	table.deck {
+		tr {
+			td:nth-child(4) {
+				&:not(:hover) > a {
 					display: none;
 				}
 			}
 
-			th:nth-child(4) {
-				&:before {
-					content: 'Ed';
-				}
-
-				& > span {
+			@media (max-width: @max-xs) {
+				td:nth-child(1) > a {
 					display: none;
 				}
-			}
 
-			td:nth-child(6) , th:nth-child(5) {
-				display: none;
+				td:nth-child(3) > span {
+					display: none;
+				}
+
+				th:nth-child(3) {
+					&:before {
+						content: 'Tp';
+					}
+
+					& > span {
+						display: none;
+					}
+				}
+
+				th:nth-child(4) {
+					&:before {
+						content: 'Ed';
+					}
+
+					& > span {
+						display: none;
+					}
+				}
+
+				th:nth-child(6) {
+					&:before {
+						content: 'Mc';
+					}
+
+					& > span {
+						display: none;
+					}
+				}
+
+				td:nth-child(5) , th:nth-child(5) {
+					display: none;
+				}
 			}
 		}
 	}

@@ -19,7 +19,7 @@
 									<th><span><spring:message code="DECK_TABLE_TYPE"/></span></th>
 									<th><span><spring:message code="DECK_TABLE_EDITION"/></span></th>
 									<th><spring:message code="DECK_TABLE_TAG"/></th>
-									<th><spring:message code="DECK_TABLE_MANACOST"/></th>
+									<th><span><spring:message code="DECK_TABLE_MANACOST"/></span></th>
 									<th></th>
 								</tr>
 							</thead>

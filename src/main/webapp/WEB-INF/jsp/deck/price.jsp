@@ -37,7 +37,7 @@
 														class="ajax hide-on-click"
 														data-update="tr[data-line=${e.category}${i.index}],tr.total"><i class="fa fa-refresh"></i></a>
 											</c:if>
-											<fmt:formatDate value="${e.card.lastPriceDate}"/>
+											<span><fmt:formatDate value="${e.card.lastPriceDate}"/></span>
 										</td>
 									</tr>
 								</c:forEach>
@@ -54,7 +54,7 @@
 														class="ajax hide-on-click"
 														data-update="tr[data-line=${e.category}${i.index}],tr.total"><i class="fa fa-refresh"></i></a>
 											</c:if>
-											<fmt:formatDate value="${e.card.lastPriceDate}"/>
+											<span><fmt:formatDate value="${e.card.lastPriceDate}"/></span>
 										</td>
 									</tr>
 								</c:forEach>
@@ -79,7 +79,7 @@
 														class="ajax hide-on-click"
 														data-update="tr[data-line=${e.category}${i.index}],tr.total"><i class="fa fa-refresh"></i></a>
 											</c:if>
-											<fmt:formatDate value="${e.card.lastPriceDate}"/>
+											<span><fmt:formatDate value="${e.card.lastPriceDate}"/></span>
 										</td>
 									</tr>
 								</c:forEach>
