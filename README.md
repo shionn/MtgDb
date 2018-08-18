@@ -16,6 +16,7 @@
 - spring
 - font pour mana : (https://github.com/AlexandreArpin/mtg-font/)
 - font pour edition : https://github.com/andrewgioia/Keyrune
+- http://flag-icon-css.lip.is/
 
 # todo
 - Ajouter la suppression d'un deck

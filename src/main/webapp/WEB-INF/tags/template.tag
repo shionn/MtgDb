@@ -27,7 +27,10 @@
 				<li>
 					<form action='<spring:url value="/s"/>'>
 						<span class="autocomplete">
-							<input type="text" name="name" placeholder="<spring:message code="MAIN_MENU_QUICK_SEARCH"/>" data-source="<spring:url value="/s"/>" autocomplete="off" data-length="3"/>
+							<input type="text" name="name"
+									placeholder="<spring:message code="MAIN_MENU_QUICK_SEARCH"/>"
+									data-source="<spring:url value="/s"/>" autocomplete="off" data-length="3"
+									title="ctrl-s"/>
 						</span>
 					</form>
 				</li>
@@ -49,10 +52,12 @@
 					</li>
 				</c:if>
 				<li>
-					<a href="?lg=fr_FR">fr</a>
-				</li>
-				<li>
-					<a href="?lg=en_GB">en</a>
+					<c:if test="${user.locale.language == 'en'}">
+						<a href="?lg=fr_FR"><span class="flag-icon flag-icon-fr"></span></a>
+					</c:if>
+					<c:if test="${user.locale.language == 'fr'}">
+						<a href="?lg=en_GB"><span class="flag-icon flag-icon-gb"></span></a>
+					</c:if>
 				</li>
 			</ul>
 		</nav>

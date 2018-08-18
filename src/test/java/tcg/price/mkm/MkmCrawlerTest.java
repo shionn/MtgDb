@@ -11,6 +11,8 @@ import tcg.db.dbo.Edition;
 
 public class MkmCrawlerTest {
 
+	private MkmCrawler crawler = new MkmCrawler();
+
 	@Test
 	public void testPrice() throws IOException {
 		Edition edition = new Edition();
@@ -18,15 +20,30 @@ public class MkmCrawlerTest {
 		Card card = new Card();
 		card.setEdition(edition);
 		card.setName("Ob Nixilis Reignited");
-		assertThat(new MkmCrawler().price(card).get(0).getPrice()).isPositive();
+		assertThat(crawler.price(card).get(0).getPrice()).isPositive();
 	}
 
 	@Test
 	public void testDoublePrice() throws IOException {
 		Card card = doubleFace("Rivals of Ixalan", "Journey to Eternity", "Atzal, Cave of Eternity");
-		assertThat(new MkmCrawler().price(card).get(0).getPrice()).as("double // url").isPositive();
+		assertThat(crawler.price(card).get(0).getPrice()).as("double // url").isPositive();
 		card = doubleFace("Ixalan", "Search for Azcanta", "Azcanta, the Sunken Ruin");
-		assertThat(new MkmCrawler().price(card).get(0).getPrice()).as("Simple / url").isPositive();
+		assertThat(crawler.price(card).get(0).getPrice()).as("Simple / url").isPositive();
+	}
+
+	@Test
+	public void testPriceDivers() throws IOException {
+		Card card = card("Commander", "Serra Angel");
+		assertThat(crawler.price(card).get(0).getPrice()).isPositive();
+	}
+
+	private Card card(String editionName, String cardName) {
+		Edition edition = new Edition();
+		edition.setName(editionName);
+		Card card = new Card();
+		card.setEdition(edition);
+		card.setName(cardName);
+		return card;
 	}
 
 	private Card doubleFace(String edition, String front, String back) {

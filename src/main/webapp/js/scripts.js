@@ -102,30 +102,12 @@ $(function() {
 });
 
 $(function() {
-	$(document).on("keydown", function(e){
-		if (e.keyCode == 112) {
-			$("header nav input").first().focus();
-			return false;
-		}
-		if (e.keyCode == 113) {
-			$("header nav a.as").doClick();
-			return false;
-		}
-		if (e.keyCode == 114) {
-			$("header nav a.t").doClick();
-			return false;
-		}
-		if (e.keyCode == 115) {
-			$("header nav a.d").doClick();
-			return false;
-		}
-		if (e.keyCode == 116) {
-			$("header nav a.e").doClick();
-			return false;
-		}
-		if (e.keyCode == 117) {
-			$("header nav a.cd").doClick();
-			return false;
+	$(document).on("keydown", function(e) {
+		if (e.ctrlKey) {
+			if (e.key === 's') {
+				$("header nav input").first().focus();
+				return false;
+			}
 		}
 	});
 });

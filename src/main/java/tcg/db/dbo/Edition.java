@@ -97,4 +97,5 @@ public class Edition {
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
+
 }

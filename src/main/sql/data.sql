@@ -1,4 +1,5 @@
 
+UPDATE `edition` SET `icon` = 'xice' WHERE `edition`.`code` = 'CEI';
 UPDATE `edition` SET `icon` = 'xcle' WHERE `edition`.`code` = 'CED';
 UPDATE `edition` SET `icon` = 'x2ps' WHERE `edition`.`code` = 'ITP';
 UPDATE `edition` SET `icon` = 'por'  WHERE `edition`.`code` = 'pPOD';
@@ -19,10 +20,10 @@ UPDATE `edition` SET `icon` = 'pmei' WHERE `edition`.`code` = 'pLPA';
 UPDATE `edition` SET `icon` = 'pmei' WHERE `edition`.`code` = 'pREL';
 UPDATE `edition` SET `icon` = 'm15' WHERE `edition`.`code` = 'CP1';
 UPDATE `edition` SET `icon` = 'parl' WHERE `edition`.`code` = 'pGTW';
+UPDATE `edition` SET `icon` = 'parl' WHERE `edition`.`code` = 'pWOS';
 
 
 update edition set goldfish_name = mkm_name where code = 'CMD';
-
 update edition set goldfish_name = 'Conspiracy'                      where code='CNS';
 update edition set goldfish_name = 'Coldsnap Theme Deck Reprints'    where code='CST';
 update edition set goldfish_name = 'Kaladesh Inventions'             where code='MPS';
@@ -57,10 +58,14 @@ update edition set mkm_name = 'Rivals of Ixalan'            where code = 'RIX';
 
 
 update edition set foil = 'nofoil' where code in('PC2', 'HOP');
+update edition set foil = 'nofoil' where code in('W16', 'W17');
 update edition set foil = 'nofoil' where code = 'POR';
-update edition set foil = 'nofoil' where code in('2ED', '4ED', '5ED', '6ED');
-update edition set foil = 'nofoil' where code in('DDQ');
+update edition set foil = 'nofoil' where code in('LEA', 'LEB', 'CEI', '2ED', 'CED', '2ED', '3ED', '4ED', '5ED', '6ED');
+update edition set foil = 'nofoil' where code in('ATH');
+update edition set foil = 'both' where code in('DDQ', 'DDC', 'DD3_DVD');
+update edition set foil = 'onlyfoil' where code in('pWOS');
 update edition set foil = 'onlyfoil' where code in('MPS','MPS_AKH');
+
 
 --  swap aura, forecast
 delete from card_keyword;

@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Component;
 import tcg.db.dbo.Card;
 import tcg.db.dbo.CardPrice;
 import tcg.db.dbo.CardPriceSource;
+import tcg.db.dbo.Edition.Foil;
 
 @Component
 public class MkmCrawler {
@@ -27,48 +30,86 @@ public class MkmCrawler {
 	private static final List<String> IGNORED_EDITION = Arrays.asList("pPRE");
 
 	public List<CardPrice> price(Card card) {
-		CardPrice paper = retrieve(card, CardPriceSource.mkm);
-		CardPrice foil = retrieve(card, CardPriceSource.mkmFoil);
+		List<CardPrice> prices = new ArrayList<>();
 		if (!isIgnored(card)) {
 			try {
 				Iterator<String> urls = buildUrl(card).iterator();
-				boolean found = crawl(paper, foil, urls.next());
-				while (!found && urls.hasNext()) {
-					found = crawl(paper, foil, urls.next());
+				prices = crawl(card, urls.next());
+				while (!prices.isEmpty() && urls.hasNext()) {
+					prices = crawl(card, urls.next());
 				}
 			} catch (IOException e) {
 				LoggerFactory.getLogger(MkmCrawler.class).error("Can't crawl price : ", e);
 			}
 		}
-		return Arrays.asList(paper, foil);
+		return prices;
 	}
 
-	private boolean crawl(CardPrice paper, CardPrice foil, String url) {
+	private List<CardPrice> crawl(Card card, String url) {
+		return Arrays.asList(crawlPaper(card, url), crawlFoil(card, url + "?foilMode=1")).stream()
+				.filter(Objects::nonNull).collect(Collectors.toList());
+	}
+
+	private CardPrice crawlPaper(Card card, String url) {
+		CardPrice price = retrieve(card, CardPriceSource.mkm);
 		boolean found = false;
 		try {
-			paper.setLink(url);
+			price.setLink(url);
 			Document document = Jsoup.connect(url).get();
-			Element e = document.select("div.info-list-container dl dd").last();
-			if (e != null) {
-				paper.setPrice(
-						new BigDecimal(e.select("span").first().text().replaceAll("[^,0-9]", "")
-								.replace(',', '.')));
-				paper.setPriceDate(new Date());
-				found = true;
-			}
-			document = Jsoup.connect(url + "?foilMode=1").get();
-			e = document.select("div.info-list-container dl dd").last();
-			if (e != null) {
-				foil.setPrice(new BigDecimal(e.select("span").first().text()
-						.replaceAll("[^,0-9]", "").replace(',', '.')));
-				foil.setPriceDate(new Date());
-				found = true;
+			if (!document.select(".article-table .text-warning").isEmpty()
+					|| card.getEdition().getFoil() == Foil.onlyfoil) {
+				price.setPrice(null);
+				price.setPriceDate(new Date());
+			} else {
+				Element e = document.select("div.info-list-container dl dd").last();
+				if (e != null) {
+					price.setPrice(new BigDecimal(e.select("span").first().text()
+							.replaceAll("[^,0-9]", "").replace(',', '.')));
+					price.setPriceDate(new Date());
+					found = true;
+				}
 			}
 		} catch (IOException e) {
 			LoggerFactory.getLogger(MkmCrawler.class).error("Can't crawl price : ", e);
-
 		}
-		return found;
+		if (found) {
+			return price;
+		}
+		return null;
+	}
+
+	private CardPrice crawlFoil(Card card, String url) {
+		CardPrice price = retrieve(card, CardPriceSource.mkmFoil);
+		boolean found = false;
+		try {
+			Document document = Jsoup.connect(url).get();
+			price.setLink(url);
+
+			if (!document.select(".article-table .text-warning").isEmpty()
+					|| card.getEdition().getFoil() == Foil.nofoil) {
+				/**
+				 * on est dans un cas le foil n'existe probablement pas. Si un enregistrement en
+				 * base existe on le passe à null. c'est degueux.
+				 */
+				price.setPrice(null);
+				price.setPriceDate(new Date());
+				found = true;
+			} else {
+				Element e = document.select("div.info-list-container dl dd").last();
+				if (e != null) {
+					price.setPrice(new BigDecimal(e.select("span").first().text()
+							.replaceAll("[^,0-9]", "").replace(',', '.')));
+					price.setPriceDate(new Date());
+					found = true;
+				}
+			}
+		} catch (IOException e) {
+			LoggerFactory.getLogger(MkmCrawler.class).error("Can't crawl price : ", e);
+		}
+		if (found) {
+			return price;
+		}
+		return null;
 	}
 
 	private boolean isIgnored(Card card) {
@@ -103,8 +144,8 @@ public class MkmCrawler {
 				urls.add(base);
 			}
 		}
-		//https://www.cardmarket.com/en/Magic/Products/Singles/Rivals+of+Ixalan/Journey-to-Eternity-Atzal-Cave-of-Eternity
-		//https://www.cardmarket.com/en/Magic/Products/Singles/Battle+for+Zendikar/Ob-Nixilis-Reignited
+		// https://www.cardmarket.com/en/Magic/Products/Singles/Rivals+of+Ixalan/Journey-to-Eternity-Atzal-Cave-of-Eternity
+		// https://www.cardmarket.com/en/Magic/Products/Singles/Battle+for+Zendikar/Ob-Nixilis-Reignited
 		return urls;
 	}
 

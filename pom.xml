@@ -73,7 +73,6 @@
 	</build>
 
 	<profiles>
-
 		<profile>
 			<id>dev</id>
 			<properties>
@@ -82,7 +81,6 @@
 				<skip.test>false</skip.test>
 			</properties>
 		</profile>
-
 	</profiles>
 
 	<dependencies>

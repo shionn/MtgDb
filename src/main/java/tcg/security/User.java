@@ -1,5 +1,8 @@
 package tcg.security;
 
+import java.util.Locale;
+
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -35,6 +38,10 @@ public class User {
 
 	public void setCurrentDeckName(String currentDeckName) {
 		this.currentDeckName = currentDeckName;
+	}
+
+	public Locale getLocale() {
+		return LocaleContextHolder.getLocale();
 	}
 
 }

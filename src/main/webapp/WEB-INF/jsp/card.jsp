@@ -10,7 +10,7 @@
 			<section class="editions">
 				<ul>
 					<c:forEach items="${card.printings}" var="p">
-						<li<c:if test="${card.id == p.id}"> class="active"</c:if>><a href='<spring:url value="/c/${p.id}"/>' title="${p.edition.name}"><i class="ss ss-${p.edition.icon}"></i></a></li>
+						<li<c:if test="${card.id == p.id}"> class="active"</c:if>><a href='<spring:url value="/c/${p.id}"/>' title="${p.edition.code} - ${p.edition.name}"><i class="ss ss-${p.edition.icon}"></i></a></li>
 					</c:forEach>
 				</ul>
 			</section>
