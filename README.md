@@ -22,5 +22,5 @@
 - gestion des tags
 
 # bug
-- cote sly spy /  commit-memory / lotus dorée (dominaria)
+- cote sly spy /  commit-memory / lotus dorée (dominaria) / Springjack Pasture
 - cote blood artist Commandeur 2017
