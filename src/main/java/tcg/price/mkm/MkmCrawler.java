@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import tcg.db.dbo.Card;
+import tcg.db.dbo.CardLayout;
 import tcg.db.dbo.CardPrice;
 import tcg.db.dbo.CardPriceSource;
 import tcg.db.dbo.Edition.Foil;
@@ -138,7 +139,7 @@ public class MkmCrawler {
 			String base = "https://www.cardmarket.com/en/Magic/Products/Singles/"
 					+ URLEncoder.encode(edition, ENCODING) + "/"
 					+ URLEncoder.encode(name(card), ENCODING);
-			if (card.getLinkCard() != null) {
+			if (CardLayout.concatNames().contains(card.getLayout())) {
 				urls.add(base + URLEncoder.encode("-" + name(card.getLinkCard()), ENCODING));
 			} else {
 				urls.add(base);

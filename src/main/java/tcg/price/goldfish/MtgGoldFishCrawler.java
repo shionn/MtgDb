@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import tcg.db.dbo.Card;
+import tcg.db.dbo.CardLayout;
 import tcg.db.dbo.CardPrice;
 import tcg.db.dbo.CardPriceSource;
 import tcg.db.dbo.Edition.Foil;
@@ -136,7 +137,15 @@ public class MtgGoldFishCrawler {
 	}
 
 	private String formatName(Card card) {
-		return card.getName().replaceAll("[\".,]", " ").replaceAll("'", "");
+		String name = formatName(card.getName());
+		if (CardLayout.concatNames().contains(card.getLayout())) {
+			name += ' ' + formatName(card.getLinkCard().getName());
+		}
+		return name;
+	}
+
+	private String formatName(String name) {
+		return name.replaceAll("[\".,]", " ").replaceAll("'", "");
 	}
 
 }

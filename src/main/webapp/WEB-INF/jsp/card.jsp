@@ -20,7 +20,7 @@
 					<section>
 						<img src='<spring:url value="/c/img/${card.id}.jpg"/>'/>
 					</section>
-					<c:if test="${card.flip}">
+					<c:if test="${card.haveLinkCard()}">
 						<section>
 							<a href='<spring:url value="/c/${card.linkCard.id}"/>'><spring:message code="CARD_OTHER_FACE"/></a>
 						</section>

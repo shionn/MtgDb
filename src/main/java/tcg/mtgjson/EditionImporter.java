@@ -98,7 +98,7 @@ public class EditionImporter {
 							.forEach(assistance -> dao.assistance(card.getId(), "fr", assistance));
 				}
 				List<Card> doubleFaceds = set.getCards().stream()
-						.filter(c -> c.getLayout() == CardLayout.doublefaced)
+						.filter(c -> CardLayout.links().contains(c.getLayout()))
 						.collect(Collectors.toList());
 				for (Card card : doubleFaceds) {
 					try {

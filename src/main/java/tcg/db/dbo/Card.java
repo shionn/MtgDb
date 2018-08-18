@@ -101,6 +101,10 @@ public class Card {
 		return layout == CardLayout.doublefaced || layout == CardLayout.meld;
 	}
 
+	public boolean haveLinkCard() {
+		return CardLayout.links().contains(layout);
+	}
+
 	public String getId() {
 		return id;
 	}
