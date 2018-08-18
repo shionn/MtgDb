@@ -15,11 +15,9 @@ UPDATE `edition` SET `icon` = 'tsp'  WHERE `edition`.`code` = 'TSB';
 UPDATE `edition` SET `icon` = 'csp'  WHERE `edition`.`code` = 'CST';
 UPDATE `edition` SET `icon` = 'peuro' WHERE `edition`.`code` = 'pELP';
 UPDATE `edition` SET `icon` = 'papac' WHERE `edition`.`code` = 'pALP';
-UPDATE `edition` SET `icon` = 'pmei' WHERE `edition`.`code` = 'pPRE';
-UPDATE `edition` SET `icon` = 'pmei' WHERE `edition`.`code` = 'pLPA';
-UPDATE `edition` SET `icon` = 'pmei' WHERE `edition`.`code` = 'pREL';
+UPDATE `edition` SET `icon` = 'pmei' WHERE `edition`.`code` IN ('pPRE', 'pLPA', 'pREL', 'pJGP');
 UPDATE `edition` SET `icon` = 'm15' WHERE `edition`.`code` = 'CP1';
-UPDATE `edition` SET `icon` = 'parl' WHERE `edition`.`code` IN ('pGTW', 'pWOS', 'pSUS', 'pMPR' );
+UPDATE `edition` SET `icon` = 'parl' WHERE `edition`.`code` IN ('pGTW', 'pWOS', 'pSUS', 'pMPR', 'pWPN');
 
 
 update edition set goldfish_name = mkm_name where code = 'CMD';
@@ -38,6 +36,8 @@ update edition set goldfish_name = 'Prerelease Cards'                where code=
 update edition set goldfish_name = 'JSS MSS Promos'                  where code='pSUS';
 update edition set goldfish_name = 'WPN Promos|Gateway Promos'       where code='pWPN';
 update edition set goldfish_name = 'Unique and Miscellaneous Promos' where code='pWOS';
+update edition set goldfish_name = 'Modern Masters 2015'             where code='MM2';
+
 
 
 
@@ -53,6 +53,7 @@ update edition set mkm_name = 'Game Day Promos|Gateway Promos' where code = 'pWP
 update edition set mkm_name = 'DCI Promos'                  where code = 'pWOS'; -- pas sur
 update edition set mkm_name = 'Kaladesh Inventions'         where code = 'MPS';
 update edition set mkm_name = 'Rivals of Ixalan'            where code = 'RIX';
+update edition set mkm_name = 'Modern Masters 2017'         where code = 'MM3';
 
 
 

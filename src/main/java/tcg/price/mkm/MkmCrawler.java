@@ -36,7 +36,7 @@ public class MkmCrawler {
 			try {
 				Iterator<String> urls = buildUrl(card).iterator();
 				prices = crawl(card, urls.next());
-				while (!prices.isEmpty() && urls.hasNext()) {
+				while (prices.isEmpty() && urls.hasNext()) {
 					prices = crawl(card, urls.next());
 				}
 			} catch (IOException e) {
