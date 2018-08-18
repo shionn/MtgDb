@@ -7,6 +7,7 @@ import java.io.IOException;
 import org.junit.Test;
 
 import tcg.db.dbo.Card;
+import tcg.db.dbo.CardLayout;
 import tcg.db.dbo.Edition;
 
 public class MkmCrawlerTest {
@@ -52,6 +53,7 @@ public class MkmCrawlerTest {
 		Edition ed = new Edition();
 		ed.setMkmName(edition);
 		Card card = new Card();
+		card.setLayout(CardLayout.doublefaced);
 		card.setEdition(ed);
 		card.setName(front);
 		card.setLinkCard(otherFace);
