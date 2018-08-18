@@ -29,6 +29,7 @@ import tcg.db.dbo.Edition;
 public class AdvancedSearchController {
 
 	private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z]+$");
+	private static final Pattern TEXT_PATTERN = Pattern.compile("^[a-zA-Z0-9: ]+$");
 	private static final Pattern POWER_AND_TOUGHNESS_PATTERN = Pattern.compile("^[0-9*]+/[0-9*]+$");
 	private static final Pattern CMC_PATTERN = Pattern.compile("^\\d+$");
 	private static final List<String> COLORS = Arrays.asList("White", "Blue", "Black", "Red", "Green");
@@ -118,8 +119,9 @@ public class AdvancedSearchController {
 		case PowerAndToughness:
 			return POWER_AND_TOUGHNESS_PATTERN.matcher(filter.getValue()).find();
 		case Name:
-		case Text:
 			return NAME_PATTERN.matcher(filter.getValue()).find();
+		case Text:
+			return TEXT_PATTERN.matcher(filter.getValue()).find();
 		case Color:
 			return COLORS.contains(filter.getValue());
 		case Type:
@@ -170,6 +172,8 @@ public class AdvancedSearchController {
 				.map(e -> new Filter(e)).collect(Collectors.toList()));
 		if (NAME_PATTERN.matcher(filter).find()) {
 			filters.add(new Filter(FilterType.Name, filter));
+		}
+		if (TEXT_PATTERN.matcher(filter).find()) {
 			filters.add(new Filter(FilterType.Text, filter));
 		}
 		return new ModelAndView("advanced-search-autocomplete").addObject("filters", filters);

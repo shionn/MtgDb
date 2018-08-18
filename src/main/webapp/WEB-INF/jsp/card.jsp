@@ -16,7 +16,7 @@
 			</section>
 			<section class="main">
 				<article class="image portlet">
-					<header>${card.artist}</header>
+					<header><i class="ms ms-artist-brush"></i> ${card.artist}</header>
 					<section>
 						<img src='<spring:url value="/c/img/${card.id}.jpg"/>'/>
 					</section>
@@ -41,10 +41,10 @@
 							<p class="flavor">${card.flavor}</p>
 						</c:if>
 						<c:if test="${card.creature}">
-							<p>${card.power}/${card.toughness}</p>
+							<p><i class="ms ms-power"></i> ${card.power} / <i class="ms ms-toughness"></i> ${card.toughness}</p>
 						</c:if>
 						<c:if test="${card.planeswalker}">
-							<p>${card.loyalty}</p>
+							<p><i class="ms ms-loyalty-start ms-loyalty-${card.loyalty}"></i></p>
 						</c:if>
 					</section>
 					<c:if test="${card.flip}">

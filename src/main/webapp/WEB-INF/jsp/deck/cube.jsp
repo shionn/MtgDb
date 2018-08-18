@@ -25,7 +25,7 @@
 						<ul>
 							<li class="title"><spring:message code="DECK_CUBE_COLOR_TITLE.gold"/></li>
 							<c:forEach items="${guilds}" var="color">
-								<li class="title"><spring:message code="DECK_CUBE_COLOR_TITLE.${color}"/></li>
+								<li class="title"><i class="ms ms-guild-${color}"></i> <spring:message code="DECK_CUBE_COLOR_TITLE.${color}"/></li>
 								<c:forEach items="${deck.cubeColor(color)}" var="e">
 									<li data-card="${e.card.card}">
 										<a href='<spring:url value="/d/alter/${e.deck}/${e.card.id}/${e.category}/${e.foil}"/>' class="modal"><i class="fa fa-cog"></i></a>

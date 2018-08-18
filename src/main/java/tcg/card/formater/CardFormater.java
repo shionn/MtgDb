@@ -2,6 +2,7 @@ package tcg.card.formater;
 
 import java.text.Normalizer;
 import java.text.Normalizer.Form;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -16,6 +17,7 @@ public class CardFormater {
 
 	private Map<Pattern, String> patterns = buildTextPatterns();
 	private Map<Pattern, String> manacosts = buildManacostsPatterns();
+	private Map<Pattern, String> planswalkers = buildPlanswlakersPatterns();
 
 
 	private Map<Pattern, String> buildTextPatterns() {
@@ -60,9 +62,9 @@ public class CardFormater {
 		patterns.put(Pattern.compile("\\{G/P\\}"), phyrexia("g"));
 
 		patterns.put(Pattern.compile("\\{T\\}"), "<i class=\"mi mi-t\"></i>");
+		patterns.put(Pattern.compile("\\{E\\}"), "<i class=\"ms ms-e\"></i>");
 		return patterns;
 	}
-
 
 	private String split(String m1, String m2) {
 		return "<span class=\"mi-split\"><i class=\"mi mi-" + m1 + "\"></i><i class=\"mi mi-" + m2 + "\"></i></span>";
@@ -122,8 +124,25 @@ public class CardFormater {
 		return "<i class=\"mi mi-p mi-mana-" + mana + " mi-shadow\"></i>";
 	}
 
+	private Map<Pattern, String> buildPlanswlakersPatterns() {
+		Map<Pattern, String> map = new HashMap<>();
+		map.put(Pattern.compile("^\\+(\\d):"),
+				"<i class=\"ms ms-loyalty-up ms-loyalty-$1\"></i> :");
+		map.put(Pattern.compile("^−(\\d):"),
+				"<i class=\"ms ms-loyalty-down ms-loyalty-$1\"></i> :");
+		map.put(Pattern.compile("^0:"), "<i class=\"ms ms-loyalty-zero ms-loyalty-0\"></i> :");
+		return map;
+	}
+
 	public String text(String text) {
 		if (text != null) {
+			text = Arrays.asList(text.split("\n")).stream().map(l -> {
+				String line = l;
+				for (Entry<Pattern, String> e : planswalkers.entrySet()) {
+					line = e.getKey().matcher(line).replaceFirst(e.getValue());
+				}
+				return line;
+			}).reduce((a, b) -> a + "<br/>" + b).get();
 			for (Entry<Pattern, String> e : patterns.entrySet()) {
 				text = e.getKey().matcher(text).replaceAll(e.getValue());
 			}

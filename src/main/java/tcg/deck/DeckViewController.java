@@ -61,7 +61,9 @@ public class DeckViewController {
 	public ModelAndView cube(@PathVariable("id") int id) {
 		Deck deck = deck(id);
 		checkAndUpdatView(deck, DeckView.cube);
-		return new ModelAndView("deck/cube").addObject("deck", deck).addObject("colors", COLORS)
+		return new ModelAndView("deck/cube") //
+				.addObject("deck", deck) //
+				.addObject("colors", COLORS) //
 				.addObject("guilds", GUILDS);
 	}
 
