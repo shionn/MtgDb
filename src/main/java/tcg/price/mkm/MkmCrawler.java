@@ -105,7 +105,8 @@ public class MkmCrawler {
 		CardPrice price = retrieve(card, CardPriceSource.mkmFoil);
 		boolean found = false;
 		try {
-			Document document = Jsoup.connect(url).get();
+			Document document = Jsoup.connect(url).data("extra[isFoil]", "Y")
+					.data("apply", "filter").post();
 			price.setLink(url);
 
 			if (!document.select(".article-table .text-warning").isEmpty()
