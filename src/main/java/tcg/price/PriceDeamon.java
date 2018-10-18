@@ -1,11 +1,17 @@
 package tcg.price;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.ibatis.session.SqlSession;
@@ -34,11 +40,13 @@ public class PriceDeamon {
 	@Autowired
 	private MkmCrawler mkmCrawler;
 
+	private ExecutorService executors = Executors.newFixedThreadPool(2);
+
 	private Queue<String> priceCardToUpdate = new ConcurrentLinkedQueue<>();
 	private Map<String, List<CardPrice>> results = new ConcurrentHashMap<>();
 
 	@Scheduled(fixedRate = 100)
-	public void update() {
+	public void update() throws InterruptedException, ExecutionException {
 		try (SqlSession session = factory.openSession()) {
 			String id = priceCardToUpdate.poll();
 			if (id != null) {
@@ -49,14 +57,29 @@ public class PriceDeamon {
 					CardDao dao = session.getMapper(CardDao.class);
 					Card card = dao.read(id);
 					List<CardPrice> prices = new ArrayList<>();
-					prices.addAll(mkmCrawler.price(card));
-					prices.addAll(fishCrawler.price(card));
+					for (Future<List<CardPrice>> future : executors.invokeAll(tasks(card))) {
+						prices.addAll(future.get());
+					}
 					prices.stream().forEach(session.getMapper(CardPriceDao.class)::price);
 					session.commit();
 					results.put(id, prices);
 				}
 			}
 		}
+	}
+
+	private List<Callable<List<CardPrice>>> tasks(Card card) {
+		return Arrays.asList(new Callable<List<CardPrice>>() {
+			@Override
+			public List<CardPrice> call() throws Exception {
+				return mkmCrawler.price(card);
+			}
+		}, new Callable<List<CardPrice>>() {
+			@Override
+			public List<CardPrice> call() throws Exception {
+				return fishCrawler.price(card);
+			}
+		});
 	}
 
 	public void request(Card card) {

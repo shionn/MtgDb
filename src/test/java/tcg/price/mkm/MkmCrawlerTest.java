@@ -2,7 +2,6 @@ package tcg.price.mkm;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -18,7 +17,7 @@ public class MkmCrawlerTest {
 	private MkmCrawler crawler = new MkmCrawler();
 
 	@Test
-	public void testPrice() throws IOException {
+	public void testPrice() throws Exception {
 		Edition edition = new Edition();
 		edition.setMkmName("Battle for Zendikar");
 		Card card = new Card();
@@ -32,7 +31,7 @@ public class MkmCrawlerTest {
 	}
 
 	@Test
-	public void testDoublePrice() throws IOException {
+	public void testDoublePrice() throws Exception {
 		Card card = doubleFace("Rivals of Ixalan", "Journey to Eternity", "Atzal, Cave of Eternity");
 		assertThat(crawler.price(card).get(0).getPrice()).as("double // url").isPositive();
 		card = doubleFace("Ixalan", "Search for Azcanta", "Azcanta, the Sunken Ruin");
@@ -40,9 +39,13 @@ public class MkmCrawlerTest {
 	}
 
 	@Test
-	public void testPriceDivers() throws IOException {
+	public void testPriceDivers() throws Exception {
 		Card card = card("Commander", "Serra Angel");
 		assertThat(crawler.price(card).get(0).getPrice()).isPositive();
+		card = card("Kaladesh", "Torrential Gearhulk");
+		List<CardPrice> price = crawler.price(card);
+		assertThat(price.get(0).getPrice()).isPositive();
+		price.stream().forEach(p -> System.out.println(p.getPrice()));
 	}
 
 	private Card card(String editionName, String cardName) {

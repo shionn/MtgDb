@@ -9,6 +9,11 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
@@ -19,6 +24,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.ApplicationScope;
 
 import tcg.db.dbo.Card;
 import tcg.db.dbo.CardLayout;
@@ -27,12 +33,13 @@ import tcg.db.dbo.CardPriceSource;
 import tcg.db.dbo.Edition.Foil;
 
 @Component
+@ApplicationScope
 public class MkmCrawler {
 
 	private static final String ENCODING = "UTF-8";
 	private static final List<String> IGNORED_EDITION = Arrays.asList("pPRE");
 
-	public List<CardPrice> price(Card card) {
+	public List<CardPrice> price(Card card) throws InterruptedException, ExecutionException {
 		List<CardPrice> prices = new ArrayList<>();
 		if (!isIgnored(card)) {
 			try {
@@ -47,10 +54,24 @@ public class MkmCrawler {
 		}
 		return prices;
 	}
+	private ExecutorService executors = Executors.newFixedThreadPool(2);
 
-	private List<CardPrice> crawl(Card card, String url) {
-		return Arrays.asList(crawlPaper(card, url), crawlFoil(card, url)).stream()
-				.filter(Objects::nonNull).collect(Collectors.toList());
+	private List<CardPrice> crawl(Card card, String url) throws InterruptedException, ExecutionException {
+		List<CardPrice> prices = new ArrayList<>();
+		for (Future<CardPrice> futur : executors.invokeAll(Arrays.asList(new Callable<CardPrice>() {
+			@Override
+			public CardPrice call() throws Exception {
+				return crawlPaper(card, url);
+			}
+		}, new Callable<CardPrice>() {
+			@Override
+			public CardPrice call() throws Exception {
+				return crawlFoil(card, url);
+			}
+		}))) {
+			prices.add(futur.get());
+		}
+		return prices.stream().filter(Objects::nonNull).collect(Collectors.toList());
 	}
 
 	private CardPrice crawlPaper(Card card, String url) {
