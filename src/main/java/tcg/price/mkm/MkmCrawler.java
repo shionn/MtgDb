@@ -12,6 +12,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jsoup.Connection.Method;
+import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -47,7 +49,7 @@ public class MkmCrawler {
 	}
 
 	private List<CardPrice> crawl(Card card, String url) {
-		return Arrays.asList(crawlPaper(card, url), crawlFoil(card, url + "?foilMode=1")).stream()
+		return Arrays.asList(crawlPaper(card, url), crawlFoil(card, url)).stream()
 				.filter(Objects::nonNull).collect(Collectors.toList());
 	}
 
@@ -56,7 +58,9 @@ public class MkmCrawler {
 		boolean found = false;
 		try {
 			price.setLink(url);
-			Document document = Jsoup.connect(url).get();
+			Response execute = Jsoup.connect(url).cookie("cookies_consent", "accepted")
+					.method(Method.GET).execute();
+			Document document = execute.parse();
 			if (!document.select(".article-table .text-warning").isEmpty()
 					|| card.getEdition().getFoil() == Foil.onlyfoil) {
 				price.setPrice(null);
@@ -83,7 +87,15 @@ public class MkmCrawler {
 		CardPrice price = retrieve(card, CardPriceSource.mkmFoil);
 		boolean found = false;
 		try {
-			Document document = Jsoup.connect(url).get();
+			Document document = Jsoup.connect(url).method(Method.POST) //
+					.data("amount", "") //
+					.data("apply", "Filter") //
+					.data("extra[isAltered]", "0") //
+					.data("extra[isFoil]", "Y") //
+					.data("extra[isPlayset]", "0") //
+					.data("extra[isSigned]", "0") //
+					.data("minCondition", "7") //
+					.execute().parse();
 			price.setLink(url);
 
 			if (!document.select(".article-table .text-warning").isEmpty()
@@ -137,7 +149,7 @@ public class MkmCrawler {
 		List<String> urls = new ArrayList<>();
 		for (String edition : StringUtils.split(editions, '|')) {
 			String base = "https://www.cardmarket.com/en/Magic/Products/Singles/"
-					+ URLEncoder.encode(edition, ENCODING) + "/"
+					+ URLEncoder.encode(edition.replace(' ', '-'), ENCODING) + "/"
 					+ URLEncoder.encode(name(card), ENCODING);
 			if (CardLayout.concatNames().contains(card.getLayout())) {
 				urls.add(base + URLEncoder.encode("-" + name(card.getLinkCard()), ENCODING));

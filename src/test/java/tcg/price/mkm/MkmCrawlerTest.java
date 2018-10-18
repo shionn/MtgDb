@@ -3,11 +3,14 @@ package tcg.price.mkm;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.List;
 
 import org.junit.Test;
 
 import tcg.db.dbo.Card;
 import tcg.db.dbo.CardLayout;
+import tcg.db.dbo.CardPrice;
 import tcg.db.dbo.Edition;
 
 public class MkmCrawlerTest {
@@ -21,7 +24,11 @@ public class MkmCrawlerTest {
 		Card card = new Card();
 		card.setEdition(edition);
 		card.setName("Ob Nixilis Reignited");
-		assertThat(crawler.price(card).get(0).getPrice()).isPositive();
+		List<CardPrice> prices = crawler.price(card);
+		BigDecimal paper = prices.get(0).getPrice();
+		assertThat(paper).isPositive();
+		BigDecimal foil = prices.get(1).getPrice();
+		assertThat(foil).isPositive().isGreaterThan(paper);
 	}
 
 	@Test
