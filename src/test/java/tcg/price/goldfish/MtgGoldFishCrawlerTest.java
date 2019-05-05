@@ -11,12 +11,22 @@ public class MtgGoldFishCrawlerTest {
 
 	@Test
 	public void testPrice() throws Exception {
-		Edition edition = new Edition();
-		edition.setName("Conflux");
-		Card card = new Card();
-		card.setEdition(edition);
-		card.setName("Path to Exile");
-		assertThat(new MtgGoldFishCrawler().price(card).get(0).getPrice()).isPositive();
+		assertThat(
+				new MtgGoldFishCrawler().price(card("Conflux", "Path to Exile")).get(0).getPrice())
+						.isPositive();
+		assertThat(
+				new MtgGoldFishCrawler().price(card("Alliances", "Force of Will")).get(0)
+						.getPrice())
+						.isPositive();
+	}
+
+	private Card card(String edition, String card) {
+		Edition e = new Edition();
+		e.setName(edition);
+		Card c = new Card();
+		c.setEdition(e);
+		c.setName(card);
+		return c;
 	}
 
 }

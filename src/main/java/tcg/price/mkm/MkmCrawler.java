@@ -180,6 +180,7 @@ public class MkmCrawler {
 		}
 		// https://www.cardmarket.com/en/Magic/Products/Singles/Rivals+of+Ixalan/Journey-to-Eternity-Atzal-Cave-of-Eternity
 		// https://www.cardmarket.com/en/Magic/Products/Singles/Battle+for+Zendikar/Ob-Nixilis-Reignited
+		// https://www.cardmarket.com/en/Magic/Products/Singles/Alliances/Force-of-Will
 		return urls;
 	}
 

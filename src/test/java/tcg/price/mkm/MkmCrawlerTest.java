@@ -43,9 +43,9 @@ public class MkmCrawlerTest {
 		Card card = card("Commander", "Serra Angel");
 		assertThat(crawler.price(card).get(0).getPrice()).isPositive();
 		card = card("Kaladesh", "Torrential Gearhulk");
-		List<CardPrice> price = crawler.price(card);
-		assertThat(price.get(0).getPrice()).isPositive();
-		price.stream().forEach(p -> System.out.println(p.getPrice()));
+		assertThat(crawler.price(card).get(0).getPrice()).isPositive();
+		card = card("Alliances", "Force of Will");
+		assertThat(crawler.price(card).get(0).getPrice()).isPositive();
 	}
 
 	private Card card(String editionName, String cardName) {

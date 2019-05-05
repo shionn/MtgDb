@@ -31,8 +31,10 @@ public class MtgGoldFishCrawler {
 
 	public List<CardPrice> price(Card card) {
 		List<CardPrice> prices = new ArrayList<CardPrice>();
-		prices.addAll(crawl(card, CardPriceSource.MtgGoldFishPaper, CardPriceSource.MtgGoldFishTx,
-				buildUrl(card)));
+		if (card.getFoil() != Foil.onlyfoil) {
+			prices.addAll(crawl(card, CardPriceSource.MtgGoldFishPaper,
+					CardPriceSource.MtgGoldFishTx, buildUrl(card)));
+		}
 		if (card.getFoil() != Foil.nofoil) {
 			prices.addAll(crawl(card, CardPriceSource.MtgGoldFishFoilPaper,
 					CardPriceSource.MtgGoldFishFoilTx, buildFoilUrl(card)));
