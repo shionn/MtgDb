@@ -1,4 +1,4 @@
-package tcg.mtgjson;
+package tcg.mtgjson.v1;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
