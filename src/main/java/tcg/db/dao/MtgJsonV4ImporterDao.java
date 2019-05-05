@@ -3,10 +3,10 @@ package tcg.db.dao;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 
-import tcg.mtgjson.v2.api.MtgJsonCard;
-import tcg.mtgjson.v2.api.MtgJsonSet;
+import tcg.mtgjson.v4.api.MtgJsonCard;
+import tcg.mtgjson.v4.api.MtgJsonSet;
 
-public interface MtgJsonV2ImporterDao {
+public interface MtgJsonV4ImporterDao {
 
 	@Insert("INSERT INTO edition (code, name, release_date, mkm_name, mkm_id, online_only, keyrune_code) "
 			+ "VALUES (#{code}, #{name}, #{releaseDate}, #{mcmName}, #{mcmId}, #{onlineOnly}, #{keyruneCode}) "

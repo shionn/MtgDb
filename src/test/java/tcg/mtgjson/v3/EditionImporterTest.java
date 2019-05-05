@@ -1,4 +1,4 @@
-package tcg.mtgjson.v1;
+package tcg.mtgjson.v3;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -11,6 +11,7 @@ import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import tcg.card.formater.CardFormater;
+import tcg.mtgjson.v3.EditionImporter;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EditionImporterTest {

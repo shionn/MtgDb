@@ -1,4 +1,4 @@
-package tcg.mtgjson.v2.api;
+package tcg.mtgjson.v4.api;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import tcg.db.dbo.CardLayout;
 import tcg.db.dbo.CardRarity;
 import tcg.mtgjson.CardLayoutConverter;
-import tcg.mtgjson.v1.api.converter.CardRarityConverter;
+import tcg.mtgjson.v3.api.converter.CardRarityConverter;
 
 /**
  * @See https://mtgjson.com/structures/card/

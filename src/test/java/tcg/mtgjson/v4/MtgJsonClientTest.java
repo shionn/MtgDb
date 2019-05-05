@@ -1,4 +1,4 @@
-package tcg.mtgjson.v2;
+package tcg.mtgjson.v4;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -8,8 +8,9 @@ import java.util.stream.Collectors;
 
 import org.junit.Test;
 
-import tcg.mtgjson.v2.api.MtgJsonSet;
-import tcg.mtgjson.v2.api.SetType;
+import tcg.mtgjson.v4.MtgJsonClient;
+import tcg.mtgjson.v4.api.MtgJsonSet;
+import tcg.mtgjson.v4.api.SetType;
 
 public class MtgJsonClientTest {
 

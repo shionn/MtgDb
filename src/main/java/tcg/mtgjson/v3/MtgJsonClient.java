@@ -1,8 +1,8 @@
-package tcg.mtgjson.v1;
+package tcg.mtgjson.v3;
 
 import org.springframework.web.client.RestTemplate;
 
-import tcg.mtgjson.v1.api.Set;
+import tcg.mtgjson.v3.api.Set;
 
 //@Component
 public class MtgJsonClient {

@@ -1,4 +1,4 @@
-package tcg.mtgjson.v2.api;
+package tcg.mtgjson.v4.api;
 
 public class ForeignData {
 

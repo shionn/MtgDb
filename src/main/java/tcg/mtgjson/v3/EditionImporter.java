@@ -1,4 +1,4 @@
-package tcg.mtgjson.v1;
+package tcg.mtgjson.v3;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,15 +15,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import tcg.card.formater.CardFormater;
-import tcg.db.dao.MtgJsonV1ImporterDao;
+import tcg.db.dao.MtgJsonV3ImporterDao;
 import tcg.db.dbo.CardLayout;
 import tcg.db.dbo.CardTypeClass;
 import tcg.db.dbo.GameLegality;
 import tcg.db.dbo.Legality;
-import tcg.mtgjson.v1.api.Card;
-import tcg.mtgjson.v1.api.Language;
-import tcg.mtgjson.v1.api.Ruling;
-import tcg.mtgjson.v1.api.Set;
+import tcg.mtgjson.v3.api.Card;
+import tcg.mtgjson.v3.api.Language;
+import tcg.mtgjson.v3.api.Ruling;
+import tcg.mtgjson.v3.api.Set;
 
 //@Component
 public class EditionImporter {
@@ -49,7 +49,7 @@ public class EditionImporter {
 			Set set = client.set(codes.pop());
 			logger.info("Start import set <" + set.getCode() + ">");
 			try (SqlSession session = factory.openSession()) {
-				MtgJsonV1ImporterDao dao = session.getMapper(MtgJsonV1ImporterDao.class);
+				MtgJsonV3ImporterDao dao = session.getMapper(MtgJsonV3ImporterDao.class);
 				dao.edition(set);
 				for (Card card : set.getCards()) {
 					dao.card(card, set);

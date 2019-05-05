@@ -1,4 +1,4 @@
-package tcg.mtgjson.v1.api;
+package tcg.mtgjson.v3.api;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,7 +15,7 @@ import tcg.db.dbo.CardLayout;
 import tcg.db.dbo.CardRarity;
 import tcg.db.dbo.Legality;
 import tcg.mtgjson.CardLayoutConverter;
-import tcg.mtgjson.v1.api.converter.CardRarityConverter;
+import tcg.mtgjson.v3.api.converter.CardRarityConverter;
 
 public class Card {
 

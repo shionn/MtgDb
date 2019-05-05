@@ -1,4 +1,4 @@
-package tcg.mtgjson.v2.api;
+package tcg.mtgjson.v4.api;
 
 import java.util.Date;
 import java.util.List;

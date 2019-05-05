@@ -1,4 +1,4 @@
-package tcg.mtgjson.v2;
+package tcg.mtgjson.v4;
 
 import java.util.Collections;
 
@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import tcg.mtgjson.v2.api.MtgJsonSet;
+import tcg.mtgjson.v4.api.MtgJsonSet;
 
 @Component
 public class MtgJsonClient {

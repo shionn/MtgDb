@@ -7,12 +7,12 @@ import org.apache.ibatis.annotations.Update;
 
 import tcg.db.dbo.CardTypeClass;
 import tcg.db.dbo.Legality;
-import tcg.mtgjson.v1.api.Card;
-import tcg.mtgjson.v1.api.ForeignName;
-import tcg.mtgjson.v1.api.Ruling;
-import tcg.mtgjson.v1.api.Set;
+import tcg.mtgjson.v3.api.Card;
+import tcg.mtgjson.v3.api.ForeignName;
+import tcg.mtgjson.v3.api.Ruling;
+import tcg.mtgjson.v3.api.Set;
 
-public interface MtgJsonV1ImporterDao {
+public interface MtgJsonV3ImporterDao {
 
 	/**
 	 * mkm_name n'est pas mis à jour volontairement pour permmetre l'edition

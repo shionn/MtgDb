@@ -1,4 +1,4 @@
-package tcg.mtgjson.v2;
+package tcg.mtgjson.v4;
 
 import java.util.Arrays;
 import java.util.Deque;
@@ -12,10 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import tcg.db.dao.MtgJsonV2ImporterDao;
-import tcg.mtgjson.v1.EditionImporter;
-import tcg.mtgjson.v2.api.MtgJsonCard;
-import tcg.mtgjson.v2.api.MtgJsonSet;
+import tcg.db.dao.MtgJsonV4ImporterDao;
+import tcg.mtgjson.v3.EditionImporter;
+import tcg.mtgjson.v4.api.MtgJsonCard;
+import tcg.mtgjson.v4.api.MtgJsonSet;
 
 @Component
 public class MtgJsonImporter {
@@ -39,7 +39,7 @@ public class MtgJsonImporter {
 			MtgJsonSet set = client.set(codes.pop());
 			logger.info("Start import set <" + set.getCode() + ">");
 			try (SqlSession session = factory.openSession()) {
-				MtgJsonV2ImporterDao dao = session.getMapper(MtgJsonV2ImporterDao.class);
+				MtgJsonV4ImporterDao dao = session.getMapper(MtgJsonV4ImporterDao.class);
 				dao.updateEdition(set);
 				for (MtgJsonCard card : set.getCards()) {
 					dao.updateCard(card, set);
