@@ -13,8 +13,6 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 
 import tcg.card.formater.CardFormater;
 import tcg.db.dao.MtgJsonV1ImporterDao;
@@ -27,7 +25,7 @@ import tcg.mtgjson.v1.api.Language;
 import tcg.mtgjson.v1.api.Ruling;
 import tcg.mtgjson.v1.api.Set;
 
-@Component
+//@Component
 public class EditionImporter {
 
 	private static final int INTERVAL = 5 * 60 * 1000;
@@ -42,7 +40,7 @@ public class EditionImporter {
 
 	private Deque<String> codes = new LinkedList<>();
 
-	@Scheduled(fixedRate = INTERVAL)
+	// @Scheduled(fixedRate = INTERVAL)
 	void doImport() {
 		if (codes.isEmpty()) {
 			Arrays.stream(client.setList()).map(Set::getCode).forEach(code -> codes.add(code));

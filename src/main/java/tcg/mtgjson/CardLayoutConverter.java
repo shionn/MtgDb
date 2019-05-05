@@ -1,4 +1,4 @@
-package tcg.mtgjson.v1.api.converter;
+package tcg.mtgjson;
 
 import com.fasterxml.jackson.databind.util.StdConverter;
 
@@ -8,7 +8,7 @@ public class CardLayoutConverter extends StdConverter<String, CardLayout> {
 
 	@Override
 	public CardLayout convert(String value) {
-		return CardLayout.valueOf(value.replaceAll("-", ""));
+		return CardLayout.valueOf(value.replaceAll("-|_", ""));
 	}
 
 }

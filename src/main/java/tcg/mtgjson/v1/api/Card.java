@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.util.StdConverter;
 import tcg.db.dbo.CardLayout;
 import tcg.db.dbo.CardRarity;
 import tcg.db.dbo.Legality;
-import tcg.mtgjson.v1.api.converter.CardLayoutConverter;
+import tcg.mtgjson.CardLayoutConverter;
 import tcg.mtgjson.v1.api.converter.CardRarityConverter;
 
 public class Card {

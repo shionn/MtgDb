@@ -4,19 +4,25 @@ import java.util.Arrays;
 import java.util.List;
 
 public enum CardLayout {
-	normal,
-	split,
-	flip,
+	aftermath,
+	augment,
 	doublefaced,
-	token,
-	plane,
-	scheme,
-	phenomenon,
+	doublefacedtoken,
+	emblem,
+	flip,
+	host,
 	leveler,
-	vanguard,
 	meld,
-	aftermath;
-
+	normal,
+	phenomenon,
+	planar,
+	plane,
+	saga,
+	scheme,
+	split,
+	vanguard,
+	token,
+	transform;
 	private static final List<CardLayout> CONTCAT_NAMES = Arrays.asList(CardLayout.doublefaced, CardLayout.aftermath, CardLayout.split);
 	private static final List<CardLayout> LINK = Arrays.asList(CardLayout.doublefaced,
 			CardLayout.meld, CardLayout.aftermath, CardLayout.split);
