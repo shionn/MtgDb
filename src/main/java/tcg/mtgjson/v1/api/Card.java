@@ -1,4 +1,4 @@
-package tcg.mtgjson.api;
+package tcg.mtgjson.v1.api;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,8 +14,8 @@ import com.fasterxml.jackson.databind.util.StdConverter;
 import tcg.db.dbo.CardLayout;
 import tcg.db.dbo.CardRarity;
 import tcg.db.dbo.Legality;
-import tcg.mtgjson.api.converter.CardLayoutConverter;
-import tcg.mtgjson.api.converter.CardRarityConverter;
+import tcg.mtgjson.v1.api.converter.CardLayoutConverter;
+import tcg.mtgjson.v1.api.converter.CardRarityConverter;
 
 public class Card {
 

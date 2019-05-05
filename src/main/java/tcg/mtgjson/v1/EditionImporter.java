@@ -1,4 +1,4 @@
-package tcg.mtgjson;
+package tcg.mtgjson.v1;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,15 +17,15 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import tcg.card.formater.CardFormater;
-import tcg.db.dao.ImporterDao;
+import tcg.db.dao.MtgJsonV1ImporterDao;
 import tcg.db.dbo.CardLayout;
 import tcg.db.dbo.CardTypeClass;
 import tcg.db.dbo.GameLegality;
 import tcg.db.dbo.Legality;
-import tcg.mtgjson.api.Card;
-import tcg.mtgjson.api.Language;
-import tcg.mtgjson.api.Ruling;
-import tcg.mtgjson.api.Set;
+import tcg.mtgjson.v1.api.Card;
+import tcg.mtgjson.v1.api.Language;
+import tcg.mtgjson.v1.api.Ruling;
+import tcg.mtgjson.v1.api.Set;
 
 @Component
 public class EditionImporter {
@@ -51,7 +51,7 @@ public class EditionImporter {
 			Set set = client.set(codes.pop());
 			logger.info("Start import set <" + set.getCode() + ">");
 			try (SqlSession session = factory.openSession()) {
-				ImporterDao dao = session.getMapper(ImporterDao.class);
+				MtgJsonV1ImporterDao dao = session.getMapper(MtgJsonV1ImporterDao.class);
 				dao.edition(set);
 				for (Card card : set.getCards()) {
 					dao.card(card, set);

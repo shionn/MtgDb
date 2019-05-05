@@ -1,8 +1,8 @@
-package tcg.mtgjson.api;
+package tcg.mtgjson.v1.api;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import tcg.mtgjson.api.converter.LanguageConverter;
+import tcg.mtgjson.v1.api.converter.LanguageConverter;
 
 public class ForeignName {
 
