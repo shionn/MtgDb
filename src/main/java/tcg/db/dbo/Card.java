@@ -9,6 +9,9 @@ import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 
 public class Card {
+	public enum Foil {
+		both, onlyfoil, nofoil
+	}
 
 	private String id;
 	private String card;
@@ -29,8 +32,9 @@ public class Card {
 	private int cmc;
 
 	private CardLayout layout;
-	private Edition edition;
 	private CardRarity rarity;
+	private Edition edition;
+	private Foil foil;
 	private List<CardPrinting> printings;
 	private List<CardPrice> prices = new ArrayList<>();
 	private List<CardLang> langs = new ArrayList<>();
@@ -307,6 +311,14 @@ public class Card {
 
 	public void setLegalities(List<Legality> legalities) {
 		this.legalities = legalities;
+	}
+
+	public Foil getFoil() {
+		return foil;
+	}
+
+	public void setFoil(Foil foil) {
+		this.foil = foil;
 	}
 
 }

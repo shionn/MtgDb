@@ -18,10 +18,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import tcg.db.dbo.Card;
+import tcg.db.dbo.Card.Foil;
 import tcg.db.dbo.CardLayout;
 import tcg.db.dbo.CardPrice;
 import tcg.db.dbo.CardPriceSource;
-import tcg.db.dbo.Edition.Foil;
 
 @Component
 public class MtgGoldFishCrawler {
@@ -33,7 +33,7 @@ public class MtgGoldFishCrawler {
 		List<CardPrice> prices = new ArrayList<CardPrice>();
 		prices.addAll(crawl(card, CardPriceSource.MtgGoldFishPaper, CardPriceSource.MtgGoldFishTx,
 				buildUrl(card)));
-		if (card.getEdition().getFoil() != Foil.nofoil) {
+		if (card.getFoil() != Foil.nofoil) {
 			prices.addAll(crawl(card, CardPriceSource.MtgGoldFishFoilPaper,
 					CardPriceSource.MtgGoldFishFoilTx, buildFoilUrl(card)));
 		}

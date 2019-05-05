@@ -3,23 +3,18 @@ package tcg.db.dbo;
 import java.util.Date;
 
 public class Edition {
-	public enum Foil {
-		both, onlyfoil, nofoil
-	}
 
 	private String code;
-	private String icon;
-	private String mciCode;
 	private String name;
 	private Date releaseDate;
 	private String mkmName;
 	private String goldfishName;
 	private int mkmId;
 	private boolean onlineOnly;
-	private Foil foil;
+	private String keyruneCode;
 
 	public String getIcon() {
-		return icon == null ? code.toLowerCase() : icon;
+		return keyruneCode == null ? null : keyruneCode.toLowerCase();
 	}
 
 	public String getCode() {
@@ -28,14 +23,6 @@ public class Edition {
 
 	public void setCode(String code) {
 		this.code = code;
-	}
-
-	public String getMciCode() {
-		return mciCode;
-	}
-
-	public void setMciCode(String mciCode) {
-		this.mciCode = mciCode;
 	}
 
 	public String getName() {
@@ -86,16 +73,11 @@ public class Edition {
 		this.onlineOnly = onlineOnly;
 	}
 
-	public Foil getFoil() {
-		return foil;
+	public void setKeyruneCode(String keyruneCode) {
+		this.keyruneCode = keyruneCode;
 	}
 
-	public void setFoil(Foil foil) {
-		this.foil = foil;
+	public String getKeyruneCode() {
+		return keyruneCode;
 	}
-
-	public void setIcon(String icon) {
-		this.icon = icon;
-	}
-
 }

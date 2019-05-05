@@ -7,10 +7,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import tcg.db.dbo.Card.Foil;
 import tcg.db.dbo.CardLayout;
 import tcg.db.dbo.CardRarity;
-import tcg.mtgjson.CardLayoutConverter;
-import tcg.mtgjson.v3.api.converter.CardRarityConverter;
+import tcg.mtgjson.v4.api.converter.CardLayoutConverter;
+import tcg.mtgjson.v4.api.converter.CardRarityConverter;
 
 /**
  * @See https://mtgjson.com/structures/card/
@@ -21,11 +22,11 @@ public class MtgJsonCard {
 	private List<String> colors;
 	private float convertedManaCost;
 	private String flavorText;
-	// TODO private List<ForeignData> foreignData;
+	private List<MtgJsonForeignData> foreignData;
 	private boolean hasFoil, hasNonFoil, isAlternative, isOnlineOnly, isOversized, isReserved;
 	@JsonDeserialize(converter = CardLayoutConverter.class)
 	private CardLayout layout;
-	// TODO List<Legality> legalities;
+	private MtgJsonLegalities legalities;
 	private String loyalty;
 	private String manaCost;
 	private String name;
@@ -35,7 +36,7 @@ public class MtgJsonCard {
 	private String power;
 	@JsonDeserialize(converter = CardRarityConverter.class)
 	private CardRarity rarity;
-	// TODO private List<Ruling> rulings;
+	private List<MtgJsonRuling> rulings;
 	private List<String> subtypes;
 	private List<String> supertypes;
 	private String text;
@@ -50,6 +51,16 @@ public class MtgJsonCard {
 
 	public String getColorIdentityId() {
 		return StringUtils.join(colorIdentity.toArray());
+	}
+
+	public Foil getFoil() {
+		if (hasFoil && hasNonFoil) {
+			return Foil.both;
+		}
+		if (hasFoil) {
+			return Foil.onlyfoil;
+		}
+		return Foil.nofoil;
 	}
 
 	public String getNameId() {
@@ -270,6 +281,30 @@ public class MtgJsonCard {
 
 	public void setNumber(String number) {
 		this.number = number;
+	}
+
+	public List<MtgJsonRuling> getRulings() {
+		return rulings;
+	}
+
+	public void setRulings(List<MtgJsonRuling> rulings) {
+		this.rulings = rulings;
+	}
+
+	public MtgJsonLegalities getLegalities() {
+		return legalities;
+	}
+
+	public void setLegalities(MtgJsonLegalities legalities) {
+		this.legalities = legalities;
+	}
+
+	public List<MtgJsonForeignData> getForeignData() {
+		return foreignData;
+	}
+
+	public void setForeignData(List<MtgJsonForeignData> foreignData) {
+		this.foreignData = foreignData;
 	}
 
 }

@@ -27,10 +27,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.ApplicationScope;
 
 import tcg.db.dbo.Card;
+import tcg.db.dbo.Card.Foil;
 import tcg.db.dbo.CardLayout;
 import tcg.db.dbo.CardPrice;
 import tcg.db.dbo.CardPriceSource;
-import tcg.db.dbo.Edition.Foil;
 
 @Component
 @ApplicationScope
@@ -83,7 +83,7 @@ public class MkmCrawler {
 					.method(Method.GET).execute();
 			Document document = execute.parse();
 			if (!document.select(".article-table .text-warning").isEmpty()
-					|| card.getEdition().getFoil() == Foil.onlyfoil) {
+					|| card.getFoil() == Foil.onlyfoil) {
 				price.setPrice(null);
 				price.setPriceDate(new Date());
 			} else {
@@ -120,7 +120,7 @@ public class MkmCrawler {
 			price.setLink(url);
 
 			if (!document.select(".article-table .text-warning").isEmpty()
-					|| card.getEdition().getFoil() == Foil.nofoil) {
+					|| card.getFoil() == Foil.nofoil) {
 				/**
 				 * on est dans un cas le foil n'existe probablement pas. Si un enregistrement en
 				 * base existe on le passe à null. c'est degueux.

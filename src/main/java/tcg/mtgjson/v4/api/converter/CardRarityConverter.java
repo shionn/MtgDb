@@ -1,4 +1,4 @@
-package tcg.mtgjson.v3.api.converter;
+package tcg.mtgjson.v4.api.converter;
 
 import com.fasterxml.jackson.databind.util.StdConverter;
 

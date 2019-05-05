@@ -4,11 +4,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
 
-import tcg.mtgjson.v4.MtgJsonClient;
+import tcg.mtgjson.v4.api.MtgJsonCard;
 import tcg.mtgjson.v4.api.MtgJsonSet;
 import tcg.mtgjson.v4.api.SetType;
 
@@ -22,9 +23,9 @@ public class MtgJsonClientTest {
 		assertThat(new MtgJsonClient().set("MPS").getKeyruneCode().length())
 				.isEqualByComparingTo(3);
 		assertThat(new MtgJsonClient().set("PFRF").getType()).isEqualTo(SetType.promo);
-		// assertThat(new MtgJsonClient().set("pFNM").getCards().stream().map(Card::getSource)
-		// .filter(Objects::nonNull).distinct().map(s -> s.length())
-		// .collect(Collectors.toList())).containsOnly(24, 129);
+		assertThat(new MtgJsonClient().set("HTR").getCards().stream().map(MtgJsonCard::getLoyalty)
+				.filter(Objects::nonNull).distinct().collect(Collectors.toList())).containsOnly("3",
+						"1d4+1");
 
 	}
 

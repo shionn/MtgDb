@@ -5,7 +5,6 @@ package tcg;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
 
 import javax.servlet.Filter;
 import javax.servlet.ServletContext;
@@ -18,7 +17,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.http.CacheControl;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.DelegatingFilterProxy;
@@ -31,7 +29,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
-import org.springframework.web.servlet.mvc.WebContentInterceptor;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
@@ -128,9 +125,9 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 			LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
 			interceptor.setParamName("lg");
 			registry.addInterceptor(interceptor);
-			WebContentInterceptor web = new WebContentInterceptor();
-			web.addCacheMapping(CacheControl.maxAge(30, TimeUnit.DAYS), "/c/img/**");
-			registry.addInterceptor(web);
+			// WebContentInterceptor web = new WebContentInterceptor();
+			// web.addCacheMapping(CacheControl.maxAge(30, TimeUnit.DAYS), "/c/img/**");
+			// registry.addInterceptor(web);
 		}
 	}
 }
