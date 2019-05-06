@@ -17,7 +17,7 @@ public interface EditionListDao {
 	@Select("SELECT * FROM edition " //
 			+ "WHERE type NOT IN ('expansion', 'core', 'promo', 'archenemy', 'commander', "
 			+ "'vanguard', 'funny', 'planechase', 'fromthevault', 'premiumdeck', 'spellbook', "
-			+ "'masters', 'masterpiece', 'box', 'dueldeck') " //
+			+ "'masters', 'masterpiece', 'box', 'dueldeck') OR ( block IS NULL AND type IN ( 'promo', 'masterpiece') )" //
 			+ "ORDER BY release_date DESC")
 	List<Edition> listEditions();
 
@@ -33,10 +33,9 @@ public interface EditionListDao {
 
 
 	@Select("<script>SELECT * FROM edition " //
-			+ "WHERE type IN (#{type}, 'promo', 'masterpiece') " //
-			+ "<if test=\"block == null\">  AND block IS NULL </if>" //
-			+ "<if test=\"block != null\">  AND block = #{block} </if>" //
-			+ "ORDER BY release_date DESC</script>")
+			+ "<if test=\"block == null\">WHERE block IS NULL    AND type = #{type} </if>" //
+			+ "<if test=\"block != null\">WHERE block = #{block} AND type IN (#{type}, 'promo', 'masterpiece') </if>" //
+			+ "ORDER BY type ASC, release_date DESC</script>")
 	List<Edition> readExpansionEdition(@Param("block") String block,
 			@Param("type") EditionType type);
 

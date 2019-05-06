@@ -17,8 +17,8 @@
 									<ul>
 										<c:forEach items="${block.editions}" var="e">
 											<li>
-												<i class="${e.iconClass}"></i>
-												<a href="<spring:url value="/as/ed/${e.code}"/>">${e.name}</a>
+												<i class="${e.iconClass}" title="${e.code}"></i>
+												<a href="<spring:url value="/as/ed/${e.code}"/>">${e.simplifiedName}</a>
 											</li>
 										</c:forEach>
 									</ul>
@@ -32,7 +32,7 @@
 				<table>
 					<c:forEach items="${editions}" var="e">
 						<tr>
-							<td><i class="${e.iconClass}"></i></td>
+							<td><i class="${e.iconClass}" title="${e.code}"></i></td>
 							<td>${e.name}</td>
 							<td><fmt:formatDate value="${e.releaseDate}" /></td>
 						</tr>

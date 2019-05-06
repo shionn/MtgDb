@@ -1,9 +1,12 @@
 package tcg.db.dbo;
 
 import java.util.Date;
+import java.util.regex.Pattern;
 
 public class Edition {
 
+	private static final Pattern SIMPLIFIED_NAMES = Pattern
+			.compile("(Duel Decks: )|(From the Vault: )|(Premium Deck Series: )|( Promos)");
 	private String code;
 	private String name;
 	private Date releaseDate;
@@ -13,6 +16,10 @@ public class Edition {
 	private boolean onlineOnly;
 	private String keyruneCode;
 	private EditionType type;
+
+	public String getSimplifiedName() {
+		return SIMPLIFIED_NAMES.matcher(name).replaceAll("");
+	}
 
 	public String getIcon() {
 		return keyruneCode == null ? null : keyruneCode.toLowerCase();
