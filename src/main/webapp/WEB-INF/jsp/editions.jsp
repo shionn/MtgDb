@@ -16,7 +16,10 @@
 								<section>
 									<ul>
 										<c:forEach items="${block.editions}" var="e">
-											<li><i class="${e.iconClass}"></i> ${e.name}</li>
+											<li>
+												<i class="${e.iconClass}"></i>
+												<a href="<spring:url value="/as/ed/${e.code}"/>">${e.name}</a>
+											</li>
 										</c:forEach>
 									</ul>
 								</section>

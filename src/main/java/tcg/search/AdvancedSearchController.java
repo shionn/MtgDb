@@ -76,6 +76,13 @@ public class AdvancedSearchController {
 		return new ModelAndView("advanced-search").addObject("filters", filters).addObject("cards", cards);
 	}
 
+	@RequestMapping(path = "/as/ed/{edition}", method = RequestMethod.GET)
+	public String openEdition(@PathVariable("edition") String edition) {
+		this.filters.clear();
+		this.filters.add(buildFilter(FilterType.Edition, edition));
+		return "redirect:/as";
+	}
+
 	@RequestMapping(path = "/as/{type}/{value:.*}", method = RequestMethod.GET)
 	public String addFilter(@PathVariable("type") FilterType type, @PathVariable("value") String value) {
 		Filter filter = buildFilter(type, value);
