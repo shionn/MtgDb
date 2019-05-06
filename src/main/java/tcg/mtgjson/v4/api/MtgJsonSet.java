@@ -3,12 +3,18 @@ package tcg.mtgjson.v4.api;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import tcg.db.dbo.EditionType;
+import tcg.mtgjson.v4.api.converter.EditionTypeConverter;
+
 public class MtgJsonSet {
 
 	private String name;
 	private String code;
 	private Date releaseDate;
-	private SetType type;
+	@JsonDeserialize(converter = EditionTypeConverter.class)
+	private EditionType type;
 	private String block;
 	private boolean isOnlineOnly;
 	private List<MtgJsonCard> cards;
@@ -41,11 +47,11 @@ public class MtgJsonSet {
 		this.releaseDate = releaseDate;
 	}
 
-	public SetType getType() {
+	public EditionType getType() {
 		return type;
 	}
 
-	public void setType(SetType type) {
+	public void setType(EditionType type) {
 		this.type = type;
 	}
 

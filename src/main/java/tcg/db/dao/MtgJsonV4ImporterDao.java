@@ -10,33 +10,36 @@ import org.apache.ibatis.annotations.Update;
 
 import tcg.db.dbo.CardTypeClass;
 import tcg.db.dbo.GameLegality;
-import tcg.mtgjson.v3.api.Language;
+import tcg.mtgjson.v4.api.Language;
 import tcg.mtgjson.v4.api.MtgJsonCard;
 import tcg.mtgjson.v4.api.MtgJsonRuling;
 import tcg.mtgjson.v4.api.MtgJsonSet;
 
 public interface MtgJsonV4ImporterDao {
 
-	@Insert("INSERT INTO edition (code, name, release_date, mkm_name, mkm_id, online_only, keyrune_code) "
-			+ "VALUES (#{code}, #{name}, #{releaseDate}, #{mcmName}, #{mcmId}, #{onlineOnly}, #{keyruneCode} ) "
+	@Insert("INSERT INTO edition (code, name, release_date, mkm_name, mkm_id, online_only, "
+			+ "keyrune_code, type) "
+			+ "VALUES (#{code}, #{name}, #{releaseDate}, #{mcmName}, #{mcmId}, #{onlineOnly}, "
+			+ "#{keyruneCode}, #{type} ) " //
 			+ "ON DUPLICATE KEY UPDATE "
 			+ "name = #{name}, release_date = #{releaseDate}, mkm_name = #{mcmName}, "
 			+ "mkm_id = #{mcmId}, online_only = #{onlineOnly}, keyrune_code = #{keyruneCode}, "
+			+ "type = #{type}, " //
 			+ "update_date = NOW() ")
 	int updateEdition(MtgJsonSet set);
 
-	@Insert("INSERT INTO card (id, card, edition, foil, number, "
+	@Insert("INSERT INTO card (id, card, edition, foil, number, side, "
 			+ "name, text, flavor, original_text, artist, type, original_type, " //
 			+ "mana_cost, cmc, colors, color_identity, " //
 			+ "layout, rarity, reserved, " //
-			+ "power, toughness, loyalty) " //
-			+ "VALUES (#{c.uuid}, #{c.nameId}, #{s.code}, #{c.foil}, #{c.number}, "
+			+ "power, toughness, loyalty, update_date) " //
+			+ "VALUES (#{c.uuid}, #{c.nameId}, #{s.code}, #{c.foil}, #{c.number}, #{c.side}, "
 			+ "#{c.name}, #{c.text}, #{c.flavorText}, #{c.originalText}, #{c.artist}, #{c.type}, #{c.originalType}, "
 			+ "#{c.manaCost}, #{c.convertedManaCost}, #{c.colorsId}, #{c.colorIdentityId}, "
 			+ "#{c.layout}, #{c.rarity}, #{c.reserved}, " //
-			+ "#{c.power}, #{c.toughness}, #{c.loyalty}) " //
+			+ "#{c.power}, #{c.toughness}, #{c.loyalty}, NOW()) " //
 			+ "ON DUPLICATE KEY UPDATE " //
-			+ "card = #{c.nameId}, edition = #{s.code}, foil = #{c.foil}, number = #{c.number}, "
+			+ "card = #{c.nameId}, edition = #{s.code}, foil = #{c.foil}, number = #{c.number}, side = #{c.side}, "
 			+ "name = #{c.name}, text = #{c.text}, flavor = #{c.flavorText}, original_text = #{c.originalText}, artist = #{c.artist}, type = #{c.type}, original_type = #{c.originalType}, "
 			+ "mana_cost = #{c.manaCost}, cmc = #{c.convertedManaCost}, colors = #{c.colorsId}, color_identity = #{c.colorIdentityId}, "
 			+ "layout = #{c.layout}, rarity = #{c.rarity}, reserved = #{c.reserved}, "
@@ -81,6 +84,9 @@ public interface MtgJsonV4ImporterDao {
 	int insertAssistance(@Param("c") String id, @Param("l") String lang,
 			@Param("a") String assistance);
 
+	@Insert("UPDATE card SET link_card = #{id2} WHERE id = #{id1}")
+	int updateLinkCard(@Param("id1") String uuid1, @Param("id2") String uuid2);
+
 	// en java on filtre sur ceux qui contienne pas de -
 	@Select("SELECT id FROM card WHERE name = #{c.name} AND edition = #{s.code}")
 	List<String> readOldIds(@Param("c") MtgJsonCard card, @Param("s") MtgJsonSet set);
@@ -94,9 +100,11 @@ public interface MtgJsonV4ImporterDao {
 	@Delete("DELETE FROM card_lang WHERE id = #{id}")
 	int deleteCardLang(String oldId);
 
+	@Update("UPDATE card SET link_card = NULL WHERE link_card = #{id}")
+	int unlinkCard(String oldId);
+
 	@Delete("DELETE FROM card WHERE id = #{id}")
 	int deleteCard(String oldId);
-
 
 
 }

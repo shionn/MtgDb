@@ -1,18 +1,18 @@
-package tcg.mtgjson.v4.api;
+package tcg.db.dbo;
 
 
-public enum SetType {
+public enum EditionType {
 	archenemy,
 	box,
 	core,
 	commander,
-	draft_innovation,
-	duel_deck,
+	draftinnovation,
+	dueldeck,
 	expansion,
-	from_the_vault,
+	fromthevault,
 	funny,
 	planechase,
-	premium_deck,
+	premiumdeck,
 	promo,
 	masterpiece,
 	masters,
@@ -20,6 +20,6 @@ public enum SetType {
 	spellbook,
 	starter,
 	token,
-	treasure_chest,
+	treasurechest,
 	vanguard,
 }

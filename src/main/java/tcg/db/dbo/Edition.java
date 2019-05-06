@@ -12,9 +12,14 @@ public class Edition {
 	private int mkmId;
 	private boolean onlineOnly;
 	private String keyruneCode;
+	private EditionType type;
 
 	public String getIcon() {
 		return keyruneCode == null ? null : keyruneCode.toLowerCase();
+	}
+
+	public String getIconClass() {
+		return "ss ss-" + getIcon() + (type == EditionType.promo ? " ss-foil ss-grad" : "");
 	}
 
 	public String getCode() {

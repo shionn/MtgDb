@@ -23,15 +23,19 @@ public enum CardLayout {
 	vanguard,
 	token,
 	transform;
-	private static final List<CardLayout> CONTCAT_NAMES = Arrays.asList(CardLayout.doublefaced, CardLayout.aftermath, CardLayout.split);
+	private static final List<CardLayout> CONCAT_NAMES = Arrays.asList(CardLayout.doublefaced, CardLayout.aftermath, CardLayout.split);
 	private static final List<CardLayout> LINK = Arrays.asList(CardLayout.doublefaced,
-			CardLayout.meld, CardLayout.aftermath, CardLayout.split);
+			CardLayout.aftermath, CardLayout.split);
+
+	public boolean isLink() {
+		return LINK.contains(this);
+	}
 
 	public static List<CardLayout> links() {
 		return LINK;
 	}
 
 	public static List<CardLayout> concatNames() {
-		return CONTCAT_NAMES;
+		return CONCAT_NAMES;
 	}
 }

@@ -9,9 +9,9 @@ import java.util.stream.Collectors;
 
 import org.junit.Test;
 
+import tcg.db.dbo.EditionType;
 import tcg.mtgjson.v4.api.MtgJsonCard;
 import tcg.mtgjson.v4.api.MtgJsonSet;
-import tcg.mtgjson.v4.api.SetType;
 
 public class MtgJsonClientTest {
 
@@ -22,7 +22,7 @@ public class MtgJsonClientTest {
 
 		assertThat(new MtgJsonClient().set("MPS").getKeyruneCode().length())
 				.isEqualByComparingTo(3);
-		assertThat(new MtgJsonClient().set("PFRF").getType()).isEqualTo(SetType.promo);
+		assertThat(new MtgJsonClient().set("PFRF").getType()).isEqualTo(EditionType.promo);
 		assertThat(new MtgJsonClient().set("HTR").getCards().stream().map(MtgJsonCard::getLoyalty)
 				.filter(Objects::nonNull).distinct().collect(Collectors.toList())).containsOnly("3",
 						"1d4+1");

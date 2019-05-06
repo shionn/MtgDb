@@ -11,7 +11,7 @@
 				<table>
 					<c:forEach items="${editions}" var="e">
 						<tr>
-							<td><i class="ss ss-${e.icon}"></i></td>
+							<td><i class="${e.iconClass}"></i></td>
 							<td>${e.name}</td>
 							<td><fmt:formatDate value="${e.releaseDate}" /></td>
 						</tr>

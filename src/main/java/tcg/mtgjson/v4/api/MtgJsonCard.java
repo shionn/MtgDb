@@ -30,6 +30,7 @@ public class MtgJsonCard {
 	private String loyalty;
 	private String manaCost;
 	private String name;
+	private List<String> names;
 	private String number;
 	private String originalText;
 	private String originalType;
@@ -37,6 +38,7 @@ public class MtgJsonCard {
 	@JsonDeserialize(converter = CardRarityConverter.class)
 	private CardRarity rarity;
 	private List<MtgJsonRuling> rulings;
+	private String side;
 	private List<String> subtypes;
 	private List<String> supertypes;
 	private String text;
@@ -305,6 +307,22 @@ public class MtgJsonCard {
 
 	public void setForeignData(List<MtgJsonForeignData> foreignData) {
 		this.foreignData = foreignData;
+	}
+
+	public String getSide() {
+		return side;
+	}
+
+	public void setSide(String side) {
+		this.side = side;
+	}
+
+	public List<String> getNames() {
+		return names;
+	}
+
+	public void setNames(List<String> names) {
+		this.names = names;
 	}
 
 }

@@ -18,8 +18,7 @@ import org.springframework.stereotype.Component;
 import tcg.card.formater.CardFormater;
 import tcg.db.dao.MtgJsonV4ImporterDao;
 import tcg.db.dbo.CardTypeClass;
-import tcg.mtgjson.v3.EditionImporter;
-import tcg.mtgjson.v3.api.Language;
+import tcg.mtgjson.v4.api.Language;
 import tcg.mtgjson.v4.api.MtgJsonCard;
 import tcg.mtgjson.v4.api.MtgJsonLegalities;
 import tcg.mtgjson.v4.api.MtgJsonRuling;
@@ -29,7 +28,7 @@ import tcg.mtgjson.v4.api.MtgJsonSet;
 public class MtgJsonImporter {
 	// private static final int INTERVAL = 5 * 60 * 1000;
 	private static final int INTERVAL = 5;
-	private Logger logger = LoggerFactory.getLogger(EditionImporter.class);
+	private Logger logger = LoggerFactory.getLogger(MtgJsonImporter.class);
 
 	@Autowired
 	private SqlSessionFactory factory;
@@ -38,7 +37,7 @@ public class MtgJsonImporter {
 	@Autowired
 	private CardFormater formater;
 
-	private Deque<String> codes = new LinkedList<>();
+	private Deque<String> codes = new LinkedList<>(Arrays.asList());
 
 	@Scheduled(fixedRate = INTERVAL)
 	void doImport() {
@@ -52,6 +51,7 @@ public class MtgJsonImporter {
 			try (SqlSession session = factory.openSession()) {
 				MtgJsonV4ImporterDao dao = session.getMapper(MtgJsonV4ImporterDao.class);
 				dao.updateEdition(set);
+				MtgJsonCard previous = null;
 				for (MtgJsonCard card : set.getCards()) {
 					dao.updateCard(card, set);
 					updateCardName(dao, card);
@@ -59,7 +59,12 @@ public class MtgJsonImporter {
 					updateRules(card, dao);
 					updateLegality(card, dao);
 					updateAssistance(card, dao);
+					if (previous != null && previous.getLayout().isLink()) {
+						dao.updateLinkCard(card.getUuid(), previous.getUuid());
+						dao.updateLinkCard(previous.getUuid(), card.getUuid());
+					}
 					removeOldCard(set, card, dao);
+					previous = card;
 				}
 				session.commit();
 			}
@@ -80,6 +85,7 @@ public class MtgJsonImporter {
 			dao.deleteAssistance(oldId);
 			dao.deleteCardPrice(oldId);
 			dao.deleteCardLang(oldId);
+			dao.unlinkCard(oldId);
 			dao.deleteCard(oldId);
 		});
 	}

@@ -62,7 +62,7 @@
 								class="ajax closeModal"
 								data-update="section.cube li[data-card=${entry.card.card}],table.deck,section.deck-title"
 								title="${p.edition.name}">
-							<i class="ss ss-${p.edition.icon}"></i>
+							<i class="${p.edition.iconClass}"></i>
 						</a>
 					</li>
 				</c:forEach>
