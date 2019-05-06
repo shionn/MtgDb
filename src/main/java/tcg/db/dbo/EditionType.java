@@ -3,7 +3,7 @@ package tcg.db.dbo;
 
 public enum EditionType {
 	archenemy("Archenemy"),
-	box(""),
+	box("Boite"),
 	core(""),
 	commander("Commander"),
 	draftinnovation(""),

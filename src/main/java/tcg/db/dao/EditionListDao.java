@@ -17,7 +17,7 @@ public interface EditionListDao {
 	@Select("SELECT * FROM edition " //
 			+ "WHERE type NOT IN ('expansion', 'core', 'promo', 'archenemy', 'commander', "
 			+ "'vanguard', 'funny', 'planechase', 'fromthevault', 'premiumdeck', 'spellbook', "
-			+ "'masters', 'masterpiece') " //
+			+ "'masters', 'masterpiece', 'box') " //
 			+ "ORDER BY release_date DESC")
 	List<Edition> listEditions();
 

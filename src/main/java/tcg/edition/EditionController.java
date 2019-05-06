@@ -27,7 +27,8 @@ public class EditionController {
 						dao.readGroup(EditionType.planechase), dao.readGroup(EditionType.vanguard))) //
 				.addObject("collections", Arrays.asList(dao.readGroup(EditionType.fromthevault),
 						dao.readGroup(EditionType.premiumdeck),
-						dao.readGroup(EditionType.spellbook), dao.readGroup(EditionType.masters))) //
+						dao.readGroup(EditionType.spellbook), dao.readGroup(EditionType.masters),
+						dao.readGroup(EditionType.box))) //
 				.addObject("editions", dao.listEditions());
 	}
 
