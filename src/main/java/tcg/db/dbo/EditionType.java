@@ -6,7 +6,7 @@ public enum EditionType {
 	box("Boite"),
 	core(""),
 	commander("Commander"),
-	draftinnovation(""),
+	draftinnovation("Draft"),
 	dueldeck("Duel Deck"),
 	expansion(""),
 	fromthevault("From the Vault"),
@@ -18,7 +18,7 @@ public enum EditionType {
 	masters("Master"),
 	memorabilia(""),
 	spellbook("Spell Book"),
-	starter(""),
+	starter("Starters"),
 	token(""),
 	treasurechest(""),
 	vanguard("Vanguard");

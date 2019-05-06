@@ -25,17 +25,19 @@ public class EditionController {
 	public ModelAndView editions() {
 		EditionListDao dao = session.getMapper(EditionListDao.class);
 		List<List<EditionGroup>> groups = new ArrayList<>();
-		groups.add(dao.readBlock(EditionType.core));
+		groups.add(Arrays.asList(dao.readBlock(EditionType.core).get(0),
+				dao.readGroup(EditionType.starter)));
 		groups.add(dao.readBlock(EditionType.expansion));
 		groups.add(Arrays.asList(dao.readGroup(EditionType.archenemy),
 				dao.readGroup(EditionType.commander), dao.readGroup(EditionType.funny),
 				dao.readGroup(EditionType.planechase), dao.readGroup(EditionType.vanguard)));
 		groups.add(Arrays.asList(dao.readGroup(EditionType.fromthevault), //
-				dao.readGroup(EditionType.premiumdeck), //
 				dao.readGroup(EditionType.spellbook), //
-				dao.readGroup(EditionType.masters), //
 				dao.readGroup(EditionType.dueldeck), //
-				dao.readGroup(EditionType.box)));
+				dao.readGroup(EditionType.premiumdeck), //
+				dao.readGroup(EditionType.box), //
+				dao.readGroup(EditionType.draftinnovation), //
+				dao.readGroup(EditionType.masters)));
 		List<Edition> others = dao.listEditions();
 		groups.stream().filter(Objects::nonNull).flatMap(g -> g.stream())
 				.filter(Objects::nonNull)

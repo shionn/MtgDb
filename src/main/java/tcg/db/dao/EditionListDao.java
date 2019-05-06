@@ -30,11 +30,11 @@ public interface EditionListDao {
 
 	@Select("<script>SELECT * FROM edition "
 			+ "WHERE "
-			+ " ( parent_code IN ( SELECT code FROM edition WHERE block = #{block} AND type = #{type} ) "
-			+ "      AND type IN ('promo', 'masterpiece') )"
-			+ " OR ( block = #{block} AND type = #{type}) " //
-			// + "<if test=\"block == null\">WHERE block IS NULL AND type = #{type} </if>" //
-			// + "<if test=\"block != null\">WHERE block = #{block} AND type IN (#{type}, 'promo', 'masterpiece') </if>" //
+			+ "<if test=\"block != null\"> parent_code IN ( SELECT code FROM edition WHERE block = #{block} AND type = #{type} ) "
+			+ "      AND type IN ('promo', 'masterpiece', 'token') " //
+			+ " OR ( block = #{block} AND type = #{type}) </if>" //
+			+ "<if test=\"block == null\"> parent_code IN ( SELECT code FROM edition WHERE block IS NULL AND type = #{type} ) "
+			+ " OR ( block IS NULL AND type = #{type}) </if>" //
 			+ "ORDER BY release_date DESC, type ASC</script>")
 	List<Edition> readExpansionEdition(@Param("block") String block,
 			@Param("type") EditionType type);
