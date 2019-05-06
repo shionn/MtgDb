@@ -19,7 +19,7 @@ public class Edition {
 	}
 
 	public String getIconClass() {
-		return "ss ss-" + getIcon() + (type == EditionType.promo ? " ss-foil ss-grad" : "");
+		return "ss ss-" + getIcon() + (type == EditionType.promo ? " ss-promo" : "");
 	}
 
 	public String getCode() {

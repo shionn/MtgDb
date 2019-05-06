@@ -19,6 +19,7 @@ a {
 	color: @text-color;
 	text-decoration: none;
 }
+
 p > .mi {
 	position: relative;
 	top: 1px;
@@ -34,12 +35,19 @@ body > article.main {
 @import "form.less";
 @import "table.less";
 @import "modal.less";
-
 @import "editions.less";
-
 @import "card.less";
 @import "advanced-search.less";
 @import "trade.less";
 @import "login.less";
 @import "deck.less";
+
+.ss-promo::after {
+	content: 'p';
+	position: absolute;
+	right: -5px;
+	bottom: -5px;
+	color: black;
+	font-size: small;
+}
 

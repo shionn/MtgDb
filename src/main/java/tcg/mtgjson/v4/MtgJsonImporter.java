@@ -37,7 +37,7 @@ public class MtgJsonImporter {
 	@Autowired
 	private CardFormater formater;
 
-	private Deque<String> codes = new LinkedList<>(Arrays.asList("PORI"));
+	private Deque<String> codes = new LinkedList<>(Arrays.asList());
 
 	@Scheduled(fixedRate = INTERVAL)
 	void doImport() {
