@@ -7,7 +7,7 @@ public enum EditionType {
 	core(""),
 	commander("Commander"),
 	draftinnovation(""),
-	dueldeck(""),
+	dueldeck("Duel Deck"),
 	expansion(""),
 	fromthevault("From the Vault"),
 	funny("Unglued"),
