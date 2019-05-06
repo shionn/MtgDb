@@ -27,8 +27,8 @@ import tcg.mtgjson.v4.api.MtgJsonSet;
 
 @Component
 public class MtgJsonImporter {
-	//	private static final int INTERVAL = 5 * 60 * 1000;
-	private static final int INTERVAL = 30 * 1000;
+	// private static final int INTERVAL = 5 * 60 * 1000;
+	private static final int INTERVAL = 10 * 1000;
 	private Logger logger = LoggerFactory.getLogger(MtgJsonImporter.class);
 
 	@Autowired
@@ -50,6 +50,10 @@ public class MtgJsonImporter {
 			logger.info("Found <" + codes.size() + "> to scan");
 		} else {
 			MtgJsonSet set = client.set(codes.pop());
+			// while (set.getType() != EditionType.expansion) {
+			// logger.info("skip <" + set.getCode() + ">");
+			// set = client.set(codes.pop());
+			// }
 			logger.info("Start import set <" + set.getCode() + ">");
 			try (SqlSession session = factory.openSession()) {
 				MtgJsonV4ImporterDao dao = session.getMapper(MtgJsonV4ImporterDao.class);

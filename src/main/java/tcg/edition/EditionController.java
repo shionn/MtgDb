@@ -3,6 +3,7 @@ package tcg.edition;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import tcg.db.dao.EditionListDao;
+import tcg.db.dbo.Edition;
 import tcg.db.dbo.EditionGroup;
 import tcg.db.dbo.EditionType;
 
@@ -34,9 +36,14 @@ public class EditionController {
 				dao.readGroup(EditionType.masters), //
 				dao.readGroup(EditionType.dueldeck), //
 				dao.readGroup(EditionType.box)));
+		List<Edition> others = dao.listEditions();
+		groups.stream().filter(Objects::nonNull).flatMap(g -> g.stream())
+				.filter(Objects::nonNull)
+				.flatMap(g -> g.getEditions().stream())
+				.forEach(e -> others.remove(e));
 		return new ModelAndView("editions") //
 				.addObject("groups", groups) //
-				.addObject("editions", dao.listEditions());
+				.addObject("editions", others);
 	}
 
 }

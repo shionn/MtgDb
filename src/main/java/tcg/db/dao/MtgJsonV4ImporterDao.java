@@ -17,12 +17,12 @@ import tcg.mtgjson.v4.api.MtgJsonSet;
 
 public interface MtgJsonV4ImporterDao {
 
-	@Insert("INSERT INTO edition (code, name, block, release_date, mkm_name, mkm_id, online_only, "
+	@Insert("INSERT INTO edition (code, name, block, parent_code, release_date, mkm_name, mkm_id, online_only, "
 			+ "keyrune_code, type) "
-			+ "VALUES (#{code}, #{name}, #{block}, #{releaseDate}, #{mcmName}, #{mcmId}, #{onlineOnly}, "
+			+ "VALUES (#{code}, #{name}, #{block}, #{parentCode}, #{releaseDate}, #{mcmName}, #{mcmId}, #{onlineOnly}, "
 			+ "#{keyruneCode}, #{type} ) " //
 			+ "ON DUPLICATE KEY UPDATE "
-			+ "name = #{name}, block = #{block}, release_date = #{releaseDate}, mkm_name = #{mcmName}, "
+			+ "name = #{name}, block = #{block}, parent_code = #{parentCode}, release_date = #{releaseDate}, mkm_name = #{mcmName}, "
 			+ "mkm_id = #{mcmId}, online_only = #{onlineOnly}, keyrune_code = #{keyruneCode}, "
 			+ "type = #{type}, " //
 			+ "update_date = NOW() ")

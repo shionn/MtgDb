@@ -1,6 +1,7 @@
 
 -- refonte page editions
 ALTER TABLE `edition` ADD `block` VARCHAR(64) NULL DEFAULT NULL AFTER `name`;
+ALTER TABLE `edition` ADD `parent_code` VARCHAR(8) NULL DEFAULT NULL AFTER `block`;
 
 ALTER TABLE `card` CHANGE `number` `number` VARCHAR(8) NULL DEFAULT NULL;
 

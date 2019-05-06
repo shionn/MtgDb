@@ -30,6 +30,9 @@
 			</c:forEach>
 			<section>
 				<table>
+					<tr>
+						<th colspan="3">Others (${editions.size()})</th>
+					</tr>
 					<c:forEach items="${editions}" var="e">
 						<tr>
 							<td><i class="${e.iconClass}" title="${e.code}"></i></td>
