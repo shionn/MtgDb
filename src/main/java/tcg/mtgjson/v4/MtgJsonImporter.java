@@ -2,6 +2,7 @@ package tcg.mtgjson.v4;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,7 +28,7 @@ import tcg.mtgjson.v4.api.MtgJsonSet;
 @Component
 public class MtgJsonImporter {
 	private static final int INTERVAL = 5 * 60 * 1000;
-	// private static final int INTERVAL = 5;
+	// private static final int INTERVAL = 5 * 1000;
 	private Logger logger = LoggerFactory.getLogger(MtgJsonImporter.class);
 
 	@Autowired
@@ -42,8 +43,10 @@ public class MtgJsonImporter {
 	@Scheduled(fixedRate = INTERVAL)
 	void doImport() {
 		if (codes.isEmpty()) {
-			Arrays.stream(client.setList()).map(MtgJsonSet::getCode)
-					.forEach(code -> codes.add(code));
+			List<String> sets = Arrays.stream(client.setList()).map(MtgJsonSet::getCode)
+					.collect(Collectors.toList());
+			Collections.shuffle(sets);
+			codes.addAll(sets);
 			logger.info("Found <" + codes.size() + "> to scan");
 		} else {
 			MtgJsonSet set = client.set(codes.pop());

@@ -1,4 +1,10 @@
 
+-- refonte page editions
+ALTER TABLE `edition` ADD `block` VARCHAR(64) NULL DEFAULT NULL AFTER `name`;
+
+ALTER TABLE `card` CHANGE `number` `number` VARCHAR(8) NULL DEFAULT NULL;
+
+
 -- mise à jour migration vers mtgjson2
 -- La colonne foil de edition semble inutile,
 -- La colonne icon, mci_code egalement (remplacé par keyrune)
@@ -6,6 +12,8 @@ ALTER TABLE `edition` ADD `keyrune_code` VARCHAR(8) NULL DEFAULT NULL AFTER `mci
 ALTER TABLE `edition` ADD `type` VARCHAR(15) NULL DEFAULT NULL AFTER `name`;
 ALTER TABLE `edition` ADD `update_date` TIMESTAMP NULL DEFAULT NULL AFTER `foil`;
 ALTER TABLE edition DROP foil;
+ALTER TABLE edition DROP icon;
+ALTER TABLE edition DROP mci_code;
 
 -- Les colonne mci_number, multiverse_id, source ne sont pas utilisé
 ALTER TABLE `card` ADD `update_date` TIMESTAMP NULL DEFAULT NULL AFTER `type`;

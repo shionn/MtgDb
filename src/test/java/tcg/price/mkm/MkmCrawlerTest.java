@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.Test;
 
 import tcg.db.dbo.Card;
+import tcg.db.dbo.Card.Foil;
 import tcg.db.dbo.CardLayout;
 import tcg.db.dbo.CardPrice;
 import tcg.db.dbo.Edition;
@@ -22,6 +23,7 @@ public class MkmCrawlerTest {
 		edition.setMkmName("Battle for Zendikar");
 		Card card = new Card();
 		card.setEdition(edition);
+		card.setLayout(CardLayout.normal);
 		card.setName("Ob Nixilis Reignited");
 		List<CardPrice> prices = crawler.price(card);
 		BigDecimal paper = prices.get(0).getPrice();
@@ -52,7 +54,9 @@ public class MkmCrawlerTest {
 		Edition edition = new Edition();
 		edition.setName(editionName);
 		Card card = new Card();
+		card.setFoil(Foil.nofoil);
 		card.setEdition(edition);
+		card.setLayout(CardLayout.normal);
 		card.setName(cardName);
 		return card;
 	}

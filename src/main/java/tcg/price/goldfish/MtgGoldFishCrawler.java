@@ -139,10 +139,12 @@ public class MtgGoldFishCrawler {
 	}
 
 	private List<String> formatEdition(Card card) {
-
-		String editionName = card.getEdition().getName();
-		if (card.getEdition().getType() == EditionType.promo) {
-			editionName = "Prerelease Cards";
+		String editionName = card.getEdition().getGoldfishName();
+		if (editionName == null) {
+			editionName = card.getEdition().getName();
+			if (card.getEdition().getType() == EditionType.promo) {
+				editionName = "Prerelease Cards";
+			}
 		}
 		return Arrays.asList(StringUtils.split(editionName.replaceAll("[:.',]", ""), '|'));
 	}

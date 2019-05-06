@@ -26,7 +26,8 @@ public class MtgJsonClientTest {
 		assertThat(new MtgJsonClient().set("HTR").getCards().stream().map(MtgJsonCard::getLoyalty)
 				.filter(Objects::nonNull).distinct().collect(Collectors.toList())).containsOnly("3",
 						"1d4+1");
-
+		new MtgJsonClient().set("WC99").getCards().stream().map(MtgJsonCard::getNumber)
+				.forEach(n -> assertThat(n.length()).as(n).isLessThanOrEqualTo(8));
 	}
 
 	@Test

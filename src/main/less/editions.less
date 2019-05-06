@@ -16,3 +16,27 @@ body > article.main.card , .modal article.alter-deck-entry {
 	}
 }
 
+body > article.main.editions {
+	& > section {
+		@media (min-width: @min-sm) {
+			display: flex;
+			flex-wrap: wrap;
+		}
+		& > article.portlet {
+			@media (min-width: @min-sm) {
+				width: calc(~"50% - "@portel-margin * 2 );
+			}
+			@media (min-width: @min-md) {
+				width: calc(~"33.33% - "@portel-margin * 2 );
+			}
+			@media (min-width: @min-lg) {
+				width: calc(~"25% - "@portel-margin * 2 );
+			}
+			ul {
+				padding: inherit;
+				list-style: none;
+			}
+		}
+	}
+}
+
