@@ -85,4 +85,8 @@ public class Edition {
 	public String getKeyruneCode() {
 		return keyruneCode;
 	}
+
+	public EditionType getType() {
+		return type;
+	}
 }

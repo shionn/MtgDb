@@ -22,6 +22,7 @@ import tcg.db.dbo.Card.Foil;
 import tcg.db.dbo.CardLayout;
 import tcg.db.dbo.CardPrice;
 import tcg.db.dbo.CardPriceSource;
+import tcg.db.dbo.EditionType;
 
 @Component
 public class MtgGoldFishCrawler {
@@ -29,12 +30,17 @@ public class MtgGoldFishCrawler {
 
 	private static final List<String> IGNORED_EDITION = Arrays.asList("CEI");
 
-	public List<CardPrice> price(Card card) {
+	public List<CardPrice> priceForNotFoil(Card card) {
 		List<CardPrice> prices = new ArrayList<CardPrice>();
 		if (card.getFoil() != Foil.onlyfoil) {
 			prices.addAll(crawl(card, CardPriceSource.MtgGoldFishPaper,
 					CardPriceSource.MtgGoldFishTx, buildUrl(card)));
 		}
+		return prices;
+	}
+
+	public List<CardPrice> priceForFoil(Card card) {
+		List<CardPrice> prices = new ArrayList<CardPrice>();
 		if (card.getFoil() != Foil.nofoil) {
 			prices.addAll(crawl(card, CardPriceSource.MtgGoldFishFoilPaper,
 					CardPriceSource.MtgGoldFishFoilTx, buildFoilUrl(card)));
@@ -121,6 +127,8 @@ public class MtgGoldFishCrawler {
 			return url.replace(' ', '+').replaceAll("\\+\\+", "+");
 		}).collect(Collectors.toList());
 	}
+	// https://www.mtggoldfish.com/price/Magic+Origins/Jace+Vryns+Prodigy#paper
+	// https://www.mtggoldfish.com/price/Magic+Origins/Jace+Vryns+Prodigy+Jace+Telepath+Unbound#paper
 
 	private List<String> buildFoilUrl(Card card) {
 		return formatEdition(card).stream().map(e -> {
@@ -131,16 +139,17 @@ public class MtgGoldFishCrawler {
 	}
 
 	private List<String> formatEdition(Card card) {
-		String editionName = card.getEdition().getGoldfishName();
-		if (editionName == null) {
-			editionName = card.getEdition().getName();
+
+		String editionName = card.getEdition().getName();
+		if (card.getEdition().getType() == EditionType.promo) {
+			editionName = "Prerelease Cards";
 		}
 		return Arrays.asList(StringUtils.split(editionName.replaceAll("[:.',]", ""), '|'));
 	}
 
 	private String formatName(Card card) {
 		String name = formatName(card.getName());
-		if (CardLayout.concatNames().contains(card.getLayout())) {
+		if (card.getLayout() == CardLayout.split) {
 			name += ' ' + formatName(card.getLinkCard().getName());
 		}
 		return name;

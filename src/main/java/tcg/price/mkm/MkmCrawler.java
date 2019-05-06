@@ -28,7 +28,6 @@ import org.springframework.web.context.annotation.ApplicationScope;
 
 import tcg.db.dbo.Card;
 import tcg.db.dbo.Card.Foil;
-import tcg.db.dbo.CardLayout;
 import tcg.db.dbo.CardPrice;
 import tcg.db.dbo.CardPriceSource;
 
@@ -54,24 +53,37 @@ public class MkmCrawler {
 		}
 		return prices;
 	}
+
 	private ExecutorService executors = Executors.newFixedThreadPool(2);
 
-	private List<CardPrice> crawl(Card card, String url) throws InterruptedException, ExecutionException {
+	private List<CardPrice> crawl(Card card, String url)
+			throws InterruptedException, ExecutionException {
 		List<CardPrice> prices = new ArrayList<>();
-		for (Future<CardPrice> futur : executors.invokeAll(Arrays.asList(new Callable<CardPrice>() {
-			@Override
-			public CardPrice call() throws Exception {
-				return crawlPaper(card, url);
-			}
-		}, new Callable<CardPrice>() {
-			@Override
-			public CardPrice call() throws Exception {
-				return crawlFoil(card, url);
-			}
-		}))) {
+		for (Future<CardPrice> futur : executors.invokeAll(buildCallable(card, url))) {
 			prices.add(futur.get());
 		}
 		return prices.stream().filter(Objects::nonNull).collect(Collectors.toList());
+	}
+
+	private List<Callable<CardPrice>> buildCallable(Card card, String url) {
+		List<Callable<CardPrice>> callable = new ArrayList<>();
+		if (card.getFoil() != Foil.onlyfoil) {
+			callable.add(new Callable<CardPrice>() {
+				@Override
+				public CardPrice call() throws Exception {
+					return crawlPaper(card, url);
+				}
+			});
+		}
+		if (card.getFoil() != Foil.nofoil) {
+			callable.add(new Callable<CardPrice>() {
+				@Override
+				public CardPrice call() throws Exception {
+					return crawlFoil(card, url);
+				}
+			});
+		}
+		return callable;
 	}
 
 	private CardPrice crawlPaper(Card card, String url) {
@@ -108,8 +120,9 @@ public class MkmCrawler {
 		CardPrice price = retrieve(card, CardPriceSource.mkmFoil);
 		boolean found = false;
 		try {
-			Document document = Jsoup.connect(url).method(Method.POST) //
-					.data("amount", "") //
+			Document document = Jsoup.connect(url) //
+					.method(Method.POST) //
+					.data("amount", "0") //
 					.data("apply", "Filter") //
 					.data("extra[isAltered]", "0") //
 					.data("extra[isFoil]", "Y") //
@@ -119,23 +132,15 @@ public class MkmCrawler {
 					.execute().parse();
 			price.setLink(url);
 
-			if (!document.select(".article-table .text-warning").isEmpty()
-					|| card.getFoil() == Foil.nofoil) {
-				/**
-				 * on est dans un cas le foil n'existe probablement pas. Si un enregistrement en
-				 * base existe on le passe à null. c'est degueux.
-				 */
-				price.setPrice(null);
+			Element e = document.select("div.info-list-container dl dd").last();
+			if (e != null) {
+				price.setPrice(new BigDecimal(e.select("span").first().text()
+						.replaceAll("[^,0-9]", "").replace(',', '.')));
 				price.setPriceDate(new Date());
 				found = true;
 			} else {
-				Element e = document.select("div.info-list-container dl dd").last();
-				if (e != null) {
-					price.setPrice(new BigDecimal(e.select("span").first().text()
-							.replaceAll("[^,0-9]", "").replace(',', '.')));
-					price.setPriceDate(new Date());
-					found = true;
-				}
+				price.setPrice(null);
+				price.setPriceDate(new Date());
 			}
 		} catch (IOException e) {
 			LoggerFactory.getLogger(MkmCrawler.class).error("Can't crawl price : ", e);
@@ -170,9 +175,9 @@ public class MkmCrawler {
 		List<String> urls = new ArrayList<>();
 		for (String edition : StringUtils.split(editions, '|')) {
 			String base = "https://www.cardmarket.com/en/Magic/Products/Singles/"
-					+ URLEncoder.encode(edition.replace(' ', '-'), ENCODING) + "/"
+					+ URLEncoder.encode(replaceIllegalChar(edition), ENCODING) + "/"
 					+ URLEncoder.encode(name(card), ENCODING);
-			if (CardLayout.concatNames().contains(card.getLayout())) {
+			if (card.getLayout().isMkmConcatName()) {
 				urls.add(base + URLEncoder.encode("-" + name(card.getLinkCard()), ENCODING));
 			} else {
 				urls.add(base);
@@ -181,11 +186,18 @@ public class MkmCrawler {
 		// https://www.cardmarket.com/en/Magic/Products/Singles/Rivals+of+Ixalan/Journey-to-Eternity-Atzal-Cave-of-Eternity
 		// https://www.cardmarket.com/en/Magic/Products/Singles/Battle+for+Zendikar/Ob-Nixilis-Reignited
 		// https://www.cardmarket.com/en/Magic/Products/Singles/Alliances/Force-of-Will
+		// https://www.cardmarket.com/en/Magic/Products/Singles/Magic-Origins-Promos/Jace-Vryns-Prodigy
+		// https://www.cardmarket.com/en/Magic/Products/Singles/Magic-Origins/Jace-Vryns-Prodigy-Jayemdae-Tome
 		return urls;
 	}
 
+	private String replaceIllegalChar(String edition) {
+		return edition.replace(':', '-').replace(' ', '-').replaceAll("--", "-");
+	}
+
 	private String name(Card card) {
-		return card.getName().replaceAll("[^a-zA-Z-]", "-").replaceAll("--", "-");
+		return card.getName().replaceAll("'", "").replaceAll("[^a-zA-Z-]", "-").replaceAll("--",
+				"-");
 	}
 
 }

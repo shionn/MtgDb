@@ -26,8 +26,8 @@ import tcg.mtgjson.v4.api.MtgJsonSet;
 
 @Component
 public class MtgJsonImporter {
-	// private static final int INTERVAL = 5 * 60 * 1000;
-	private static final int INTERVAL = 5;
+	private static final int INTERVAL = 5 * 60 * 1000;
+	// private static final int INTERVAL = 5;
 	private Logger logger = LoggerFactory.getLogger(MtgJsonImporter.class);
 
 	@Autowired
@@ -37,7 +37,7 @@ public class MtgJsonImporter {
 	@Autowired
 	private CardFormater formater;
 
-	private Deque<String> codes = new LinkedList<>(Arrays.asList());
+	private Deque<String> codes = new LinkedList<>(Arrays.asList("PORI"));
 
 	@Scheduled(fixedRate = INTERVAL)
 	void doImport() {
@@ -51,7 +51,6 @@ public class MtgJsonImporter {
 			try (SqlSession session = factory.openSession()) {
 				MtgJsonV4ImporterDao dao = session.getMapper(MtgJsonV4ImporterDao.class);
 				dao.updateEdition(set);
-				MtgJsonCard previous = null;
 				for (MtgJsonCard card : set.getCards()) {
 					dao.updateCard(card, set);
 					updateCardName(dao, card);
@@ -59,16 +58,23 @@ public class MtgJsonImporter {
 					updateRules(card, dao);
 					updateLegality(card, dao);
 					updateAssistance(card, dao);
-					if (previous != null && previous.getLayout().isLink()) {
-						dao.updateLinkCard(card.getUuid(), previous.getUuid());
-						dao.updateLinkCard(previous.getUuid(), card.getUuid());
-					}
 					removeOldCard(set, card, dao);
-					previous = card;
 				}
+				updateLinks(set, dao);
 				session.commit();
 			}
+			logger.info("End import set <" + set.getCode() + ">");
 		}
+	}
+
+	private void updateLinks(MtgJsonSet set, MtgJsonV4ImporterDao dao) {
+		set.getCards().stream().filter(c -> c.getLayout().isLink()).forEach(card -> {
+			String otherName = card.getNames().stream().filter(name -> !name.equals(card.getName()))
+					.findFirst().orElseGet(null);
+			MtgJsonCard otherCard = set.getCards().stream()
+					.filter(o -> o.getName().equals(otherName)).findFirst().orElseGet(null);
+			dao.updateLinkCard(card.getUuid(), otherCard.getUuid());
+		});
 	}
 
 	private void updateCardName(MtgJsonV4ImporterDao dao, MtgJsonCard card) {

@@ -6,7 +6,7 @@ import java.util.List;
 public enum CardLayout {
 	aftermath,
 	augment,
-	doublefaced,
+	doublefaced, // TODO semble ne plus existé
 	doublefacedtoken,
 	emblem,
 	flip,
@@ -14,18 +14,19 @@ public enum CardLayout {
 	leveler,
 	meld,
 	normal,
-	phenomenon,
+	phenomenon, // TODO semble ne plus existé
 	planar,
-	plane,
+	plane, // TODO semble ne plus existé
 	saga,
 	scheme,
 	split,
 	vanguard,
 	token,
 	transform;
-	private static final List<CardLayout> CONCAT_NAMES = Arrays.asList(CardLayout.doublefaced, CardLayout.aftermath, CardLayout.split);
-	private static final List<CardLayout> LINK = Arrays.asList(CardLayout.doublefaced,
-			CardLayout.aftermath, CardLayout.split);
+	private static final List<CardLayout> MKM_CONCAT_NAMES = Arrays.asList(doublefaced, aftermath,
+			split, transform);
+	private static final List<CardLayout> LINK = Arrays.asList(doublefaced, aftermath, split, flip,
+			transform);
 
 	public boolean isLink() {
 		return LINK.contains(this);
@@ -35,7 +36,7 @@ public enum CardLayout {
 		return LINK;
 	}
 
-	public static List<CardLayout> concatNames() {
-		return CONCAT_NAMES;
+	public boolean isMkmConcatName() {
+		return MKM_CONCAT_NAMES.contains(this);
 	}
 }

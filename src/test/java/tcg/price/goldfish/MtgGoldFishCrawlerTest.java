@@ -12,10 +12,11 @@ public class MtgGoldFishCrawlerTest {
 	@Test
 	public void testPrice() throws Exception {
 		assertThat(
-				new MtgGoldFishCrawler().price(card("Conflux", "Path to Exile")).get(0).getPrice())
+				new MtgGoldFishCrawler().priceForNotFoil(card("Conflux", "Path to Exile")).get(0)
+						.getPrice())
 						.isPositive();
 		assertThat(
-				new MtgGoldFishCrawler().price(card("Alliances", "Force of Will")).get(0)
+				new MtgGoldFishCrawler().priceForNotFoil(card("Alliances", "Force of Will")).get(0)
 						.getPrice())
 						.isPositive();
 	}

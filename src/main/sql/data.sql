@@ -1,25 +1,4 @@
 
-UPDATE `edition` SET `icon` = 'xice' WHERE `edition`.`code` = 'CEI';
-UPDATE `edition` SET `icon` = 'xcle' WHERE `edition`.`code` = 'CED';
-UPDATE `edition` SET `icon` = 'x2ps' WHERE `edition`.`code` = 'ITP';
-UPDATE `edition` SET `icon` = 'por'  WHERE `edition`.`code` = 'pPOD';
-UPDATE `edition` SET `icon` = 'mp2'  WHERE `edition`.`code` = 'MPS_AKH';
-UPDATE `edition` SET `icon` = 'ori'  WHERE `edition`.`code` = 'CP3';
-UPDATE `edition` SET `icon` = 'frf'  WHERE `edition`.`code` = 'CP2';
-UPDATE `edition` SET `icon` = 'frf'  WHERE `edition`.`code` = 'FRF_UGIN';
-UPDATE `edition` SET `icon` = 'evg'  WHERE `edition`.`code` = 'DD3_EVG';
-UPDATE `edition` SET `icon` = 'ddd'  WHERE `edition`.`code` = 'DD3_GVL';
-UPDATE `edition` SET `icon` = 'dd2'  WHERE `edition`.`code` = 'DD3_JVC';
-UPDATE `edition` SET `icon` = 'ddc'  WHERE `edition`.`code` = 'DD3_DVD';
-UPDATE `edition` SET `icon` = 'tsp'  WHERE `edition`.`code` = 'TSB';
-UPDATE `edition` SET `icon` = 'csp'  WHERE `edition`.`code` = 'CST';
-UPDATE `edition` SET `icon` = 'peuro' WHERE `edition`.`code` = 'pELP';
-UPDATE `edition` SET `icon` = 'papac' WHERE `edition`.`code` = 'pALP';
-UPDATE `edition` SET `icon` = 'pmei' WHERE `edition`.`code` IN ('pPRE', 'pLPA', 'pREL', 'pJGP');
-UPDATE `edition` SET `icon` = 'm15' WHERE `edition`.`code` = 'CP1';
-UPDATE `edition` SET `icon` = 'parl' WHERE `edition`.`code` IN ('pGTW', 'pWOS', 'pSUS', 'pMPR', 'pWPN');
-
-
 update edition set goldfish_name = mkm_name where code = 'CMD';
 update edition set goldfish_name = 'Conspiracy'                      where code='CNS';
 update edition set goldfish_name = 'Coldsnap Theme Deck Reprints'    where code='CST';
