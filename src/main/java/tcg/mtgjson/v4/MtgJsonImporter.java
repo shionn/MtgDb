@@ -3,6 +3,7 @@ package tcg.mtgjson.v4;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,15 +28,12 @@ import tcg.mtgjson.v4.api.MtgJsonSet;
 
 @Component
 public class MtgJsonImporter {
-	//	private static final int INTERVAL = 5 * 60 * 1000;
-	private static final int INTERVAL = 30 * 1000;
+	private static final int INTERVAL = 5 * 60 * 1000;
+	// private static final int INTERVAL = 5 * 1000;
 	private Logger logger = LoggerFactory.getLogger(MtgJsonImporter.class);
 
-	@Autowired
 	private SqlSessionFactory factory;
-	@Autowired
 	private MtgJsonClient client;
-	@Autowired
 	private CardFormater formater;
 
 	private Deque<String> codes = new LinkedList<>(Arrays.asList());
@@ -43,31 +41,41 @@ public class MtgJsonImporter {
 	@Scheduled(fixedRate = INTERVAL)
 	void doImport() {
 		if (codes.isEmpty()) {
-			List<String> sets = Arrays.stream(client.setList()).map(MtgJsonSet::getCode)
-					.collect(Collectors.toList());
-			Collections.shuffle(sets);
-			codes.addAll(sets);
+			List<MtgJsonSet> sets = Arrays.asList(client.setList());
+			// Collections.shuffle(sets);
+			Collections.sort(sets, new Comparator<MtgJsonSet>() {
+				@Override
+				public int compare(MtgJsonSet o1, MtgJsonSet o2) {
+					return -o1.getReleaseDate().compareTo(o2.getReleaseDate());
+				}
+			});
+			codes.addAll(sets.stream().map(MtgJsonSet::getCode).collect(Collectors.toList()));
 			logger.info("Found <" + codes.size() + "> to scan");
 		} else {
-			MtgJsonSet set = client.set(codes.pop());
-			logger.info("Start import set <" + set.getCode() + ">");
-			try (SqlSession session = factory.openSession()) {
-				MtgJsonV4ImporterDao dao = session.getMapper(MtgJsonV4ImporterDao.class);
-				dao.updateEdition(set);
-				for (MtgJsonCard card : set.getCards()) {
-					dao.updateCard(card, set);
-					updateCardName(dao, card);
-					updateTypes(card, dao);
-					updateRules(card, dao);
-					updateLegality(card, dao);
-					updateAssistance(card, dao);
-					removeOldCard(set, card, dao);
-				}
-				updateLinks(set, dao);
-				session.commit();
-			}
-			logger.info("End import set <" + set.getCode() + ">");
+			String code = codes.pop();
+			importEdition(code);
 		}
+	}
+
+	void importEdition(String code) {
+		MtgJsonSet set = client.set(code);
+		logger.info("Start import set <" + set.getCode() + ">");
+		try (SqlSession session = factory.openSession()) {
+			MtgJsonV4ImporterDao dao = session.getMapper(MtgJsonV4ImporterDao.class);
+			dao.updateEdition(set);
+			for (MtgJsonCard card : set.getCards()) {
+				dao.updateCard(card, set);
+				updateCardName(dao, card);
+				updateTypes(card, dao);
+				updateRules(card, dao);
+				updateLegality(card, dao);
+				updateAssistance(card, dao);
+				removeOldCard(set, card, dao);
+			}
+			updateLinks(set, dao);
+			session.commit();
+		}
+		logger.info("End import set <" + set.getCode() + ">");
 	}
 
 	private void updateLinks(MtgJsonSet set, MtgJsonV4ImporterDao dao) {
@@ -168,6 +176,21 @@ public class MtgJsonImporter {
 			}
 		}
 		return assistances.stream().distinct().collect(Collectors.toList());
+	}
+
+	@Autowired
+	public void setFactory(SqlSessionFactory factory) {
+		this.factory = factory;
+	}
+
+	@Autowired
+	public void setClient(MtgJsonClient client) {
+		this.client = client;
+	}
+
+	@Autowired
+	public void setFormater(CardFormater formater) {
+		this.formater = formater;
 	}
 
 }

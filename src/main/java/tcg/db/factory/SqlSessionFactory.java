@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 
 @Component
-class SqlSessionFactory implements org.apache.ibatis.session.SqlSessionFactory {
+public class SqlSessionFactory implements org.apache.ibatis.session.SqlSessionFactory {
 	private org.apache.ibatis.session.SqlSessionFactory factory = build();
 
 	private org.apache.ibatis.session.SqlSessionFactory build() {

@@ -22,6 +22,7 @@ public class MtgJsonSet {
 	private String mcmId;
 	private String keyruneCode;
 	private SetTranslation translation;
+	private String parentCode;
 
 	public String getCode() {
 		return code;
@@ -109,5 +110,13 @@ public class MtgJsonSet {
 
 	public void setCards(List<MtgJsonCard> cards) {
 		this.cards = cards;
+	}
+
+	public String getParentCode() {
+		return parentCode;
+	}
+
+	public void setParentCode(String parentCode) {
+		this.parentCode = parentCode;
 	}
 }

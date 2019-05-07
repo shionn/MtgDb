@@ -17,29 +17,30 @@ import tcg.mtgjson.v4.api.MtgJsonSet;
 
 public interface MtgJsonV4ImporterDao {
 
-	@Insert("INSERT INTO edition (code, name, block, release_date, mkm_name, mkm_id, online_only, "
+	@Insert("INSERT INTO edition (code, name, block, parent_code, release_date, mkm_name, mkm_id, online_only, "
 			+ "keyrune_code, type) "
-			+ "VALUES (#{code}, #{name}, #{block}, #{releaseDate}, #{mcmName}, #{mcmId}, #{onlineOnly}, "
+			+ "VALUES (#{code}, #{name}, #{block}, #{parentCode}, #{releaseDate}, #{mcmName}, #{mcmId}, #{onlineOnly}, "
 			+ "#{keyruneCode}, #{type} ) " //
 			+ "ON DUPLICATE KEY UPDATE "
-			+ "name = #{name}, block = #{block}, release_date = #{releaseDate}, mkm_name = #{mcmName}, "
+			+ "name = #{name}, block = #{block}, parent_code = #{parentCode}, release_date = #{releaseDate}, mkm_name = #{mcmName}, "
 			+ "mkm_id = #{mcmId}, online_only = #{onlineOnly}, keyrune_code = #{keyruneCode}, "
 			+ "type = #{type}, " //
 			+ "update_date = NOW() ")
 	int updateEdition(MtgJsonSet set);
 
-	@Insert("INSERT INTO card (id, card, edition, foil, number, side, "
+	@Insert("INSERT INTO card (id, card, scryfall_id, edition, foil, number, side,  "
 			+ "name, text, flavor, original_text, artist, type, original_type, " //
 			+ "mana_cost, cmc, colors, color_identity, " //
 			+ "layout, rarity, reserved, " //
 			+ "power, toughness, loyalty, update_date) " //
-			+ "VALUES (#{c.uuid}, #{c.nameId}, #{s.code}, #{c.foil}, #{c.number}, #{c.side}, "
+			+ "VALUES (#{c.uuid}, #{c.nameId}, #{c.scryfallId}, #{s.code}, #{c.foil}, #{c.number}, #{c.side}, "
 			+ "#{c.name}, #{c.text}, #{c.flavorText}, #{c.originalText}, #{c.artist}, #{c.type}, #{c.originalType}, "
 			+ "#{c.manaCost}, #{c.convertedManaCost}, #{c.colorsId}, #{c.colorIdentityId}, "
 			+ "#{c.layout}, #{c.rarity}, #{c.reserved}, " //
 			+ "#{c.power}, #{c.toughness}, #{c.loyalty}, NOW()) " //
 			+ "ON DUPLICATE KEY UPDATE " //
-			+ "card = #{c.nameId}, edition = #{s.code}, foil = #{c.foil}, number = #{c.number}, side = #{c.side}, "
+			+ "card = #{c.nameId}, scryfall_id = #{c.scryfallId}, " //
+			+ "edition = #{s.code}, foil = #{c.foil}, number = #{c.number}, side = #{c.side}, "
 			+ "name = #{c.name}, text = #{c.text}, flavor = #{c.flavorText}, original_text = #{c.originalText}, artist = #{c.artist}, type = #{c.type}, original_type = #{c.originalType}, "
 			+ "mana_cost = #{c.manaCost}, cmc = #{c.convertedManaCost}, colors = #{c.colorsId}, color_identity = #{c.colorIdentityId}, "
 			+ "layout = #{c.layout}, rarity = #{c.rarity}, reserved = #{c.reserved}, "

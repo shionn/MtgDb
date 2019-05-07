@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.annotations.One;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -50,8 +51,8 @@ public interface CardDao extends CardFragDao {
 			+ "WHERE id = #{id}")
 	List<Legality> readLegalities(String id);
 
-	@Select("SELECT CONCAT(edition, '/', number, IFNULL(side, '')) FROM card WHERE id = #{id} ")
-	String readImg(String id);
-
+	@Select("SELECT edition, number, side, scryfall_id FROM card WHERE id = #{id} ")
+	@Results({ @Result(column = "edition", property = "edition.code") })
+	Card readImgData(@Param("id") String id);
 
 }

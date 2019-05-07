@@ -30,10 +30,13 @@
 			</c:forEach>
 			<section>
 				<table>
+					<tr>
+						<th colspan="3">Others (${editions.size()})</th>
+					</tr>
 					<c:forEach items="${editions}" var="e">
 						<tr>
 							<td><i class="${e.iconClass}" title="${e.code}"></i></td>
-							<td>${e.name}</td>
+							<td>${e.name} (${e.type},${e.parentCode})</td>
 							<td><fmt:formatDate value="${e.releaseDate}" /></td>
 						</tr>
 					</c:forEach>
