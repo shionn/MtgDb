@@ -3,7 +3,6 @@ package tcg.mtgjson.v4.api;
 import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang3.StringUtils;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -48,11 +47,43 @@ public class MtgJsonCard {
 	private String uuid;
 
 	public String getColorsId() {
-		return StringUtils.join(colors.toArray());
+		String id = "";
+		if (colors.contains("W")) {
+			id += "W";
+		}
+		if (colors.contains("U")) {
+			id += "U";
+		}
+		if (colors.contains("B")) {
+			id += "B";
+		}
+		if (colors.contains("R")) {
+			id += "R";
+		}
+		if (colors.contains("G")) {
+			id += "G";
+		}
+		return id;
 	}
 
 	public String getColorIdentityId() {
-		return StringUtils.join(colorIdentity.toArray());
+		String id = "";
+		if (colorIdentity.contains("W")) {
+			id += "W";
+		}
+		if (colorIdentity.contains("U")) {
+			id += "U";
+		}
+		if (colorIdentity.contains("B")) {
+			id += "B";
+		}
+		if (colorIdentity.contains("R")) {
+			id += "R";
+		}
+		if (colorIdentity.contains("G")) {
+			id += "G";
+		}
+		return id;
 	}
 
 	public Foil getFoil() {

@@ -143,5 +143,4 @@ public class Deck {
 				.orElse(new CardPrice());
 	}
 
-
 }
