@@ -6,11 +6,20 @@
 <t:template>
 	<jsp:attribute name="title">deck ${deck.name}</jsp:attribute>
 	<jsp:attribute name="content">
-		<article class="main container deck-table">
+		<article class="main container deck-flat">
 			<section>
 				<article class="portlet nav">
 					<t:deck-nav deck="${deck}"/>
-					<section class="deck-title">
+					<section class="deck-list">
+						<ul>
+							<c:forEach items="${deck.cards}" var="e">
+								<li>
+									<c:forEach begin="1" end="${e.qty}" var="i">
+										<img src='<spring:url value="/c/img/${e.card.id}.jpg"/>'/>
+									</c:forEach>
+								</li>
+							</c:forEach>
+						</ul>
 						<p style="text-align: center">TODO</p>
 					</section>
 				</article>
