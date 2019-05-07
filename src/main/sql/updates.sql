@@ -1,4 +1,10 @@
 
+-- amelioration recuperation img
+ALTER TABLE card_lang DROP multiverse_id;
+ALTER TABLE `card` ADD `scryfall_id` VARCHAR(64) NULL DEFAULT NULL AFTER `link_card`;
+
+
+
 -- refonte page editions
 ALTER TABLE `edition` ADD `block` VARCHAR(64) NULL DEFAULT NULL AFTER `name`;
 ALTER TABLE `edition` ADD `parent_code` VARCHAR(8) NULL DEFAULT NULL AFTER `block`;

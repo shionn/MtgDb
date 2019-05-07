@@ -38,6 +38,8 @@ public class MtgJsonCard {
 	@JsonDeserialize(converter = CardRarityConverter.class)
 	private CardRarity rarity;
 	private List<MtgJsonRuling> rulings;
+	private String scryfallId;
+	private String scryfallIllustrationId;
 	private String side;
 	private List<String> subtypes;
 	private List<String> supertypes;
@@ -323,6 +325,22 @@ public class MtgJsonCard {
 
 	public void setNames(List<String> names) {
 		this.names = names;
+	}
+
+	public String getScryfallIllustrationId() {
+		return scryfallIllustrationId;
+	}
+
+	public void setScryfallIllustrationId(String scryfallIllustrationId) {
+		this.scryfallIllustrationId = scryfallIllustrationId;
+	}
+
+	public String getScryfallId() {
+		return scryfallId;
+	}
+
+	public void setScryfallId(String scryfallId) {
+		this.scryfallId = scryfallId;
 	}
 
 }

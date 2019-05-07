@@ -16,6 +16,7 @@ public class Card {
 	private String id;
 	private String card;
 	private String linkCardId;
+	private String scryfallId;
 	private Card linkCard;
 	private String name;
 	private String text;
@@ -28,6 +29,9 @@ public class Card {
 	private String originalType;
 	private String power;
 	private String toughness;
+	private String number;
+	private String side;
+
 	private int loyalty;
 	private int cmc;
 
@@ -321,4 +325,27 @@ public class Card {
 		this.foil = foil;
 	}
 
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public String getSide() {
+		return side;
+	}
+
+	public void setSide(String side) {
+		this.side = side;
+	}
+
+	public String getScryfallId() {
+		return scryfallId;
+	}
+
+	public void setScryfallId(String scryfallId) {
+		this.scryfallId = scryfallId;
+	}
 }
