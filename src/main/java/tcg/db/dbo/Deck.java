@@ -47,6 +47,10 @@ public class Deck {
 		this.cards = cards;
 	}
 
+	public List<DeckEntry> getFlats() {
+		return this.cards.stream().sorted(this::sort).collect(Collectors.toList());
+	}
+
 	public List<DeckEntry> getCommanders() {
 		return this.cards.stream().filter(c -> c.getCategory() == DeckEntryCategory.commander)
 				.sorted(this::sort).collect(Collectors.toList());
@@ -84,7 +88,10 @@ public class Deck {
 	}
 
 	private int sort(DeckEntry e, DeckEntry f) {
-		int result = -Boolean.compare(e.getCard().isCreature(), f.getCard().isCreature());
+		int result =  Integer.compare(e.getCategory().ordinal(),f.getCategory().ordinal());
+		if (result == 0) {
+			result = -Boolean.compare(e.getCard().isCreature(), f.getCard().isCreature());
+		}
 		if (result == 0) {
 			result = Boolean.compare(e.getCard().isLand(), f.getCard().isLand());
 		}

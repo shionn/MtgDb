@@ -33,7 +33,7 @@ public interface DeckDao {
 	@Select("SELECT * FROM deck WHERE id = #{id}")
 	Deck readDeckBase(int id);
 
-	@Select("SELECT * FROM deck_entry WHERE deck = #{id}")
+	@Select("SELECT * FROM deck_entry WHERE deck = #{id} ORDER BY category")
 	@Results({
 			@Result(column = "card", property = "card", one = @One(select = "tcg.db.dao.CardDao.read")) })
 	List<DeckEntry> readEntries(int id);

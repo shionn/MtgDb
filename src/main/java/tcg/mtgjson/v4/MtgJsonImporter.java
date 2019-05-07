@@ -3,7 +3,6 @@ package tcg.mtgjson.v4;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
@@ -42,13 +41,13 @@ public class MtgJsonImporter {
 	void doImport() {
 		if (codes.isEmpty()) {
 			List<MtgJsonSet> sets = Arrays.asList(client.setList());
-			// Collections.shuffle(sets);
-			Collections.sort(sets, new Comparator<MtgJsonSet>() {
-				@Override
-				public int compare(MtgJsonSet o1, MtgJsonSet o2) {
-					return -o1.getReleaseDate().compareTo(o2.getReleaseDate());
-				}
-			});
+			Collections.shuffle(sets);
+			// Collections.sort(sets, new Comparator<MtgJsonSet>() {
+			// @Override
+			// public int compare(MtgJsonSet o1, MtgJsonSet o2) {
+			// return -o1.getReleaseDate().compareTo(o2.getReleaseDate());
+			// }
+			// });
 			codes.addAll(sets.stream().map(MtgJsonSet::getCode).collect(Collectors.toList()));
 			logger.info("Found <" + codes.size() + "> to scan");
 		} else {
@@ -71,6 +70,7 @@ public class MtgJsonImporter {
 				updateLegality(card, dao);
 				updateAssistance(card, dao);
 				removeOldCard(set, card, dao);
+				session.commit();
 			}
 			updateLinks(set, dao);
 			session.commit();

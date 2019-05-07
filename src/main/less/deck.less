@@ -13,7 +13,7 @@ article.deck-cube {
 			padding: 0;
 			list-style: none;
 			width: 100 / 8%;
-			li {
+			li:not(.title) {
 				height: 20px;
 				overflow: hidden;
 				position: relative;
@@ -154,6 +154,7 @@ article.alter-deck-entry {
 }
 
 article.deck-flat {
+	overflow: hidden;
 	section.deck-list {
 		ul {
 			padding: 0;
@@ -162,30 +163,61 @@ article.deck-flat {
 			display: flex;
 			flex-wrap: wrap;
 			li {
-				width: calc(~"20% - 40px");
-				height: 310px;
 				position: relative;
 				display: inline-block;
-				margin: 0 40px 0 0;
-				img {
+				width: 75%;
+				height: 365px;
+				margin: 10% 0;
+				@media (min-width: @min-sm) {
+					width: calc(~"33.3333% - 50px");
+					margin: 10px 50px 20px 0;
+					height: 274px;
+				}
+
+				@media (min-width: @min-md) {
+					width: calc(~"25% - 45px");
+					margin: 10px 45px 19px 0;
+					height: 272px;
+				}
+
+				@media (min-width: @min-lg) {
+					width: calc(~"20% - 45px");
+					margin: 10px 45px 18px 0;
+					height: 260px;
+				}
+
+				& > a {
+					position: absolute;
+					z-index: 5;
+					top: -2px;
+					left: 2px;
+					i.fa {
+						color: #FFF;
+						text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+					}
+				}
+
+				& > img {
 					border-radius: 8px;
 					width: 100%;
 					position: absolute;
-					z-index : 4;
-					&:nth-child(2) {
+					z-index: 4;
+					&:nth-of-type(2) {
 						transform: rotate(5deg);
 						transform-origin: bottom right;
-						z-index : 3;
+						z-index: 3;
 					}
-					&:nth-child(3) {
+
+					&:nth-of-type(3) {
 						transform: rotate(10deg);
 						transform-origin: bottom right;
-						z-index : 2;
+						z-index: 2;
 					}
-					&:nth-child(4) {
-						transform: rotate(14deg);
+
+					&:nth-of-type(4) {
+						transform: rotate(15deg);
 						transform-origin: bottom right;
-						z-index : 1;
+						z-index: 1;
 					}
 				}
 			}

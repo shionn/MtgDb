@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -38,9 +39,13 @@ public class MtgJsonImporterMultiThreadRunner {
 					}
 				}).collect(Collectors.toList());
 
-		ExecutorService executor = Executors.newFixedThreadPool(20);
+		ExecutorService executor = Executors.newFixedThreadPool(10);
 		for (Future<String> futur : executor.invokeAll(tasks)) {
-			System.out.println("done : " + futur);
+			try {
+				System.out.println("done : " + futur.get());
+			} catch (ExecutionException e) {
+				e.printStackTrace();
+			}
 		}
 		executor.shutdown();
 	}

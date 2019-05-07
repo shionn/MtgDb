@@ -6,26 +6,26 @@
 	<header><spring:message code="DECK_ALTER_ENTRY_MOVE" /></header>
 	<section>
 		<p style="text-align: center">
-			<a class="ajax button closeModal" data-update="table.deck,section.deck-title"
+			<a class="ajax button closeModal" data-update="table.deck,section.deck-title,section.deck-list"
 					href='<spring:url value="/d/add/${entry.deck}/1/${entry.card.id}/${entry.category}/${entry.foil}"/>'>
 				<spring:message code="DECK_ALTER_ENTRY_ADD_ONE"/>
 			</a>
-			<a class="ajax button closeModal" data-update="table.deck,section.deck-title"
+			<a class="ajax button closeModal" data-update="table.deck,section.deck-title,section.deck-list"
 					href='<spring:url value="/d/rm/${entry.deck}/1/${entry.card.id}/${entry.category}/${entry.foil}"/>'>
 				<spring:message code="DECK_ALTER_ENTRY_RM_ONE"/>
 			</a>
-			<a class="ajax button closeModal" data-update="table.deck,section.deck-title"
+			<a class="ajax button closeModal" data-update="table.deck,section.deck-title,section.deck-list"
 					href='<spring:url value="/d/rm/${entry.deck}/${entry.qty}/${entry.card.id}/${entry.category}/${entry.foil}"/>'>
 				<spring:message code="DECK_ALTER_ENTRY_RM_ALL"/>
 			</a>
 		</p>
 		<c:if test='${entry.category != "side"}'>
 			<p style="text-align: center">
-				<a class="ajax button closeModal" data-update="table.deck,section.deck-title"
+				<a class="ajax button closeModal" data-update="table.deck,section.deck-title,section.deck-list"
 						href='<spring:url value="/d/mv/${entry.deck}/1/${entry.card.id}/${entry.category}/${entry.foil}/side"/>'>
 					<spring:message code="DECK_ALTER_ENTRY_MV_ONE_SIDE"/>
 				</a>
-				<a class="ajax button closeModal" data-update="table.deck,section.deck-title"
+				<a class="ajax button closeModal" data-update="table.deck,section.deck-title,section.deck-list"
 						href='<spring:url value="/d/mv/${entry.deck}/${entry.qty}/${entry.card.id}/${entry.category}/${entry.foil}/side"/>'>
 					<spring:message code="DECK_ALTER_ENTRY_MV_ALL_SIDE"/>
 				</a>
@@ -33,11 +33,11 @@
 		</c:if>
 		<c:if test='${entry.category != "main"}'>
 			<p style="text-align: center">
-				<a class="ajax button closeModal" data-update="table.deck,section.deck-title"
+				<a class="ajax button closeModal" data-update="table.deck,section.deck-title,section.deck-list"
 						href='<spring:url value="/d/mv/${entry.deck}/1/${entry.card.id}/${entry.category}/${entry.foil}/main"/>'>
 					<spring:message code="DECK_ALTER_ENTRY_MV_ONE_MAIN"/>
 				</a>
-				<a class="ajax button closeModal" data-update="table.deck,section.deck-title"
+				<a class="ajax button closeModal" data-update="table.deck,section.deck-title,section.deck-list"
 						href='<spring:url value="/d/mv/${entry.deck}/${entry.qty}/${entry.card.id}/${entry.category}/${entry.foil}/main"/>'>
 					<spring:message code="DECK_ALTER_ENTRY_MV_ALL_MAIN"/>
 				</a>
@@ -45,7 +45,7 @@
 		</c:if>
 		<c:if test='${entry.category != "commander" && deck.type == "commander"}'>
 			<p style="text-align: center">
-				<a class="ajax button closeModal" data-update="table.deck,section.deck-title"
+				<a class="ajax button closeModal" data-update="table.deck,section.deck-title,section.deck-list"
 						href='<spring:url value="/d/mv/${entry.deck}/${entry.qty}/${entry.card.id}/${entry.category}/${entry.foil}/commander"/>'>
 					<spring:message code="DECK_ALTER_ENTRY_MV_COMMANDER"/>
 				</a>
@@ -60,7 +60,7 @@
 					<li<c:if test="${entry.card.id == p.id}"> class="active"</c:if>>
 						<a href='<spring:url value="/d/printing/${entry.deck}/${entry.qty}/${entry.card.id}/${p.id}/${entry.category}/${entry.foil}"/>'
 								class="ajax closeModal"
-								data-update="section.cube li[data-card=${entry.card.card}],table.deck,section.deck-title"
+								data-update="section.cube li[data-card=${entry.card.card}],table.deck,section.deck-title,section.deck-list"
 								title="${p.edition.name}">
 							<i class="${p.edition.iconClass}"></i>
 						</a>
@@ -75,14 +75,14 @@
 			<c:if test="${entry.foil}">
 				<a href='<spring:url value="/d/foil/${entry.deck}/1/${entry.card.id}/${entry.category}/${entry.foil}"/>'
 						class="ajax closeModal button"
-						data-update="section.cube li[data-card=${entry.card.card}],table.deck,section.deck-title">
+						data-update="section.cube li[data-card=${entry.card.card}],table.deck,section.deck-title,section.deck-list">
 					<spring:message code="DECK_ALTER_ENTRY_RM_ONE_FOIL"/>
 				</a>
 			</c:if>
 			<c:if test="${not entry.foil}">
 				<a href='<spring:url value="/d/foil/${entry.deck}/1/${entry.card.id}/${entry.category}/${entry.foil}"/>'
 						class="ajax closeModal button"
-						data-update="section.cube li[data-card=${entry.card.card}],table.deck,section.deck-title">
+						data-update="section.cube li[data-card=${entry.card.card}],table.deck,section.deck-title,section.deck-list">
 					<spring:message code="DECK_ALTER_ENTRY_ADD_ONE_FOIL"/>
 				</a>
 			</c:if>

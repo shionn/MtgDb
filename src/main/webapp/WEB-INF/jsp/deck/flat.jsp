@@ -11,16 +11,47 @@
 				<article class="portlet nav">
 					<t:deck-nav deck="${deck}"/>
 					<section class="deck-list">
+						<c:if test="${not empty deck.commanders}">
+							<div class="title"><spring:message code="DECK_TABLE_COMMANDER_TITLE"/></div>
+							<ul>
+								<c:forEach items="${deck.commanders}" var="e">
+									<li data-card="${e.card.card}">
+										<c:forEach begin="1" end="${e.qty}" var="i">
+											<c:if test="${i==1}">
+												<a href='<spring:url value="/d/alter/${e.deck}/${e.card.id}/${e.category}/${e.foil}"/>' class="modal"><i class="fa fa-cog"></i></a>
+											</c:if>
+											<img src='<spring:url value="/c/img/${e.card.id}.jpg"/>'/>
+										</c:forEach>
+									</li>
+								</c:forEach>
+							</ul>
+						</c:if>
+						<div class="title"><spring:message code="DECK_TABLE_MAIN_TITLE"/></div>
 						<ul>
-							<c:forEach items="${deck.cards}" var="e">
-								<li>
+							<c:forEach items="${deck.mains}" var="e">
+								<li data-card="${e.card.card}">
 									<c:forEach begin="1" end="${e.qty}" var="i">
+										<c:if test="${i==1}">
+											<a href='<spring:url value="/d/alter/${e.deck}/${e.card.id}/${e.category}/${e.foil}"/>' class="modal"><i class="fa fa-cog"></i></a>
+										</c:if>
 										<img src='<spring:url value="/c/img/${e.card.id}.jpg"/>'/>
 									</c:forEach>
 								</li>
 							</c:forEach>
 						</ul>
-						<p style="text-align: center">TODO</p>
+						<div class="title"><spring:message code="DECK_TABLE_SIDEBOARD_TITLE" arguments="${deck.count('side')}"/></div>
+						<ul>
+							<c:forEach items="${deck.sides}" var="e">
+								<li data-card="${e.card.card}">
+									<c:forEach begin="1" end="${e.qty}" var="i">
+										<c:if test="${i==1}">
+											<a href='<spring:url value="/d/alter/${e.deck}/${e.card.id}/${e.category}/${e.foil}"/>' class="modal"><i class="fa fa-cog"></i></a>
+										</c:if>
+										<img src='<spring:url value="/c/img/${e.card.id}.jpg"/>'/>
+									</c:forEach>
+								</li>
+							</c:forEach>
+						</ul>
 					</section>
 				</article>
 			</section>

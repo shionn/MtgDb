@@ -54,6 +54,7 @@ public class DeckViewController {
 	@RequestMapping(value = "/d/flat/{id}", method = RequestMethod.GET)
 	public ModelAndView flat(@PathVariable("id") int id) {
 		Deck deck = session.getMapper(DeckDao.class).readDeck(id);
+		checkAndUpdatView(deck, DeckView.flat);
 		return new ModelAndView("deck/flat").addObject("deck", deck);
 	}
 

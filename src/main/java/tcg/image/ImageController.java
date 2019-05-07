@@ -105,7 +105,7 @@ public class ImageController {
 		if (card.getSide() != null) {
 			filename += card.getSide();
 		}
-		return "https://img.scryfall.com/cards/large/en/" + filename + ".jpg";
+		return "https://img.scryfall.com/cards/large/en/" + filename.toLowerCase() + ".jpg";
 	}
 
 	private String fileName(Card card) {
@@ -114,7 +114,7 @@ public class ImageController {
 			fileName += card.getSide();
 		}
 		fileName += "+en";
-		return path + "/" + fileName + "-en.jpg";
+		return path + "/" + fileName.toLowerCase() + "-en.jpg";
 	}
 
 	@Autowired
