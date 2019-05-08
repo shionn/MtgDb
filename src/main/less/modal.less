@@ -14,13 +14,18 @@ div.modal {
 		align-items: center;
 	}
 
-	article {
+	& > article {
 		background-color: @background-color;
 		width: 90%;
+		max-height: 95%;
+		& > section {
+			overflow-y: auto;
+		}
+
 		&.small {
 			max-width: 400px;
 		}
-		
+
 		@media (min-width: @min-sm) {
 			width: 700px;
 		}

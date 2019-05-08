@@ -22,7 +22,6 @@ import tcg.db.dbo.Card.Foil;
 import tcg.db.dbo.CardLayout;
 import tcg.db.dbo.CardPrice;
 import tcg.db.dbo.CardPriceSource;
-import tcg.db.dbo.EditionType;
 
 @Component
 public class MtgGoldFishCrawler {
@@ -142,9 +141,6 @@ public class MtgGoldFishCrawler {
 		String editionName = card.getEdition().getGoldfishName();
 		if (editionName == null) {
 			editionName = card.getEdition().getName();
-			if (card.getEdition().getType() == EditionType.promo) {
-				editionName = "Prerelease Cards";
-			}
 		}
 		return Arrays.asList(StringUtils.split(editionName.replaceAll("[:.',]", ""), '|'));
 	}

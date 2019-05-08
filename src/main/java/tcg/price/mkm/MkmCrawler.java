@@ -188,11 +188,13 @@ public class MkmCrawler {
 		// https://www.cardmarket.com/en/Magic/Products/Singles/Alliances/Force-of-Will
 		// https://www.cardmarket.com/en/Magic/Products/Singles/Magic-Origins-Promos/Jace-Vryns-Prodigy
 		// https://www.cardmarket.com/en/Magic/Products/Singles/Magic-Origins/Jace-Vryns-Prodigy-Jayemdae-Tome
+		// https://www.cardmarket.com/en/Magic/Products/Singles/Urzas-Legacy/Mother-of-Runes
 		return urls;
 	}
 
 	private String replaceIllegalChar(String edition) {
-		return edition.replace(':', '-').replace(' ', '-').replaceAll("--", "-");
+		return edition.replace(':', '-').replace(' ', '-').replaceAll("'", "").replaceAll("--",
+				"-");
 	}
 
 	private String name(Card card) {

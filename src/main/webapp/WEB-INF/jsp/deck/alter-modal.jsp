@@ -3,8 +3,9 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <article class="portlet alter-deck-entry">
-	<header><spring:message code="DECK_ALTER_ENTRY_MOVE" /></header>
+	<header>${entry.card.name}</header>
 	<section>
+		<div class="title"><spring:message code="DECK_ALTER_ENTRY_MOVE" /></div>
 		<p style="text-align: center">
 			<a class="ajax button closeModal" data-update="table.deck,section.deck-title,section.deck-list"
 					href='<spring:url value="/d/add/${entry.deck}/1/${entry.card.id}/${entry.category}/${entry.foil}"/>'>
@@ -51,10 +52,8 @@
 				</a>
 			</p>
 		</c:if>
-	</section>
-	<header><spring:message code="DECK_ALTER_ENTRY_EDITION" /></header>
-	<section class="editions">
-		<div>
+		<div class="title"><spring:message code="DECK_ALTER_ENTRY_EDITION" /></div>
+		<div class="editions">
 			<ul>
 				<c:forEach items="${entry.card.printings}" var="p">
 					<li<c:if test="${entry.card.id == p.id}"> class="active"</c:if>>
@@ -68,9 +67,7 @@
 				</c:forEach>
 			</ul>
 		</div>
-	</section>
-	<header><spring:message code="DECK_ALTER_ENTRY_FOIL" /></header>
-	<section>
+		<div class="title"><spring:message code="DECK_ALTER_ENTRY_FOIL" /></div>
 		<p style="text-align: center">
 			<c:if test="${entry.foil}">
 				<a href='<spring:url value="/d/foil/${entry.deck}/1/${entry.card.id}/${entry.category}/${entry.foil}"/>'
@@ -87,9 +84,7 @@
 				</a>
 			</c:if>
 		</p>
-	</section>
-	<header><spring:message code="DECK_ALTER_ENTRY_TAGS" /></header>
-	<section>
+		<div class="title"><spring:message code="DECK_ALTER_ENTRY_TAGS" /></div>
 		<div style="text-align: center;">
 			<c:forEach items="${entry.tags}" var="tag">
 				<a class="button grey"
@@ -97,15 +92,15 @@
 						href="<spring:url value="/d/tag/${entry.deck}/${entry.card.id}/${entry.category}/${entry.foil}/${tag}"/>">${tag}</a>
 			</c:forEach>
 		</div>
-	</section>
-	<section style="text-align: center;">
-		<spring:url value="/d/tag/${entry.deck}/${entry.card.id}/${entry.category}/${entry.foil}" var="action"/>
-		<form:form action="${action}" class="ajax"
-				data-update="table.deck"
-				method="GET">
-			<input type="text" required="required" name="tag"
-				placeholder='<spring:message code="DECK_ALTER_ENTRY_ADD_TAG_PLACEHOLDER"/>'>
-			<input type="submit" class="closeModal" value='<spring:message code="DECK_ALTER_ENTRY_ADD_TAG_BUTTON"/>'>
-		</form:form>
+		<div style="text-align: center;">
+			<spring:url value="/d/tag/${entry.deck}/${entry.card.id}/${entry.category}/${entry.foil}" var="action"/>
+			<form:form action="${action}" class="ajax"
+					data-update="table.deck"
+					method="GET">
+				<input type="text" required="required" name="tag"
+					placeholder='<spring:message code="DECK_ALTER_ENTRY_ADD_TAG_PLACEHOLDER"/>'>
+				<input type="submit" class="closeModal" value='<spring:message code="DECK_ALTER_ENTRY_ADD_TAG_BUTTON"/>'>
+			</form:form>
+		</div>
 	</section>
 </article>

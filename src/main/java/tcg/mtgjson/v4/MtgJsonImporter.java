@@ -27,8 +27,8 @@ import tcg.mtgjson.v4.api.MtgJsonSet;
 
 @Component
 public class MtgJsonImporter {
-	private static final int INTERVAL = 5 * 60 * 1000;
-	// private static final int INTERVAL = 5 * 1000;
+	// private static final int INTERVAL = 5 * 60 * 1000;
+	private static final int INTERVAL = 5 * 1000;
 	private Logger logger = LoggerFactory.getLogger(MtgJsonImporter.class);
 
 	private SqlSessionFactory factory;
@@ -42,12 +42,6 @@ public class MtgJsonImporter {
 		if (codes.isEmpty()) {
 			List<MtgJsonSet> sets = Arrays.asList(client.setList());
 			Collections.shuffle(sets);
-			// Collections.sort(sets, new Comparator<MtgJsonSet>() {
-			// @Override
-			// public int compare(MtgJsonSet o1, MtgJsonSet o2) {
-			// return -o1.getReleaseDate().compareTo(o2.getReleaseDate());
-			// }
-			// });
 			codes.addAll(sets.stream().map(MtgJsonSet::getCode).collect(Collectors.toList()));
 			logger.info("Found <" + codes.size() + "> to scan");
 		} else {
@@ -59,6 +53,7 @@ public class MtgJsonImporter {
 	void importEdition(String code) {
 		MtgJsonSet set = client.set(code);
 		logger.info("Start import set <" + set.getCode() + ">");
+		long start = System.currentTimeMillis();
 		try (SqlSession session = factory.openSession()) {
 			MtgJsonV4ImporterDao dao = session.getMapper(MtgJsonV4ImporterDao.class);
 			dao.updateEdition(set);
@@ -75,7 +70,8 @@ public class MtgJsonImporter {
 			updateLinks(set, dao);
 			session.commit();
 		}
-		logger.info("End import set <" + set.getCode() + ">");
+		logger.info("End import set <" + set.getCode() + "> in <"
+				+ ((System.currentTimeMillis() - start) / 1000) + ">");
 	}
 
 	private void updateLinks(MtgJsonSet set, MtgJsonV4ImporterDao dao) {
