@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -30,7 +31,7 @@ import tcg.price.mkm.MkmCrawler;
 
 @Component
 @ApplicationScope
-public class PriceDeamon {
+public class PriceDeamon implements DisposableBean {
 
 	@Autowired
 	private SqlSessionFactory factory;
@@ -122,5 +123,10 @@ public class PriceDeamon {
 			prices = get(card);
 		}
 		return prices;
+	}
+
+	@Override
+	public void destroy() throws Exception {
+		executors.shutdownNow();
 	}
 }

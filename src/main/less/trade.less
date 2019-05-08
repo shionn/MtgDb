@@ -3,10 +3,15 @@ body > article.main.trade {
 	& > section {
 		display: flex;
 		justify-content: space-between;
+		flex-wrap: wrap;
 		article {
 			margin: 0 7px;
-			width: 50%;
-			section {
+			width: 100%;
+			@media (min-width: @min-sm) {
+				width: calc(~"50% - 14px");
+			}
+			table tbody td {
+				text-align : center;
 			}
 		}
 	}

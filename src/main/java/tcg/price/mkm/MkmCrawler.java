@@ -1,6 +1,7 @@
 package tcg.price.mkm;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -174,22 +175,35 @@ public class MkmCrawler {
 		}
 		List<String> urls = new ArrayList<>();
 		for (String edition : StringUtils.split(editions, '|')) {
-			String base = "https://www.cardmarket.com/en/Magic/Products/Singles/"
-					+ URLEncoder.encode(replaceIllegalChar(edition), ENCODING) + "/"
-					+ URLEncoder.encode(name(card), ENCODING);
-			if (card.getLayout().isMkmConcatName()) {
-				urls.add(base + URLEncoder.encode("-" + name(card.getLinkCard()), ENCODING));
-			} else {
-				urls.add(base);
-			}
+			urls.add(buildUrlMode1(card, edition));
+			urls.add(buildUrlMode2(card, edition));
 		}
 		// https://www.cardmarket.com/en/Magic/Products/Singles/Rivals+of+Ixalan/Journey-to-Eternity-Atzal-Cave-of-Eternity
 		// https://www.cardmarket.com/en/Magic/Products/Singles/Battle+for+Zendikar/Ob-Nixilis-Reignited
 		// https://www.cardmarket.com/en/Magic/Products/Singles/Alliances/Force-of-Will
-		// https://www.cardmarket.com/en/Magic/Products/Singles/Magic-Origins-Promos/Jace-Vryns-Prodigy
-		// https://www.cardmarket.com/en/Magic/Products/Singles/Magic-Origins/Jace-Vryns-Prodigy-Jayemdae-Tome
+		// https://www.cardmarket.com/en/Magic/Products/Singles/Shadows-over-Innistrad/Thalia-s-Lieutenant
 		// https://www.cardmarket.com/en/Magic/Products/Singles/Urzas-Legacy/Mother-of-Runes
 		return urls;
+	}
+
+	private String buildUrlMode1(Card card, String edition) throws UnsupportedEncodingException {
+		String url = "https://www.cardmarket.com/en/Magic/Products/Singles/"
+				+ URLEncoder.encode(replaceIllegalChar(edition), ENCODING) + "/"
+				+ URLEncoder.encode(buildNameUrlMode1(card), ENCODING);
+		if (card.getLayout().isMkmConcatName()) {
+			url += URLEncoder.encode("-" + buildNameUrlMode1(card.getLinkCard()), ENCODING);
+		}
+		return url;
+	}
+
+	private String buildUrlMode2(Card card, String edition) throws UnsupportedEncodingException {
+		String url = "https://www.cardmarket.com/en/Magic/Products/Singles/"
+				+ URLEncoder.encode(replaceIllegalChar(edition), ENCODING) + "/"
+				+ URLEncoder.encode(buildNameUrlMode2(card), ENCODING);
+		if (card.getLayout().isMkmConcatName()) {
+			url += URLEncoder.encode("-" + buildNameUrlMode1(card.getLinkCard()), ENCODING);
+		}
+		return url;
 	}
 
 	private String replaceIllegalChar(String edition) {
@@ -197,9 +211,13 @@ public class MkmCrawler {
 				"-");
 	}
 
-	private String name(Card card) {
+	private String buildNameUrlMode1(Card card) {
 		return card.getName().replaceAll("'", "").replaceAll("[^a-zA-Z-]", "-").replaceAll("--",
 				"-");
+	}
+
+	private String buildNameUrlMode2(Card card) {
+		return card.getName().replaceAll("[^a-zA-Z-]", "-").replaceAll("--", "-");
 	}
 
 }

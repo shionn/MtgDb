@@ -37,7 +37,9 @@ public class MkmCrawlerTest {
 		Card card = doubleFace("Rivals of Ixalan", "Journey to Eternity", "Atzal, Cave of Eternity");
 		assertThat(crawler.price(card).get(0).getPrice()).as("double // url").isPositive();
 		card = doubleFace("Ixalan", "Search for Azcanta", "Azcanta, the Sunken Ruin");
-		assertThat(crawler.price(card).get(0).getPrice()).as("Simple / url").isPositive();
+		assertThat(crawler.price(card).get(0).getPrice()).as("double / url").isPositive();
+		card = doubleFace("Magic Origins", "Jace, Vryn's Prodigy", "Jace, Telepath Unbound");
+		assertThat(crawler.price(card).get(0).getPrice()).as("double / url").isPositive();
 	}
 
 	@Test
@@ -47,6 +49,9 @@ public class MkmCrawlerTest {
 		card = card("Kaladesh", "Torrential Gearhulk");
 		assertThat(crawler.price(card).get(0).getPrice()).isPositive();
 		card = card("Alliances", "Force of Will");
+		assertThat(crawler.price(card).get(0).getPrice()).isPositive();
+		// dans le cas thalia le 's est remplacé par -s alors que pour jace le ' est supprimé
+		card = card("Shadows over Innistrad", "Thalia's Lieutenant");
 		assertThat(crawler.price(card).get(0).getPrice()).isPositive();
 	}
 
