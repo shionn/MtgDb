@@ -41,7 +41,7 @@ public class PriceDeamon implements DisposableBean {
 	@Autowired
 	private MkmCrawler mkmCrawler;
 
-	private ExecutorService executors = Executors.newFixedThreadPool(3);
+	private ExecutorService executors = Executors.newFixedThreadPool(4);
 
 	private Queue<String> priceCardToUpdate = new ConcurrentLinkedQueue<>();
 	private Map<String, List<CardPrice>> results = new ConcurrentHashMap<>();
@@ -72,12 +72,22 @@ public class PriceDeamon implements DisposableBean {
 	private List<Callable<List<CardPrice>>> tasks(Card card) {
 		List<Callable<List<CardPrice>>> calls = new ArrayList<>();
 		if (!card.getEdition().isOnlineOnly()) {
-			calls.add(new Callable<List<CardPrice>>() {
-				@Override
-				public List<CardPrice> call() throws Exception {
-					return mkmCrawler.price(card);
-				}
-			});
+			if (card.getFoil() != Foil.onlyfoil) {
+				calls.add(new Callable<List<CardPrice>>() {
+					@Override
+					public List<CardPrice> call() throws Exception {
+						return mkmCrawler.priceForNotFoil(card);
+					}
+				});
+			}
+			if (card.getFoil() != Foil.nofoil) {
+				calls.add(new Callable<List<CardPrice>>() {
+					@Override
+					public List<CardPrice> call() throws Exception {
+						return mkmCrawler.priceForFoil(card);
+					}
+				});
+			}
 		}
 		if (card.getFoil() != Foil.onlyfoil) {
 			calls.add(new Callable<List<CardPrice>>() {
@@ -107,11 +117,6 @@ public class PriceDeamon implements DisposableBean {
 	}
 
 	public List<CardPrice> get(String id) {
-		// synchronized (this) {
-		// List<CardPrice> prices = results.get(id);
-		// results.remove(id);
-		// return prices;
-		// }
 		return results.get(id);
 	}
 

@@ -8,9 +8,7 @@ ALTER TABLE `card` ADD `scryfall_id` VARCHAR(64) NULL DEFAULT NULL AFTER `link_c
 -- refonte page editions
 ALTER TABLE `edition` ADD `block` VARCHAR(64) NULL DEFAULT NULL AFTER `name`;
 ALTER TABLE `edition` ADD `parent_code` VARCHAR(8) NULL DEFAULT NULL AFTER `block`;
-
-ALTER TABLE `card` CHANGE `number` `number` VARCHAR(8) NULL DEFAULT NULL;
-
+ALTER TABLE `card` CHANGE `number` `number` VARCHAR(9) NULL DEFAULT NULL;
 
 -- mise à jour migration vers mtgjson2
 -- La colonne foil de edition semble inutile,

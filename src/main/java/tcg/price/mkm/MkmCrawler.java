@@ -9,13 +9,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Connection.Method;
@@ -24,6 +17,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.ApplicationScope;
 
@@ -31,6 +25,7 @@ import tcg.db.dbo.Card;
 import tcg.db.dbo.Card.Foil;
 import tcg.db.dbo.CardPrice;
 import tcg.db.dbo.CardPriceSource;
+import tcg.security.MailSender;
 
 @Component
 @ApplicationScope
@@ -39,14 +34,20 @@ public class MkmCrawler {
 	private static final String ENCODING = "UTF-8";
 	private static final List<String> IGNORED_EDITION = Arrays.asList("pPRE");
 
-	public List<CardPrice> price(Card card) throws InterruptedException, ExecutionException {
+	@Autowired
+	private MailSender mailSender;
+
+	public List<CardPrice> priceForNotFoil(Card card) {
 		List<CardPrice> prices = new ArrayList<>();
 		if (!isIgnored(card)) {
 			try {
 				Iterator<String> urls = buildUrl(card).iterator();
-				prices = crawl(card, urls.next());
-				while (prices.isEmpty() && urls.hasNext()) {
-					prices = crawl(card, urls.next());
+				CardPrice price = crawlPaper(card, urls.next());
+				while (price == null && urls.hasNext()) {
+					price = crawlPaper(card, urls.next());
+				}
+				if (price != null) {
+					prices.add(price);
 				}
 			} catch (IOException e) {
 				LoggerFactory.getLogger(MkmCrawler.class).error("Can't crawl price : ", e);
@@ -55,36 +56,23 @@ public class MkmCrawler {
 		return prices;
 	}
 
-	private ExecutorService executors = Executors.newFixedThreadPool(2);
-
-	private List<CardPrice> crawl(Card card, String url)
-			throws InterruptedException, ExecutionException {
+	public List<CardPrice> priceForFoil(Card card) {
 		List<CardPrice> prices = new ArrayList<>();
-		for (Future<CardPrice> futur : executors.invokeAll(buildCallable(card, url))) {
-			prices.add(futur.get());
-		}
-		return prices.stream().filter(Objects::nonNull).collect(Collectors.toList());
-	}
-
-	private List<Callable<CardPrice>> buildCallable(Card card, String url) {
-		List<Callable<CardPrice>> callable = new ArrayList<>();
-		if (card.getFoil() != Foil.onlyfoil) {
-			callable.add(new Callable<CardPrice>() {
-				@Override
-				public CardPrice call() throws Exception {
-					return crawlPaper(card, url);
+		if (!isIgnored(card)) {
+			try {
+				Iterator<String> urls = buildUrl(card).iterator();
+				CardPrice price = crawlFoil(card, urls.next());
+				while (price == null && urls.hasNext()) {
+					price = crawlFoil(card, urls.next());
 				}
-			});
-		}
-		if (card.getFoil() != Foil.nofoil) {
-			callable.add(new Callable<CardPrice>() {
-				@Override
-				public CardPrice call() throws Exception {
-					return crawlFoil(card, url);
+				if (price != null) {
+					prices.add(price);
 				}
-			});
+			} catch (IOException e) {
+				LoggerFactory.getLogger(MkmCrawler.class).error("Can't crawl price : ", e);
+			}
 		}
-		return callable;
+		return prices;
 	}
 
 	private CardPrice crawlPaper(Card card, String url) {

@@ -25,7 +25,8 @@ public class MkmCrawlerTest {
 		card.setEdition(edition);
 		card.setLayout(CardLayout.normal);
 		card.setName("Ob Nixilis Reignited");
-		List<CardPrice> prices = crawler.price(card);
+		List<CardPrice> prices = crawler.priceForNotFoil(card);
+		prices.addAll(crawler.priceForFoil(card));
 		BigDecimal paper = prices.get(0).getPrice();
 		assertThat(paper).isPositive();
 		BigDecimal foil = prices.get(1).getPrice();
@@ -35,24 +36,25 @@ public class MkmCrawlerTest {
 	@Test
 	public void testDoublePrice() throws Exception {
 		Card card = doubleFace("Rivals of Ixalan", "Journey to Eternity", "Atzal, Cave of Eternity");
-		assertThat(crawler.price(card).get(0).getPrice()).as("double // url").isPositive();
+		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).as("double // url")
+				.isPositive();
 		card = doubleFace("Ixalan", "Search for Azcanta", "Azcanta, the Sunken Ruin");
-		assertThat(crawler.price(card).get(0).getPrice()).as("double / url").isPositive();
+		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).as("double / url").isPositive();
 		card = doubleFace("Magic Origins", "Jace, Vryn's Prodigy", "Jace, Telepath Unbound");
-		assertThat(crawler.price(card).get(0).getPrice()).as("double / url").isPositive();
+		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).as("double / url").isPositive();
 	}
 
 	@Test
 	public void testPriceDivers() throws Exception {
 		Card card = card("Commander", "Serra Angel");
-		assertThat(crawler.price(card).get(0).getPrice()).isPositive();
+		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).isPositive();
 		card = card("Kaladesh", "Torrential Gearhulk");
-		assertThat(crawler.price(card).get(0).getPrice()).isPositive();
+		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).isPositive();
 		card = card("Alliances", "Force of Will");
-		assertThat(crawler.price(card).get(0).getPrice()).isPositive();
+		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).isPositive();
 		// dans le cas thalia le 's est remplacé par -s alors que pour jace le ' est supprimé
 		card = card("Shadows over Innistrad", "Thalia's Lieutenant");
-		assertThat(crawler.price(card).get(0).getPrice()).isPositive();
+		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).isPositive();
 	}
 
 	private Card card(String editionName, String cardName) {
