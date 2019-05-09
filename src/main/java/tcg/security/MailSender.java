@@ -13,15 +13,19 @@ import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MailSender {
+	private Logger logger = LoggerFactory.getLogger(MailSender.class);
 
 	@Value("${smtp.host}")
 	private String host;
@@ -35,9 +39,26 @@ public class MailSender {
 	private String from;
 	@Value("${smtp.replyto}")
 	private String replyto;
+	@Value("${mail.admin}")
+	private String adminMail;
 
 	public void send(String email, String subjet, String content, Object... params)
 			throws MessagingException, IOException {
+		String fileName = content + '_' + LocaleContextHolder.getLocale() + ".mail";
+		process(email, subjet, fileName, params);
+
+	}
+
+	public void sendToAdmin(String subject, String content, Object... params) {
+		try {
+			process(adminMail, subject, "adm_" + content + ".mail", params);
+		} catch (MessagingException | IOException e) {
+			logger.error("can't send admin mail " + e);
+		}
+	}
+
+	private void process(String email, String subjet, String fileName, Object... params)
+			throws MessagingException, AddressException, IOException {
 		Properties props = new Properties();
 
 		props.put("mail.smtp.host", host);
@@ -56,15 +77,15 @@ public class MailSender {
 		message.setReplyTo(new InternetAddress[] { new InternetAddress(replyto) });
 		message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
 		message.setSubject(subjet);
-		message.setText(read(content, params));
+		message.setText(read(fileName, params));
 
 		Transport.send(message);
-
 	}
 
-	private String read(String content, Object[] params) throws IOException {
+
+
+	private String read(String mail, Object[] params) throws IOException {
 		StringBuilder message = new StringBuilder();
-		String mail = content + '_' + LocaleContextHolder.getLocale() + ".mail";
 		try (InputStream is = Thread.currentThread().getContextClassLoader()
 				.getResourceAsStream(mail);
 				InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
@@ -77,5 +98,6 @@ public class MailSender {
 		}
 		return message.toString();
 	}
+
 
 }

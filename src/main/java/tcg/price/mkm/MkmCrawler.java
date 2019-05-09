@@ -34,7 +34,6 @@ public class MkmCrawler {
 	private static final String ENCODING = "UTF-8";
 	private static final List<String> IGNORED_EDITION = Arrays.asList("pPRE");
 
-	@Autowired
 	private MailSender mailSender;
 
 	public List<CardPrice> priceForNotFoil(Card card) {
@@ -48,6 +47,10 @@ public class MkmCrawler {
 				}
 				if (price != null) {
 					prices.add(price);
+				} else {
+					mailSender.sendToAdmin("No price found " + card.getName(), "no_price_found",
+							card.getName(), card.getEdition().getName(),
+							card.getEdition().getCode(), CardPriceSource.mkm);
 				}
 			} catch (IOException e) {
 				LoggerFactory.getLogger(MkmCrawler.class).error("Can't crawl price : ", e);
@@ -67,6 +70,10 @@ public class MkmCrawler {
 				}
 				if (price != null) {
 					prices.add(price);
+				} else {
+					mailSender.sendToAdmin("No price found " + card.getName(), "no_price_found",
+							card.getName(), card.getEdition().getName(),
+							card.getEdition().getCode(), CardPriceSource.mkmFoil);
 				}
 			} catch (IOException e) {
 				LoggerFactory.getLogger(MkmCrawler.class).error("Can't crawl price : ", e);
@@ -171,6 +178,7 @@ public class MkmCrawler {
 		// https://www.cardmarket.com/en/Magic/Products/Singles/Alliances/Force-of-Will
 		// https://www.cardmarket.com/en/Magic/Products/Singles/Shadows-over-Innistrad/Thalia-s-Lieutenant
 		// https://www.cardmarket.com/en/Magic/Products/Singles/Urzas-Legacy/Mother-of-Runes
+		// https://www.cardmarket.com/en/Magic/Products/Singles/Duel-Decks-Elves-vs-Goblins/Akki-Coalflinger
 		return urls;
 	}
 
@@ -195,8 +203,7 @@ public class MkmCrawler {
 	}
 
 	private String replaceIllegalChar(String edition) {
-		return edition.replace(':', '-').replace(' ', '-').replaceAll("'", "").replaceAll("--",
-				"-");
+		return edition.replaceAll("'", "").replaceAll("[^a-zA-Z-]", "-").replaceAll("--", "-");
 	}
 
 	private String buildNameUrlMode1(Card card) {
@@ -206,6 +213,11 @@ public class MkmCrawler {
 
 	private String buildNameUrlMode2(Card card) {
 		return card.getName().replaceAll("[^a-zA-Z-]", "-").replaceAll("--", "-");
+	}
+
+	@Autowired
+	public void setMailSender(MailSender mailSender) {
+		this.mailSender = mailSender;
 	}
 
 }

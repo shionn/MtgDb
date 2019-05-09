@@ -28,6 +28,12 @@ public interface MtgJsonV4ImporterDao {
 			+ "update_date = NOW() ")
 	int updateEdition(MtgJsonSet set);
 
+	@Select("SELECT EXISTS (SELECT ID " //
+			+ "FROM card " //
+			+ "WHERE id = #{uuid} " //
+			+ "AND (update_date < NOW() - INTERVAL 7 DAY OR update_date IS NULL))")
+	boolean isTooOld(MtgJsonCard card);
+
 	@Insert("INSERT INTO card (id, card, scryfall_id, edition, foil, number, side,  "
 			+ "name, text, flavor, original_text, artist, type, original_type, " //
 			+ "mana_cost, cmc, colors, color_identity, " //
@@ -106,6 +112,7 @@ public interface MtgJsonV4ImporterDao {
 
 	@Delete("DELETE FROM card WHERE id = #{id}")
 	int deleteCard(String oldId);
+
 
 
 }

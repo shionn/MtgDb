@@ -51,21 +51,23 @@ public class MtgJsonImporter {
 	}
 
 	void importEdition(String code) {
-		MtgJsonSet set = client.set(code);
+		MtgJsonSet set = new MtgJsonFix().fix(client.set(code));
 		logger.info("Start import set <" + set.getCode() + ">");
 		long start = System.currentTimeMillis();
 		try (SqlSession session = factory.openSession()) {
 			MtgJsonV4ImporterDao dao = session.getMapper(MtgJsonV4ImporterDao.class);
 			dao.updateEdition(set);
 			for (MtgJsonCard card : set.getCards()) {
-				dao.updateCard(card, set);
-				updateCardName(dao, card);
-				updateTypes(card, dao);
-				updateRules(card, dao);
-				updateLegality(card, dao);
-				updateAssistance(card, dao);
-				removeOldCard(set, card, dao);
-				session.commit();
+				if (dao.isTooOld(card) || true) {
+					dao.updateCard(card, set);
+					updateCardName(dao, card);
+					updateTypes(card, dao);
+					updateRules(card, dao);
+					updateLegality(card, dao);
+					updateAssistance(card, dao);
+					removeOldCard(set, card, dao);
+					session.commit();
+				}
 			}
 			updateLinks(set, dao);
 			session.commit();

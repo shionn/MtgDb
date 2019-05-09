@@ -1,10 +1,12 @@
 package tcg.price.mkm;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import tcg.db.dbo.Card;
@@ -12,10 +14,16 @@ import tcg.db.dbo.Card.Foil;
 import tcg.db.dbo.CardLayout;
 import tcg.db.dbo.CardPrice;
 import tcg.db.dbo.Edition;
+import tcg.security.MailSender;
 
 public class MkmCrawlerTest {
 
 	private MkmCrawler crawler = new MkmCrawler();
+
+	@Before
+	public void setup() {
+		crawler.setMailSender(mock(MailSender.class));
+	}
 
 	@Test
 	public void testPrice() throws Exception {
@@ -54,6 +62,10 @@ public class MkmCrawlerTest {
 		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).isPositive();
 		// dans le cas thalia le 's est remplacé par -s alors que pour jace le ' est supprimé
 		card = card("Shadows over Innistrad", "Thalia's Lieutenant");
+		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).isPositive();
+		card = card("Urza's Legacy", "Mother of Runes");
+		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).isPositive();
+		card = card("Duel Decks: Elves vs. Goblins", "Akki Coalflinger");
 		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).isPositive();
 	}
 

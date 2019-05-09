@@ -15,6 +15,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import tcg.db.dbo.Card;
@@ -22,12 +23,16 @@ import tcg.db.dbo.Card.Foil;
 import tcg.db.dbo.CardLayout;
 import tcg.db.dbo.CardPrice;
 import tcg.db.dbo.CardPriceSource;
+import tcg.security.MailSender;
 
 @Component
 public class MtgGoldFishCrawler {
 	private Logger logger = LoggerFactory.getLogger(MtgGoldFishCrawler.class);
 
 	private static final List<String> IGNORED_EDITION = Arrays.asList("CEI");
+
+	@Autowired
+	private MailSender mailSender;
 
 	public List<CardPrice> priceForNotFoil(Card card) {
 		List<CardPrice> prices = new ArrayList<CardPrice>();
@@ -65,6 +70,10 @@ public class MtgGoldFishCrawler {
 		if (!found) {
 			paper.setError("IOException");
 			online.setError("IOException");
+			mailSender.sendToAdmin("No price found " + card.getName(), "no_price_found",
+					card.getName(), card.getEdition().getName(), card.getEdition().getCode(),
+					paperType);
+
 		}
 		return Arrays.asList(paper, online);
 	}
