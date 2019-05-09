@@ -23,6 +23,11 @@ public interface AdmEditionDao {
 			+ "ORDER BY name ASC")
 	List<Edition> listReplacable();
 
+	@Select("SELECT * " //
+			+ "FROM edition " //
+			+ "ORDER BY name ASC")
+	List<Edition> listAll();
+
 	@Update("UPDATE  deck_entry AS e "
 			+ "INNER JOIN card  AS o ON e.card = o.id   AND o.edition = #{old} "
 			+ "INNER JOIN card  AS n ON n.card = o.card AND n.edition = #{new} "
@@ -52,5 +57,6 @@ public interface AdmEditionDao {
 
 	@Delete("DELETE FROM edition WHERE code = #{id}")
 	int deleteEdition(String code);
+
 
 }

@@ -191,4 +191,8 @@ public class MtgJsonImporter {
 		this.formater = formater;
 	}
 
+	public void forceUpdate(String edition) {
+		codes.push(edition);
+	}
+
 }

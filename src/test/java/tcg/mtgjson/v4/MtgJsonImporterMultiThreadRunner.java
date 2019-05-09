@@ -30,6 +30,7 @@ public class MtgJsonImporterMultiThreadRunner {
 
 		List<MtgJsonSet> sets = Arrays.asList(client.setList());
 		Collections.shuffle(sets);
+		@SuppressWarnings("unchecked")
 		List<Callable<String>> tasks = sets.stream()
 				.map(MtgJsonSet::getCode).map(code -> new Callable<String>() {
 					@Override
@@ -37,7 +38,7 @@ public class MtgJsonImporterMultiThreadRunner {
 						importer.importEdition(code);
 						return code;
 					}
-				}).collect(Collectors.toList());
+				}).map(s -> (Callable<String>) s).collect(Collectors.toList());
 
 		ExecutorService executor = Executors.newFixedThreadPool(10);
 		for (Future<String> futur : executor.invokeAll(tasks)) {
