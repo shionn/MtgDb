@@ -22,13 +22,13 @@
 				<article class="portlet">
 					<header>Crédit</header>
 					<section>
+						<p>Ce site utilise des ressources fournit par d'autres personne(s) :</p>
 						<ul>
 							<li><a href="https://github.com/AlexandreArpin/mtg-font/" target="_blank">Mtg font (symbole de mana)</a></li>
 							<li><a href="https://github.com/andrewgioia/Keyrune" target="_blank">Keyrune (symbole d'édition)</a></li>
 							<li><a href="https://github.com/andrewgioia/Mana" target="_blank">Mana (symbole de guilde et d'autres divers)</a></li>
 							<li><a href="https://mtgjson.com/" target="_blank">MtgJson (Pour la bdd des cartes)</a></li>
 							<li><a href="https://scryfall.com/" target="_blank">Scryfall (Pour les images)</a></li>
-							<li><a href="https://fontawesome.com/" target="_blank">Font awesome</a></li>
 							<li><a href="http://flag-icon-css.lip.is/" target="_blank">Flag-icon-css (Pour les drapeaux)</a></li>
 						</ul>
 					</section>

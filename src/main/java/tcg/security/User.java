@@ -15,6 +15,7 @@ public class User {
 
 	private int currentDeck;
 	private String currentDeckName;
+	private boolean admin;
 
 	public String getUser() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -42,6 +43,14 @@ public class User {
 
 	public Locale getLocale() {
 		return LocaleContextHolder.getLocale();
+	}
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 
 }

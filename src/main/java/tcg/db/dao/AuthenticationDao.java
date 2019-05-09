@@ -7,7 +7,7 @@ import tcg.db.dbo.User;
 
 public interface AuthenticationDao {
 
-	@Select("SELECT  email, password " //
+	@Select("SELECT  email, password, admin " //
 			+ "FROM user " //
 			+ "WHERE email = #{email}")
 	User readUser(@Param("email") String email);

@@ -27,8 +27,8 @@ import tcg.mtgjson.v4.api.MtgJsonSet;
 
 @Component
 public class MtgJsonImporter {
-	// private static final int INTERVAL = 5 * 60 * 1000;
-	private static final int INTERVAL = 5 * 1000;
+	private static final int INTERVAL = 5 * 60 * 1000;
+	// private static final int INTERVAL = 5 * 1000;
 	private Logger logger = LoggerFactory.getLogger(MtgJsonImporter.class);
 
 	private SqlSessionFactory factory;

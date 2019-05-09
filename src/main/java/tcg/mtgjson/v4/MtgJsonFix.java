@@ -7,10 +7,12 @@ import tcg.mtgjson.v4.api.MtgJsonSet;
 public class MtgJsonFix {
 
 	enum EditionFix {
-		PVAN(set -> set.setMcmName("Vanguard")), TSB(set -> set.setMcmName("Time Spiral"));
+		@SuppressWarnings("unchecked")
+		PVAN(set -> set.setMcmName("Vanguard")), @SuppressWarnings("unchecked")
+		TSB(set -> set.setMcmName("Time Spiral"));
 		private Consumer<MtgJsonSet>[] fixs;
 
-		private EditionFix(Consumer<MtgJsonSet>... fixs) {
+		private EditionFix(@SuppressWarnings("unchecked") Consumer<MtgJsonSet>... fixs) {
 			this.fixs = fixs;
 		}
 	}

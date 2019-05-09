@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t"%>
 <t:template>
-	<jsp:attribute name="title">Editions</jsp:attribute>
+	<jsp:attribute name="title"><spring:message code="PAGE_EDITION_TITLE"/></jsp:attribute>
 	<jsp:attribute name="content">
 		<article class="main container editions">
 			<c:forEach items="${groups}" var="group">

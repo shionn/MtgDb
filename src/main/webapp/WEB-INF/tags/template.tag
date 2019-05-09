@@ -63,8 +63,27 @@
 			</ul>
 		</nav>
 	</header>
-	<jsp:invoke fragment="content" />
-	<footer></footer>
+	<jsp:invoke fragment="content" /><footer class="container">
+		<div>MtgDb by <a href="shionn@gmail.com">shionn</a>
+			<c:if test="${user.admin}">
+				| <a href='<spring:url value="/adm"/>'>Admin</a>
+			</c:if>
+		</div>
+		<div>
+			<a href="mailto:shionn@gmail.com" title="Contact"><i class="fa fa-envelope" aria-hidden="true"></i></a> |
+			<a href="https://github.com/shionn/MtgDb" target="_blank" title="Github"><i class="fa fa-github"></i></a> |
+			<a href="http://fontawesome.io/" target="_blank" title="FontAwesome"><i class="fa fa-font-awesome"></i></a> |
+			<a href="https://spring.io/" target="_blank" title="Spring"><i class="fa fa-leaf"></i></a> |
+			<a href="http://blog.mybatis.org/" target="_blank" title="MyBatis"><i class="fa fa-twitter"></i></a> |
+			<a href="http://lesscss.org/" target="_blank" title="Less">{<small>less</small>}</a> |
+			<a href="http://alexandrearpin.com/mtg-font/" target="_blank" title="Magic the Gathering Font"><img src="http://alexandrearpin.com/favicon.ico"></a> |
+			<a href="https://andrewgioia.github.io/Keyrune/" target="_blank" title="Keyrune"><i class="ss ss-leg"></i></a> |
+			<a href="https://andrewgioia.github.io/Mana/" target="_blank" title="Mana"><i class="ms ms-g"></i> </a> |
+			<a href="https://mtgjson.com/" target="_blank" title="MtgJson"><img src="https://mtgjson.com/favicon.ico"></a> |
+			<a href="https://scryfall.com/" target="_blank" title="Scryfall"><img src="https://scryfall.com/favicon.ico"></a> |
+			<a href="http://flag-icon-css.lip.is/" target="_blank" title="flag-icon-css"><img src="http://flag-icon-css.lip.is/favicon.ico"></a>
+		</div>
+	</footer>
 	<div class="modal"></div>
 	<script type="text/javascript" src='<spring:url value="/js/jquery-3.1.0.min.js"/>'></script>
 	<script type="text/javascript" src='<spring:url value="/js/scripts.js"/>'></script>

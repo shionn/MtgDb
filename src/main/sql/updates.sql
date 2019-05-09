@@ -1,7 +1,7 @@
 
 -- drop d'edition
 -- VAN, DD3_GVL
-SELECT * from deck_entry WHERE id IN (SELECT id FROM card WHERE edition = 'DD3_GVL');
+SELECT * from deck_entry WHERE card IN (SELECT id FROM card WHERE edition = 'DD3_GVL');
 DELETE FROM card_assistance WHERE id IN (SELECT id FROM card WHERE edition = 'DD3_GVL');
 DELETE FROM card_lang WHERE id IN (SELECT id FROM card WHERE edition = 'DD3_GVL');
 DELETE FROM card_legality WHERE id IN (SELECT id FROM card WHERE edition = 'DD3_GVL');
@@ -10,6 +10,10 @@ DELETE FROM card_rule WHERE id IN (SELECT id FROM card WHERE edition = 'DD3_GVL'
 DELETE FROM card_type WHERE id IN (SELECT id FROM card WHERE edition = 'DD3_GVL');
 DELETE FROM card WHERE edition = 'DD3_GVL';
 DELETE FROM edition WHERE code = 'DD3_GVL';
+
+
+-- ajout des admin
+ALTER TABLE `user` ADD `admin` TINYINT(1) NOT NULL DEFAULT '0' AFTER `activated`;
 
 -- amelioration recuperation img
 ALTER TABLE card_lang DROP multiverse_id;

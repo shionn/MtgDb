@@ -26,9 +26,11 @@ public class AuthenticationProvider implements org.springframework.security.auth
 	@Autowired
 	private SqlSession session;
 
-
 	@Autowired
 	private PasswordEncoder encoder;
+
+	@Autowired
+	private tcg.security.User user;
 
 	@Override
 	public boolean supports(Class<?> type) {
@@ -43,6 +45,7 @@ public class AuthenticationProvider implements org.springframework.security.auth
 		} else if (checkPassword((UsernamePasswordAuthenticationToken) authentication, user)) {
 			authentication = new UsernamePasswordAuthenticationToken(authentication.getPrincipal(),
 					authentication.getCredentials(), AuthorityUtils.createAuthorityList("ROLE_ADMIN"));
+			this.user.setAdmin(user.isAdmin());
 		} else {
 			throw new BadCredentialsException("TODO msg");
 		}
