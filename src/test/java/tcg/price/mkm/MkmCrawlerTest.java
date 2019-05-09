@@ -54,26 +54,32 @@ public class MkmCrawlerTest {
 
 	@Test
 	public void testPriceDivers() throws Exception {
-		Card card = card("Commander", "Serra Angel");
+		Card card = card("Commander", "Serra Angel", Foil.nofoil);
 		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).isPositive();
-		card = card("Kaladesh", "Torrential Gearhulk");
+		card = card("Kaladesh", "Torrential Gearhulk", Foil.nofoil);
 		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).isPositive();
-		card = card("Alliances", "Force of Will");
+		card = card("Alliances", "Force of Will", Foil.nofoil);
 		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).isPositive();
 		// dans le cas thalia le 's est remplacé par -s alors que pour jace le ' est supprimé
-		card = card("Shadows over Innistrad", "Thalia's Lieutenant");
+		card = card("Shadows over Innistrad", "Thalia's Lieutenant", Foil.nofoil);
 		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).isPositive();
-		card = card("Urza's Legacy", "Mother of Runes");
+		card = card("Urza's Legacy", "Mother of Runes", Foil.nofoil);
 		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).isPositive();
-		card = card("Duel Decks: Elves vs. Goblins", "Akki Coalflinger");
+		card = card("Duel Decks: Elves vs. Goblins", "Akki Coalflinger", Foil.nofoil);
 		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).isPositive();
 	}
 
-	private Card card(String editionName, String cardName) {
+	@Test
+	public void testPriceDiversFoil() throws Exception {
+		Card card = card("Judge Gift Cards 2003", "Argothian Enchantress", Foil.onlyfoil);
+		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).isPositive();
+	}
+
+	private Card card(String editionName, String cardName, Foil foil) {
 		Edition edition = new Edition();
 		edition.setName(editionName);
 		Card card = new Card();
-		card.setFoil(Foil.nofoil);
+		card.setFoil(foil);
 		card.setEdition(edition);
 		card.setLayout(CardLayout.normal);
 		card.setName(cardName);

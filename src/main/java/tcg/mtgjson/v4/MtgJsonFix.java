@@ -9,7 +9,8 @@ public class MtgJsonFix {
 	enum EditionFix {
 		@SuppressWarnings("unchecked")
 		PVAN(set -> set.setMcmName("Vanguard")), @SuppressWarnings("unchecked")
-		TSB(set -> set.setMcmName("Time Spiral"));
+		TSB(set -> set.setMcmName("Time Spiral")), @SuppressWarnings("unchecked")
+		G03(set -> set.setMcmName("Judge Rewards Promos"), set -> set.setKeyruneCode("parl"));
 		private Consumer<MtgJsonSet>[] fixs;
 
 		private EditionFix(@SuppressWarnings("unchecked") Consumer<MtgJsonSet>... fixs) {

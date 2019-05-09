@@ -41,6 +41,7 @@ public class AdmController {
 			return "redirect:/home";
 		AdmEditionDao dao = session.getMapper(AdmEditionDao.class);
 		dao.updateDeckEntry(deleted, replaced);
+		session.commit();
 		dao.deleteCardAssistance(deleted);
 		dao.deleteCardLang(deleted);
 		dao.deleteCardLegality(deleted);
