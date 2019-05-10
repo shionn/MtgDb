@@ -67,6 +67,8 @@ public class MkmCrawlerTest {
 		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).isPositive();
 		card = card("Duel Decks: Elves vs. Goblins", "Akki Coalflinger", Foil.nofoil);
 		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).isPositive();
+		card = card("Commander 2017", "Earthquake", Foil.nofoil);
+		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).isPositive();
 	}
 
 	@Test
