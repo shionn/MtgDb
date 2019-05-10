@@ -71,8 +71,8 @@ public class MkmCrawlerTest {
 
 	@Test
 	public void testPriceDiversFoil() throws Exception {
-		Card card = card("Judge Gift Cards 2003", "Argothian Enchantress", Foil.onlyfoil);
-		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).isPositive();
+		Card card = card("Judge Rewards Promos", "Argothian Enchantress", Foil.onlyfoil);
+		assertThat(crawler.priceForFoil(card).get(0).getPrice()).isPositive();
 	}
 
 	private Card card(String editionName, String cardName, Foil foil) {
