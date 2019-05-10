@@ -203,7 +203,7 @@ public class MkmCrawler {
 	}
 
 	private String replaceIllegalChar(String edition) {
-		return edition.replaceAll("'", "").replaceAll("[^a-zA-Z-]", "-").replaceAll("--", "-");
+		return edition.replaceAll("'", "").replaceAll("[^a-zA-Z0-9-]", "-").replaceAll("--", "-");
 	}
 
 	private String buildNameUrlMode1(Card card) {
