@@ -7,9 +7,9 @@ import tcg.mtgjson.v4.api.MtgJsonSet;
 public class MtgJsonFix {
 
 	enum EditionFix {
-		@SuppressWarnings("unchecked")
-		PVAN(set -> set.setMcmName("Vanguard")), @SuppressWarnings("unchecked")
-		TSB(set -> set.setMcmName("Time Spiral")), @SuppressWarnings("unchecked")
+		PVAN(set -> set.setMcmName("Vanguard")), //
+		TSB(set -> set.setMcmName("Time Spiral")), //
+		J18(set -> set.setMcmName("Judge Rewards Promos"), set -> set.setKeyruneCode("pmei")), //
 		G03(set -> set.setMcmName("Judge Rewards Promos"), set -> set.setKeyruneCode("parl"));
 		private Consumer<MtgJsonSet>[] fixs;
 

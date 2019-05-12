@@ -4,7 +4,7 @@ div.modal {
 	position: fixed;
 	top: 0;
 	bottom: 0;
-	z-index: 5;
+	z-index: @zindex-popin;
 	left: 0;
 	right: 0;
 	display: none;
@@ -12,6 +12,10 @@ div.modal {
 		display: flex;
 		justify-content: center;
 		align-items: center;
+	}
+
+	div.btn-select ul {
+		z-index: @zindex-dropdown + @zindex-popin;
 	}
 
 	& > article {
