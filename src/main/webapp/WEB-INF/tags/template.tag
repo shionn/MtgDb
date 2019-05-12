@@ -68,6 +68,9 @@
 			<c:if test="${user.admin}">
 				| <a href='<spring:url value="/adm"/>'>Admin</a>
 			</c:if>
+<%-- 			<c:if test="${user.login}"> --%>
+<%-- 				| <a href='<spring:url value="/signout"/>'><spring:message code="SIGNOUT"/></a> --%>
+<%-- 			</c:if> --%>
 		</div>
 		<div>
 			<a href="mailto:shionn@gmail.com" title="Contact"><i class="fa fa-envelope" aria-hidden="true"></i></a> |

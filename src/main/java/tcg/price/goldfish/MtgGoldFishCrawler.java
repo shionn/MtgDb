@@ -29,7 +29,7 @@ import tcg.security.MailSender;
 public class MtgGoldFishCrawler {
 	private Logger logger = LoggerFactory.getLogger(MtgGoldFishCrawler.class);
 
-	private static final List<String> IGNORED_EDITION = Arrays.asList("CEI");
+	private static final List<String> IGNORED_EDITION = Arrays.asList("WC00");
 
 	@Autowired
 	private MailSender mailSender;
@@ -151,7 +151,11 @@ public class MtgGoldFishCrawler {
 		if (editionName == null) {
 			editionName = card.getEdition().getName();
 		}
-		return Arrays.asList(StringUtils.split(editionName.replaceAll("[:.',]", ""), '|'));
+		List<String> formateds = new ArrayList<>();
+		for (String name : StringUtils.split(editionName, '|')) {
+			formateds.add(name.replaceAll("[:',]", "").replaceAll("\\.", "%252E"));
+		}
+		return formateds;
 	}
 
 	private String formatName(Card card) {

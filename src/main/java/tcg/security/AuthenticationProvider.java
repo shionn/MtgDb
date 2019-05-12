@@ -1,5 +1,8 @@
 package tcg.security;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -29,9 +32,6 @@ public class AuthenticationProvider implements org.springframework.security.auth
 	@Autowired
 	private PasswordEncoder encoder;
 
-	@Autowired
-	private tcg.security.User user;
-
 	@Override
 	public boolean supports(Class<?> type) {
 		return type == UsernamePasswordAuthenticationToken.class;
@@ -43,9 +43,14 @@ public class AuthenticationProvider implements org.springframework.security.auth
 		if (user == null) {
 			throw new BadCredentialsException("TODO msg");
 		} else if (checkPassword((UsernamePasswordAuthenticationToken) authentication, user)) {
+			List<String> authorities = new ArrayList<>();
+			if (user.isAdmin()) {
+				authorities.add("ROLE_ADMIN");
+			}
 			authentication = new UsernamePasswordAuthenticationToken(authentication.getPrincipal(),
-					authentication.getCredentials(), AuthorityUtils.createAuthorityList("ROLE_ADMIN"));
-			this.user.setAdmin(user.isAdmin());
+					authentication.getCredentials(),
+					AuthorityUtils.createAuthorityList(
+							authorities.toArray(new String[authorities.size()])));
 		} else {
 			throw new BadCredentialsException("TODO msg");
 		}

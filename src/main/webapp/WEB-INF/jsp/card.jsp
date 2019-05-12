@@ -128,6 +128,12 @@
 							</a>
 						</section>
 					</c:if>
+					<c:if test="${user.admin}">
+						<header><spring:message code="CARD_ADMIN"/></header>
+						<section>
+							<a class="button" href='<spring:url value="/c/${card.id}/drop"/>'><spring:message code="CARD_ADMIN_DROP"/></a>
+						</section>
+					</c:if>
 				</article>
 			</section>
 			<section>

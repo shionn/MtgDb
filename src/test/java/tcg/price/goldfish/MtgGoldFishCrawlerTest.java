@@ -19,6 +19,10 @@ public class MtgGoldFishCrawlerTest {
 				new MtgGoldFishCrawler().priceForNotFoil(card("Alliances", "Force of Will")).get(0)
 						.getPrice())
 						.isPositive();
+		assertThat(new MtgGoldFishCrawler()
+				.priceForNotFoil(
+						card("Duel Decks: Elspeth vs. Kiora", "Mother of Runes"))
+				.get(0).getPrice()).isPositive();
 	}
 
 	private Card card(String edition, String card) {

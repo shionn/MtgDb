@@ -19,12 +19,6 @@
 								<c:forEach items="${editiondeletable}" var="e">
 									<option value="${e.code}">${e.code} ${e.name}</option>
 								</c:forEach>
-							</select><br>
-							<spring:message code="ADM_EDITION_DROP_REPLACE"/>
-							<select name="replaced">
-								<c:forEach items="${editionreplacable}" var="e">
-									<option value="${e.code}">${e.code} ${e.name}</option>
-								</c:forEach>
 							</select>
 							<input type="submit">
 						</form:form>

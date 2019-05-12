@@ -13,6 +13,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
+import javax.annotation.PreDestroy;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.DisposableBean;
@@ -131,6 +133,7 @@ public class PriceDeamon implements DisposableBean {
 	}
 
 	@Override
+	@PreDestroy
 	public void destroy() throws Exception {
 		executors.shutdownNow();
 	}

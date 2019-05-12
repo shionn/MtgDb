@@ -35,12 +35,11 @@ public class AdmController {
 	}
 
 	@RequestMapping(value = "/adm/edition/drop", method = RequestMethod.POST)
-	public String dropEdition(@RequestParam("deleted") String deleted,
-			@RequestParam("replaced") String replaced) {
+	public String dropEdition(@RequestParam("deleted") String deleted) {
 		if (!user.isAdmin())
 			return "redirect:/home";
 		AdmEditionDao dao = session.getMapper(AdmEditionDao.class);
-		dao.updateDeckEntry(deleted, replaced);
+		dao.updateDeckEntry(deleted);
 		session.commit();
 		dao.deleteCardAssistance(deleted);
 		dao.deleteCardLang(deleted);

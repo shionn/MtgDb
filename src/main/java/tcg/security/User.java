@@ -15,7 +15,6 @@ public class User {
 
 	private int currentDeck;
 	private String currentDeckName;
-	private boolean admin;
 
 	public String getUser() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -46,11 +45,14 @@ public class User {
 	}
 
 	public boolean isAdmin() {
-		return admin;
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		return auth.getAuthorities().stream().filter(a -> a.getAuthority().equals("ROLE_ADMIN"))
+				.count() > 0;
 	}
 
-	public void setAdmin(boolean admin) {
-		this.admin = admin;
+	public boolean isLogin() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		return !(auth instanceof AnonymousAuthenticationToken);
 	}
 
 }

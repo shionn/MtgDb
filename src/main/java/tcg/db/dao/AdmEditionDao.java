@@ -3,13 +3,12 @@ package tcg.db.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 
+import tcg.db.dao.frag.AdmFragDao;
 import tcg.db.dbo.Edition;
 
-public interface AdmEditionDao {
+public interface AdmEditionDao extends AdmFragDao {
 
 	@Select("SELECT * " //
 			+ "FROM edition " //
@@ -27,12 +26,6 @@ public interface AdmEditionDao {
 			+ "FROM edition " //
 			+ "ORDER BY name ASC")
 	List<Edition> listAll();
-
-	@Update("UPDATE  deck_entry AS e "
-			+ "INNER JOIN card  AS o ON e.card = o.id   AND o.edition = #{old} "
-			+ "INNER JOIN card  AS n ON n.card = o.card AND n.edition = #{new} "
-			+ "SET e.card = n.id")
-	int updateDeckEntry(@Param("old") String deleted, @Param("new") String replaced);
 
 	@Delete("DELETE FROM card_assistance WHERE id IN (SELECT id FROM card WHERE edition = #{id})")
 	int deleteCardAssistance(String code);

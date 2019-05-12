@@ -5,15 +5,26 @@ import java.util.function.Consumer;
 import tcg.mtgjson.v4.api.MtgJsonSet;
 
 public class MtgJsonFix {
+	private static final String DCI_LOGO = "parl";
 
+	@SuppressWarnings("unchecked")
 	enum EditionFix {
-		PVAN(set -> set.setMcmName("Vanguard")), //
-		TSB(set -> set.setMcmName("Time Spiral")), //
-		J18(set -> set.setMcmName("Judge Rewards Promos"), set -> set.setKeyruneCode("pmei")), //
-		G03(set -> set.setMcmName("Judge Rewards Promos"), set -> set.setKeyruneCode("parl"));
+		F04(mcmName("Friday Night Magic Promos"),keyrune(DCI_LOGO)), //
+		G03(mcmName("Judge Rewards Promos"), keyrune(DCI_LOGO)), //
+		J18(mcmName("Judge Rewards Promos"), keyrune("pmei")), //
+		ME1(online()), //
+		PAL00(mcmName("Arena League Promos")), //
+		PFNM(keyrune(DCI_LOGO)), //
+		PRM(online(), keyrune("pmodo")), //
+		PVAN(mcmName("Vanguard")), //
+		PZ1(online()), //
+		TSB(mcmName("Time Spiral")), //
+		VMA(online()),
+		WC00(mcmName("WCD 2000: Tom Van de Logt|WCD 2000: Jon Finkel")),//
+		;
 		private Consumer<MtgJsonSet>[] fixs;
 
-		private EditionFix(@SuppressWarnings("unchecked") Consumer<MtgJsonSet>... fixs) {
+		private EditionFix(Consumer<MtgJsonSet>... fixs) {
 			this.fixs = fixs;
 		}
 	}
@@ -28,5 +39,17 @@ public class MtgJsonFix {
 			// rien à faire
 		}
 		return set;
+	}
+
+	static private Consumer<MtgJsonSet> mcmName(String name) {
+		return set -> set.setMcmName(name);
+	}
+
+	static private Consumer<MtgJsonSet> keyrune(String name) {
+		return set -> set.setKeyruneCode(name);
+	}
+
+	static private Consumer<MtgJsonSet> online() {
+		return set -> set.setOnlineOnly(true);
 	}
 }
