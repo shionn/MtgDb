@@ -70,9 +70,8 @@ public class MtgGoldFishCrawler {
 		if (!found) {
 			paper.setError("IOException");
 			online.setError("IOException");
-			mailSender.sendToAdmin("No price found " + card.getName(), "no_price_found",
-					card.getName(), card.getEdition().getName(), card.getEdition().getCode(),
-					paperType);
+			mailSender.sendNoPriceFound(card.getName(), card.getEdition().getName(),
+					card.getEdition().getCode(), paperType);
 
 		}
 		return Arrays.asList(paper, online);

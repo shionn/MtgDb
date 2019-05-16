@@ -6,7 +6,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -21,9 +24,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.ApplicationScope;
 
 @Component
+@ApplicationScope
 public class MailSender {
 	private Logger logger = LoggerFactory.getLogger(MailSender.class);
 
@@ -42,6 +48,8 @@ public class MailSender {
 	@Value("${mail.admin}")
 	private String adminMail;
 
+	private List<Object[]> noPriceFound = new ArrayList<>();
+
 	public void send(String email, String subjet, String content, Object... params)
 			throws MessagingException, IOException {
 		String fileName = content + '_' + LocaleContextHolder.getLocale() + ".mail";
@@ -49,9 +57,18 @@ public class MailSender {
 
 	}
 
-	public void sendToAdmin(String subject, String content, Object... params) {
+	public void sendNoPriceFound(Object... params) {
+		noPriceFound.add(params);
+	}
+
+	@Scheduled(fixedDelay = 10 * 06 * 1000)
+	public void sendPending() {
+		String content = noPriceFound.stream()
+				.map(ps -> ps[0] + " - " + ps[1] + " (" + ps[2] + ") / " + ps[3])
+				.collect(Collectors.reducing("", (a, b) -> a + "\n" + b));
+		noPriceFound.clear();
 		try {
-			process(adminMail, subject, "adm_" + content + ".mail", params);
+			process(adminMail, "No price Found", "adm_no_price_found.mail", content);
 		} catch (MessagingException | IOException e) {
 			logger.error("can't send admin mail " + e);
 		}
