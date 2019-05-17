@@ -61,16 +61,18 @@ public class MailSender {
 		noPriceFound.add(params);
 	}
 
-	@Scheduled(fixedDelay = 10 * 06 * 1000)
+	@Scheduled(fixedDelay = 10 * 60 * 1000)
 	public void sendPending() {
-		String content = noPriceFound.stream()
-				.map(ps -> ps[0] + " - " + ps[1] + " (" + ps[2] + ") / " + ps[3])
-				.collect(Collectors.reducing("", (a, b) -> a + "\n" + b));
-		noPriceFound.clear();
-		try {
-			process(adminMail, "No price Found", "adm_no_price_found.mail", content);
-		} catch (MessagingException | IOException e) {
-			logger.error("can't send admin mail " + e);
+		if (!noPriceFound.isEmpty()) {
+			String content = noPriceFound.stream()
+					.map(ps -> ps[0] + " - " + ps[1] + " (" + ps[2] + ") / " + ps[3])
+					.collect(Collectors.reducing("", (a, b) -> a + "\n" + b));
+			noPriceFound.clear();
+			try {
+				process(adminMail, "No price Found", "adm_no_price_found.mail", content);
+			} catch (MessagingException | IOException e) {
+				logger.error("can't send admin mail " + e);
+			}
 		}
 	}
 
@@ -99,8 +101,6 @@ public class MailSender {
 		Transport.send(message);
 	}
 
-
-
 	private String read(String mail, Object[] params) throws IOException {
 		StringBuilder message = new StringBuilder();
 		try (InputStream is = Thread.currentThread().getContextClassLoader()
@@ -115,6 +115,5 @@ public class MailSender {
 		}
 		return message.toString();
 	}
-
 
 }
