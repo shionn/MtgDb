@@ -17,7 +17,9 @@ public class MtgJsonFix {
 		PFNM(keyrune(DCI_LOGO)), //
 		PRM(online(), keyrune("pmodo")), //
 		PVAN(mcmName("Vanguard")), //
+		PS11(mcmName("Salvat-Hachette 2011")), //
 		PZ1(online()), //
+		PZ2(online()), //
 		TSB(mcmName("Time Spiral")), //
 		VMA(online()),
 		WC00(mcmName("WCD 2000: Tom Van de Logt|WCD 2000: Jon Finkel")),//

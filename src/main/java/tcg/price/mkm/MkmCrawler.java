@@ -48,8 +48,7 @@ public class MkmCrawler {
 				if (price != null) {
 					prices.add(price);
 				} else {
-					mailSender.sendToAdmin("No price found " + card.getName(), "no_price_found",
-							card.getName(), card.getEdition().getName(),
+					mailSender.sendNoPriceFound(card.getName(), card.getEdition().getName(),
 							card.getEdition().getCode(), CardPriceSource.mkm);
 				}
 			} catch (IOException e) {
@@ -71,8 +70,7 @@ public class MkmCrawler {
 				if (price != null) {
 					prices.add(price);
 				} else {
-					mailSender.sendToAdmin("No price found " + card.getName(), "no_price_found",
-							card.getName(), card.getEdition().getName(),
+					mailSender.sendNoPriceFound(card.getName(), card.getEdition().getName(),
 							card.getEdition().getCode(), CardPriceSource.mkmFoil);
 				}
 			} catch (IOException e) {
