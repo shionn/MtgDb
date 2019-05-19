@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import tcg.card.formater.CardFormater;
-import tcg.db.dao.AdmCardDao;
 import tcg.db.dao.CardDao;
 import tcg.db.dao.DeckDao;
 import tcg.db.dbo.Card;
@@ -71,23 +70,6 @@ public class CardController {
 		}
 		card.setPrices(filterPrices(card.getPrices()));
 		return view.addObject("card", card);
-	}
-
-	@RequestMapping(value = "/c/{id}/drop", method = RequestMethod.GET)
-	public String drop(@PathVariable("id") String id) {
-		if (user.isAdmin()) {
-			AdmCardDao dao = session.getMapper(AdmCardDao.class);
-			dao.deleteAssistance(id);
-			dao.deleteLang(id);
-			dao.deleteLegality(id);
-			dao.deletePrice(id);
-			dao.deleteRule(id);
-			dao.deleteType(id);
-			dao.updateDeckEntry(id);
-			dao.delete(id);
-			session.commit();
-		}
-		return "redirect:/";
 	}
 
 	private boolean isOldPrice(Card card) {

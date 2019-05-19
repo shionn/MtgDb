@@ -27,4 +27,5 @@ public interface AdmCardDao extends AdmFragDao {
 	@Delete("DELETE FROM card WHERE id = #{id}")
 	int delete(String id);
 
+
 }

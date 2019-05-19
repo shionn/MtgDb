@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import tcg.db.dao.frag.AdmFragDao;
 import tcg.db.dbo.Edition;
@@ -44,6 +45,9 @@ public interface AdmEditionDao extends AdmFragDao {
 
 	@Delete("DELETE FROM card_type WHERE id IN (SELECT id FROM card WHERE edition = #{id})")
 	int deleteCardType(String code);
+
+	@Update("UPDATE card SET link_card = NULL WHERE edition = #{id}")
+	int removeLink(String id);
 
 	@Delete("DELETE FROM card WHERE edition = #{id}")
 	int deleteCard(String code);
