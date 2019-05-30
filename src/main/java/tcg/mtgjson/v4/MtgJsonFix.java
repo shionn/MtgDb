@@ -6,6 +6,7 @@ import tcg.mtgjson.v4.api.MtgJsonSet;
 
 public class MtgJsonFix {
 	private static final String DCI_LOGO = "parl";
+	private static final String DO_NOT_CRAWL = "DO_NOT_CRAWL";
 
 	@SuppressWarnings("unchecked")
 	enum EditionFix {
@@ -15,11 +16,13 @@ public class MtgJsonFix {
 		ME1(online()), //
 		PAL00(mcmName("Arena League Promos")), //
 		PFNM(keyrune(DCI_LOGO)), //
+		PMOA(mcmName(DO_NOT_CRAWL), goldFishName(DO_NOT_CRAWL)), //
 		PRM(online(), keyrune("pmodo")), //
 		PVAN(mcmName("Vanguard")), //
 		PS11(mcmName("Salvat-Hachette 2011")), //
 		PZ1(online()), //
 		PZ2(online()), //
+		TPR(online()), //
 		TSB(mcmName("Time Spiral")), //
 		VMA(online()),
 		WC00(mcmName("WCD 2000: Tom Van de Logt|WCD 2000: Jon Finkel")),//
@@ -41,6 +44,10 @@ public class MtgJsonFix {
 			// rien à faire
 		}
 		return set;
+	}
+
+	static private Consumer<MtgJsonSet> goldFishName(String name) {
+		return e -> e.setGoldfishName(name);
 	}
 
 	static private Consumer<MtgJsonSet> mcmName(String name) {

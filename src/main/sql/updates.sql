@@ -1,4 +1,5 @@
 
+
 -- drop d'edition
 -- VAN, DD3_GVL
 SELECT * from deck_entry WHERE card IN (SELECT id FROM card WHERE edition = 'DD3_GVL');

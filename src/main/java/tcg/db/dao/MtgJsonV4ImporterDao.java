@@ -28,6 +28,9 @@ public interface MtgJsonV4ImporterDao {
 			+ "update_date = NOW() ")
 	int updateEdition(MtgJsonSet set);
 
+	@Update("UPDATE edition SET goldfish_name = #{goldfishName} WHERE code = #{code}")
+	int updateGoldfishName(MtgJsonSet set);
+
 	@Select("SELECT EXISTS (SELECT ID " //
 			+ "FROM card " //
 			+ "WHERE id = #{uuid} " //
@@ -112,7 +115,5 @@ public interface MtgJsonV4ImporterDao {
 
 	@Delete("DELETE FROM card WHERE id = #{id}")
 	int deleteCard(String oldId);
-
-
 
 }
