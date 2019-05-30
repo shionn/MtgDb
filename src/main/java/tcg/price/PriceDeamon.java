@@ -73,7 +73,8 @@ public class PriceDeamon implements DisposableBean {
 
 	private List<Callable<List<CardPrice>>> tasks(Card card) {
 		List<Callable<List<CardPrice>>> calls = new ArrayList<>();
-		if (!card.getEdition().isOnlineOnly()) {
+		if (!card.getEdition().isOnlineOnly()
+				&& !"DO_NOT_CRAWL".equals(card.getEdition().getMkmName())) {
 			if (card.getFoil() != Foil.onlyfoil) {
 				calls.add(new Callable<List<CardPrice>>() {
 					@Override
@@ -91,7 +92,7 @@ public class PriceDeamon implements DisposableBean {
 				});
 			}
 		}
-		if (card.getFoil() != Foil.onlyfoil) {
+		if (card.getFoil() != Foil.onlyfoil&&!"DO_NOT_CRAWL".equals(card.getEdition().getGoldfishName())) {
 			calls.add(new Callable<List<CardPrice>>() {
 				@Override
 				public List<CardPrice> call() throws Exception {
@@ -99,7 +100,8 @@ public class PriceDeamon implements DisposableBean {
 				}
 			});
 		}
-		if (card.getFoil() != Foil.nofoil) {
+		if (card.getFoil() != Foil.nofoil
+				&& !"DO_NOT_CRAWL".equals(card.getEdition().getGoldfishName())) {
 			calls.add(new Callable<List<CardPrice>>() {
 				@Override
 				public List<CardPrice> call() throws Exception {

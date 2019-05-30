@@ -18,6 +18,7 @@ public class MtgJsonFix {
 		PFNM(keyrune(DCI_LOGO)), //
 		PMOA(mcmName(DO_NOT_CRAWL), goldFishName(DO_NOT_CRAWL)), //
 		PRM(online(), keyrune("pmodo")), //
+		PSAL(mcmName(DO_NOT_CRAWL), goldFishName(DO_NOT_CRAWL)),
 		PVAN(mcmName("Vanguard")), //
 		PS11(mcmName("Salvat-Hachette 2011")), //
 		PZ1(online()), //

@@ -61,7 +61,7 @@ public class MailSender {
 		noPriceFound.add(params);
 	}
 
-	@Scheduled(fixedDelay = 10 * 60 * 1000)
+	@Scheduled(fixedDelay = 60 * 60 * 1000)
 	public void sendPending() {
 		if (!noPriceFound.isEmpty()) {
 			String content = noPriceFound.stream()

@@ -43,12 +43,15 @@ public class MkmCrawlerTest {
 
 	@Test
 	public void testDoublePrice() throws Exception {
-		Card card = doubleFace("Rivals of Ixalan", "Journey to Eternity", "Atzal, Cave of Eternity");
+		Card card = doubleFace("Rivals of Ixalan", "Journey to Eternity",
+				"Atzal, Cave of Eternity");
 		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).as("double // url")
 				.isPositive();
 		card = doubleFace("Ixalan", "Search for Azcanta", "Azcanta, the Sunken Ruin");
 		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).as("double / url").isPositive();
 		card = doubleFace("Magic Origins", "Jace, Vryn's Prodigy", "Jace, Telepath Unbound");
+		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).as("double / url").isPositive();
+		card = doubleFace("Shadows over Innistrad", "Arlinn Kord", "Arlinn, Embraced by the Moon");
 		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).as("double / url").isPositive();
 	}
 
@@ -72,9 +75,21 @@ public class MkmCrawlerTest {
 	}
 
 	@Test
+	public void testPriceFromMail() throws Exception {
+		testAndAssert("Shadowmoor", "Cinderbones");
+		testAndAssert("Future Sight", "Haze of Rage");
+	}
+
+	@Test
 	public void testPriceDiversFoil() throws Exception {
 		Card card = card("Judge Rewards Promos", "Argothian Enchantress", Foil.onlyfoil);
 		assertThat(crawler.priceForFoil(card).get(0).getPrice()).isPositive();
+	}
+
+	private void testAndAssert(String edition, String card) {
+		List<CardPrice> prices = crawler.priceForNotFoil(card(edition, card, Foil.nofoil));
+		assertThat(prices).isNotEmpty();
+		assertThat(prices.get(0).getPrice()).isPositive();
 	}
 
 	private Card card(String editionName, String cardName, Foil foil) {

@@ -171,12 +171,7 @@ public class MkmCrawler {
 			urls.add(buildUrlMode1(card, edition));
 			urls.add(buildUrlMode2(card, edition));
 		}
-		// https://www.cardmarket.com/en/Magic/Products/Singles/Rivals+of+Ixalan/Journey-to-Eternity-Atzal-Cave-of-Eternity
-		// https://www.cardmarket.com/en/Magic/Products/Singles/Battle+for+Zendikar/Ob-Nixilis-Reignited
-		// https://www.cardmarket.com/en/Magic/Products/Singles/Alliances/Force-of-Will
-		// https://www.cardmarket.com/en/Magic/Products/Singles/Shadows-over-Innistrad/Thalia-s-Lieutenant
-		// https://www.cardmarket.com/en/Magic/Products/Singles/Urzas-Legacy/Mother-of-Runes
-		// https://www.cardmarket.com/en/Magic/Products/Singles/Duel-Decks-Elves-vs-Goblins/Akki-Coalflinger
+		// https://www.cardmarket.com/en/Magic/Products/Singles/Future-Sight/Haze-of-Rage
 		return urls;
 	}
 
