@@ -57,39 +57,34 @@ public class MkmCrawlerTest {
 
 	@Test
 	public void testPriceDivers() throws Exception {
-		// testOne("Commander", "Serra Angel");
-		// testOne("Kaladesh", "Torrential Gearhulk");
-		// testOne("Alliances", "Force of Will");
+		testOne("Commander", "Serra Angel");
+		testOne("Kaladesh", "Torrential Gearhulk");
+		testOne("Alliances", "Force of Will");
 		// dans le cas thalia le 's est remplacé par -s alors que pour jace le ' est supprimé
-		// testOne("Shadows over Innistrad", "Thalia's Lieutenant");
-		// testOne("Urza's Legacy", "Mother of Runes");<
-		// testOne("Duel Decks: Elves vs. Goblins", "Akki Coalflinger");
-		// testOne("Commander 2017", "Earthquake");
-		testOne("Alliances", "Soldevi Sentry");
+		testOne("Shadows over Innistrad", "Thalia's Lieutenant");
+		testOne("Urza's Legacy", "Mother of Runes");
+		testOne("Duel Decks: Elves vs. Goblins", "Akki Coalflinger");
+		testOne("Commander 2017", "Earthquake");
 
 	}
 
 	private void testOne(String edition, String name) {
-		Card card = card(edition, name, Foil.nofoil);
-		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).isPositive();
+		List<CardPrice> prices = crawler.priceForNotFoil(card(edition, name, Foil.nofoil));
+		assertThat(prices).isNotEmpty();
+		assertThat(prices.get(0).getPrice()).isPositive();
 	}
 
 	@Test
 	public void testPriceFromMail() throws Exception {
-		testAndAssert("Shadowmoor", "Cinderbones");
-		testAndAssert("Future Sight", "Haze of Rage");
+		// testOne("Alliances", "Soldevi Sentry"); // TODO carte avec version
+		testOne("Shadowmoor", "Cinderbones");
+		testOne("Future Sight", "Haze of Rage");
 	}
 
 	@Test
 	public void testPriceDiversFoil() throws Exception {
 		Card card = card("Judge Rewards Promos", "Argothian Enchantress", Foil.onlyfoil);
 		assertThat(crawler.priceForFoil(card).get(0).getPrice()).isPositive();
-	}
-
-	private void testAndAssert(String edition, String card) {
-		List<CardPrice> prices = crawler.priceForNotFoil(card(edition, card, Foil.nofoil));
-		assertThat(prices).isNotEmpty();
-		assertThat(prices.get(0).getPrice()).isPositive();
 	}
 
 	private Card card(String editionName, String cardName, Foil foil) {
