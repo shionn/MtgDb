@@ -57,6 +57,9 @@ public class MtgJsonImporter {
 		try (SqlSession session = factory.openSession()) {
 			MtgJsonV4ImporterDao dao = session.getMapper(MtgJsonV4ImporterDao.class);
 			dao.updateEdition(set);
+			if (set.getGoldfishName() != null) {
+				dao.updateGoldfishName(set);
+			}
 			for (MtgJsonCard card : set.getCards()) {
 				if (dao.isTooOld(card) || true) {
 					dao.updateCard(card, set);

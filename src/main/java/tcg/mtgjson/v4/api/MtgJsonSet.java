@@ -23,6 +23,7 @@ public class MtgJsonSet {
 	private String keyruneCode;
 	private SetTranslation translation;
 	private String parentCode;
+	private String goldfishName;
 
 	public String getCode() {
 		return code;
@@ -118,5 +119,13 @@ public class MtgJsonSet {
 
 	public void setParentCode(String parentCode) {
 		this.parentCode = parentCode;
+	}
+
+	public void setGoldfishName(String goldfishName) {
+		this.goldfishName = goldfishName;
+	}
+
+	public String getGoldfishName() {
+		return goldfishName;
 	}
 }
