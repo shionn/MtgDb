@@ -19,12 +19,6 @@ public interface AdmEditionDao extends AdmFragDao {
 
 	@Select("SELECT * " //
 			+ "FROM edition " //
-			+ "WHERE update_date > NOW() - INTERVAL 7 DAY " //
-			+ "ORDER BY name ASC")
-	List<Edition> listReplacable();
-
-	@Select("SELECT * " //
-			+ "FROM edition " //
 			+ "ORDER BY name ASC")
 	List<Edition> listAll();
 

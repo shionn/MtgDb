@@ -54,20 +54,20 @@ public class MkmCrawlerTest {
 
 	@Test
 	public void testPriceDivers() throws Exception {
-		Card card = card("Commander", "Serra Angel", Foil.nofoil);
-		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).isPositive();
-		card = card("Kaladesh", "Torrential Gearhulk", Foil.nofoil);
-		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).isPositive();
-		card = card("Alliances", "Force of Will", Foil.nofoil);
-		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).isPositive();
+		// testOne("Commander", "Serra Angel");
+		// testOne("Kaladesh", "Torrential Gearhulk");
+		// testOne("Alliances", "Force of Will");
 		// dans le cas thalia le 's est remplacé par -s alors que pour jace le ' est supprimé
-		card = card("Shadows over Innistrad", "Thalia's Lieutenant", Foil.nofoil);
-		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).isPositive();
-		card = card("Urza's Legacy", "Mother of Runes", Foil.nofoil);
-		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).isPositive();
-		card = card("Duel Decks: Elves vs. Goblins", "Akki Coalflinger", Foil.nofoil);
-		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).isPositive();
-		card = card("Commander 2017", "Earthquake", Foil.nofoil);
+		// testOne("Shadows over Innistrad", "Thalia's Lieutenant");
+		// testOne("Urza's Legacy", "Mother of Runes");<
+		// testOne("Duel Decks: Elves vs. Goblins", "Akki Coalflinger");
+		// testOne("Commander 2017", "Earthquake");
+		testOne("Alliances", "Soldevi Sentry");
+
+	}
+
+	private void testOne(String edition, String name) {
+		Card card = card(edition, name, Foil.nofoil);
 		assertThat(crawler.priceForNotFoil(card).get(0).getPrice()).isPositive();
 	}
 

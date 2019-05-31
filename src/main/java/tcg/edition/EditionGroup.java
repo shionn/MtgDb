@@ -1,6 +1,8 @@
-package tcg.db.dbo;
+package tcg.edition;
 
 import java.util.List;
+
+import tcg.db.dbo.Edition;
 
 public class EditionGroup {
 	private String name;

@@ -26,7 +26,6 @@ public class AdmController {
 	public ModelAndView admin() {
 		AdmEditionDao dao = session.getMapper(AdmEditionDao.class);
 		return new ModelAndView("adm/adm").addObject("editiondeletable", dao.listDeletable())
-				.addObject("editionreplacable", dao.listReplacable())
 				.addObject("editions", dao.listAll());
 	}
 
@@ -43,6 +42,7 @@ public class AdmController {
 		dao.deleteCardType(deleted);
 		dao.deleteCard(deleted);
 		dao.removeLink(deleted);
+		session.commit();
 		dao.deleteEdition(deleted);
 		session.commit();
 		return "redirect:/adm";
@@ -58,6 +58,8 @@ public class AdmController {
 		dao.deleteRule(id);
 		dao.deleteType(id);
 		dao.updateDeckEntry(id);
+		dao.removeLink(id);
+		session.commit();
 		dao.delete(id);
 		session.commit();
 		return "redirect:/adm";

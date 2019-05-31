@@ -4,7 +4,7 @@ package tcg.db.dbo;
 public enum EditionType {
 	archenemy("Archenemy"),
 	box("Boite"),
-	core(""),
+	core("Base"),
 	commander("Commander"),
 	draftinnovation("Draft"),
 	dueldeck("Duel Deck"),
@@ -15,11 +15,11 @@ public enum EditionType {
 	premiumdeck("Premiun Deck"),
 	promo(""),
 	masterpiece("Master Piece"),
-	masters("Master"),
+	masters("Reprints"),
 	memorabilia(""),
 	spellbook("Spell Book"),
 	starter("Starters"),
-	token(""),
+	token("Token"),
 	treasurechest(""),
 	vanguard("Vanguard");
 	private String displayName;

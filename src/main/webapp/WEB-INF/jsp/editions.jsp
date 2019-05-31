@@ -36,7 +36,7 @@
 					<c:forEach items="${editions}" var="e">
 						<tr>
 							<td><i class="${e.iconClass}" title="${e.code}"></i></td>
-							<td>${e.name} (${e.type},${e.parentCode})</td>
+							<td><a href="<spring:url value="/as/ed/${e.code}"/>">${e.name} (${e.type},${e.parentCode},${e.block})</a></td>
 							<td><fmt:formatDate value="${e.releaseDate}" /></td>
 						</tr>
 					</c:forEach>

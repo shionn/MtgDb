@@ -9,6 +9,7 @@ public class Edition {
 			.compile(
 					"(Duel Decks( Anthology)?: )|(From the Vault: )|(Premium Deck Series: )|( Promos)");
 	private String code;
+	private String block;
 	private String parentCode;
 	private String name;
 	private Date releaseDate;
@@ -28,7 +29,8 @@ public class Edition {
 	}
 
 	public String getIconClass() {
-		return "ss ss-" + getIcon() + (type == EditionType.promo ? " ss-promo" : "");
+		return "ss ss-" + getIcon() + (type == EditionType.promo ? " ss-promo" : "")
+				+ (type == EditionType.memorabilia ? " ss-memo" : "");
 	}
 
 	public String getCode() {
@@ -134,6 +136,14 @@ public class Edition {
 		} else if (!code.equals(other.code))
 			return false;
 		return true;
+	}
+
+	public String getBlock() {
+		return block;
+	}
+
+	public void setBlock(String block) {
+		this.block = block;
 	}
 
 }

@@ -6,12 +6,31 @@ import tcg.mtgjson.v4.api.MtgJsonSet;
 
 public class MtgJsonFix {
 	private static final String DCI_LOGO = "parl";
+	private static final String STAR_LOGO = "pmei";
 
 	@SuppressWarnings("unchecked")
 	enum EditionFix {
 		F04(mcmName("Friday Night Magic Promos"),keyrune(DCI_LOGO)), //
+		G00(keyrune(DCI_LOGO)), //
+		G01(keyrune(DCI_LOGO)), //
+		G02(keyrune(DCI_LOGO)), //
 		G03(mcmName("Judge Rewards Promos"), keyrune(DCI_LOGO)), //
-		J18(mcmName("Judge Rewards Promos"), keyrune("pmei")), //
+		G04(keyrune(DCI_LOGO)), //
+		G06(keyrune(DCI_LOGO)), //
+		G07(keyrune(DCI_LOGO)), //
+		G08(keyrune(DCI_LOGO)), //
+		G09(keyrune(DCI_LOGO)), //
+		G10(keyrune(DCI_LOGO)), //
+		G11(keyrune(DCI_LOGO)), //
+		HHO(keyrune(STAR_LOGO)), //
+		J12(keyrune(STAR_LOGO)), //
+		J13(keyrune(STAR_LOGO)), //
+		J14(keyrune(STAR_LOGO)), //
+		J15(keyrune(STAR_LOGO)), //
+		J16(keyrune(STAR_LOGO)), //
+		J17(keyrune(STAR_LOGO)), //
+		J18(mcmName("Judge Rewards Promos"), keyrune(STAR_LOGO)), //
+		J19(keyrune(STAR_LOGO)), //
 		ME1(online()), //
 		PAL00(mcmName("Arena League Promos")), //
 		PFNM(keyrune(DCI_LOGO)), //
@@ -20,6 +39,7 @@ public class MtgJsonFix {
 		PS11(mcmName("Salvat-Hachette 2011")), //
 		PZ1(online()), //
 		PZ2(online()), //
+		TMP(mcmName(null)), //
 		TSB(mcmName("Time Spiral")), //
 		VMA(online()),
 		WC00(mcmName("WCD 2000: Tom Van de Logt|WCD 2000: Jon Finkel")),//
