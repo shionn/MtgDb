@@ -23,6 +23,7 @@ import tcg.db.dbo.Card.Foil;
 import tcg.db.dbo.CardLayout;
 import tcg.db.dbo.CardPrice;
 import tcg.db.dbo.CardPriceSource;
+import tcg.db.dbo.User;
 import tcg.security.MailSender;
 
 @Component
@@ -33,6 +34,8 @@ public class MtgGoldFishCrawler {
 
 	@Autowired
 	private MailSender mailSender;
+
+	private User user;
 
 	public List<CardPrice> priceForNotFoil(Card card) {
 		List<CardPrice> prices = new ArrayList<CardPrice>();
@@ -67,7 +70,7 @@ public class MtgGoldFishCrawler {
 				logger.warn("Can't crawl price : ", e);
 			}
 		}
-		if (!found) {
+		if (!found && user.isAdmin()) {
 			paper.setError("IOException");
 			online.setError("IOException");
 			mailSender.sendNoPriceFound(card.getName(), card.getEdition().getName(),
@@ -167,6 +170,11 @@ public class MtgGoldFishCrawler {
 
 	private String formatName(String name) {
 		return name.replaceAll("[\".,]", " ").replaceAll("'", "");
+	}
+
+	@Autowired
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }
