@@ -25,7 +25,6 @@ import tcg.db.dbo.Card;
 import tcg.db.dbo.Card.Foil;
 import tcg.db.dbo.CardPrice;
 import tcg.db.dbo.CardPriceSource;
-import tcg.db.dbo.User;
 import tcg.security.MailSender;
 
 @Component
@@ -36,7 +35,7 @@ public class MkmCrawler {
 	private static final List<String> IGNORED_EDITION = Arrays.asList("pPRE");
 
 	private MailSender mailSender;
-	private User user;
+	private tcg.security.User user;
 
 	public List<CardPrice> priceForNotFoil(Card card) {
 		List<CardPrice> prices = new ArrayList<>();
@@ -216,7 +215,7 @@ public class MkmCrawler {
 	}
 
 	@Autowired
-	public void setUser(User user) {
+	public void setUser(tcg.security.User user) {
 		this.user = user;
 	}
 
